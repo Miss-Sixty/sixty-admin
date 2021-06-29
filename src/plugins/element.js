@@ -14,6 +14,9 @@ import {
   ElDropdownItem,
   ElDropdownMenu,
   ElDropdown,
+  ElMenuItem,
+  ElSubmenu,
+  ElMenu,
 } from "element-plus";
 
 export default (app) => {
@@ -31,4 +34,7 @@ export default (app) => {
   app.use(ElDropdownItem);
   app.use(ElDropdownMenu);
   app.use(ElDropdown);
+  app.use(ElMenuItem);
+  app.use(ElSubmenu);
+  app.use(ElMenu);
 };
