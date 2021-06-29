@@ -36,6 +36,7 @@ export default {
 }
 .content {
   margin-left: $navmenu-width;
+  padding-top: $headbar-height;
   display: flex;
   flex-direction: column;
   height: 100%;

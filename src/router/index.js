@@ -9,11 +9,16 @@ const routes = [
     children: [
       {
         path: "/home",
-        component: () => import(/* webpackChunkName: "about" */ "@/views/home"),
+        component: () => import("@/views/home"),
         name: "Home",
         meta: { title: "首页", icon: "el-icon-s-home" },
       },
     ],
+  },
+  {
+    path: "/reload",
+    name: "Reload",
+    component: () => import("@/views/reload"),
   },
 ];
 

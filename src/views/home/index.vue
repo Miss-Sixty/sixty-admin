@@ -1,1 +1,17 @@
-<template>home <el-button type="primary">el-button</el-button></template>
+<template>
+  <div>home</div>
+  <div>home</div>
+  <div>home</div>
+  <div>home</div>
+  <div>home</div>
+  <div>home</div>
+  <div>home</div>
+  <div>home</div>
+  <div>home</div>
+</template>
+<style lang="scss" scoped>
+div {
+  height: 160px;
+  background-color: cadetblue;
+}
+</style>
