@@ -9,4 +9,6 @@ import "@/styles/index.scss";
 
 import "@/router/permission"; //路由守卫
 
+import "../mock/index.js"; //引入mock
+
 createApp(App).use(installElementPlus).use(store).use(router).mount("#app");
