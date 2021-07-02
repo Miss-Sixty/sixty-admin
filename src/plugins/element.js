@@ -24,6 +24,7 @@ import {
   ElForm,
   ElRow,
   ElScrollbar,
+  ElBacktop,
 } from "element-plus";
 
 export default (app) => {
@@ -48,5 +49,6 @@ export default (app) => {
     .use(ElFormItem)
     .use(ElForm)
     .use(ElScrollbar)
+    .use(ElBacktop)
     .use(ElRow);
 };

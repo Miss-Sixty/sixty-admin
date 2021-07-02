@@ -3,9 +3,10 @@
 
   <div class="content">
     <head-bar />
-    <el-scrollbar>
+    <el-scrollbar view-style="display: flex;flex-direction: column;height:100%">
       <app-main />
       <footer-bar v-if="showCopyright" />
+      <el-backtop target=".content .el-scrollbar__wrap" />
     </el-scrollbar>
   </div>
 </template>
