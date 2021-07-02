@@ -111,26 +111,28 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
-      }).then(async () => {
-        loadingInstance = ElLoading.service({
-          lock: true,
-          text: "退出登录中...",
-          spinner: "el-icon-loading",
-        });
-
-        try {
-          await store.dispatch("user/logout");
-          ElMessage.success({
-            message: "退出成功！",
-            type: "success",
+      })
+        .then(async () => {
+          loadingInstance = ElLoading.service({
+            lock: true,
+            text: "退出登录中...",
+            spinner: "el-icon-loading",
           });
-          router.push({ name: "Login" });
-          loadingInstance.close();
-        } catch (err) {
-          console.log(err);
-          loadingInstance.close();
-        }
-      });
+          try {
+            await store.dispatch("user/logout");
+            ElMessage.success({
+              message: "退出成功！",
+              type: "success",
+            });
+            router.push({ name: "Login" });
+            store.commit("menu/CLEARROUTERS");
+            loadingInstance.close();
+          } catch (err) {
+            console.log(err);
+            loadingInstance.close();
+          }
+        })
+        .catch(() => {});
     };
 
     //刷新页面

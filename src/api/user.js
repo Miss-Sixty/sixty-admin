@@ -19,3 +19,8 @@ export function notice() {
 export function logout() {
   return request.post("/mock/user/logout").then((res) => res.data);
 }
+
+// 后台-管理员权限
+export function permissions() {
+  return request.get("/mock/user/permissions").then((res) => res.data);
+}

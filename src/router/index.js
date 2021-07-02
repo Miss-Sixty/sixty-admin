@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Layout from "@/layout";
 
-const constantRoutes = [
+export const constantRoutes = [
   {
     path: "/",
     component: Layout,
@@ -28,6 +28,7 @@ const constantRoutes = [
 ];
 
 import MultilevelMenuExample from "./modules/multilevel.menu.example";
+import demo from "./modules/demo";
 // TODO:设想最左侧有一竖行主导航，当 children 不为空的主导航只有一项时，则隐藏
 export const asyncRoutes = [
   {
@@ -42,12 +43,23 @@ export const asyncRoutes = [
       title: "导航2",
       icon: "el-icon-s-goods",
     },
-    children: [MultilevelMenuExample],
+    children: [demo],
+  },
+];
+
+export const lastRoutes = [
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("@/views/404"),
+    meta: {
+      title: "404",
+      sidebar: false,
+    },
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes: constantRoutes,
 });
 

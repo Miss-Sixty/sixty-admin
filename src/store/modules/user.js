@@ -1,41 +1,22 @@
 // import api from '@/api'
-import {
-  login,
-  info,
-  notice,
-  logout,
-  // logout, adminInfo
-} from "@/api/user";
+import { login, info, notice, logout, permissions } from "@/api/user";
 
 const state = {
   userInfo: localStorage.userInfo ? JSON.parse(localStorage.userInfo) : "",
   token: localStorage.token || "",
   failure_time: localStorage.failure_time || "",
   notice: {},
-  permissions: [],
-};
-
-const getters = {
-  isLogin: (state) => {
-    let retn = false;
-    if (state.token) {
-      let unix = Date.parse(new Date());
-      if (unix < state.failure_time * 1000) {
-        retn = true;
-      }
-    }
-    return retn;
-  },
+  roles: [],
 };
 
 const actions = {
-  login(state, loginForm) {
+  login({ commit }, loginForm) {
     const { username, password } = loginForm;
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password })
         .then((res) => {
           console.log(res);
-          localStorage.setItem("SixtyToken", res.data.token);
+          commit("SETTOKEN", res.data);
           resolve();
         })
         .catch((err) => {
@@ -86,11 +67,28 @@ const actions = {
     });
   },
 
-  // 获取我的权限
-  getPermissions() {},
+  // 获取权限
+  permissions({ commit }) {
+    return new Promise((resolve, reject) => {
+      permissions()
+        .then((res) => {
+          console.log(2222, res);
+          commit("SETPERMISSIONS", res);
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
 };
 
 const mutations = {
+  SETTOKEN(state, data) {
+    localStorage.setItem("token", data.token);
+    state.token = data.token;
+  },
+
   USERDATA(state, data) {
     localStorage.setItem("userInfo", JSON.stringify(data));
     localStorage.setItem("failure_time", data.failure_time);
@@ -102,17 +100,27 @@ const mutations = {
     state.notice = data;
   },
 
-  LOGOUT() {
-    console.log(22);
+  LOGOUT(state) {
     localStorage.removeItem("userInfo");
-    localStorage.removeItem("SixtyToken");
+    localStorage.removeItem("token");
     localStorage.removeItem("failure_time");
     state.userInfo = {};
     state.token = "";
     state.failure_time = "";
     state.notice = {};
   },
-  setPermissions() {},
+
+  SETPERMISSIONS(state, roles) {
+    state.roles = roles;
+  },
+};
+
+const getters = {
+  isLogin: (state) => {
+    if (!state.token) return;
+    const unix = Date.parse(new Date());
+    return !!(unix < state.failure_time * 1000);
+  },
 };
 
 export default {

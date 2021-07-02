@@ -88,8 +88,9 @@ export default {
           message: "登陆成功！",
           type: "success",
         });
+
         router.replace({
-          path: (route.query && route.query.redirect) || "/",
+          path: route.query?.redirect || "/",
         });
         loading.value = false;
       } catch (err) {
