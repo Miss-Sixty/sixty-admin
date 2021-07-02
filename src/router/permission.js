@@ -25,10 +25,8 @@ router.beforeEach(async (to) => {
       accessRoutes.forEach((route) => {
         router.addRoute(route);
       });
-      return {
-        name: to.name,
-        replace: true,
-      };
+
+      return { ...to, replace: true };
     } catch (error) {
       await store.commit("user/LOGOUT");
       ElMessage.error(error || "Has Error");
