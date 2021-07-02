@@ -22,7 +22,6 @@ router.beforeEach(async (to) => {
         roles,
         currentPath: to.path,
       });
-
       accessRoutes.forEach((route) => {
         router.addRoute(route);
       });

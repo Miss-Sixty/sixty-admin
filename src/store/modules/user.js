@@ -15,7 +15,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password })
         .then((res) => {
-          console.log(res);
           commit("SETTOKEN", res.data);
           resolve();
         })
@@ -29,7 +28,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       info()
         .then((res) => {
-          console.log(res);
           commit("USERDATA", res.data);
           resolve();
         })
@@ -72,7 +70,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       permissions()
         .then((res) => {
-          console.log(2222, res);
           commit("SETPERMISSIONS", res);
           resolve(res);
         })
@@ -108,6 +105,7 @@ const mutations = {
     state.token = "";
     state.failure_time = "";
     state.notice = {};
+    state.roles = [];
   },
 
   SETPERMISSIONS(state, roles) {

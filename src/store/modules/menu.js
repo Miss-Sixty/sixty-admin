@@ -80,7 +80,6 @@ const mutations = {
     });
 
     routes.forEach((route) => {
-      console.log(route);
       router.removeRoute(route.name);
     });
   },
