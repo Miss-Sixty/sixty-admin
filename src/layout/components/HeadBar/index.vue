@@ -56,14 +56,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/var.scss";
 .headbar {
-  min-height: $headbar-height;
-  background-color: antiquewhite;
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin-left: $navmenu-width;
+  height: $headbar-height;
   display: flex;
   align-items: center;
   justify-content: space-between;

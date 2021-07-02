@@ -3,8 +3,10 @@
 
   <div class="content">
     <head-bar />
-    <app-main />
-    <footer-bar v-if="showCopyright" />
+    <el-scrollbar>
+      <app-main />
+      <footer-bar v-if="showCopyright" />
+    </el-scrollbar>
   </div>
 </template>
 <script>
@@ -31,14 +33,13 @@ export default {
 @import "@/styles/var.scss";
 .navmenu {
   width: $navmenu-width;
-  background-color: cadetblue;
+  background-color: $navmenu-bg;
   float: left;
 }
 .content {
+  height: 100vh;
   margin-left: $navmenu-width;
-  padding-top: $headbar-height;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 </style>
