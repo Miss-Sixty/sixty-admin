@@ -13,7 +13,7 @@
       <el-menu-item :index="resolvePath(item.path)">
         <i v-if="item.meta.icon" class="el-icon-platform-eleme icon" />
         <template #title>
-          {{ item.meta.title }}
+          <span>{{ item.meta.title }}</span>
         </template>
       </el-menu-item>
     </a>

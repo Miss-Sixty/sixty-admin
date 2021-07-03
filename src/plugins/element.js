@@ -25,6 +25,8 @@ import {
   ElRow,
   ElScrollbar,
   ElBacktop,
+  ElTableColumn,
+  ElTable,
 } from "element-plus";
 
 export default (app) => {
@@ -50,5 +52,7 @@ export default (app) => {
     .use(ElForm)
     .use(ElScrollbar)
     .use(ElBacktop)
+    .use(ElTableColumn)
+    .use(ElTable)
     .use(ElRow);
 };

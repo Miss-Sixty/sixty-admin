@@ -30,6 +30,7 @@ export const constantRoutes = [
 import MultilevelMenuExample from "./modules/multilevel.menu.example";
 import demo from "./modules/demo";
 import demo2 from "./modules/demo";
+import table from "./modules/table";
 import ExTernalLinkExample from "./modules/external.link.example";
 
 // TODO:设想最左侧有一竖行主导航，当 children 不为空的主导航只有一项时，则隐藏
@@ -39,7 +40,7 @@ export const asyncRoutes = [
       title: "导航1",
       icon: "el-icon-eleme",
     },
-    children: [MultilevelMenuExample, demo2, ExTernalLinkExample],
+    children: [table, MultilevelMenuExample, demo2, ExTernalLinkExample],
   },
   {
     meta: {
