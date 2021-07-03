@@ -41,14 +41,6 @@ const state = {
   permissions: [],
 };
 
-const getters = {
-  sidebarRoutes: (state) => {
-    return state.routes.length > 0
-      ? state.routes[state.headerActived].children
-      : [];
-  },
-};
-
 const actions = {
   // 根据权限动态生成路由
   generateRoutes({ commit }, { roles, currentPath }) {
@@ -82,6 +74,13 @@ const mutations = {
     routes.forEach((route) => {
       router.removeRoute(route.name);
     });
+  },
+};
+
+const getters = {
+  sidebarRoutes: (state) => {
+    // TODO：待完善左侧竖排总导航代码
+    return state.routes.length > 0 ? state.routes[0].children : [];
   },
 };
 

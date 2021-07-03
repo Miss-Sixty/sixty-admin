@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <page-main> 多级导航2-2-1 </page-main>
-  </div>
+  <div>多级导航2-2-1</div>
 </template>

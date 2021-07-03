@@ -48,10 +48,10 @@ router.beforeEach(async (to) => {
 });
 
 router.afterEach(async () => {
+  NProgress.done(); // finish progress bar
   try {
     await store.dispatch("user/getNotice");
   } catch (err) {
     console.log(err);
   }
-  NProgress.done(); // finish progress bar
 });

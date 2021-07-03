@@ -16,7 +16,7 @@
       <i class="headbar__icon el-icon-refresh" @click="reloadChange" />
     </el-tooltip>
 
-    <el-popover placement="bottom" :width="300" trigger="hover">
+    <el-popover placement="bottom" :width="300">
       <template #reference>
         <el-badge
           :value="notice.num"

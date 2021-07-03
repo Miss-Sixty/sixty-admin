@@ -6,7 +6,7 @@ export default {
   redirect: "/demo/page",
   name: "demo",
   meta: {
-    title: "测试页",
+    title: "测试测试测试测试测试测试测试测试",
     icon: "el-icon-menu",
   },
   children: [
@@ -15,7 +15,7 @@ export default {
       name: "demopage",
       component: () => import("@/views/demo"),
       meta: {
-        title: "测试页1",
+        title: "这是测试页",
       },
     },
   ],
