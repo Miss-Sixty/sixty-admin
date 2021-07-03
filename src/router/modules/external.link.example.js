@@ -1,4 +1,5 @@
 import Layout from "@/layout";
+import Iframe from "@/layout/iframe";
 
 export default {
   path: "/link",
@@ -19,6 +20,15 @@ export default {
       path: "https://www.google.com",
       meta: {
         title: "Google 一下",
+      },
+    },
+    {
+      path: "google",
+      component: Iframe,
+
+      meta: {
+        title: "内嵌百度",
+        link: "https://www.baidu.com",
       },
     },
   ],

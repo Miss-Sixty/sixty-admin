@@ -74,8 +74,6 @@ export default {
       if (isExternal(props.basePath)) {
         return props.basePath;
       }
-
-      console.log(props.basePath, routePath);
       return path.resolve(props.basePath, routePath);
     };
 
