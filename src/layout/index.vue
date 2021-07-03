@@ -1,8 +1,12 @@
 <template>
-  <nav-menu class="navmenu" />
+  <nav-menu
+    class="navmenu"
+    :isCollapse="isCollapse"
+    :class="{ 'navmenu--isCollapse': isCollapse }"
+  />
 
   <div class="content">
-    <head-bar />
+    <head-bar @collapseChange="isCollapse = !isCollapse" />
     <el-scrollbar view-style="display: flex;flex-direction: column;height:100%">
       <app-main />
       <footer-bar v-if="showCopyright" />
@@ -16,6 +20,7 @@ import FooterBar from "./components/FooterBar";
 import HeadBar from "./components/HeadBar";
 import NavMenu from "./components/NavMenu";
 import setting from "@/setting";
+import { ref } from "vue";
 export default {
   components: {
     AppMain,
@@ -24,8 +29,10 @@ export default {
     NavMenu,
   },
   setup() {
+    const isCollapse = ref(false);
     return {
       showCopyright: setting.showCopyright,
+      isCollapse,
     };
   },
 };
@@ -34,12 +41,18 @@ export default {
 @import "@/styles/var.scss";
 .navmenu {
   width: $navmenu-width;
-  background-color: $navmenu-bg;
+  background-color: $g_sub_sidebar_bg;
   float: left;
+  transition: 0.2s;
+
+  &--isCollapse {
+    width: $navmenu-collapse-width;
+  }
 }
+
 .content {
   height: 100vh;
-  margin-left: $navmenu-width;
+  // margin-left: $navmenu-width;
   display: flex;
   flex-direction: column;
 }

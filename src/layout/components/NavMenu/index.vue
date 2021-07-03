@@ -5,6 +5,7 @@
       <el-menu
         class="menu-content"
         :collapse="isCollapse"
+        :collapse-transition="false"
         unique-opened
         :default-active="route.meta.activeMenu || route.path"
         :background-color="variables.g_sub_sidebar_bg"
@@ -25,7 +26,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import Logo from "../Logo";
 import NavMenuItem from "../NavMenuItem";
 import { useStore } from "vuex";
@@ -34,13 +34,14 @@ import variables from "@/styles/var.scss";
 
 export default {
   components: { NavMenuItem, Logo },
+  props: {
+    isCollapse: Boolean,
+  },
   setup() {
-    const isCollapse = ref(false);
     const store = useStore();
     const route = useRoute();
     const routerList = store.getters["menu/sidebarRoutes"];
     return {
-      isCollapse,
       routerList,
       route,
       variables,
@@ -49,6 +50,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/styles/var.scss";
 .menu {
   display: flex;
   flex-direction: column;
@@ -57,6 +59,14 @@ export default {
   &-content {
     border-right: none;
     height: 100%;
+  }
+}
+
+//收起导航树选中的颜色
+::v-deep .el-menu--collapse .el-submenu.is-active .el-submenu__title {
+  background-color: $g-sub-sidebar-menu-active-bg !important;
+  .icon {
+    color: $g-sub-sidebar-menu-active-color !important;
   }
 }
 </style>

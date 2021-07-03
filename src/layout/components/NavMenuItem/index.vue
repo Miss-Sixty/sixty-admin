@@ -1,42 +1,36 @@
 <template>
-  <div v-if="item.meta.sidebar !== false">
-    <router-link
-      v-if="!hasChildren"
-      v-slot="{ href, navigate, isActive, isExactActive }"
-      custom
-      :to="resolvePath(item.path)"
+  <router-link
+    v-if="!hasChildren"
+    v-slot="{ href, navigate }"
+    custom
+    :to="resolvePath(item.path)"
+  >
+    <a
+      :href="isExternal(resolvePath(item.path)) ? resolvePath(item.path) : href"
+      :target="isExternal(resolvePath(item.path)) ? '_blank' : '_self'"
+      @click="navigate"
     >
-      <a
-        :href="
-          isExternal(resolvePath(item.path)) ? resolvePath(item.path) : href
-        "
-        :class="[
-          isActive && 'router-link-active',
-          isExactActive && 'router-link-exact-active',
-        ]"
-        :target="isExternal(resolvePath(item.path)) ? '_blank' : '_self'"
-        @click="navigate"
-      >
-        <el-menu-item :title="item.meta.title" :index="resolvePath(item.path)">
-          <i v-if="item.meta.icon" class="el-icon-platform-eleme icon" />
-          <span>{{ item.meta.title }}</span>
-        </el-menu-item>
-      </a>
-    </router-link>
-
-    <el-submenu v-else :title="item.meta.title" :index="resolvePath(item.path)">
-      <template #title>
+      <el-menu-item :index="resolvePath(item.path)">
         <i v-if="item.meta.icon" class="el-icon-platform-eleme icon" />
-        <span>{{ item.meta.title }}</span>
-      </template>
-      <SidebarItem
-        v-for="route in item.children"
-        :key="route.path"
-        :item="route"
-        :base-path="resolvePath(item.path)"
-      />
-    </el-submenu>
-  </div>
+        <template #title>
+          {{ item.meta.title }}
+        </template>
+      </el-menu-item>
+    </a>
+  </router-link>
+
+  <el-submenu v-else :index="resolvePath(item.path)">
+    <template #title>
+      <i v-if="item.meta.icon" class="el-icon-platform-eleme icon" />
+      <span>{{ item.meta.title }}</span>
+    </template>
+    <SidebarItem
+      v-for="route in item.children"
+      :key="route.path"
+      :item="route"
+      :base-path="resolvePath(item.path)"
+    />
+  </el-submenu>
 </template>
 <script>
 import path from "path";

@@ -3,16 +3,16 @@
     <div class="left-box">
       <i
         class="el-icon-s-fold headbar__icon left-box__icon"
-        @click="collapseChange"
+        @click="$emit('collapseChange')"
       />
-      <el-breadcrumb
-        separator="/"
-        class="left-box__breadcrumb el-icon-arrow-right"
-      >
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+      <el-breadcrumb class="el-icon-arrow-right">
+        <el-breadcrumb-item
+          :to="pathCompile(item.path)"
+          v-for="item in breadcrumbList"
+          :key="item.path"
+        >
+          {{ item.title }}
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
@@ -20,19 +20,48 @@
   </div>
 </template>
 <script>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import RightBox from "./components/RightBox";
+import { compile } from "path-to-regexp";
+import { useRoute } from "vue-router";
 export default {
   components: { RightBox },
   setup() {
+    const route = useRoute();
     const scrollTop = ref(0);
     const onScroll = () => {
       scrollTop.value =
         document.documentElement.scrollTop || document.body.scrollTop;
     };
 
-    const collapseChange = () => {
-      // TODO:收缩导航
+    //面包屑
+    const breadcrumbList = computed(() => {
+      const breadcrumbList = [
+        {
+          path: "/home",
+          title: "首页",
+        },
+      ];
+
+      route.matched.forEach((item) => {
+        if (
+          item.meta?.title &&
+          item.meta?.breadcrumb !== false &&
+          item.path !== "/home"
+        ) {
+          breadcrumbList.push({
+            path: item.path,
+            title: item.meta.title,
+          });
+        }
+      });
+
+      return breadcrumbList;
+    });
+
+    const pathCompile = (path) => {
+      var toPath = compile(path);
+      return toPath(route.params);
     };
 
     //通知
@@ -47,8 +76,9 @@ export default {
 
     return {
       scrollTop,
-      collapseChange,
       activeName,
+      breadcrumbList,
+      pathCompile,
     };
   },
 };
