@@ -4,6 +4,7 @@ import "nprogress/nprogress.css";
 NProgress.configure({ showSpinner: false }); // 去掉加载圆圈
 import store from "@/store";
 import { ElMessage } from "element-plus";
+import setting from "@/setting";
 
 router.beforeEach(async (to) => {
   NProgress.start(); // start progress bar
@@ -47,8 +48,11 @@ router.beforeEach(async (to) => {
   }
 });
 
-router.afterEach(async () => {
+router.afterEach(async (to) => {
   NProgress.done(); // finish progress bar
+  const title = setting.title || "sixty-admin";
+  document.title = to.meta.title ? `${to.meta.title} - ${title}` : `${title}`;
+
   try {
     await store.dispatch("user/getNotice");
   } catch (err) {
