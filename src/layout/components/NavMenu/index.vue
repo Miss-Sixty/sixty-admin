@@ -8,14 +8,11 @@
         :collapse-transition="false"
         unique-opened
         :default-active="route.meta.activeMenu || route.path"
-        :background-color="variables.g_sub_sidebar_bg"
-        :text-color="variables.g_sub_sidebar_menu_color"
-        :active-text-color="variables.g_sub_sidebar_menu_active_color"
       >
         <template v-for="route in routerList" :key="route.path">
           <nav-menu-item
             :key="route.path"
-            v-if="route.meta.sidebar !== false"
+            v-if="!route.meta.sidebar"
             :item="route"
             :base-path="route.path"
           />
@@ -63,10 +60,7 @@ export default {
 }
 
 //收起导航树选中的颜色
-::v-deep .el-menu--collapse .el-submenu.is-active .el-submenu__title {
-  background-color: $g-sub-sidebar-menu-active-bg !important;
-  .icon {
-    color: $g-sub-sidebar-menu-active-color !important;
-  }
+::v-deep .el-menu--collapse .el-submenu.is-active .el-submenu__title .icon {
+  color: #409eff;
 }
 </style>

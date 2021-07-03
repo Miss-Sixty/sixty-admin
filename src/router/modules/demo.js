@@ -16,6 +16,18 @@ export default {
       component: () => import("@/views/demo"),
       meta: {
         title: "这是测试页",
+        hidden: true,
+        activeMenu: "/demo",
+      },
+    },
+    {
+      path: "/demo/page",
+      name: "demopage",
+      component: () => import("@/views/demo"),
+      meta: {
+        title: "这个不在侧边栏展示",
+        hidden: true,
+        activeMenu: "/demo",
       },
     },
   ],

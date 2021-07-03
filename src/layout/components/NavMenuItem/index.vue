@@ -24,12 +24,14 @@
       <i v-if="item.meta.icon" class="el-icon-platform-eleme icon" />
       <span>{{ item.meta.title }}</span>
     </template>
-    <SidebarItem
-      v-for="route in item.children"
-      :key="route.path"
-      :item="route"
-      :base-path="resolvePath(item.path)"
-    />
+
+    <template v-for="route in item.children" :key="route.path">
+      <SidebarItem
+        v-if="!route.meta?.hidden"
+        :item="route"
+        :base-path="resolvePath(item.path)"
+      />
+    </template>
   </el-submenu>
 </template>
 <script>
@@ -52,7 +54,7 @@ export default {
     const hasChildren = computed(() => {
       let flag = true;
       if (props.item.children?.length) {
-        if (props.item.children.every((item) => item.meta.sidebar === false)) {
+        if (props.item.children.every((item) => item.meta.hidden)) {
           flag = false;
         }
       } else {
@@ -72,6 +74,8 @@ export default {
       if (isExternal(props.basePath)) {
         return props.basePath;
       }
+
+      console.log(props.basePath, routePath);
       return path.resolve(props.basePath, routePath);
     };
 
@@ -105,38 +109,8 @@ a {
 ::v-deep .el-submenu__title {
   display: flex;
   align-items: center;
-}
-
-::v-deep .el-submenu,
-::v-deep .el-menu-item {
-  .icon,
   span {
-    transition: transform 0.25s ease;
+    flex: 1;
   }
-  .icon {
-    font-size: 20px;
-    margin-right: 10px;
-    vertical-align: -0.25em;
-  }
-
-  &:hover > .icon,
-  .el-submenu__title:hover > .icon {
-    transform: translateX(5px);
-  }
-
-  &:hover > span,
-  .el-submenu__title:hover > span {
-    transform: translateX(5px);
-  }
-}
-
-::v-deep .el-menu-item.is-active,
-.el-submenu .el-menu--inline .el-menu-item.is-active {
-  color: $g-sub-sidebar-menu-active-color !important;
-  background-color: $g-sub-sidebar-menu-active-bg !important;
-}
-::v-deep .el-submenu__title:hover,
-.el-menu-item:hover {
-  background-color: $g-sub-sidebar-bg !important;
 }
 </style>
