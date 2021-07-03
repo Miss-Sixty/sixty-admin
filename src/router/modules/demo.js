@@ -30,6 +30,7 @@ export default {
         // hidden: true,
         // activeMenu: "/demo",
         breadcrumb: false,
+        // copyright: false,
       },
     },
   ],

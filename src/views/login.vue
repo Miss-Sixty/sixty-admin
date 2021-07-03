@@ -110,9 +110,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
   background-color: cadetblue;
+  overflow: hidden;
   .form {
     width: 350px;
     margin-top: 170px;

@@ -13,8 +13,10 @@ import Layout from "@/layout";
     breadcrumb: false           该路由是否在面包屑导航中展示，默认为 true
     link: '',                   内嵌网页链接，如果要开启内嵌网页，component 需要设置为框架提供的 layoue/iframe.vue
 
-    TODO:
+    TODO:已完成，但效果不好。
     // copyright: false            该路由是否显示底部版权信息，比全局设置里的 showCopyright 优先级高，不设置则继承全局里的设置
+    
+    TODO
     // noCache: true                如果设置为true，页面将不会被缓存（默认为false）
     // affix: true                  如果设置为true，标签将贴在tags-view中
   }

@@ -9,12 +9,35 @@
 </template>
 <script>
 import setting from "@/setting";
+// import { onBeforeRouteUpdate, useRoute } from "vue-router";
+// import { ref, onBeforeMount } from "vue";
 export default {
   setup() {
     const copyrightDates = setting.copyrightDates;
     const copyrightCompany = setting.copyrightCompany;
     const copyrightWebsite = setting.copyrightWebsite;
-    return { copyrightDates, copyrightCompany, copyrightWebsite };
+    // const route = useRoute();
+    // let copyright = ref(true);
+
+    // const updateCopyright = (meta) => {
+    //   if (meta.copyright === false) copyright.value = false;
+    //   else copyright.value = true;
+    // };
+
+    // onBeforeRouteUpdate((to) => {
+    //   updateCopyright(to.meta);
+    // });
+
+    // onBeforeMount(() => {
+    //   updateCopyright(route.meta);
+    // });
+
+    return {
+      copyrightDates,
+      copyrightCompany,
+      copyrightWebsite,
+      // copyright,
+    };
   },
 };
 </script>
