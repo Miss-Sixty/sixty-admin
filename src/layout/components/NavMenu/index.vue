@@ -26,9 +26,9 @@
         <el-menu
           class="menu-follower-content"
           :collapse="isCollapse"
-          :collapse-transition="false"
           unique-opened
           :default-active="route.meta.activeMenu || route.path"
+          :collapse-transition="false"
         >
           <transition-group name="sidebar">
             <template v-for="route in routerList" :key="route.path">
@@ -129,7 +129,8 @@ export default {
     flex-direction: column;
     width: $navmenu-width;
     height: 100vh;
-    transition: width 0.2s;
+    transition: width 0.2s; //TODO：侧边栏展开收起动画和menu组件收起动画不一致
+    background-color: $g-sub-sidebar-bg;
 
     &--isCollapse {
       width: $navmenu-collapse-width;

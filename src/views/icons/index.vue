@@ -2,7 +2,7 @@
   <div>
     <page-header
       title="SVG Icon"
-      content="除了使用 element-plus 提供的图标外，你还可以使用自己的 SVG 图标"
+      content="除了使用 element-plus 提供的图标外，你还可以使用自己的 SVG 图标。其中 sketchSvg 文件夹为 sketch 生成图标，每次执行命令会清空并重新创建 svg。svg 文件夹为复制来的图标"
     />
     <div class="grid">
       <template v-for="item in svgIcons" :key="item">
