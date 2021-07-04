@@ -51,25 +51,23 @@ export const constantRoutes = [
 
 import MultilevelMenuExample from "./modules/multilevel.menu.example";
 import demo from "./modules/demo";
-import demo2 from "./modules/demo";
 import table from "./modules/table";
 import ExTernalLinkExample from "./modules/external.link.example";
 
-// TODO:设想最左侧有一竖行主导航，当 children 不为空的主导航只有一项时，则隐藏
 export const asyncRoutes = [
   {
     meta: {
-      title: "导航1",
+      title: "基础",
       icon: "el-icon-eleme",
     },
-    children: [table, MultilevelMenuExample, demo2, ExTernalLinkExample],
+    children: [MultilevelMenuExample, demo, ExTernalLinkExample],
   },
   {
     meta: {
-      title: "导航2",
+      title: "页面",
       icon: "el-icon-s-goods",
     },
-    children: [demo],
+    children: [table],
   },
 ];
 

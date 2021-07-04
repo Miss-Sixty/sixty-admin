@@ -6,13 +6,15 @@
         @click="$emit('collapseChange')"
       />
       <el-breadcrumb class="el-icon-arrow-right">
-        <el-breadcrumb-item
-          :to="pathCompile(item.path)"
-          v-for="item in breadcrumbList"
-          :key="item.path"
-        >
-          {{ item.title }}
-        </el-breadcrumb-item>
+        <transition-group name="breadcrumb">
+          <el-breadcrumb-item
+            :to="pathCompile(item.path)"
+            v-for="item in breadcrumbList"
+            :key="item.path"
+          >
+            {{ item.title }}
+          </el-breadcrumb-item>
+        </transition-group>
       </el-breadcrumb>
     </div>
 
@@ -114,5 +116,15 @@ export default {
       padding: 0px 15px;
     }
   }
+}
+
+// 面包屑动画
+.breadcrumb-enter-active {
+  transition: all 0.25s;
+}
+.breadcrumb-enter-from,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

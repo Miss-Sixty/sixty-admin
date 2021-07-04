@@ -45,7 +45,6 @@ export default {
 @import "@/styles/var.scss";
 .footerbar {
   height: $footerbar-height;
-  background-color: blueviolet;
   line-height: $footerbar-height;
   color: rgba(0, 0, 0, 0.45);
   text-align: center;

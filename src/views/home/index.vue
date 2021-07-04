@@ -1,13 +1,15 @@
 <template>
-  <div>home</div>
-  <div>home</div>
-  <div>home</div>
-  <div>home</div>
-  <div>home</div>
-  <div>home</div>
-  <div>home</div>
-  <div>home</div>
-  <div>home</div>
+  <div>
+    <div>home</div>
+    <div>home</div>
+    <div>home</div>
+    <div>home</div>
+    <div>home</div>
+    <div>home</div>
+    <div>home</div>
+    <div>home</div>
+    <div>home</div>
+  </div>
 </template>
 <style lang="scss" scoped>
 div {

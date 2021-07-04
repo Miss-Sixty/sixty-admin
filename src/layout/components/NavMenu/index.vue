@@ -30,14 +30,16 @@
           unique-opened
           :default-active="route.meta.activeMenu || route.path"
         >
-          <template v-for="route in routerList" :key="route.path">
-            <nav-menu-item
-              :key="route.path"
-              v-if="!route.meta.sidebar"
-              :item="route"
-              :base-path="route.path"
-            />
-          </template>
+          <transition-group name="sidebar">
+            <template v-for="route in routerList" :key="route.path">
+              <nav-menu-item
+                :key="route.path"
+                v-if="!route.meta.sidebar"
+                :item="route"
+                :base-path="route.path"
+              />
+            </template>
+          </transition-group>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -94,7 +96,7 @@ export default {
       width: $g-main-sidebar-width;
       padding: 0 5px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background-color 0.3s;
       &--active,
       &:hover {
         background-color: $g-main-sidebar-active-bg;
@@ -115,7 +117,7 @@ export default {
     flex-direction: column;
     width: $navmenu-width;
     height: 100vh;
-    transition: 0.2s;
+    transition: width 0.2s;
 
     &--isCollapse {
       width: $navmenu-collapse-width;
@@ -131,5 +133,20 @@ export default {
 //收起导航树选中的颜色
 ::v-deep .el-menu--collapse .el-submenu.is-active .el-submenu__title .icon {
   color: #409eff;
+}
+
+// 侧边栏动画
+.sidebar-enter-active,
+.sidebar-leave-active {
+  transition: all 0.2s;
+}
+.sidebar-enter-from,
+.sidebar-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.sidebar-leave-active {
+  position: absolute;
 }
 </style>
