@@ -1,8 +1,10 @@
 <template>
   <div class="headbar" :class="{ shadow: isScrollTop }">
     <div class="left-box">
-      <i
-        class="el-icon-s-fold headbar__icon left-box__icon"
+      <svg-icon
+        name="menu-fold-line"
+        class="left-box__icon"
+        :class="{ isCollapse }"
         @click="$emit('collapseChange')"
       />
       <el-breadcrumb class="el-icon-arrow-right">
@@ -30,6 +32,7 @@ export default {
   components: { RightBox },
   props: {
     isScrollTop: Boolean,
+    isCollapse: Boolean,
   },
   setup() {
     const route = useRoute();
@@ -85,23 +88,26 @@ export default {
     box-shadow: 0 10px 10px -10px #ccc;
   }
 
-  &__icon {
-    padding: 0px 10px;
-    line-height: $headbar-height;
-    transition: background-color 0.3s;
-    cursor: pointer;
-    font-size: 20px;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
-    }
-  }
-
   .left-box {
     white-space: nowrap;
+    display: flex;
+    align-items: center;
     &__icon {
-      padding: 0px 15px;
+      padding: 0px 10px;
+      height: $headbar-height;
+      box-sizing: content-box;
+      font-size: 20px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
     }
   }
+}
+
+.isCollapse {
+  transform: rotateY(180deg);
 }
 
 // 面包屑动画

@@ -7,7 +7,7 @@ export default {
   name: "externalLinkExample",
   meta: {
     title: "外链",
-    icon: "sidebar-external-link",
+    icon: "share-box-fill",
   },
   children: [
     {

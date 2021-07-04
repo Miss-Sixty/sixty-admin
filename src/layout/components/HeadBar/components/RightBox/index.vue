@@ -5,15 +5,18 @@
       placement="bottom"
       effect="light"
     >
-      <i
-        class="headbar__icon"
-        :class="isFullscreen ? 'el-icon-minus' : 'el-icon-plus'"
-        @click="fullscreen"
-      />
+      <div class="headbar__icon">
+        <svg-icon
+          :name="isFullscreen ? 'fullscreen-exit-fill' : 'fullscreen-fill'"
+          @click="fullscreen"
+        />
+      </div>
     </el-tooltip>
 
     <el-tooltip effect="light" content="刷新页面" placement="bottom">
-      <i class="headbar__icon el-icon-refresh" @click="reloadChange" />
+      <div class="headbar__icon">
+        <svg-icon name="refresh-line" @click="reloadChange" />
+      </div>
     </el-tooltip>
 
     <el-popover placement="bottom" :width="300">
@@ -24,7 +27,9 @@
           class="right-box--badge"
           type="danger"
         >
-          <i class="headbar__icon el-icon-bell" />
+          <div class="headbar__icon">
+            <svg-icon name="notification-2-line" />
+          </div>
         </el-badge>
       </template>
       <el-tabs v-model="activeName">
@@ -183,8 +188,8 @@ export default {
   white-space: nowrap;
 
   &--badge ::v-deep .el-badge__content {
-    top: 12px;
-    right: 18px;
+    top: 13px;
+    right: 19px;
   }
 
   &__pane--badge ::v-deep .el-badge__content {

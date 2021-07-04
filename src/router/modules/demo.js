@@ -7,7 +7,7 @@ export default {
   name: "demo",
   meta: {
     title: "测试测试测试测试测试测试测试测试",
-    icon: "el-icon-menu",
+    icon: "settings-5-fill",
   },
   children: [
     {

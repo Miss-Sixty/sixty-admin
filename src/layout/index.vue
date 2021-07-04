@@ -6,6 +6,7 @@
       <head-bar
         @collapseChange="isCollapse = !isCollapse"
         :isScrollTop="isScrollTop"
+        :isCollapse="isCollapse"
       />
       <el-scrollbar
         view-style="display: flex;flex-direction: column;height:100%"

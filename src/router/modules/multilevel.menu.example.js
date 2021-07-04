@@ -8,7 +8,7 @@ export default {
   name: "multilevelMenuExample",
   meta: {
     title: "多级导航",
-    icon: "el-icon-menu",
+    icon: "list-unordered",
   },
   children: [
     {

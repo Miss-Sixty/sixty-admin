@@ -17,4 +17,4 @@ shell.exec(
   `${SKETCH_TOOL_DIR} export slices --formats=svg --overwriting=YES --save-for-web=YES --output=${svgDir} ${sketch}`
 );
 
-shell.exec("svgo src/icons/sketchSvg/*.svg --config=src/icons/svgo.yml");
+shell.exec("svgo src/icons/sketchSvg/*.svg --config=src/icons/config.js");

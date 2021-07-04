@@ -33,14 +33,14 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
 
   .icon-item {
-    margin: 20px;
+    margin: 15px;
     text-align: center;
     font-size: 30px;
 
     span {
       display: block;
       font-size: 14px;
-      margin-top: 6px;
+      margin-top: 4px;
     }
   }
 }

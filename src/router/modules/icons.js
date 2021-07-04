@@ -6,7 +6,7 @@ export default {
   redirect: "/icons/page",
   meta: {
     title: "图标",
-    icon: "el-icon-menu",
+    icon: "icon",
   },
   children: [
     {

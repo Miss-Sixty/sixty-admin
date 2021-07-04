@@ -59,14 +59,14 @@ export const asyncRoutes = [
   {
     meta: {
       title: "基础",
-      icon: "el-icon-eleme",
+      icon: "home",
     },
     children: [Icons, MultilevelMenuExample, demo, ExTernalLinkExample],
   },
   {
     meta: {
       title: "页面",
-      icon: "el-icon-s-goods",
+      icon: "page",
     },
     children: [table],
   },

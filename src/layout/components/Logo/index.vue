@@ -2,7 +2,6 @@
   <router-link v-slot="{ navigate }" custom to="/">
     <div
       :class="{
-        shadow: scrollTop,
         'logo--isScrollTop': isScrollTop,
       }"
       class="logo"

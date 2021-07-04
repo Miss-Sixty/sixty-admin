@@ -12,7 +12,7 @@
           :class="{ 'menu-main__item--active': index === headerActived }"
           @click="switchActivedChange(index)"
         >
-          <i v-if="item.meta?.icon" :class="item.meta?.icon" />
+          <svg-icon v-if="item.meta?.icon" :name="item.meta?.icon" />
           <span>{{ item.meta?.title }}</span>
         </div>
       </template>
@@ -112,10 +112,11 @@ export default {
       &:hover {
         background-color: $g-main-sidebar-active-bg;
       }
-      i {
+      .svg-icon {
         margin: 0 auto;
         font-size: 20px;
       }
+
       span {
         text-align: center;
         font-size: 14px;
