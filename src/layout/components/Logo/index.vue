@@ -3,33 +3,24 @@
     <div
       :class="{
         shadow: scrollTop,
+        'logo--isScrollTop': isScrollTop,
       }"
       class="logo"
       @click="navigate"
     >
-      {{ setting.title }}
+      {{ title }}
     </div>
   </router-link>
 </template>
 <script>
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import setting from "@/setting";
+import { useStore } from "vuex";
 export default {
+  props: {
+    isScrollTop: Boolean,
+  },
   setup() {
-    const scrollTop = ref(0);
-    const onScroll = () => {
-      scrollTop.value =
-        document.documentElement.scrollTop || document.body.scrollTop;
-    };
-
-    onMounted(() => {
-      window.addEventListener("scroll", onScroll);
-    });
-    onBeforeUnmount(() => {
-      window.removeEventListener("scroll", onScroll);
-    });
-
-    return { scrollTop, setting };
+    const store = useStore();
+    return { title: store.state.setting.title };
   },
 };
 </script>
@@ -39,7 +30,7 @@ export default {
 @import "@/styles/mixins";
 
 .logo {
-  height: $headbar-height;
+  min-height: $headbar-height;
   line-height: $headbar-height;
   text-align: center;
   color: #37414b;
@@ -49,7 +40,12 @@ export default {
   cursor: pointer;
   font-weight: bold;
   @include text-overflow;
-  //   box-shadow: 0 0 1px 0 #ccc;
-  background: #fafafa;
+  background: $g-sub-sidebar-logo-bg;
+  position: relative;
+  z-index: 1;
+
+  &--isScrollTop {
+    box-shadow: 0 10px 10px -8px #c7c7c7;
+  }
 }
 </style>

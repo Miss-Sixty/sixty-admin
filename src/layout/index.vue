@@ -3,9 +3,13 @@
     <nav-menu class="navmenu" :isCollapse="isCollapse" />
 
     <div class="content">
-      <head-bar @collapseChange="isCollapse = !isCollapse" />
+      <head-bar
+        @collapseChange="isCollapse = !isCollapse"
+        :isScrollTop="isScrollTop"
+      />
       <el-scrollbar
         view-style="display: flex;flex-direction: column;height:100%"
+        @scroll="scrollChange"
       >
         <app-main />
         <footer-bar v-if="showCopyright" />
@@ -30,9 +34,15 @@ export default {
   },
   setup() {
     const isCollapse = ref(false);
+    const isScrollTop = ref(false);
+    const scrollChange = (scroll) => {
+      isScrollTop.value = scroll.scrollTop ? true : false;
+    };
     return {
       showCopyright: setting.showCopyright,
       isCollapse,
+      scrollChange,
+      isScrollTop,
     };
   },
 };

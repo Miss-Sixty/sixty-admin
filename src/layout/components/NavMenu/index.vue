@@ -21,8 +21,8 @@
       class="menu-follower"
       :class="{ 'menu-follower--isCollapse': isCollapse }"
     >
-      <logo />
-      <el-scrollbar view-style="height:100%">
+      <logo :isScrollTop="isScrollTop" />
+      <el-scrollbar view-style="height:100%" @scroll="scrollChange">
         <el-menu
           class="menu-follower-content"
           :collapse="isCollapse"
@@ -52,7 +52,7 @@ import NavMenuItem from "../NavMenuItem";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import variables from "@/styles/var.scss";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 export default {
   components: { NavMenuItem, Logo },
   props: {
@@ -64,6 +64,12 @@ export default {
     const switchActivedChange = (index) => {
       store.commit("menu/SWITCHACTIVED", index);
     };
+
+    const isScrollTop = ref(false);
+    const scrollChange = (scroll) => {
+      isScrollTop.value = scroll.scrollTop ? true : false;
+    };
+
     return {
       routerList: computed(() => store.getters["menu/sidebarRoutes"]),
       route,
@@ -74,6 +80,8 @@ export default {
       ),
       headerActived: computed(() => store.state.menu.headerActived),
       switchActivedChange,
+      isScrollTop,
+      scrollChange,
     };
   },
 };
@@ -84,6 +92,9 @@ export default {
 
 .menu {
   display: flex;
+  position: relative;
+  z-index: 2;
+  // box-shadow: 0 0 1px 0 #ccc;
 
   &-main {
     background-color: $g-main-sidebar-bg;

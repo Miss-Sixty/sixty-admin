@@ -1,5 +1,5 @@
 <template>
-  <div class="headbar" :class="{ shadow: scrollTop }">
+  <div class="headbar" :class="{ shadow: isScrollTop }">
     <div class="left-box">
       <i
         class="el-icon-s-fold headbar__icon left-box__icon"
@@ -22,19 +22,17 @@
   </div>
 </template>
 <script>
-import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { computed } from "vue";
 import RightBox from "./components/RightBox";
 import { compile } from "path-to-regexp";
 import { useRoute } from "vue-router";
 export default {
   components: { RightBox },
+  props: {
+    isScrollTop: Boolean,
+  },
   setup() {
     const route = useRoute();
-    const scrollTop = ref(0);
-    const onScroll = () => {
-      scrollTop.value =
-        document.documentElement.scrollTop || document.body.scrollTop;
-    };
 
     //面包屑
     const breadcrumbList = computed(() => {
@@ -44,7 +42,6 @@ export default {
           title: "首页",
         },
       ];
-
       route.matched.forEach((item) => {
         if (
           item.meta?.title &&
@@ -57,7 +54,6 @@ export default {
           });
         }
       });
-
       return breadcrumbList;
     });
 
@@ -66,19 +62,7 @@ export default {
       return toPath(route.params);
     };
 
-    //通知
-    const activeName = ref("info");
-
-    onMounted(() => {
-      window.addEventListener("scroll", onScroll);
-    });
-    onBeforeUnmount(() => {
-      window.removeEventListener("scroll", onScroll);
-    });
-
     return {
-      scrollTop,
-      activeName,
       breadcrumbList,
       pathCompile,
     };
@@ -95,6 +79,8 @@ export default {
   background-color: $navmenu-bg;
   transition: 0.3s, box-shadow 0.2s;
   box-shadow: 0 0 1px 0 #ccc;
+  position: relative;
+  z-index: 1;
   &.shadow {
     box-shadow: 0 10px 10px -10px #ccc;
   }
@@ -102,11 +88,11 @@ export default {
   &__icon {
     padding: 0px 10px;
     line-height: $headbar-height;
-    transition: background 0.3s;
+    transition: background-color 0.3s;
     cursor: pointer;
     font-size: 20px;
     &:hover {
-      background: rgba(0, 0, 0, 0.04);
+      background-color: rgba(0, 0, 0, 0.04);
     }
   }
 
