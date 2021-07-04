@@ -50,6 +50,8 @@ export default {
   text-align: center;
   border-top: 1px dashed #dcdfe6;
   font-size: 14px;
+  background: $appmain-bg;
+
   a {
     text-decoration: none;
     color: rgba(0, 0, 0, 0.45);

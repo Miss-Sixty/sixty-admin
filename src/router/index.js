@@ -53,6 +53,7 @@ import MultilevelMenuExample from "./modules/multilevel.menu.example";
 import demo from "./modules/demo";
 import table from "./modules/table";
 import ExTernalLinkExample from "./modules/external.link.example";
+import Icons from "./modules/icons";
 
 export const asyncRoutes = [
   {
@@ -60,7 +61,7 @@ export const asyncRoutes = [
       title: "基础",
       icon: "el-icon-eleme",
     },
-    children: [MultilevelMenuExample, demo, ExTernalLinkExample],
+    children: [Icons, MultilevelMenuExample, demo, ExTernalLinkExample],
   },
   {
     meta: {

@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "export:svg": "node ./src/icons/export.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -37,6 +38,9 @@
     "prettier": "^2.2.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "shelljs": "^0.8.4",
+    "svg-sprite-loader": "^6.0.9",
+    "svgo": "^2.3.1",
     "vue-cli-plugin-element-plus": "^0.0.13"
   },
   "gitHooks": {
