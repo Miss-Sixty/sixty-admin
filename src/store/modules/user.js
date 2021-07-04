@@ -42,6 +42,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       notice()
         .then((res) => {
+          console.log(222);
           commit("USERNOTICE", res.data);
           resolve();
         })

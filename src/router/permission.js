@@ -1,5 +1,5 @@
 import router from "@/router";
-import NProgress from "nprogress"; // progress bar
+import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 NProgress.configure({ showSpinner: false }); // 去掉加载圆圈
 import store from "@/store";
@@ -7,7 +7,7 @@ import { ElMessage } from "element-plus";
 import setting from "@/setting";
 
 router.beforeEach(async (to) => {
-  NProgress.start(); // start progress bar
+  NProgress.start();
   const isLogin = store.getters["user/isLogin"];
   if (isLogin) {
     //已登陆不可跳转登陆页
@@ -49,9 +49,9 @@ router.beforeEach(async (to) => {
 });
 
 router.afterEach(async (to) => {
-  NProgress.done(); // finish progress bar
+  NProgress.done();
+  if (to.name === "Reload") return;
   const title = setting.title || "sixty-admin";
   document.title = to.meta.title ? `${to.meta.title} - ${title}` : `${title}`;
-
   await store.dispatch("user/getNotice");
 });
