@@ -8,10 +8,8 @@ import { useRouter } from "vue-router";
 export default {
   setup() {
     const router = useRouter();
-    onMounted(() => {
-      setTimeout(() => {
-        router.go(-1);
-      }, 3000);
+    onMounted(async () => {
+      router.go(-1);
     });
   },
 };

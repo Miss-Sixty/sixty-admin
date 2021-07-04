@@ -53,9 +53,5 @@ router.afterEach(async (to) => {
   const title = setting.title || "sixty-admin";
   document.title = to.meta.title ? `${to.meta.title} - ${title}` : `${title}`;
 
-  try {
-    await store.dispatch("user/getNotice");
-  } catch (err) {
-    console.log(err);
-  }
+  await store.dispatch("user/getNotice");
 });
