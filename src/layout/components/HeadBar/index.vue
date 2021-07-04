@@ -109,10 +109,9 @@ export default {
   }
 
   .left-box {
+    white-space: nowrap;
     &__icon {
       padding: 0px 15px;
-    }
-    &__breadcrumb {
     }
   }
 }

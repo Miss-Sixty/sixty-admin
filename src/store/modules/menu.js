@@ -47,7 +47,7 @@ const actions = {
     return new Promise((resolve) => {
       const accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
       commit("SETROUTERS", accessedRoutes);
-      console.log(currentPath);
+      commit("SETACTIVED", currentPath);
 
       let routes = [];
       accessedRoutes.map((item) => {
@@ -75,12 +75,31 @@ const mutations = {
       router.removeRoute(route.name);
     });
   },
+
+  // 根据路由判断属于哪个头部导航
+  SETACTIVED(state, path) {
+    state.routes.map((item, index) => {
+      if (
+        item.children.some(
+          (r) => path.indexOf(r.path + "/") === 0 || path === r.path
+        )
+      ) {
+        state.headerActived = index;
+      }
+    });
+  },
+
+  // 切换头部导航
+  SWITCHACTIVED(state, index) {
+    state.headerActived = index;
+  },
 };
 
 const getters = {
   sidebarRoutes: (state) => {
-    // TODO：待完善左侧竖排总导航代码
-    return state.routes.length > 0 ? state.routes[0].children : [];
+    return state.routes.length > 0
+      ? state.routes[state.headerActived].children
+      : [];
   },
 };
 

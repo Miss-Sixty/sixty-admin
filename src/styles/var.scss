@@ -1,25 +1,22 @@
 // base color
 
 
-//导航栏
-$navmenu-width: 240px;
-$navmenu-collapse-width: 64px;
-$navmenu-width-collapse: 50px;
+//次侧边栏
+$navmenu-width: 240px;//次侧边栏宽度
+$navmenu-collapse-width: 64px;//次侧边栏收起宽度
 $navmenu-bg: #fff;// 导航背景色
 $navmenu-color: #fff;// 导航文字颜色
-// 次侧边栏背景色
-$g-sub-sidebar-bg: #fafafa;
-// 次侧边栏菜单文字颜色
-$g-sub-sidebar-menu-color: #37414b;
-// 次侧边栏菜单文字选中颜色
-$g-sub-sidebar-menu-active-color: #e7f4ff;
-// 次侧边栏菜单选中背景色
-$g-sub-sidebar-menu-active-bg: #5482ee;
+$g-sub-sidebar-bg: #fafafa;// 次侧边栏背景色
+$g-sub-sidebar-menu-color: #37414b;// 次侧边栏菜单文字颜色
+$g-sub-sidebar-menu-active-color: #e7f4ff;// 次侧边栏菜单文字选中颜色
+$g-sub-sidebar-menu-active-bg: #5482ee;// 次侧边栏菜单选中背景色
 
+$g-main-sidebar-width: 60px;// 主侧边栏宽度
+$g-main-sidebar-bg: #1f2d3d;// 主侧边栏颜色
+$g-main-sidebar-active-bg: rgb(48, 65, 86);// 主侧边栏选中颜色
 
 //顶部头
 $headbar-height: 50px;
-
 
 //脚部
 $footerbar-height:80px;
