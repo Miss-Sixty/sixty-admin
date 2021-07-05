@@ -16,9 +16,7 @@
 </template>
 <script>
 import { sketchIcons } from "./svg-icons";
-import PageHeader from "@/components/PageHeader";
 export default {
-  components: { PageHeader },
   setup() {
     return {
       sketchIcons,

@@ -54,6 +54,7 @@ import demo from "./modules/demo";
 import table from "./modules/table";
 import ExTernalLinkExample from "./modules/external.link.example";
 import Icons from "./modules/icons";
+import Permission from "./modules/permission";
 
 export const asyncRoutes = [
   {
@@ -61,7 +62,13 @@ export const asyncRoutes = [
       title: "基础",
       icon: "home",
     },
-    children: [Icons, MultilevelMenuExample, demo, ExTernalLinkExample],
+    children: [
+      Icons,
+      Permission,
+      MultilevelMenuExample,
+      demo,
+      ExTernalLinkExample,
+    ],
   },
   {
     meta: {

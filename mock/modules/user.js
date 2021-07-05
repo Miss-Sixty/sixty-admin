@@ -2,21 +2,21 @@ import Mock, { Random } from "mockjs";
 
 const userToken = {
   admin: {
-    token: "admin-token",
+    token: "admin",
   },
   editor: {
-    token: "editor-token",
+    token: "editor",
   },
 };
 
 const userInfo = {
-  "admin-token": {
+  admin: {
     name: "张三丰",
     jobTitle: "技术部总监",
     avatar: Random.dataImage("40x40", "hi"),
     failure_time: Date.parse(new Date()) + 50000,
   },
-  "editor-token": {
+  editor: {
     name: "张小四",
     jobTitle: "营销部编辑",
     avatar: Random.dataImage("40x40", "hi"),
@@ -79,13 +79,13 @@ const logout = {
 };
 
 const permissions = {
-  "admin-token": [
+  admin: [
     "permission.browse",
     "permission.create",
     "permission.edit",
     "permission.remove",
   ],
-  "editor-token": ["permission.browse"],
+  editor: ["permission.browse"],
 };
 export default {
   "get|/mock/user/notice": notice,

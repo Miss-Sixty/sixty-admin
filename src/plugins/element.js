@@ -27,6 +27,11 @@ import {
   ElBacktop,
   ElTableColumn,
   ElTable,
+  ElRadioButton,
+  ElRadioGroup,
+  ElTag,
+  ElButtonGroup,
+  ElLoading,
 } from "element-plus";
 
 export default (app) => {
@@ -54,5 +59,10 @@ export default (app) => {
     .use(ElBacktop)
     .use(ElTableColumn)
     .use(ElTable)
+    .use(ElRadioButton)
+    .use(ElRadioGroup)
+    .use(ElTag)
+    .use(ElButtonGroup)
+    .use(ElLoading)
     .use(ElRow);
 };
