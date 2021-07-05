@@ -1,18 +1,24 @@
 import Mock, { Random } from "mockjs";
+
 const userToken = {
-  status: 200,
-  message: "success",
-  data: {
-    token: Mock.mock("@guid"),
+  admin: {
+    token: "admin-token",
+  },
+  editor: {
+    token: "editor-token",
   },
 };
 
 const userInfo = {
-  status: 200,
-  message: "success",
-  data: {
-    name: Mock.mock("@cname"),
-    jobTitle: Mock.mock("@cword(2, 5)"),
+  "admin-token": {
+    name: "张三丰",
+    jobTitle: "技术部总监",
+    avatar: Random.dataImage("40x40", "hi"),
+    failure_time: Date.parse(new Date()) + 50000,
+  },
+  "editor-token": {
+    name: "张小四",
+    jobTitle: "营销部编辑",
     avatar: Random.dataImage("40x40", "hi"),
     failure_time: Date.parse(new Date()) + 50000,
   },
@@ -72,29 +78,47 @@ const logout = {
   data: {},
 };
 
-const permissions = [
-  "permission.browse",
-  "permission.create",
-  "permission.edit",
-  "permission.remove",
-];
-
+const permissions = {
+  "admin-token": [
+    "permission.browse",
+    "permission.create",
+    "permission.edit",
+    "permission.remove",
+  ],
+  "editor-token": ["permission.browse"],
+};
 export default {
-  "get|/mock/user/login": userToken,
-  "get|/mock/user/info": userInfo,
   "get|/mock/user/notice": notice,
   "post|/mock/user/logout": logout,
-  "get|/mock/user/permissions": permissions,
+  "get|/mock/user/login": (option) => {
+    const token = userToken[option.query.username];
+    if (!token) {
+      return {
+        status: 500,
+        message: "帐号和密码不正确",
+      };
+    }
 
-  // 官方解释为：记录用于生成响应数据的函数。当拦截到匹配 rurl 和 rtype 的 Ajax 请求时，函数 function(options) 将被执行，并把执行结果作为响应数据返回。
-  // "get|/mock/user/permission": (option) => {
-  //   console.log(option);
-  //   // 可以在这个地方对demoList2进行一系列操作，例如增删改
-  //   // option 指向本次请求的 Ajax 选项集，含有 url、type 和 body 三个属性
-  //   return {
-  //     status: 200,
-  //     message: "success",
-  //     data: userInfo,
-  //   };
-  // },
+    return {
+      status: 200,
+      message: "success",
+      data: userToken[option.query.username],
+    };
+  },
+
+  "get|/mock/user/info": (option) => {
+    return {
+      status: 200,
+      message: "success",
+      data: userInfo[option.query.token],
+    };
+  },
+
+  "get|/mock/user/permissions": (option) => {
+    return {
+      status: 200,
+      message: "success",
+      data: permissions[option.query.token],
+    };
+  },
 };

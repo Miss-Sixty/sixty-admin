@@ -1,16 +1,16 @@
 import axios from "axios";
-import router from "@/router";
+// import router from "@/router";
 import store from "@/store";
 import { ElMessage } from "element-plus";
 
-const toLogin = () => {
-  router.push({
-    path: "/login",
-    query: {
-      redirect: router.currentRoute.fullPath,
-    },
-  });
-};
+// const toLogin = () => {
+//   router.push({
+//     path: "/login",
+//     query: {
+//       redirect: router.currentRoute.fullPath,
+//     },
+//   });
+// };
 
 // create an axios instance
 const service = axios.create({
@@ -31,12 +31,18 @@ service.interceptors.request.use(
 );
 
 service.interceptors.response.use(
-  (response) => {
-    if (response.data.status !== 200) {
-      toLogin();
+  (res) => {
+    const { status, message } = res.data;
+    if (status !== 200) {
+      ElMessage({
+        message: message || "Error",
+        type: "error",
+        duration: 5 * 1000,
+      });
+      return Promise.reject(new Error(message || "Error"));
     }
 
-    return response;
+    return res;
   },
   (err) => {
     console.log(err.response);

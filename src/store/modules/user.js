@@ -1,4 +1,3 @@
-// import api from '@/api'
 import { login, info, notice, logout, permissions } from "@/api/user";
 
 const state = {
@@ -24,9 +23,9 @@ const actions = {
     });
   },
 
-  getUserInfo({ commit }) {
+  getUserInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      info()
+      info({ token: state.token })
         .then((res) => {
           commit("USERDATA", res.data);
           resolve();
@@ -68,9 +67,9 @@ const actions = {
   // 获取权限
   permissions({ commit }) {
     return new Promise((resolve, reject) => {
-      permissions()
+      permissions({ token: state.token })
         .then((res) => {
-          commit("SETPERMISSIONS", res);
+          commit("SETPERMISSIONS", res.data);
           resolve(res);
         })
         .catch((err) => {

@@ -53,5 +53,10 @@ router.afterEach(async (to) => {
   if (to.name === "Reload") return;
   const title = setting.title || "sixty-admin";
   document.title = to.meta.title ? `${to.meta.title} - ${title}` : `${title}`;
-  await store.dispatch("user/getNotice");
+
+  const isLogin = store.getters["user/isLogin"];
+  const hasRoles = store.state.user.roles?.length;
+  if (isLogin && hasRoles) {
+    await store.dispatch("user/getNotice");
+  }
 });

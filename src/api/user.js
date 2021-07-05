@@ -6,8 +6,8 @@ export function login(params) {
 }
 
 // 用户信息
-export function info() {
-  return request.get("/mock/user/info").then((res) => res.data);
+export function info(params) {
+  return request.get("/mock/user/info", { params }).then((res) => res.data);
 }
 
 // 用户通知
@@ -21,6 +21,8 @@ export function logout() {
 }
 
 // 后台-管理员权限
-export function permissions() {
-  return request.get("/mock/user/permissions").then((res) => res.data);
+export function permissions(params) {
+  return request
+    .get("/mock/user/permissions", { params })
+    .then((res) => res.data);
 }
