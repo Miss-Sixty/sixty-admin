@@ -1,9 +1,15 @@
-const req = require.context("@/icons/", true, /\.svg$/);
 const requireAll = (requireContext) => requireContext.keys();
 
-const re = /(.*\/)*([^.]+).*/gi;
+// const svg = /(.*\/)*([^.]+).*/gi; //全部提取
+const svg = /\.\/(.*)\.svg/;
 
-const svgIcons = requireAll(req).map((i) => {
-  return i.replace(re, "$2");
+export const svgIcons = requireAll(
+  require.context("@/icons/svg", true, /\.svg$/)
+).map((i) => {
+  return i.match(svg)[1];
 });
-export default svgIcons;
+export const sketchIcons = requireAll(
+  require.context("@/icons/sketchSvg", true, /\.svg$/)
+).map((i) => {
+  return i.match(svg)[1];
+});

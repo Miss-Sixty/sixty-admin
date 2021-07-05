@@ -1,11 +1,11 @@
 <template>
   <div>
     <page-header
-      title="Sketch Icon"
-      content="sketchSvg 文件夹中保存 sketch 生成图标，每次执行 yarn export:svg 命令会都删除文件夹并重新创建 svg。"
+      title="SVG Icon"
+      content="你也可以使用自己的 SVG 图标，只需把 svg 图标复制到 @/icons/svg 文件夹下即可。"
     />
     <div class="grid">
-      <template v-for="item in sketchIcons" :key="item">
+      <template v-for="item in svgIcons" :key="item">
         <div class="icon-item">
           <svg-icon :name="item" />
           <span>{{ item }}</span>
@@ -15,13 +15,13 @@
   </div>
 </template>
 <script>
-import { sketchIcons } from "./svg-icons";
+import { svgIcons } from "./svg-icons";
 import PageHeader from "@/components/PageHeader";
 export default {
   components: { PageHeader },
   setup() {
     return {
-      sketchIcons,
+      svgIcons,
     };
   },
 };
