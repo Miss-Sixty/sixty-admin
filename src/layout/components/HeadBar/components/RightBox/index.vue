@@ -174,11 +174,11 @@ export default {
 .headbar__icon {
   padding: 0px 8px;
   line-height: $headbar-height;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
   cursor: pointer;
   font-size: 20px;
   &:hover {
-    background: rgba(0, 0, 0, 0.04);
+    background-color: rgba(0, 0, 0, 0.04);
   }
 }
 

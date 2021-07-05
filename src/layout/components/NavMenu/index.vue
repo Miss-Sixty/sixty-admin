@@ -32,12 +32,14 @@
         >
           <transition-group name="sidebar">
             <template v-for="route in routerList" :key="route.path">
-              <nav-menu-item
-                :key="route.path"
-                v-if="!route.meta.sidebar"
-                :item="route"
-                :base-path="route.path"
-              />
+              <div>
+                <nav-menu-item
+                  :key="route.path"
+                  v-if="!route.meta.sidebar"
+                  :item="route"
+                  :base-path="route.path"
+                />
+              </div>
             </template>
           </transition-group>
         </el-menu>
@@ -144,8 +146,17 @@ export default {
 }
 
 //收起导航树选中的颜色
-::v-deep .el-menu--collapse .el-submenu.is-active .el-submenu__title .icon {
-  color: #409eff;
+::v-deep .el-menu--collapse {
+  .el-submenu.is-active .el-submenu__title .svg-icon {
+    color: #409eff;
+  }
+  span {
+    display: none;
+  }
+  i {
+    right: 7px;
+    margin-top: -5px;
+  }
 }
 
 // 侧边栏动画
