@@ -15,12 +15,20 @@ const userInfo = {
     jobTitle: "技术部总监",
     avatar: Random.dataImage("40x40", "hi"),
     failure_time: Date.parse(new Date()) + 50000,
+    phone: "18288888888",
+    gender: 1,
+    nickname: "MissSixty",
+    bio: Random.cparagraph(),
   },
   editor: {
-    name: "张小四",
+    name: "张小五",
     jobTitle: "营销部编辑",
     avatar: Random.dataImage("40x40", "hi"),
     failure_time: Date.parse(new Date()) + 50000,
+    phone: "18266666666",
+    gender: 2,
+    nickname: "四五六",
+    bio: Random.cparagraph(),
   },
 };
 
@@ -72,12 +80,6 @@ const notice = {
   },
 };
 
-const logout = {
-  status: 200,
-  message: "退出成功",
-  data: {},
-};
-
 const permissions = {
   admin: [
     "permission.browse",
@@ -89,7 +91,16 @@ const permissions = {
 };
 export default {
   "get|/mock/user/notice": notice,
-  "post|/mock/user/logout": logout,
+  "get|/mock/user/upDateInfo": {
+    status: 200,
+    message: "更新成功！",
+    data: {},
+  },
+  "post|/mock/user/logout": {
+    status: 200,
+    message: "退出成功",
+    data: {},
+  },
   "get|/mock/user/login": (option) => {
     const token = userToken[option.query.username];
     if (!token) {

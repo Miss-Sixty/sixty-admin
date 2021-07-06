@@ -1,4 +1,11 @@
-import { login, info, notice, logout, permissions } from "@/api/user";
+import {
+  login,
+  info,
+  notice,
+  logout,
+  permissions,
+  upDateInfo,
+} from "@/api/user";
 
 const state = {
   userInfo: localStorage.userInfo ? JSON.parse(localStorage.userInfo) : "",
@@ -28,7 +35,20 @@ const actions = {
       info({ token: state.token })
         .then((res) => {
           commit("USERDATA", res.data);
-          resolve();
+          resolve(res.data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
+  //更新信息
+  upDateUserInfo({ state }) {
+    return new Promise((resolve, reject) => {
+      upDateInfo(state)
+        .then((res) => {
+          resolve(res);
         })
         .catch((err) => {
           reject(err);

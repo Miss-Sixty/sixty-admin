@@ -9,6 +9,12 @@ export function login(params) {
 export function info(params) {
   return request.get("/mock/user/info", { params }).then((res) => res.data);
 }
+// 更新用户信息
+export function upDateInfo(params) {
+  return request
+    .get("/mock/user/upDateInfo", { params })
+    .then((res) => res.data);
+}
 
 // 用户通知
 export function notice() {

@@ -49,12 +49,16 @@ export const constantRoutes = [
   },
 ];
 
+//基础
 import MultilevelMenuExample from "./modules/multilevel.menu.example";
 import demo from "./modules/demo";
-import table from "./modules/table";
 import ExTernalLinkExample from "./modules/external.link.example";
-import Icons from "./modules/icons";
-import Permission from "./modules/permission";
+import Icons from "./modules/icons"; //图标
+import Permission from "./modules/permission"; //权限
+
+//页面
+import Configuration from "./modules/configuration"; //配置
+import table from "./modules/table";
 
 export const asyncRoutes = [
   {
@@ -75,7 +79,7 @@ export const asyncRoutes = [
       title: "页面",
       icon: "page",
     },
-    children: [table],
+    children: [Configuration, table],
   },
 ];
 

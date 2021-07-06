@@ -32,6 +32,10 @@ import {
   ElTag,
   ElButtonGroup,
   ElLoading,
+  ElCol,
+  ElCard,
+  ElOption,
+  ElSelect,
 } from "element-plus";
 
 export default (app) => {
@@ -64,5 +68,9 @@ export default (app) => {
     .use(ElTag)
     .use(ElButtonGroup)
     .use(ElLoading)
-    .use(ElRow);
+    .use(ElRow)
+    .use(ElCard)
+    .use(ElSelect)
+    .use(ElOption)
+    .use(ElCol);
 };
