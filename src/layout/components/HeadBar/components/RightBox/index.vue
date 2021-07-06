@@ -106,7 +106,7 @@ export default {
 
     //个人中心
     const userSettings = () => {
-      router.push({ name: "Configuration" });
+      router.push({ name: "ConfigurationUser" });
     };
 
     //退出
