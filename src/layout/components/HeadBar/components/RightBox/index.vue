@@ -104,9 +104,9 @@ export default {
     // TODO:有个bug，选择了info，但是下面没有横线
     const activeName = ref("0");
 
-    //修改密码
+    //个人中心
     const userSettings = () => {
-      console.log("userSettings");
+      router.push({ name: "Configuration" });
     };
 
     //退出
@@ -172,11 +172,10 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/var.scss";
 .headbar__icon {
-  padding: 0px 8px;
+  padding: 0px 10px;
   line-height: $headbar-height;
   transition: background-color 0.3s;
   cursor: pointer;
-  font-size: 20px;
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);
   }

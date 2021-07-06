@@ -93,10 +93,9 @@ export default {
     display: flex;
     align-items: center;
     &__icon {
-      padding: 0px 10px;
+      padding: 0px 16px;
       height: $headbar-height;
       box-sizing: content-box;
-      font-size: 20px;
       transition: background-color 0.3s;
       cursor: pointer;
       &:hover {
