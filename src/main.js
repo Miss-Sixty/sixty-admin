@@ -18,7 +18,8 @@ import Auth from "@/components/Auth";
 import AuthAll from "@/components/AuthAll";
 import ToolsBar from "@/components/ToolsBar"; //头工具栏
 import FixedActionBar from "@/components/FixedActionBar"; //固定底部操作栏
-import MySwitch from "@/components/MySwitch"; //固定底部操作栏
+import MySwitch from "@/components/MySwitch"; //
+import Pagination from "@/components/Pagination"; //分页
 
 createApp(App)
   .component("SvgIcon", SvgIcon)
@@ -28,6 +29,7 @@ createApp(App)
   .component("ToolsBar", ToolsBar)
   .component("FixedActionBar", FixedActionBar)
   .component("MySwitch", MySwitch)
+  .component("Pagination", Pagination)
   .use(auth)
   .use(installElementPlus)
   .use(store)

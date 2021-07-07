@@ -39,6 +39,7 @@ import {
   ElPageHeader,
   ElAffix,
   ElSwitch,
+  ElPagination,
 } from "element-plus";
 
 export default (app) => {
@@ -78,5 +79,6 @@ export default (app) => {
     .use(ElPageHeader)
     .use(ElAffix)
     .use(ElSwitch)
+    .use(ElPagination)
     .use(ElCol);
 };
