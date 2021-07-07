@@ -46,6 +46,37 @@ export default {
             activeMenu: "/configuration/department",
           },
         },
+        {
+          path: "job",
+          name: "Job",
+          redirect: "/configuration/department/job",
+          component: EmptyLayout,
+          meta: {
+            title: "职位管理",
+            hidden: true,
+          },
+          children: [
+            {
+              path: "",
+              component: () => import("@/views/configuration/department/job"),
+              meta: {
+                hidden: true,
+                activeMenu: "/configuration/department",
+              },
+            },
+            {
+              path: "add-or-edit",
+              name: "JobAddOrEdit",
+              component: () =>
+                import("@/views/configuration/department/job/addOrEdit"),
+              meta: {
+                title: "添加职位",
+                hidden: true,
+                activeMenu: "/configuration/department",
+              },
+            },
+          ],
+        },
       ],
     },
   ],

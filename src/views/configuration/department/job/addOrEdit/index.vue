@@ -10,18 +10,18 @@
         style="width: 500px; margin: 0 auto"
       >
         <el-form-item
-          label="部门名称"
+          label="部门职位"
           prop="name"
           :rules="{
             required: true,
-            message: '部门名称不能为空',
+            message: '职位名称不能为空',
             trigger: 'blur',
           }"
         >
           <el-input
             v-model="formData.name"
             clearable
-            placeholder="请输入部门名称"
+            placeholder="请输入职位名称"
           />
         </el-form-item>
       </el-form>
@@ -46,8 +46,8 @@ export default {
     const state = reactive({
       loading: false,
       pageTitle: {
-        add: "新增部门",
-        edit: "修改部门",
+        add: "新增职位",
+        edit: "修改职位",
       },
       type: "add",
       id: null,
@@ -58,7 +58,7 @@ export default {
     });
 
     const backChange = () => {
-      toRouter({ name: "Department" });
+      toRouter({ name: "Job" });
     };
 
     // TODO:使用/:id的方式传递参数页面刷新后会报错，怀疑是vue-router自己的错误

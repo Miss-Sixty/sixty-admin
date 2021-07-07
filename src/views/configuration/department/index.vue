@@ -1,56 +1,70 @@
 <template>
-  <div>
-    <div class="page-main">
-      <tools-bar add @on-add="toRouter({ name: 'DepartmentAddOrEdit' })" />
-      <el-table
-        border
-        :data="tableData.list"
-        v-loading="tableData.tableLoading"
+  <div class="page-main">
+    <tools-bar add @on-add="toRouter({ name: 'DepartmentAddOrEdit' })" />
+    <el-table border :data="tableData.list" v-loading="tableData.tableLoading">
+      <el-table-column prop="name" label="部门" min-width="180" />
+
+      <el-table-column
+        prop="status"
+        label="状态"
+        min-width="120"
+        align="center"
       >
-        <el-table-column prop="name" label="部门" min-width="180" />
+        <template #default="{ row }">
+          <my-switch
+            @on-success="row.status = row.status ? 0 : 1"
+            :api="departmentSwitch"
+            :status="row.status"
+            :id="row.id"
+            active-text="启用"
+            inactive-text="禁用"
+            :disabled="row.disabled"
+          />
+        </template>
+      </el-table-column>
 
-        <el-table-column
-          prop="status"
-          label="状态"
-          min-width="120"
-          align="center"
-        >
-          <template #default="{ row }">
-            <my-switch
-              @on-success="row.status = row.status ? 0 : 1"
-              :api="departmentSwitch"
-              :status="row.status"
-              :id="row.id"
-              active-text="启用"
-              inactive-text="禁用"
-              :disabled="row.disabled"
-            />
-          </template>
-        </el-table-column>
+      <el-table-column
+        prop="address"
+        label="操作"
+        align="center"
+        min-width="120"
+      >
+        <template #default="{ row, $index }">
+          <el-button
+            size="small"
+            @click="toRouter({ name: 'Job', query: { id: row.id } })"
+            :disabled="row.disabled"
+          >
+            查看职位
+          </el-button>
 
-        <el-table-column prop="address" label="操作" align="center">
-          <template #default="{ row, $index }">
-            <el-button
-              type="warning"
-              size="small"
-              @click="editChange(row)"
-              :disabled="row.disabled"
-            >
-              编辑
-            </el-button>
+          <el-button
+            type="warning"
+            size="small"
+            @click="editChange(row)"
+            :disabled="row.disabled"
+          >
+            编辑
+          </el-button>
 
-            <el-button
-              type="danger"
-              size="small"
-              @click="delChange(row, $index)"
-              :loading="row.disabled"
-            >
-              删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
+          <el-button
+            type="danger"
+            size="small"
+            @click="delChange(row, $index)"
+            :loading="row.disabled"
+          >
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <pagination
+      v-model:pageSize="tableData.pageSize"
+      :total="tableData.total"
+      v-model:currentPage="tableData.currentPage"
+      @on-change="getListData"
+    />
   </div>
 </template>
 <script>
