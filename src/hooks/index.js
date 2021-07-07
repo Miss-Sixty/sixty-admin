@@ -1,4 +1,22 @@
 import { ref, unref, nextTick } from "vue";
+import router from "@/router";
+import { ElMessageBox } from "element-plus";
+
+/**
+ * 路由跳转页面
+ * @param {obj} 路由对象
+ */
+export function toRouter(obj) {
+  router.push(obj);
+}
+
+export function messageBoxChange(text) {
+  return ElMessageBox.confirm(text, "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  });
+}
 
 /**
  * 表单验证&重制表单

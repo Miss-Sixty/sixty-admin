@@ -59,7 +59,7 @@ export default {
     status: Number,
     addText: {
       type: String,
-      default: "新增",
+      default: "新 增",
     },
     size: String,
     margin: String,

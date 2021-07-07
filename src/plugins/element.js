@@ -38,6 +38,7 @@ import {
   ElSelect,
   ElPageHeader,
   ElAffix,
+  ElSwitch,
 } from "element-plus";
 
 export default (app) => {
@@ -76,5 +77,6 @@ export default (app) => {
     .use(ElOption)
     .use(ElPageHeader)
     .use(ElAffix)
+    .use(ElSwitch)
     .use(ElCol);
 };

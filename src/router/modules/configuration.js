@@ -1,4 +1,5 @@
 import Layout from "@/layout";
+import EmptyLayout from "@/layout/empty";
 
 export default {
   path: "/configuration",
@@ -11,12 +12,41 @@ export default {
   },
   children: [
     {
-      path: "/configuration/account-setting",
-      name: "configurationUser",
+      path: "account-setting",
+      name: "ConfigurationUser",
       component: () => import("@/views/configuration/user"),
       meta: {
         title: "个人设置",
       },
+    },
+
+    {
+      path: "department",
+      name: "Department",
+      component: EmptyLayout,
+      redirect: "/configuration/department",
+      meta: {
+        title: "部门管理",
+      },
+      children: [
+        {
+          path: "",
+          component: () => import("@/views/configuration/department"),
+          meta: {
+            hidden: true,
+          },
+        },
+        {
+          path: "add-or-edit",
+          name: "DepartmentAddOrEdit",
+          component: () => import("@/views/configuration/department/addOrEdit"),
+          meta: {
+            title: "添加部门",
+            hidden: true,
+            activeMenu: "/configuration/department",
+          },
+        },
+      ],
     },
   ],
 };
