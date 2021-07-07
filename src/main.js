@@ -5,6 +5,7 @@ import store from "./store";
 import installElementPlus from "./plugins/element";
 import "element-plus/lib/theme-chalk/index.css";
 import "@/styles/index.scss";
+import "@/styles/element.scss";
 import "@/router/permission"; //路由守卫
 import "../mock/index.js"; //引入mock
 import "@/icons"; // icon
@@ -16,6 +17,7 @@ import PageHeader from "@/components/PageHeader";
 import Auth from "@/components/Auth";
 import AuthAll from "@/components/AuthAll";
 import ToolsBar from "@/components/ToolsBar"; //头工具栏
+import FixedActionBar from "@/components/FixedActionBar"; //固定底部操作栏
 
 createApp(App)
   .component("SvgIcon", SvgIcon)
@@ -23,6 +25,7 @@ createApp(App)
   .component("Auth", Auth)
   .component("AuthAll", AuthAll)
   .component("ToolsBar", ToolsBar)
+  .component("FixedActionBar", FixedActionBar)
   .use(auth)
   .use(installElementPlus)
   .use(store)

@@ -14,7 +14,7 @@
       >
         <app-main />
         <footer-bar v-if="showCopyright" />
-        <el-backtop target=".content .el-scrollbar__wrap" />
+        <el-backtop target=".content .el-scrollbar__wrap" :bottom="90" />
       </el-scrollbar>
     </div>
   </div>

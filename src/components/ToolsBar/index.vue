@@ -74,7 +74,7 @@ export default {
 .tools-bar {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   > div {
     display: flex;
     align-items: center;
