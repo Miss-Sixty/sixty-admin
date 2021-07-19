@@ -34,10 +34,10 @@ import {
   ElCard,
   ElOption,
   ElSelect,
-  ElPageHeader,
   ElAffix,
   ElSwitch,
   ElPagination,
+  ElSpace,
 } from 'element-plus'
 
 export default app => {
@@ -75,9 +75,9 @@ export default app => {
     .use(ElCard)
     .use(ElSelect)
     .use(ElOption)
-    .use(ElPageHeader)
     .use(ElAffix)
     .use(ElSwitch)
     .use(ElPagination)
+    .use(ElSpace)
     .use(ElCol)
 }

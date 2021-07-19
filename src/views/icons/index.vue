@@ -1,7 +1,9 @@
 <template>
   <div>
     <page-header
-      title="Sketch Icon"
+      icon="none"
+      icon-text="none"
+      title="sketch 图标"
       content="sketchSvg 文件夹中保存 sketch 生成图标，每次执行 yarn export:svg 命令会都删除文件夹并重新创建 svg。"
     />
     <div class="grid">
