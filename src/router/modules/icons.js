@@ -10,19 +10,25 @@ export default {
   },
   children: [
     {
-      path: '/icons/page',
+      path: 'page',
       name: 'SketchIcons',
+      props: {
+        type: 'sketch',
+      },
       component: () => import('@/views/icons'),
       meta: {
-        title: 'sketch 图标',
+        title: 'Sketch 图标',
       },
     },
     {
-      path: '/icons/svgIcons',
+      path: 'page/svg',
       name: 'SvgIcons',
-      component: () => import('@/views/icons/svg'),
+      props: {
+        type: 'svg',
+      },
+      component: () => import('@/views/icons'),
       meta: {
-        title: '导入图标',
+        title: 'SVG 图标',
       },
     },
   ],

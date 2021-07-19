@@ -1,6 +1,4 @@
 const requireAll = requireContext => requireContext.keys()
-
-// const svg = /(.*\/)*([^.]+).*/gi; //全部提取
 const svg = /\.\/(.*)\.svg/
 
 export const svgIcons = requireAll(require.context('@/icons/svg', true, /\.svg$/)).map(i => {
