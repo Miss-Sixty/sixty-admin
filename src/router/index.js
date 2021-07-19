@@ -50,7 +50,7 @@ export const constantRoutes = [
 ]
 
 //基础
-import MultilevelMenuExample from './modules/multilevel.menu.example'
+import Nested from './modules/nested'
 import demo from './modules/demo'
 import ExTernalLinkExample from './modules/external.link.example'
 import Icons from './modules/icons' //图标
@@ -66,7 +66,7 @@ export const asyncRoutes = [
       title: '基础',
       icon: 'home',
     },
-    children: [Icons, Permission, MultilevelMenuExample, demo, ExTernalLinkExample],
+    children: [Icons, Permission, Nested, demo, ExTernalLinkExample],
   },
   {
     meta: {

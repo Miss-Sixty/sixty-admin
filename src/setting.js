@@ -6,7 +6,7 @@ export default {
   // 版权信息配置，格式为：Copyright © [dates] <company>
   copyrightDates: new Date().getFullYear(),
   copyrightCompany: 'sixty-admin',
-  copyrightWebsite: 'https://baidu.com',
+  copyrightWebsite: 'https://github.com/Miss-Sixty/sixty-admin',
 
   // 是否始终显示主侧边栏，设置为 false 且主侧边栏里只有一个导航时，主侧边栏会自动隐藏
   alwaysShowMainSidebar: false,

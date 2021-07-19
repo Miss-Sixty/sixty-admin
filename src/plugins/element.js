@@ -38,6 +38,7 @@ import {
   ElSwitch,
   ElPagination,
   ElSpace,
+  ElAlert,
 } from 'element-plus'
 
 export default app => {
@@ -80,4 +81,5 @@ export default app => {
     .use(ElPagination)
     .use(ElSpace)
     .use(ElCol)
+    .use(ElAlert)
 }
