@@ -2,7 +2,7 @@
   <router-link v-slot="{ navigate }" custom to="/">
     <div
       :class="{
-        'logo--isScrollTop': isScrollTop,
+        'logo--shadow': props.isScrollTop,
       }"
       class="logo"
       @click="navigate"
@@ -11,23 +11,18 @@
     </div>
   </router-link>
 </template>
-<script>
-import { useStore } from "vuex";
-export default {
-  props: {
-    isScrollTop: Boolean,
-  },
-  setup() {
-    const store = useStore();
-    return { title: store.state.setting.title };
-  },
-};
+
+<script setup>
+import { useStore } from 'vuex'
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  isScrollTop: Boolean,
+})
+const title = useStore().state.setting.title
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/var.scss";
-@import "@/styles/mixins";
-
 .logo {
   min-height: $headbar-height;
   line-height: $headbar-height;
@@ -42,9 +37,11 @@ export default {
   background: $g-sub-sidebar-logo-bg;
   position: relative;
   z-index: 1;
+  font-size: 16px;
+  transition: box-shadow 0.2s;
 
-  &--isScrollTop {
-    box-shadow: 0 10px 10px -8px #c7c7c7;
+  &--shadow {
+    box-shadow: 0 10px 10px -10px #c7c7c7;
   }
 }
 </style>

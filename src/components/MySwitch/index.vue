@@ -1,8 +1,8 @@
 <template>
   <el-switch
-    :modelValue="status"
+    :model-value="status"
     :loading="loading"
-    :beforeChange="beforeChange"
+    :before-change="beforeChange"
     :active-value="1"
     :inactive-value="0"
     :active-text="activeText"
@@ -11,9 +11,9 @@
   />
 </template>
 <script>
-import { ref } from "vue";
-import { ElNotification } from "element-plus";
-import { messageBoxChange } from "@/hooks";
+import { ref } from 'vue'
+import { ElNotification } from 'element-plus'
+import { messageBoxChange } from '@/hooks'
 
 export default {
   props: {
@@ -24,45 +24,42 @@ export default {
     id: Number,
     disabled: Boolean,
   },
+  emits: ['on-success'],
   setup(props, { emit }) {
-    let loading = ref(false);
+    let loading = ref(false)
 
     const beforeChange = () => {
       return new Promise(() => {
-        messageBoxChange(
-          `确定要「${
-            props.status ? props.inactiveText : props.activeText
-          }」该数据吗？`
-        )
+        messageBoxChange(`确定要「${props.status ? props.inactiveText : props.activeText}」该数据吗？`)
           .then(() => upDataSwitch())
-          .catch(() => {});
-      });
-    };
+          .catch(() => {})
+      })
+    }
 
     const upDataSwitch = () => {
-      return new Promise((resolve) => {
-        loading.value = true;
+      return new Promise(resolve => {
+        loading.value = true
         props
           .api({ id: props.id, status: props.status ? 0 : 1 })
-          .then((res) => {
-            emit("on-success");
+          .then(res => {
+            emit('on-success')
             ElNotification({
-              title: "提示",
+              title: '提示',
               message: res.message,
-              type: "success",
-            });
-            resolve(true);
+              type: 'success',
+            })
+            resolve(true)
           })
           .finally(() => {
-            loading.value = false;
-          });
-      });
-    };
+            loading.value = false
+          })
+      })
+    }
 
     return {
       loading,
       beforeChange,
-    };
+    }
   },
-};
+}
 </script>

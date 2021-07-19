@@ -9,7 +9,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import "@/styles/var.scss";
 .appmain {
   flex: 1;
   background: $appmain-bg;

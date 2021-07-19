@@ -1,9 +1,6 @@
 <template>
   <div class="menu">
-    <div
-      v-if="mainRoutes.length > 1 || alwaysShowMainSidebar"
-      class="menu-main"
-    >
+    <div v-if="mainRoutes.length > 1 || alwaysShowMainSidebar" class="menu-main">
       <template v-for="(item, index) in mainRoutes">
         <div
           v-if="item.children?.length"
@@ -17,29 +14,20 @@
         </div>
       </template>
     </div>
-    <div
-      class="menu-follower"
-      :class="{ 'menu-follower--isCollapse': isCollapse }"
-    >
-      <logo :isScrollTop="isScrollTop" />
-      <el-scrollbar view-style="height:100%" @scroll="scrollChange">
+
+    <div class="menu-follower" :class="{ 'menu-follower--isCollapse': props.isCollapse }">
+      <logo-name :is-scroll-top="isScrollTop" />
+      <el-scrollbar @scroll="scroll => (isScrollTop = !!scroll.scrollTop)">
         <el-menu
           class="menu-follower-content"
-          :collapse="isCollapse"
+          :collapse="props.isCollapse"
           unique-opened
           :default-active="route.meta.activeMenu || route.path"
           :collapse-transition="false"
         >
           <transition-group name="sidebar">
-            <template v-for="route in routerList" :key="route.path">
-              <div>
-                <nav-menu-item
-                  :key="route.path"
-                  v-if="!route.meta.sidebar"
-                  :item="route"
-                  :base-path="route.path"
-                />
-              </div>
+            <template v-for="item in routerList" :key="item.path">
+              <nav-menu-item v-if="!item.meta.sidebar" :key="item.path" :item="item" :base-path="item.path" />
             </template>
           </transition-group>
         </el-menu>
@@ -48,55 +36,33 @@
   </div>
 </template>
 
-<script>
-import Logo from "../Logo";
-import NavMenuItem from "../NavMenuItem";
-import { useStore } from "vuex";
-import { useRoute } from "vue-router";
-import variables from "@/styles/var.scss";
-import { computed, ref } from "vue";
-export default {
-  components: { NavMenuItem, Logo },
-  props: {
-    isCollapse: Boolean,
-  },
-  setup() {
-    const store = useStore();
-    const route = useRoute();
-    const switchActivedChange = (index) => {
-      store.commit("menu/SWITCHACTIVED", index);
-    };
+<script setup>
+import LogoName from '../Logo'
+import NavMenuItem from '../NavMenuItem'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+import { computed, ref, defineProps } from 'vue'
+const props = defineProps({
+  isCollapse: Boolean,
+})
+const store = useStore()
+const route = useRoute()
+const isScrollTop = ref(false)
 
-    const isScrollTop = ref(false);
-    const scrollChange = (scroll) => {
-      isScrollTop.value = scroll.scrollTop ? true : false;
-    };
+const alwaysShowMainSidebar = computed(() => store.state.setting.alwaysShowMainSidebar)
+const switchActivedChange = index => store.commit('menu/SWITCHACTIVED', index)
+const headerActived = computed(() => store.state.menu.headerActived)
 
-    return {
-      routerList: computed(() => store.getters["menu/sidebarRoutes"]),
-      route,
-      variables,
-      mainRoutes: computed(() => store.state.menu.routes),
-      alwaysShowMainSidebar: computed(
-        () => store.state.setting.alwaysShowMainSidebar
-      ),
-      headerActived: computed(() => store.state.menu.headerActived),
-      switchActivedChange,
-      isScrollTop,
-      scrollChange,
-    };
-  },
-};
+const mainRoutes = computed(() => store.state.menu.routes)
+const routerList = computed(() => store.getters['menu/sidebarRoutes'])
 </script>
-<style lang="scss" scoped>
-@import "@/styles/var.scss";
-@import "@/styles/mixins";
 
+<style lang="scss" scoped>
 .menu {
   display: flex;
   position: relative;
-  z-index: 2;
-  // box-shadow: 0 0 1px 0 #ccc;
+  z-index: 1001;
+  box-shadow: $sidebar-box-shadow;
 
   &-main {
     background-color: $g-main-sidebar-bg;
@@ -107,7 +73,8 @@ export default {
       justify-content: center;
       height: $g-main-sidebar-width;
       width: $g-main-sidebar-width;
-      padding: 0 5px;
+      margin: 5px;
+      border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
       &--active,
@@ -116,16 +83,16 @@ export default {
       }
       .svg-icon {
         margin: 0 auto;
-        font-size: 20px;
+        font-size: 18px;
       }
 
       span {
         text-align: center;
-        font-size: 14px;
         @include text-overflow;
       }
     }
   }
+
   &-follower {
     display: flex;
     flex-direction: column;
@@ -139,14 +106,13 @@ export default {
     }
     &-content {
       border-right: none;
-      height: 100%;
       background-color: $g_sub_sidebar_bg;
     }
   }
 }
 
 //收起导航树选中的颜色
-::v-deep .el-menu--collapse {
+:deep(.el-menu--collapse) {
   .el-submenu.is-active .el-submenu__title .svg-icon {
     color: #409eff;
   }

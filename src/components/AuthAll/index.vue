@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import { authAll } from "@/utils";
+import { authAll } from '@/utils'
 
 export default {
-  name: "AuthAll",
+  name: 'AuthAll',
   props: {
     value: {
       type: Array,
@@ -18,11 +18,11 @@ export default {
   },
 
   setup(props) {
-    const check = () => authAll(props.value);
+    const check = () => authAll(props.value)
 
     return {
       check,
-    };
+    }
   },
-};
+}
 </script>

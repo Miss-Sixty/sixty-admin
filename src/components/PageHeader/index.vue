@@ -1,14 +1,15 @@
 <template>
-  <el-page-header @back="$emit('back')" :content="content" class="header" />
+  <el-page-header :content="content" class="header" @back="$emit('back')" />
 </template>
 
 <script>
 export default {
-  name: "PageHeader",
+  name: 'PageHeader',
   props: {
     content: String,
   },
-};
+  emits: ['back'],
+}
 </script>
 
 <style lang="scss" scoped>

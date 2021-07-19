@@ -4,10 +4,10 @@
       <el-col :span="8">
         <ul class="left-tab">
           <li
-            class="left-tab__item"
-            :class="{ 'left-tab__item--active': index === state.activeIndex }"
             v-for="(item, index) in settingTitle"
             :key="index"
+            class="left-tab__item"
+            :class="{ 'left-tab__item--active': index === state.activeIndex }"
             @click="state.activeIndex = index"
           >
             <svg-icon :name="item.icon" />
@@ -28,33 +28,33 @@
 </template>
 
 <script>
-import BaseSetting from "./components/BaseSetting";
-import PasswordSetting from "./components/PasswordSetting";
-import { reactive } from "vue";
+import BaseSetting from './components/BaseSetting'
+import PasswordSetting from './components/PasswordSetting'
+import { reactive } from 'vue'
 export default {
   components: { BaseSetting, PasswordSetting },
   setup() {
     const settingTitle = [
       {
-        icon: "user-settings-fill",
-        title: "基本设置",
+        icon: 'user-settings-fill',
+        title: '基本设置',
       },
       {
-        icon: "user-settings-fill",
-        title: "更改密码",
+        icon: 'user-settings-fill',
+        title: '更改密码',
       },
-    ];
+    ]
 
     const state = reactive({
       activeIndex: 0,
-    });
+    })
 
     return {
       settingTitle,
       state,
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .page-main {

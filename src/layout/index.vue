@@ -1,63 +1,42 @@
 <template>
-  <div class="layout">
-    <nav-menu class="navmenu" :isCollapse="isCollapse" />
-
+  <el-row type="flex">
+    <nav-menu class="navmenu" :is-collapse="isCollapse" />
     <div class="content">
-      <head-bar
-        @collapseChange="isCollapse = !isCollapse"
-        :isScrollTop="isScrollTop"
-        :isCollapse="isCollapse"
-      />
+      <head-bar :is-collapse="isCollapse" :is-scroll-top="!showTagView && isScrollTop" @collapseChange="isCollapse = !isCollapse" />
+      <tag-view v-if="showTagView" :is-scroll-top="isScrollTop" />
       <el-scrollbar
+        class="page-component__scroll"
         view-style="display: flex;flex-direction: column;height:100%"
-        @scroll="scrollChange"
+        @scroll="scroll => (isScrollTop = !!scroll.scrollTop)"
       >
         <app-main />
-        <footer-bar v-if="showCopyright" />
-        <el-backtop target=".content .el-scrollbar__wrap" :bottom="90" />
+        <footer-bar />
+        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="90" />
       </el-scrollbar>
     </div>
-  </div>
+  </el-row>
 </template>
-<script>
-import AppMain from "./components/AppMain";
-import FooterBar from "./components/FooterBar";
-import HeadBar from "./components/HeadBar";
-import NavMenu from "./components/NavMenu";
-import setting from "@/setting";
-import { ref } from "vue";
-export default {
-  components: {
-    AppMain,
-    FooterBar,
-    HeadBar,
-    NavMenu,
-  },
-  setup() {
-    const isCollapse = ref(false);
-    const isScrollTop = ref(false);
-    const scrollChange = (scroll) => {
-      isScrollTop.value = scroll.scrollTop ? true : false;
-    };
-    return {
-      showCopyright: setting.showCopyright,
-      isCollapse,
-      scrollChange,
-      isScrollTop,
-    };
-  },
-};
-</script>
-<style lang="scss" scoped>
-@import "@/styles/var.scss";
-.layout {
-  display: flex;
 
-  .content {
-    height: 100vh;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
+<script setup>
+import AppMain from './components/AppMain'
+import FooterBar from './components/FooterBar'
+import HeadBar from './components/HeadBar'
+import NavMenu from './components/NavMenu'
+import TagView from './components/TagView'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
+const sotre = useStore()
+const isCollapse = ref(false)
+const isScrollTop = ref(false)
+const showTagView = computed(() => sotre.state.setting.showTagView)
+</script>
+
+<style lang="scss" scoped>
+.content {
+  overflow: hidden;
+  height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 </style>

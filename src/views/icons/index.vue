@@ -15,14 +15,14 @@
   </div>
 </template>
 <script>
-import { sketchIcons } from "./svg-icons";
+import { sketchIcons } from './svg-icons'
 export default {
   setup() {
     return {
       sketchIcons,
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .grid {

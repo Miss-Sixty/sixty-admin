@@ -1,5 +1,5 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import Layout from "@/layout";
+import { createRouter, createWebHashHistory } from 'vue-router'
+import Layout from '@/layout'
 
 /** 
   Note: 子菜单仅在路由 children.length >= 1 时出现
@@ -24,79 +24,73 @@ import Layout from "@/layout";
 
 export const constantRoutes = [
   {
-    path: "/",
+    path: '/',
     component: Layout,
-    redirect: "/home",
+    redirect: '/home',
     children: [
       {
-        path: "/home",
-        component: () => import("@/views/home"),
-        name: "Home",
-        meta: { title: "首页", icon: "el-icon-s-home" },
+        path: '/home',
+        component: () => import('@/views/home'),
+        name: 'Home',
+        meta: { title: '首页', icon: 'el-icon-s-home' },
       },
       {
-        path: "/reload",
-        name: "Reload",
-        component: () => import("@/views/reload"),
+        path: '/reload',
+        name: 'Reload',
+        component: () => import('@/views/reload'),
       },
     ],
   },
 
   {
-    path: "/login",
-    name: "Login",
-    component: () => import("@/views/login"),
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login'),
   },
-];
+]
 
 //基础
-import MultilevelMenuExample from "./modules/multilevel.menu.example";
-import demo from "./modules/demo";
-import ExTernalLinkExample from "./modules/external.link.example";
-import Icons from "./modules/icons"; //图标
-import Permission from "./modules/permission"; //权限
+import MultilevelMenuExample from './modules/multilevel.menu.example'
+import demo from './modules/demo'
+import ExTernalLinkExample from './modules/external.link.example'
+import Icons from './modules/icons' //图标
+import Permission from './modules/permission' //权限
 
 //页面
-import Configuration from "./modules/configuration"; //配置
-import table from "./modules/table";
+import Configuration from './modules/configuration' //配置
+import table from './modules/table'
 
 export const asyncRoutes = [
   {
     meta: {
-      title: "基础",
-      icon: "home",
+      title: '基础',
+      icon: 'home',
     },
-    children: [
-      Icons,
-      Permission,
-      MultilevelMenuExample,
-      demo,
-      ExTernalLinkExample,
-    ],
+    children: [Icons, Permission, MultilevelMenuExample, demo, ExTernalLinkExample],
   },
   {
     meta: {
-      title: "页面",
-      icon: "page",
+      title: '页面',
+      icon: 'page',
     },
     children: [Configuration, table],
   },
-];
+]
 
 export const lastRoutes = [
   {
-    path: "/:pathMatch(.*)*",
-    component: () => import("@/views/404"),
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/views/404'),
     meta: {
-      title: "404",
+      title: '404',
       sidebar: false,
     },
   },
-];
+]
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes: constantRoutes,
-});
+})
 
-export default router;
+export default router

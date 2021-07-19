@@ -1,8 +1,6 @@
-import lang from "element-plus/lib/locale/lang/zh-cn";
-import "dayjs/locale/zh-cn";
-locale(lang);
+import lang from 'element-plus/lib/locale/lang/zh-cn'
+import locale from 'element-plus/lib/locale'
 import {
-  locale,
   ElButton,
   ElBreadcrumb,
   ElBreadcrumbItem,
@@ -40,9 +38,10 @@ import {
   ElAffix,
   ElSwitch,
   ElPagination,
-} from "element-plus";
+} from 'element-plus'
 
-export default (app) => {
+export default app => {
+  locale.use(lang)
   app
     .use(ElButton)
     .use(ElBreadcrumb)
@@ -80,5 +79,5 @@ export default (app) => {
     .use(ElAffix)
     .use(ElSwitch)
     .use(ElPagination)
-    .use(ElCol);
-};
+    .use(ElCol)
+}

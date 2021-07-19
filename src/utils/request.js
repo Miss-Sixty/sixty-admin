@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios'
 // import router from "@/router";
-import store from "@/store";
-import { ElMessage } from "element-plus";
+import store from '@/store'
+import { ElMessage } from 'element-plus'
 
 // const toLogin = () => {
 //   router.push({
@@ -17,41 +17,41 @@ const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 10000,
   // withCredentials: true, // send cookies when cross-domain requests
-});
+})
 
 service.interceptors.request.use(
-  (config) => {
-    config.headers["Authorization"] = store.state.user.token;
-    return config;
+  config => {
+    config.headers['Authorization'] = store.state.user.token
+    return config
   },
-  (error) => {
-    console.log(error);
-    return Promise.reject(error);
+  error => {
+    console.log(error)
+    return Promise.reject(error)
   }
-);
+)
 
 service.interceptors.response.use(
-  (res) => {
-    const { status, message } = res.data;
+  res => {
+    const { status, message } = res.data
     if (status !== 200) {
       ElMessage({
-        message: message || "Error",
-        type: "error",
+        message: message || 'Error',
+        type: 'error',
         duration: 5 * 1000,
-      });
-      return Promise.reject(new Error(message || "Error"));
+      })
+      return Promise.reject(new Error(message || 'Error'))
     }
 
-    return res;
+    return res
   },
-  (err) => {
-    console.log(err.response);
-    const { data, message } = err.response.data;
+  err => {
+    console.log(err.response)
+    const { data, message } = err.response.data
 
-    ElMessage.error(message || data);
+    ElMessage.error(message || data)
 
-    return Promise.reject(err);
+    return Promise.reject(err)
   }
-);
+)
 
-export default service;
+export default service

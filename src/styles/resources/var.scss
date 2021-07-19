@@ -1,0 +1,30 @@
+// base color
+
+//侧边栏
+$sidebar-box-shadow: 10px 0 10px -10px #c7c7c7; // 次侧边栏阴影背景色
+
+//次侧边栏
+$navmenu-width: 240px; //次侧边栏宽度
+$navmenu-collapse-width: 64px; //次侧边栏收起宽度
+$navmenu-bg: #fff; // 导航背景色
+$g-sub-sidebar-bg: #fafafa; // 次侧边栏背景色
+$g-sub-sidebar-logo-bg: #fafafa; // 次侧边栏logo背景色
+
+// 主侧边栏
+$g-main-sidebar-width: 55px; // 主侧边栏宽度
+$g-main-sidebar-bg: #1f2d3d; // 主侧边栏颜色
+$g-main-sidebar-active-bg: #409eff; // 主侧边栏选中颜色
+
+//顶部头
+$headbar-height: 50px;
+
+//脚部
+$footerbar-height: 80px;
+$footerbar-bg: #f0f2f5;
+
+//内容区
+$appmain-bg: #f0f2f5;
+
+// 输出给js使用
+:export {
+}

@@ -1,62 +1,62 @@
-import router from "@/router";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
-NProgress.configure({ showSpinner: false }); // 去掉加载圆圈
-import store from "@/store";
-import { ElMessage } from "element-plus";
-import setting from "@/setting";
+import router from '@/router'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+NProgress.configure({ showSpinner: false }) // 去掉加载圆圈
+import store from '@/store'
+import { ElMessage } from 'element-plus'
+import setting from '@/setting'
 
-router.beforeEach(async (to) => {
-  NProgress.start();
-  const isLogin = store.getters["user/isLogin"];
+router.beforeEach(async to => {
+  NProgress.start()
+  const isLogin = store.getters['user/isLogin']
   if (isLogin) {
     //已登陆不可跳转登陆页
-    if (to.name === "Login") return false;
+    if (to.name === 'Login') return false
 
     //判断是否已有权限
-    const hasRoles = store.state.user.roles?.length;
-    if (hasRoles) return;
+    const hasRoles = store.state.user.roles?.length
+    if (hasRoles) return
 
     try {
-      const roles = await store.dispatch("user/permissions");
-      const accessRoutes = await store.dispatch("menu/generateRoutes", {
+      const roles = await store.dispatch('user/permissions')
+      const accessRoutes = await store.dispatch('menu/generateRoutes', {
         roles,
         currentPath: to.path,
-      });
-      accessRoutes.forEach((route) => {
-        router.addRoute(route);
-      });
+      })
+      accessRoutes.forEach(route => {
+        router.addRoute(route)
+      })
 
-      return { ...to, replace: true };
+      return { ...to, replace: true }
     } catch (error) {
-      await store.commit("user/LOGOUT");
-      ElMessage.error(error || "Has Error");
+      await store.commit('user/LOGOUT')
+      ElMessage.error(error || 'Has Error')
       return {
-        name: "Login",
+        name: 'Login',
         query: {
           redirect: to.fullPath,
         },
-      };
+      }
     }
-  } else if (to.name !== "Login") {
+  } else if (to.name !== 'Login') {
     return {
-      name: "Login",
+      name: 'Login',
       query: {
         redirect: to.fullPath,
       },
-    };
+    }
   }
-});
+})
 
-router.afterEach(async (to) => {
-  NProgress.done();
-  if (to.name === "Reload") return;
-  const title = setting.title || "sixty-admin";
-  document.title = to.meta.title ? `${to.meta.title} - ${title}` : `${title}`;
+router.afterEach(async to => {
+  NProgress.done()
+  if (to.name === 'Reload') return
+  const title = setting.title || 'sixty-admin'
+  document.title = to.meta.title ? `${to.meta.title} - ${title}` : `${title}`
 
-  const isLogin = store.getters["user/isLogin"];
-  const hasRoles = store.state.user.roles?.length;
+  const isLogin = store.getters['user/isLogin']
+  const hasRoles = store.state.user.roles?.length
   if (isLogin && hasRoles) {
-    await store.dispatch("user/getNotice");
+    await store.dispatch('user/getNotice')
   }
-});
+})

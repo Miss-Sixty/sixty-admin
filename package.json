@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "element-plus": "^1.0.2-beta.44",
+    "element-plus": "^1.0.2-beta.55",
     "js-cookie": "^2.2.1",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
@@ -38,11 +38,17 @@
     "prettier": "^2.2.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "sass-resources-loader": "^2.2.3",
     "shelljs": "^0.8.4",
     "svg-sprite-loader": "^6.0.9",
     "svgo": "^2.3.1",
     "vue-cli-plugin-element-plus": "^0.0.13"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "gitHooks": {
     "pre-commit": "lint-staged"
   },

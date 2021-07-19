@@ -1,11 +1,5 @@
 <template>
-  <el-form
-    :model="formData"
-    ref="formRef"
-    label-position="top"
-    hide-required-asterisk
-    v-loading="state.infoLoading"
-  >
+  <el-form ref="formRef" v-loading="state.infoLoading" :model="formData" label-position="top" hide-required-asterisk>
     <el-row :gutter="16">
       <el-col :span="24">
         <el-form-item
@@ -17,12 +11,7 @@
             trigger: 'blur',
           }"
         >
-          <el-input
-            v-model="formData.oldPassowrd"
-            clearable
-            show-password
-            placeholder="请输入旧密码"
-          />
+          <el-input v-model="formData.oldPassowrd" clearable show-password placeholder="请输入旧密码" />
         </el-form-item>
       </el-col>
 
@@ -36,12 +25,7 @@
             trigger: 'blur',
           }"
         >
-          <el-input
-            v-model="formData.newPassword"
-            clearable
-            show-password
-            placeholder="请输入新密码"
-          />
+          <el-input v-model="formData.newPassword" clearable show-password placeholder="请输入新密码" />
         </el-form-item>
       </el-col>
 
@@ -55,12 +39,7 @@
             trigger: 'blur',
           }"
         >
-          <el-input
-            v-model="formData.newPasswordTwo"
-            clearable
-            show-password
-            placeholder="请再次输入新密码"
-          />
+          <el-input v-model="formData.newPasswordTwo" clearable show-password placeholder="请再次输入新密码" />
         </el-form-item>
       </el-col>
 
@@ -73,56 +52,56 @@
 </template>
 
 <script>
-import { reactive } from "vue";
-import { useStore } from "vuex";
-import { validateForm, forInData } from "@/hooks";
-import { ElMessage } from "element-plus";
+import { reactive } from 'vue'
+import { useStore } from 'vuex'
+import { validateForm, forInData } from '@/hooks'
+import { ElMessage } from 'element-plus'
 
 export default {
   setup() {
-    const store = useStore();
+    const store = useStore()
     const state = reactive({
       infoLoading: false,
-    });
+    })
 
-    const { formRef, validateFormChange, resetFieldsForm } = validateForm();
+    const { formRef, validateFormChange, resetFieldsForm } = validateForm()
 
     const formData = reactive({
-      oldPassword: "",
-      newPassword: "",
-      oldPasswordTwo: "",
-    });
+      oldPassword: '',
+      newPassword: '',
+      oldPasswordTwo: '',
+    })
 
     // 新增/修改验证
     const addChange = () => {
       validateFormChange()
         .then(() => {
-          getEditPassword();
+          getEditPassword()
         })
-        .catch(() => {});
-    };
+        .catch(() => {})
+    }
 
     const getEditPassword = () => {
-      state.infoLoading = true;
+      state.infoLoading = true
       store
-        .dispatch("user/getUserInfo")
-        .then((res) => {
+        .dispatch('user/getUserInfo')
+        .then(res => {
           for (let key in formData) {
-            formData[key] = res[key];
+            formData[key] = res[key]
           }
         })
-        .finally(() => (state.infoLoading = false));
-    };
+        .finally(() => (state.infoLoading = false))
+    }
 
     //重置
     const resetDataChange = () => {
-      forInData({}, formData);
-      resetFieldsForm();
+      forInData({}, formData)
+      resetFieldsForm()
       ElMessage.success({
-        message: "数据重置成功！",
-        type: "success",
-      });
-    };
+        message: '数据重置成功！',
+        type: 'success',
+      })
+    }
 
     return {
       formData,
@@ -130,9 +109,9 @@ export default {
       resetDataChange,
       formRef,
       addChange,
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .avatar {
@@ -145,7 +124,7 @@ export default {
     }
   }
 }
-::v-deep .el-form-item__label {
+:deep(.el-form-item__label) {
   padding: 0;
   line-height: 30px;
 }

@@ -12,12 +12,8 @@
 
       <h3>鉴权指令（请对照代码查看）</h3>
       <div>
-        <div v-auth="'permission.browse'">
-          如果你有 permission.browse 权限则能看到这句话
-        </div>
-        <div v-auth="'permission.create'">
-          如果你有 permission.create 权限则能看到这句话
-        </div>
+        <div v-auth="'permission.browse'">如果你有 permission.browse 权限则能看到这句话</div>
+        <div v-auth="'permission.create'">如果你有 permission.create 权限则能看到这句话</div>
         <div v-auth="['permission.browse', 'permission.create']">
           如果你有 permission.browse 或 permission.create 权限则能看到这句话
         </div>
@@ -34,23 +30,16 @@
             <el-tag type="danger">你没有 permission.create 权限</el-tag>
           </template>
         </auth>
-        <auth
-          :value="['permission.browse', 'permission.create']"
-          style="margin-bottom: 10px"
-        >
+        <auth :value="['permission.browse', 'permission.create']" style="margin-bottom: 10px">
           <el-tag>你有 permission.browse 或 permission.create 权限</el-tag>
           <template #no-auth>
-            <el-tag type="danger"
-              >你没有 permission.browse 或 permission.create 权限</el-tag
-            >
+            <el-tag type="danger">你没有 permission.browse 或 permission.create 权限</el-tag>
           </template>
         </auth>
         <auth-all :value="['permission.browse', 'permission.create']">
           <el-tag>你有 permission.browse 和 permission.create 权限</el-tag>
           <template #no-auth>
-            <el-tag type="danger"
-              >你没有 permission.browse 和 permission.create 权限</el-tag
-            >
+            <el-tag type="danger">你没有 permission.browse 和 permission.create 权限</el-tag>
           </template>
         </auth-all>
       </div>
@@ -58,22 +47,14 @@
       <h3>鉴权函数（请对照代码查看）</h3>
       <div>
         <el-button-group style="display: block; margin-bottom: 10px">
-          <el-button @click="permissionCheck('permission.browse')"
-            >校验 permission.browse 权限</el-button
-          >
-          <el-button @click="permissionCheck('permission.create')"
-            >校验 permission.create 权限</el-button
-          >
+          <el-button @click="permissionCheck('permission.browse')">校验 permission.browse 权限</el-button>
+          <el-button @click="permissionCheck('permission.create')">校验 permission.create 权限</el-button>
         </el-button-group>
         <el-button-group>
-          <el-button
-            @click="permissionCheck(['permission.browse', 'permission.create'])"
+          <el-button @click="permissionCheck(['permission.browse', 'permission.create'])"
             >校验 permission.browse 或 permission.create 权限</el-button
           >
-          <el-button
-            @click="
-              permissionCheckAll(['permission.browse', 'permission.create'])
-            "
+          <el-button @click="permissionCheckAll(['permission.browse', 'permission.create'])"
             >校验 permission.browse 和 permission.create 权限</el-button
           >
         </el-button-group>
@@ -83,48 +64,48 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import { useStore } from "vuex";
-import { auth, authAll } from "@/utils";
-import { ElMessage } from "element-plus";
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+import { auth, authAll } from '@/utils'
+import { ElMessage } from 'element-plus'
 export default {
   setup() {
-    const store = useStore();
-    const account = ref(store.state.user.token);
-    const loading = ref(false);
+    const store = useStore()
+    const account = ref(store.state.user.token)
+    const loading = ref(false)
 
-    const accountChange = async (val) => {
+    const accountChange = async val => {
       try {
-        loading.value = true;
-        await store.dispatch("user/login", {
+        loading.value = true
+        await store.dispatch('user/login', {
           username: val,
-          password: "",
-        });
+          password: '',
+        })
 
-        await store.dispatch("user/getUserInfo");
+        await store.dispatch('user/getUserInfo')
 
-        loading.value = false;
-        location.reload();
+        loading.value = false
+        location.reload()
       } catch (err) {
-        console.log(err);
-        loading.value = false;
+        console.log(err)
+        loading.value = false
       }
-    };
+    }
 
-    const permissionCheck = (permissions) => {
+    const permissionCheck = permissions => {
       if (auth(permissions)) {
-        ElMessage.success("校验通过");
+        ElMessage.success('校验通过')
       } else {
-        ElMessage.error("校验不通过");
+        ElMessage.error('校验不通过')
       }
-    };
-    const permissionCheckAll = (permissions) => {
+    }
+    const permissionCheckAll = permissions => {
       if (authAll(permissions)) {
-        ElMessage.success("校验通过");
+        ElMessage.success('校验通过')
       } else {
-        ElMessage.error("校验不通过");
+        ElMessage.error('校验不通过')
       }
-    };
+    }
 
     return {
       roles: store.state.user.roles,
@@ -133,7 +114,7 @@ export default {
       permissionCheck,
       permissionCheckAll,
       loading,
-    };
+    }
   },
-};
+}
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <footer class="footerbar">
+  <footer v-if="showCopyright" class="footerbar">
     Copyright © {{ copyrightDates }}
     <a v-if="copyrightWebsite" target="_blank" :href="copyrightWebsite">
       {{ copyrightCompany }}
@@ -7,42 +7,26 @@
     <span v-else>{{ copyrightCompany }}</span>
   </footer>
 </template>
-<script>
-import setting from "@/setting";
-// import { onBeforeRouteUpdate, useRoute } from "vue-router";
-// import { ref, onBeforeMount } from "vue";
-export default {
-  setup() {
-    const copyrightDates = setting.copyrightDates;
-    const copyrightCompany = setting.copyrightCompany;
-    const copyrightWebsite = setting.copyrightWebsite;
-    // const route = useRoute();
-    // let copyright = ref(true);
 
-    // const updateCopyright = (meta) => {
-    //   if (meta.copyright === false) copyright.value = false;
-    //   else copyright.value = true;
-    // };
+<script setup>
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import { watch, ref } from 'vue'
 
-    // onBeforeRouteUpdate((to) => {
-    //   updateCopyright(to.meta);
-    // });
+const route = useRoute()
+const sotre = useStore()
+const copyrightDates = sotre.state.setting.copyrightDates
+const copyrightCompany = sotre.state.setting.copyrightCompany
+const copyrightWebsite = sotre.state.setting.copyrightWebsite
+const showCopyright = ref(route.meta?.copyright === false ? false : sotre.state.setting.showCopyright)
 
-    // onBeforeMount(() => {
-    //   updateCopyright(route.meta);
-    // });
-
-    return {
-      copyrightDates,
-      copyrightCompany,
-      copyrightWebsite,
-      // copyright,
-    };
-  },
-};
+watch(
+  () => route.meta?.copyright,
+  copyright => (showCopyright.value = copyright === false ? false : sotre.state.setting.showCopyright)
+)
 </script>
+
 <style lang="scss" scoped>
-@import "@/styles/var.scss";
 .footerbar {
   height: $footerbar-height;
   line-height: $footerbar-height;
@@ -55,6 +39,7 @@ export default {
   a {
     text-decoration: none;
     color: rgba(0, 0, 0, 0.45);
+    transition: color 0.3s;
     &:hover {
       color: #3d4047;
     }

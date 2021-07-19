@@ -6,22 +6,22 @@
 </template>
 
 <script>
-import { auth } from "@/utils";
+import { auth } from '@/utils'
 
 export default {
-  name: "Auth",
+  name: 'Auth',
   props: {
     value: {
       type: [String, Array],
-      default: "",
+      default: '',
     },
   },
   setup(props) {
-    const check = () => auth(props.value);
+    const check = () => auth(props.value)
 
     return {
       check,
-    };
+    }
   },
-};
+}
 </script>

@@ -1,10 +1,10 @@
 module.exports = {
   plugins: [
     {
-      name: "removeAttrs",
+      name: 'removeAttrs',
       params: {
-        attrs: "fill",
+        attrs: 'fill',
       },
     },
   ],
-};
+}
