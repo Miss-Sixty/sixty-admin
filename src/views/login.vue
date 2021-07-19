@@ -1,31 +1,29 @@
 <template>
   <el-row type="flex" class="login" justify="center">
-    <div class="form">
-      <el-form ref="validateForm" :model="loginForm" label-width="0">
-        <el-form-item>
-          <h2 :style="{ margin: 0 }">{{ setting.title }}</h2>
-        </el-form-item>
+    <el-form ref="formRef" :model="loginForm" class="form">
+      <el-form-item>
+        <h2 :style="{ margin: 0 }">{{ setting.title }}</h2>
+      </el-form-item>
 
-        <el-form-item prop="username" :rules="{ required: true, message: '请输入用户名', trigger: 'blur' }">
-          <el-input v-model="loginForm.username" prefix-icon="el-icon-user" placeholder="请输入用户名" clearable :disabled="loading" />
-        </el-form-item>
+      <el-form-item prop="username" :rules="{ required: true, message: '请输入用户名', trigger: 'blur' }">
+        <el-input v-model="loginForm.username" prefix-icon="el-icon-user" placeholder="请输入用户名" clearable :disabled="loading" />
+      </el-form-item>
 
-        <el-form-item prop="password" :rules="{ required: true, message: '请输入密码', trigger: 'blur' }">
-          <el-input
-            v-model="loginForm.password"
-            show-password
-            prefix-icon="el-icon-lock"
-            placeholder="请输入密码"
-            clearable
-            :disabled="loading"
-          />
-        </el-form-item>
+      <el-form-item prop="password" :rules="{ required: true, message: '请输入密码', trigger: 'blur' }">
+        <el-input
+          v-model="loginForm.password"
+          show-password
+          prefix-icon="el-icon-lock"
+          placeholder="请输入密码"
+          clearable
+          :disabled="loading"
+        />
+      </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" :loading="loading" :style="{ width: '100%' }" @click="loginChange"> 登陆 </el-button>
-        </el-form-item>
-      </el-form>
-    </div>
+      <el-form-item>
+        <el-button type="primary" :loading="loading" :style="{ width: '100%' }" @click="loginChange"> 登 陆 </el-button>
+      </el-form-item>
+    </el-form>
   </el-row>
 </template>
 <script>
@@ -34,35 +32,28 @@ import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import setting from '@/setting'
 import { ElMessage } from 'element-plus'
+import { validateForm } from '@/hooks'
+
 export default {
   name: 'Login',
   setup() {
     const router = useRouter()
     const route = useRoute()
     const store = useStore()
-
-    const validateForm = ref(null)
     const loading = ref(false)
+
+    const { formRef, validateFormChange } = validateForm()
 
     const loginForm = reactive({
       username: 'admin',
       password: '123456',
     })
 
-    //账号密码验证
-    const loginChange = () => {
-      validateForm.value
-        .validate()
-        .then(() => {
-          getLogin()
-        })
-        .catch(() => {})
-    }
-
-    // 登陆
-    const getLogin = async () => {
-      loading.value = true
+    //账号密码验证 登陆
+    const loginChange = async () => {
       try {
+        await validateFormChange()
+        loading.value = true
         await store.dispatch('user/login', loginForm)
         await store.dispatch('user/getUserInfo')
         ElMessage.success({
@@ -76,13 +67,14 @@ export default {
         loading.value = false
       } catch (err) {
         loading.value = false
+        console.log(err)
       }
     }
 
     return {
       loading,
       loginChange,
-      validateForm,
+      formRef,
       setting,
       loginForm,
     }
