@@ -54,8 +54,8 @@ import Icons from './modules/icons' //图标
 import Permission from './modules/permission' //权限
 
 //页面
-import Configuration from './modules/configuration' //配置
 import table from './modules/table'
+import User from './modules/user' //个人设置
 
 export const asyncRoutes = [
   {
@@ -70,7 +70,7 @@ export const asyncRoutes = [
       title: '页面',
       icon: 'page',
     },
-    children: [Configuration, table],
+    children: [User, table],
   },
 ]
 
