@@ -1,5 +1,3 @@
-import Mock, { Random } from 'mockjs'
-
 const userToken = {
   admin: {
     token: 'admin',
@@ -13,22 +11,24 @@ const userInfo = {
   admin: {
     name: '张三丰',
     jobTitle: '技术部总监',
-    avatar: Random.dataImage('40x40', 'hi'),
+    avatar: ' @dataImage("40x40", "hi")',
     failure_time: Date.parse(new Date()) + 50000,
     phone: '18288888888',
     gender: 1,
     nickname: 'MissSixty',
-    bio: Random.cparagraph(),
+    bio: '@cparagraph',
+    company: '杭州xxx技术有限公司',
   },
   editor: {
     name: '张小五',
     jobTitle: '营销部编辑',
-    avatar: Random.dataImage('40x40', 'hi'),
+    avatar: '@dataImage("40x40", "hi")',
     failure_time: Date.parse(new Date()) + 50000,
     phone: '18266666666',
     gender: 2,
     nickname: '四五六',
-    bio: Random.cparagraph(),
+    bio: '@cparagraph',
+    company: '青岛xxx有限公司',
   },
 }
 
@@ -36,23 +36,19 @@ const notice = {
   status: 200,
   message: 'success',
   data: {
-    ...Mock.mock({
-      'num|0-10': 10,
-    }),
+    'num|0-10': 10,
     list: [
       {
         title: '通知',
         name: '0',
-        ...Mock.mock({
-          'num|0-10': 10,
-        }),
+        'num|0-10': 10,
         list: [
           {
-            text: Mock.mock('@cparagraph(1, 3)'),
+            text: '@cparagraph(1, 3)',
             id: 1,
           },
           {
-            text: Mock.mock('@cparagraph(1, 3)'),
+            text: '@cparagraph(1, 3)',
             id: 3,
           },
         ],
@@ -60,12 +56,10 @@ const notice = {
       {
         title: '待完成',
         name: '1',
-        ...Mock.mock({
-          'num|0-10': 10,
-        }),
+        'num|0-10': 10,
         list: [
           {
-            text: Mock.mock('@cparagraph(1, 3)'),
+            text: '@cparagraph(1, 3)',
             id: 2,
           },
         ],
