@@ -39,6 +39,11 @@ import {
   ElPagination,
   ElSpace,
   ElAlert,
+  ElDatePicker,
+  ElCheckbox,
+  ElCheckboxGroup,
+  ElRadio,
+  ElTimePicker,
 } from 'element-plus'
 
 export default app => {
@@ -82,4 +87,9 @@ export default app => {
     .use(ElSpace)
     .use(ElCol)
     .use(ElAlert)
+    .use(ElRadio)
+    .use(ElCheckboxGroup)
+    .use(ElCheckbox)
+    .use(ElTimePicker)
+    .use(ElDatePicker)
 }
