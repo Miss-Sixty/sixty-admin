@@ -26,5 +26,13 @@ export default {
         title: '固定底部操作栏',
       },
     },
+    {
+      path: '/components/confirmSwitch',
+      name: 'ConfirmSwitch',
+      component: () => import('@/views/components/confirmSwitch'),
+      meta: {
+        title: '弹窗确认 Switch',
+      },
+    },
   ],
 }

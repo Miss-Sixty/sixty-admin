@@ -1,0 +1,63 @@
+<template>
+  <div>
+    <page-header
+      icon="none"
+      icon-text="none"
+      title="弹窗确认 Switch"
+      content="二次封装 Switch 组件，使其拥有二次确认的功能。通常用在表格的禁用/启用中"
+    />
+    <div class="page-main">
+      <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="date" label="日期" width="180" align="center" />
+        <el-table-column prop="name" label="姓名" width="180" align="center" />
+        <el-table-column prop="address" label="地址" />
+        <el-table-column prop="address" label="禁用/启用" width="180" align="center">
+          <template #default="{ row }">
+            <confirm-switch v-model="row.status" @on-success="swichtChange($event, row)" />
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+  </div>
+</template>
+<script setup>
+const tableData = [
+  {
+    date: '2016-05-02',
+    name: '王小虎',
+    address: '上海市普陀区金沙江路 1518 弄',
+    status: true,
+  },
+  {
+    date: '2016-05-04',
+    name: '王小虎',
+    address: '上海市普陀区金沙江路 1517 弄',
+    status: true,
+  },
+  {
+    date: '2016-05-01',
+    name: '王小虎',
+    address: '上海市普陀区金沙江路 1519 弄',
+    status: false,
+  },
+  {
+    date: '2016-05-03',
+    name: '王小虎',
+    address: '上海市普陀区金沙江路 1516 弄',
+    status: true,
+  },
+]
+
+const swichtChange = (loading, row) => {
+  setTimeout(() => {
+    row.status = !row.status
+    loading(true)
+  }, 1000)
+}
+</script>
+<style lang="scss" scoped>
+.form {
+  width: 80%;
+  margin: 50px auto;
+}
+</style>
