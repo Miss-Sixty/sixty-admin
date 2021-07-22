@@ -10,12 +10,18 @@
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="date" label="日期" width="180" align="center" />
         <el-table-column prop="name" label="姓名" width="180" align="center" />
-        <el-table-column prop="address" label="地址" />
         <el-table-column prop="address" label="禁用/启用" width="180" align="center">
           <template #default="{ row }">
-            <confirm-switch v-model="row.status" @on-success="swichtChange($event, row)" />
+            <confirm-switch
+              :id="row.id"
+              :api="swichtChange"
+              :text="`确定要「${row.status ? '禁用' : '启用'}」该数据吗？`"
+              :status="row.status"
+              @on-success="row.status = !row.status"
+            />
           </template>
         </el-table-column>
+        <el-table-column prop="address" label="地址" />
       </el-table>
     </div>
   </div>
@@ -48,11 +54,14 @@ const tableData = [
   },
 ]
 
-const swichtChange = (loading, row) => {
-  setTimeout(() => {
-    row.status = !row.status
-    loading(true)
-  }, 1000)
+const swichtChange = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        message: '更改成功！',
+      })
+    }, 1000)
+  })
 }
 </script>
 <style lang="scss" scoped>
