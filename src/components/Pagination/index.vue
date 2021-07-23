@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-  name: 'Pagination',
+  name: 'SixPagination',
   props: {
     pageSize: {
       //每页显示几条

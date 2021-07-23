@@ -34,5 +34,13 @@ export default {
         title: '弹窗确认 Switch',
       },
     },
+    {
+      path: '/components/pagination',
+      name: 'Pagination',
+      component: () => import('@/views/components/pagination'),
+      meta: {
+        title: '分页',
+      },
+    },
   ],
 }
