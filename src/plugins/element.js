@@ -1,5 +1,3 @@
-import lang from 'element-plus/lib/locale/lang/zh-cn'
-import locale from 'element-plus/lib/locale'
 import {
   ElButton,
   ElBreadcrumb,
@@ -47,7 +45,6 @@ import {
 } from 'element-plus'
 
 export default app => {
-  locale.use(lang)
   app
     .use(ElButton)
     .use(ElBreadcrumb)

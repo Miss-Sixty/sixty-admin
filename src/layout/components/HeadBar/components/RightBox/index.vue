@@ -134,9 +134,8 @@ export default {
   display: flex;
   align-items: center;
   white-space: nowrap;
-
   .svg-icon {
-    padding: 0px 10px;
+    padding: 0 10px;
     height: $headbar-height;
     box-sizing: content-box;
     transition: background-color 0.3s;
@@ -145,27 +144,23 @@ export default {
       background-color: rgba(0, 0, 0, 0.04);
     }
   }
-
   &--badge :deep(.el-badge__content) {
     top: 13px;
     right: 19px;
   }
-
   &__pane--badge :deep(.el-badge__content) {
     top: 10px;
     right: 6px;
   }
-
   .user-wrapper {
     cursor: pointer;
     display: flex;
     align-items: center;
     height: $headbar-height;
-    padding: 0px 8px;
+    padding: 0 8px;
     &:hover {
       background: rgba(0, 0, 0, 0.04);
     }
-
     p {
       margin: 0;
       margin-right: 5px;
