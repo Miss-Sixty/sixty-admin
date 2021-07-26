@@ -7,7 +7,7 @@
       content="避免因页面过长导致操作按钮需要滚动到页面底部才能操作，通常用在表单页"
     />
     <div class="page-main">
-      <el-form ref="form" class="form" :model="form" label-width="80px">
+      <el-form class="form" :model="form" label-width="80px">
         <el-form-item label="活动名称">
           <el-input v-model="form.name"></el-input>
         </el-form-item>

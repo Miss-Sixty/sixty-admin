@@ -25,7 +25,6 @@ export default {
   background-color: #fff;
   transition: box-shadow 0.2s;
 }
-
 .shadow {
   box-shadow: 0 -10px 10px -10px #ccc;
 }
