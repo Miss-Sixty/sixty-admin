@@ -43,13 +43,16 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="toRouter('UserPage')">个人设置</el-dropdown-item>
+          <a href="https://miss-sixty.github.io/sixty-admin-docs/" target="_blank">
+            <el-dropdown-item>项目文档</el-dropdown-item>
+          </a>
           <el-dropdown-item divided @click="signOut"> 退出登陆 </el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
   </div>
 </template>
-<script>
+<script setup>
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import screenfull from 'screenfull'
 import { useRouter, useRoute } from 'vue-router'
@@ -57,77 +60,63 @@ import { ElMessage, ElLoading } from 'element-plus'
 import { useStore } from 'vuex'
 import { toRouter, messageBoxChange } from '@/hooks'
 
-export default {
-  setup() {
-    const router = useRouter()
-    const route = useRoute()
-    const store = useStore()
-    const userInfo = computed(() => store.state.user.userInfo)
-    const notice = computed(() => store.state.user.notice)
+const router = useRouter()
+const route = useRoute()
+const store = useStore()
+const userInfo = computed(() => store.state.user.userInfo)
+const notice = computed(() => store.state.user.notice)
 
-    //全屏
-    const fullscreen = () => {
-      screenfull.toggle()
-    }
-    const isFullscreen = ref(false)
-    const fullscreenChange = () => {
-      isFullscreen.value = screenfull.isFullscreen
-    }
-
-    //通知
-    // TODO:有个bug，选择了info，但是下面没有横线
-    const activeName = ref('0')
-
-    //退出
-    const signOut = async () => {
-      await messageBoxChange('确定要退出登陆吗？')
-      let loadingInstance = ElLoading.service({
-        lock: true,
-        text: '退出登录中...',
-        spinner: 'el-icon-loading',
-      })
-
-      await store.dispatch('user/logout')
-      store.commit('menu/CLEARROUTERS') //删除动态添加的路由
-      loadingInstance.close()
-      router.push({ name: 'Login' })
-      ElMessage.success({
-        message: '退出成功！',
-        type: 'success',
-      })
-    }
-
-    //请求消息接口
-    const getNotice = () => store.dispatch('user/getNotice')
-
-    onMounted(() => {
-      getNotice()
-      if (screenfull.isEnabled) {
-        screenfull.on('change', fullscreenChange)
-      }
-    })
-    onBeforeUnmount(() => {
-      if (screenfull.isEnabled) {
-        screenfull.off('change', fullscreenChange)
-      }
-    })
-
-    watch(
-      () => route.name,
-      name => name !== 'Login' && getNotice()
-    )
-
-    return {
-      fullscreen,
-      isFullscreen,
-      activeName,
-      signOut,
-      userInfo,
-      notice,
-      toRouter,
-    }
-  },
+//全屏
+const fullscreen = () => {
+  screenfull.toggle()
 }
+const isFullscreen = ref(false)
+const fullscreenChange = () => {
+  isFullscreen.value = screenfull.isFullscreen
+}
+
+//通知
+// TODO:有个bug，选择了info，但是下面没有横线
+const activeName = ref('0')
+
+//退出
+const signOut = async () => {
+  await messageBoxChange('确定要退出登陆吗？')
+  let loadingInstance = ElLoading.service({
+    lock: true,
+    text: '退出登录中...',
+    spinner: 'el-icon-loading',
+  })
+
+  await store.dispatch('user/logout')
+  store.commit('menu/CLEARROUTERS') //删除动态添加的路由
+  loadingInstance.close()
+  router.push({ name: 'Login' })
+  ElMessage.success({
+    message: '退出成功！',
+    type: 'success',
+  })
+}
+
+//请求消息接口
+const getNotice = () => store.dispatch('user/getNotice')
+
+onMounted(() => {
+  getNotice()
+  if (screenfull.isEnabled) {
+    screenfull.on('change', fullscreenChange)
+  }
+})
+onBeforeUnmount(() => {
+  if (screenfull.isEnabled) {
+    screenfull.off('change', fullscreenChange)
+  }
+})
+
+watch(
+  () => route.name,
+  name => name !== 'Login' && getNotice()
+)
 </script>
 <style lang="scss" scoped>
 .right-box {

@@ -81,14 +81,12 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
 .title {
   margin-left: 6px;
   vertical-align: inherit;
   flex: 1;
   @include text-overflow;
 }
-
 :deep(.el-menu-item),
 :deep(.el-submenu__title) {
   display: flex;

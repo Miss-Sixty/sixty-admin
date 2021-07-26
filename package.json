@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "export:svg": "node ./src/icons/export.js",
-    "deploy": "gh-pages -d sixty_admin",
+    "deploy": "npm run build;gh-pages -d sixty_admin",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
