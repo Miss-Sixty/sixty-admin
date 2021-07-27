@@ -1,7 +1,7 @@
 <template>
   <div class="left-box">
     <svg-icon name="menu-fold-line" :class="{ 'left-box--isCollapse': isCollapse }" @click="$emit('collapseChange')" />
-    <el-breadcrumb class="el-icon-arrow-right">
+    <el-breadcrumb>
       <transition-group name="breadcrumb">
         <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.path" :to="pathCompile(item.path)">
           {{ item.title }}
