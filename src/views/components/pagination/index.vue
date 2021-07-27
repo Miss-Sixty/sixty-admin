@@ -29,6 +29,7 @@
   </div>
 </template>
 <script setup>
+import { list } from '@/api/list'
 import { shallowReactive } from 'vue'
 // shallowReactive 只响应第一层的数据，第二层则不监测响应式
 const tableData = shallowReactive({
@@ -38,6 +39,7 @@ const tableData = shallowReactive({
   loading: true,
   list: [],
 })
+
 const swichtChange = () => {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -50,44 +52,16 @@ const swichtChange = () => {
 
 const getListData = () => {
   tableData.loading = true
-  setTimeout(() => {
-    tableData.list = [
-      {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-        status: true,
-      },
-      {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄',
-        status: true,
-      },
-      {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄',
-        status: false,
-      },
-      {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄',
-        status: true,
-      },
-    ]
-    tableData.loading = false
-  }, 1000)
+  list()
+    .then(res => {
+      console.log(res)
+      const { total, current_page, list } = res.data
+      tableData.total = total
+      tableData.currentPage = current_page
+      tableData.list = list
+    })
+    .finally(() => (tableData.loading = false))
 }
 
-// onMounted(() => {
 getListData()
-// })
 </script>
-<style lang="scss" scoped>
-.form {
-  width: 80%;
-  margin: 50px auto;
-}
-</style>
