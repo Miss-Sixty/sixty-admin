@@ -18,10 +18,9 @@
 <script>
 import settings from './components/BaseSetting'
 import password from './components/PasswordSetting'
-import backstage from './components/Backstage'
 import { reactive } from 'vue'
 export default {
-  components: { settings, password, backstage },
+  components: { settings, password },
   setup() {
     const settingTitle = [
       {
