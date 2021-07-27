@@ -1,80 +1,60 @@
 <template>
-  <div class="tools-bar">
-    <div class="left">
-      <el-input
-        v-if="keywords !== undefined"
-        :size="size"
-        :placeholder="keywordsText"
-        clearable
-        :model-value="keywords"
-        @input="val => $emit('update:keywords', val)"
-        @clear="$emit('update:keywords', null)"
-      />
-      <el-select
-        v-if="status !== undefined"
-        :size="size"
-        style="margin-bottom: 0"
-        :model-value="status"
-        placeholder="筛选 禁用/启用"
-        clearable
-        @change="val => $emit('update:status', val)"
-        @clear="$emit('update:status', null)"
-      >
-        <el-option label="禁用" :value="0" />
-        <el-option label="启用" :value="1" />
-      </el-select>
-      <slot />
-      <el-button v-if="searchBtn" :size="size" class="search" type="primary" icon="el-icon-search" circle @click="$emit('onSearch')" />
-    </div>
-    <div class="right">
-      <el-button v-if="add" :size="size" type="primary" @click="$emit('onAdd')">{{ addText }}</el-button>
+  <el-row type="flex" justify="space-between" align="middle" class="tools-bar">
+    <slot>
+      <p>{{ title }}</p>
+    </slot>
+    <el-row type="flex" justify="end" align="middle">
+      <el-button v-if="add" size="small" icon="el-icon-plus" type="primary" @click="$emit('onAdd')">
+        {{ addText }}
+      </el-button>
+
       <slot name="btn" />
-    </div>
-  </div>
+      <el-tooltip v-if="reset" effect="light" :content="refreshText" placement="bottom">
+        <div class="headbar__icon">
+          <svg-icon name="refresh-line" @click="$emit('reset')" />
+        </div>
+      </el-tooltip>
+    </el-row>
+  </el-row>
 </template>
 <script>
 export default {
   name: 'ToolsBar',
   props: {
-    keywordsText: {
-      type: String,
-      default: '请输入搜索内容',
-    },
     add: Boolean,
-    keywords: [String, Number],
-    status: Number,
+    title: {
+      type: String,
+      default: '表格列表',
+    },
     addText: {
       type: String,
       default: '新 增',
     },
-    size: String,
-    margin: String,
-    searchBtn: {
+    reset: {
       type: Boolean,
-      default: false,
+      default: true,
+    },
+    refreshText: {
+      type: String,
+      default: '刷新表格数据',
     },
   },
-  emits: ['update:status', 'update:keywords', 'onAdd', 'onSearch'],
+  emits: ['onAdd', 'reset'],
 }
 </script>
 <style lang="scss" scoped>
 .tools-bar {
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
-  > div {
-    display: flex;
-    align-items: center;
-
-    // :deep > * {
-    //   &:not(:last-child) {
-    //     margin-right: 10px;
-    //   }
-    // }
+  p {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
   }
-
-  // .left :deep > *:not(.search) {
-  //   width: 190px;
-  // }
+  .headbar__icon {
+    margin-left: 5px;
+    padding: 0 5px;
+    cursor: pointer;
+    font-size: 20px;
+  }
 }
 </style>
