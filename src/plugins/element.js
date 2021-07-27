@@ -1,3 +1,4 @@
+import 'element-plus/packages/theme-chalk/src/base.scss'
 import {
   ElButton,
   ElBreadcrumb,
@@ -42,6 +43,7 @@ import {
   ElCheckboxGroup,
   ElRadio,
   ElTimePicker,
+  ElConfigProvider,
 } from 'element-plus'
 
 export default app => {
@@ -89,4 +91,5 @@ export default app => {
     .use(ElCheckbox)
     .use(ElTimePicker)
     .use(ElDatePicker)
+    .use(ElConfigProvider)
 }

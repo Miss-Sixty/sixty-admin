@@ -51,7 +51,6 @@ export default {
   padding: 26px 20px;
   background: #fff;
   line-height: 24px;
-
   &__left {
     cursor: pointer;
     margin-right: 40px;
@@ -60,13 +59,11 @@ export default {
       font-size: 18px;
       margin-right: 6px;
     }
-
     .icon-text {
       font-weight: 500;
       margin: 0;
     }
-
-    &:after {
+    &::after {
       content: '';
       position: absolute;
       width: 1px;
@@ -77,13 +74,11 @@ export default {
       background-color: #dcdfe6;
     }
   }
-
   .title {
     font-size: 18px;
     color: #303133;
     margin: 0;
   }
-
   &__content {
     margin: 10px 0 0;
     color: #909399;

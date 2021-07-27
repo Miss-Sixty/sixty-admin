@@ -11,7 +11,8 @@ module.exports = {
         .use('sass-resources-loader')
         .loader('sass-resources-loader')
         .options({
-          resources: ['./src/styles/resources/*.scss'],
+          hoistUseStatements: true,
+          resources: './src/styles/resources/*.scss',
         })
         .end()
     })
