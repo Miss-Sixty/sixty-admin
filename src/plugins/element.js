@@ -44,6 +44,7 @@ import {
   ElRadio,
   ElTimePicker,
   ElConfigProvider,
+  ElDrawer,
 } from 'element-plus'
 
 export default app => {
@@ -92,4 +93,5 @@ export default app => {
     .use(ElTimePicker)
     .use(ElDatePicker)
     .use(ElConfigProvider)
+    .use(ElDrawer)
 }

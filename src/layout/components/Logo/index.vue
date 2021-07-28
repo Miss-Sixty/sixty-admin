@@ -33,15 +33,14 @@ const title = useStore().state.setting.title
   padding: 0 10px;
   cursor: pointer;
   font-weight: bold;
-  @include text-overflow;
-  background: $g-sub-sidebar-logo-bg;
+  background-color: $g-sub-sidebar-logo-bg;
   position: relative;
   z-index: 1;
   font-size: 16px;
   transition: box-shadow 0.2s;
-
   &--shadow {
     box-shadow: 0 10px 10px -10px #c7c7c7;
   }
+  @include text-overflow;
 }
 </style>

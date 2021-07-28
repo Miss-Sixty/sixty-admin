@@ -1,9 +1,8 @@
 <template>
-  <el-row type="flex">
-    <nav-menu class="navmenu" :is-collapse="isCollapse" />
+  <el-row type="flex" cla>
+    <nav-menu />
     <div class="content">
-      <head-bar :is-collapse="isCollapse" :is-scroll-top="!showTagView && isScrollTop" @collapseChange="isCollapse = !isCollapse" />
-      <tag-view v-if="showTagView" :is-scroll-top="isScrollTop" />
+      <head-bar :is-scroll-top="!showTagView && isScrollTop" />
       <el-scrollbar
         class="page-component__scroll"
         view-style="display: flex;flex-direction: column;height:100%"
@@ -22,13 +21,17 @@ import AppMain from './components/AppMain'
 import FooterBar from './components/FooterBar'
 import HeadBar from './components/HeadBar'
 import NavMenu from './components/NavMenu'
-import TagView from './components/TagView'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
-const sotre = useStore()
-const isCollapse = ref(false)
+import useWindowResize from '@/hooks/useWindowResize'
+
+const store = useStore()
 const isScrollTop = ref(false)
-const showTagView = computed(() => sotre.state.setting.showTagView)
+const showTagView = computed(() => store.state.setting.showTagView)
+
+const { width } = useWindowResize(150)
+store.commit('setting/SET_MODE', width)
+watch(width, width => store.commit('setting/SET_MODE', width))
 </script>
 
 <style lang="scss" scoped>
