@@ -8,9 +8,11 @@
       <p class="title">{{ title }}</p>
     </el-row>
 
-    <slot>
-      <p class="header__content">{{ content }}</p>
-    </slot>
+    <div class="header__content">
+      <slot>
+        <p>{{ content }}</p>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -83,6 +85,9 @@ export default {
     margin: 10px 0 0;
     color: #909399;
     font-size: 14px;
+    p {
+      margin: 0;
+    }
   }
 }
 </style>
