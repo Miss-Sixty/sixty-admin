@@ -64,9 +64,3 @@ const swichtChange = () => {
   })
 }
 </script>
-<style lang="scss" scoped>
-.form {
-  width: 80%;
-  margin: 50px auto;
-}
-</style>
