@@ -21,7 +21,7 @@
         <el-image :src="url" fit="fill" :style="style" />
         <div class="mask">
           <i class="icon el-icon-zoom-in" @click.stop="state.imageViewerVisible = true" />
-          <i class="icon el-icon-delete" :class="{ disabled: noDel }" @click.stop="!noDel && $emit('update:url', '')" />
+          <i v-if="!noDel" class="icon el-icon-delete" @click.stop="!$emit('update:url', '')" />
         </div>
       </template>
       <!-- TODO:此处应该使用v-show，但使用会不隐藏 -->
@@ -92,11 +92,11 @@ const props = defineProps({
   },
   //是否显示提示栏
   tip: [Boolean, String],
-  //图片为违规格式时的提示
+  //文件类型错误的提示文案
   message: String,
   ext: {
     type: Array,
-    default: () => ['image/jpeg', 'image/png2'],
+    default: () => ['image/jpeg', 'image/png'],
   },
   noDel: Boolean,
 })
@@ -192,16 +192,12 @@ const onProgress = file => {
     }
     .icon {
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.3s;
       &:not(:last-child) {
         margin-right: 20px;
       }
-      &.disabled {
-        color: #999;
-        cursor: not-allowed;
-      }
       &:hover:not(.disabled) {
-        transform: scale(1.5);
+        transform: scale(1.3);
       }
     }
   }
