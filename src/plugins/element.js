@@ -45,8 +45,11 @@ import {
   ElTimePicker,
   ElConfigProvider,
   ElDrawer,
+  ElUpload,
+  ElImage,
+  ElProgress,
+  ElImageViewer,
 } from 'element-plus'
-
 export default app => {
   app
     .use(ElButton)
@@ -94,4 +97,8 @@ export default app => {
     .use(ElDatePicker)
     .use(ElConfigProvider)
     .use(ElDrawer)
+    .use(ElUpload)
+    .use(ElImage)
+    .use(ElProgress)
+    .use(ElImageViewer)
 }

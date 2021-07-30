@@ -42,5 +42,13 @@ export default {
         title: '分页',
       },
     },
+    {
+      path: '/components/imageUpload',
+      name: 'ImageUpload',
+      component: () => import('@/views/components/imageUpload'),
+      meta: {
+        title: '单图上传',
+      },
+    },
   ],
 }
