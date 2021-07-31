@@ -314,11 +314,14 @@ const onProgress = file => {
   }
 }
 .tip {
-  margin: 8px 0 0;
+  margin: 5px 0 0;
   background-color: #f4f4f5;
   padding: 8px 16px;
   color: #909399;
   border-radius: 4px;
   display: inline-block;
+}
+.el-image {
+  vertical-align: top;
 }
 </style>
