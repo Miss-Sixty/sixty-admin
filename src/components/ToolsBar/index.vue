@@ -30,10 +30,7 @@ export default {
       type: String,
       default: '新 增',
     },
-    reset: {
-      type: Boolean,
-      default: true,
-    },
+    reset: Boolean,
     refreshText: {
       type: String,
       default: '刷新表格数据',

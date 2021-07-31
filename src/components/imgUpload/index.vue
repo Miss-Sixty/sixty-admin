@@ -46,6 +46,7 @@ export default {
 }
 </script>
 <script setup>
+// TODO:待重构，页面太多if-else了。
 import { reactive, defineProps, computed, defineEmits } from 'vue'
 import { ElMessage } from 'element-plus'
 import _isBoolean from 'lodash/isBoolean'
