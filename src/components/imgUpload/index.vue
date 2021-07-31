@@ -20,8 +20,8 @@
       <template v-else>
         <el-image :src="url" fit="fill" :style="style" />
         <div class="mask">
-          <i class="icon el-icon-zoom-in" @click.stop="state.imageViewerVisible = true" />
-          <i v-if="!noDel" class="icon el-icon-delete" @click.stop="!$emit('update:url', '')" />
+          <i title="预览" class="icon el-icon-zoom-in" @click.stop="state.imageViewerVisible = true" />
+          <i v-if="!noDel" title="移除" class="icon el-icon-delete" @click.stop="!$emit('update:url', '')" />
         </div>
       </template>
       <!-- TODO:此处应该使用v-show，但使用会不隐藏 -->
@@ -183,7 +183,7 @@ const onProgress = file => {
     top: 0;
     text-align: center;
     color: #fff;
-    font-size: 20px;
+    font-size: 24px;
     &::after {
       display: inline-block;
       content: '';

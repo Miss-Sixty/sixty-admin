@@ -43,11 +43,11 @@ export default {
       },
     },
     {
-      path: '/components/imageUpload',
-      name: 'ImageUpload',
-      component: () => import('@/views/components/imageUpload'),
+      path: '/components/upload',
+      name: 'Upload',
+      component: () => import('@/views/components/upload'),
       meta: {
-        title: '单图上传',
+        title: '上传',
       },
     },
   ],
