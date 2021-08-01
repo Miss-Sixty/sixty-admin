@@ -7,16 +7,9 @@
           <i title="预览" class="icon el-icon-zoom-in" @click="preview(index)" />
           <i v-if="delIcon" title="移除" class="icon el-icon-delete" @click="remove(index)" />
         </p>
-        <p>
+        <p v-show="limit > 1">
+          <i class="icon el-icon-back" title="左移" :class="{ disabled: index === 0 }" @click="index !== 0 && move(index, 'left')" />
           <i
-            v-show="url.length > 1"
-            class="icon el-icon-back"
-            title="左移"
-            :class="{ disabled: index === 0 }"
-            @click="index !== 0 && move(index, 'left')"
-          />
-          <i
-            v-show="url.length > 1"
             title="右移"
             :class="{ disabled: index === url.length - 1 }"
             class="icon el-icon-right"
@@ -212,13 +205,11 @@ const onProgress = file => {
 <style lang="scss" scoped>
 .images {
   position: relative;
+  overflow: hidden;
+  border: 1px solid #c0ccda;
+  border-radius: 6px;
   &:hover &__mask {
     opacity: 1;
-  }
-  .el-image {
-    overflow: hidden;
-    border: 1px solid #c0ccda;
-    border-radius: 6px;
   }
   &__mask {
     opacity: 0;
@@ -264,6 +255,10 @@ const onProgress = file => {
   color: #8c939d;
   cursor: pointer;
   transition: color 0.3s, border-color 0.3s;
+  &:hover {
+    border-color: #409eff;
+    color: #409eff;
+  }
   :deep(.el-upload) {
     width: 100%;
     height: 100%;
@@ -307,10 +302,6 @@ const onProgress = file => {
         color: #fff;
       }
     }
-  }
-  &:hover {
-    border-color: #409eff;
-    color: #409eff;
   }
 }
 .tip {
