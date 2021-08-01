@@ -22,7 +22,6 @@
     <el-upload
       v-show="!limit || props.url.length < props.limit"
       class="uploader"
-      :style="style"
       :action="props.action"
       :show-file-list="false"
       :headers="props.headers"
@@ -32,18 +31,21 @@
       :on-progress="onProgress"
       :on-success="onSuccess"
       :accept="props.accept"
+      drag
     >
-      <div v-if="state.percent" class="progress" :style="{ ...style, 'background-image': `url(${state.preview})` }">
-        <el-progress type="circle" :width="Math.min(parseInt(width), parseInt(height)) * 0.8" :percentage="state.percent">
-          <template #default="{ percentage }">
-            <span class="progress-value">{{ percentage }}%</span>
-            <span class="progress-label">当前进度</span>
-          </template>
-        </el-progress>
+      <div class="img-add" :style="style">
+        <slot>
+          <div v-show="state.percent" class="progress" :style="{ ...style, 'background-image': `url(${state.preview})` }">
+            <el-progress type="circle" :width="Math.min(parseInt(width), parseInt(height)) * 0.8" :percentage="state.percent">
+              <template #default="{ percentage }">
+                <span class="progress-value">{{ percentage }}%</span>
+                <span class="progress-label">当前进度</span>
+              </template>
+            </el-progress>
+          </div>
+          <i class="icon el-icon-plus" />
+        </slot>
       </div>
-
-      <el-image v-if="placeholder" :src="placeholder" fit="fill" :style="style" />
-      <i v-else class="el-icon-plus" />
     </el-upload>
   </el-space>
 
@@ -109,7 +111,7 @@ const props = defineProps({
   message: String,
   ext: {
     type: Array,
-    default: () => ['image/jpeg', 'image/png'],
+    default: () => [],
   },
   delIcon: {
     type: Boolean,
@@ -174,7 +176,7 @@ const move = (index, type) => {
 
 const beforeUpload = file => {
   console.log(file)
-  const isType = props.ext.includes(file.type)
+  const isType = props.ext.length && props.ext.includes(file.type)
   const isSize = file.size / 1024 / 1024 < props.size
   if (!isType) {
     ElMessage.error(message.value)
@@ -190,11 +192,11 @@ const beforeUpload = file => {
 
 const onSuccess = res => {
   state.percent = 100
-  setTimeout(() => {
-    state.preview = ''
-    state.percent = 0
-  }, 200)
-  emit('on-success', res)
+  // setTimeout(() => {
+  //   state.preview = ''
+  //   state.percent = 0
+  // }, 200)
+  // emit('on-success', res)
 }
 
 const onProgress = file => {
@@ -246,31 +248,37 @@ const onProgress = file => {
   }
 }
 .uploader {
-  overflow: hidden;
+  :deep(.el-upload-dragger) {
+    height: auto;
+    width: auto;
+  }
+  // overflow: hidden;
   background-color: #fbfdff;
-  border: 1px dashed #c0ccda;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 28px;
-  color: #8c939d;
+  // border: 1px dashed #c0ccda;
+  // border-radius: 6px;
+  // text-align: center;
   cursor: pointer;
-  transition: color 0.3s, border-color 0.3s;
-  &:hover {
-    border-color: #409eff;
-    color: #409eff;
+  // transition: color 0.3s, border-color 0.3s;
+  .icon {
+    font-size: 28px;
+    color: #8c939d;
+  }
+  // &:hover {
+  //   border-color: #409eff;
+  //   color: #409eff;
+  // }
+  .img-add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   :deep(.el-upload) {
     width: 100%;
     height: 100%;
     position: relative;
-    &::after {
-      display: inline-block;
-      content: '';
-      height: 100%;
-      vertical-align: middle;
-    }
     .progress {
-      position: relative;
+      position: absolute;
       background-repeat: no-repeat;
       background-size: 100% 100%;
       display: flex;
@@ -313,6 +321,9 @@ const onProgress = file => {
   display: inline-block;
 }
 .el-image {
+  vertical-align: top;
+}
+:deep(.el-upload) {
   vertical-align: top;
 }
 </style>
