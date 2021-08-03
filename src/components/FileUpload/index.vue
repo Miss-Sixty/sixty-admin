@@ -10,6 +10,8 @@
     :limit="props.limit"
     :drag="props.drag"
     :show-file-list="showFileList"
+    :accept="props.accept"
+    :headers="props.headers"
   >
     <slot>
       <i class="el-icon-upload" />
@@ -63,7 +65,7 @@ const props = defineProps({
   // 文件大小
   size: {
     type: Number,
-    default: 2,
+    default: 5,
   },
   //是否显示提示栏
   tip: [Boolean, String],
@@ -73,7 +75,6 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  noDel: Boolean,
   limit: {
     type: [Boolean, Number],
     default: 3,
