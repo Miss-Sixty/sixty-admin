@@ -45,10 +45,12 @@
     </el-upload>
   </el-space>
 
-  <p v-if="props.tip" class="tip">
-    <i class="el-icon-info" />
-    {{ tipText }}
-  </p>
+  <div v-if="props.tip">
+    <p class="tip">
+      <i class="el-icon-info" />
+      {{ tipText }}
+    </p>
+  </div>
   <el-image-viewer v-show="state.imgViewerVisible" :url-list="[state.imgViewerUrl]" @close="state.imgViewerVisible = false" />
 </template>
 <script>
