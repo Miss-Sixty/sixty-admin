@@ -1,6 +1,6 @@
 <template>
   <el-space wrap>
-    <div v-for="(item, index) in props.url" :key="index" :style="style" class="images">
+    <div v-for="(item, index) in props.modelValue" :key="index" :style="style" class="images">
       <el-image :src="item" fit="fill" :style="style" />
       <div class="images__mask">
         <p>
@@ -11,16 +11,16 @@
           <i class="icon el-icon-back" title="左移" :class="{ disabled: index === 0 }" @click="index !== 0 && move(index, 'left')" />
           <i
             title="右移"
-            :class="{ disabled: index === url.length - 1 }"
+            :class="{ disabled: index === props.modelValue.length - 1 }"
             class="icon el-icon-right"
-            @click="index !== url.length - 1 && move(index, 'right')"
+            @click="index !== props.modelValue.length - 1 && move(index, 'right')"
           />
         </p>
       </div>
     </div>
 
     <el-upload
-      v-show="!limit || props.url.length < props.limit"
+      v-show="!limit || props.modelValue.length < props.limit"
       :action="props.action"
       :show-file-list="false"
       :headers="props.headers"
@@ -62,7 +62,7 @@ export default {
 import { reactive, defineProps, computed, defineEmits } from 'vue'
 import { ElMessage } from 'element-plus'
 import _isBoolean from 'lodash/isBoolean'
-const emit = defineEmits(['update:url', 'on-success'])
+const emit = defineEmits(['update:modelValue', 'on-success'])
 const props = defineProps({
   //限制接受的文件类型
   accept: String,
@@ -82,7 +82,7 @@ const props = defineProps({
     type: String,
     default: 'file',
   },
-  url: {
+  modelValue: {
     type: Array,
     default: () => [],
   },
@@ -150,25 +150,25 @@ const style = computed(() => ({
 
 // 预览
 const preview = index => {
-  state.imgViewerUrl = props.url[index]
+  state.imgViewerUrl = props.modelValue[index]
   state.imgViewerVisible = true
 }
 // 移除
 const remove = index => {
-  let url = [...props.url]
+  let url = [...props.modelValue]
   url.splice(index, 1)
-  emit('update:url', url)
+  emit('update:modelValue', url)
 }
 // 移动
 const move = (index, type) => {
-  let url = [...props.url]
+  let url = [...props.modelValue]
   if (type == 'left' && index !== 0) {
     url[index] = url.splice(index - 1, 1, url[index])[0]
   }
   if (type == 'right' && index !== url.length - 1) {
     url[index] = url.splice(index + 1, 1, url[index])[0]
   }
-  emit('update:url', url)
+  emit('update:modelValue', url)
 }
 
 const beforeUpload = file => {

@@ -2,7 +2,7 @@
   <div class="page-main">
     <tools-bar title="单图上传" />
     <imgs-upload
-      v-model:url="url"
+      v-model="url"
       action="/mock/upload"
       width="250"
       height="150"

@@ -1,7 +1,7 @@
 <template>
   <div class="page-main">
     <tools-bar title="多图上传" :reset="false" />
-    <imgs-upload v-model:url="url" tip action="/mock/upload" width="150" height="150" @on-success="onSuccess" />
+    <imgs-upload v-model="url" tip action="/mock/upload" width="150" height="150" @on-success="onSuccess" />
   </div>
 </template>
 <script setup>
