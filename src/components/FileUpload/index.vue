@@ -128,4 +128,7 @@ const onSuccess = (res, file, fileList) => {
   border-radius: 4px;
   display: inline-block;
 }
+:deep(.el-upload) {
+  vertical-align: top;
+}
 </style>
