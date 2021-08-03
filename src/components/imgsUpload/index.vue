@@ -190,13 +190,13 @@ const beforeUpload = file => {
   return isSize && isType
 }
 
-const onSuccess = res => {
+const onSuccess = (res, file, fileList) => {
   state.percent = 100
   setTimeout(() => {
     state.preview = ''
     state.percent = 0
   }, 200)
-  emit('on-success', res)
+  emit('on-success', res, file, fileList)
 }
 
 const onProgress = file => {
