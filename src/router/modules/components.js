@@ -58,5 +58,13 @@ export default {
         title: '复制文本',
       },
     },
+    {
+      path: '/components/editor',
+      name: 'Editor',
+      component: () => import('@/views/components/editor'),
+      meta: {
+        title: '编辑器',
+      },
+    },
   ],
 }

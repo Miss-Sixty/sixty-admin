@@ -79,7 +79,8 @@ export default {
   },
   watch: {
     myValue(newValue) {
-      this.$emit('input', newValue)
+      console.log(newValue)
+      //   this.$emit('input', newValue)
     },
     value(newValue) {
       this.myValue = newValue
@@ -92,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .tox-tinymce {
+:deep(.tox-tinymce) {
   border: 1px solid #dcdfe6;
   border-radius: 4px;
 }
