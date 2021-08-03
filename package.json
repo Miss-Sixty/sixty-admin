@@ -6,11 +6,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "export:svg": "node ./src/icons/export.js",
-    "deploy": "npm run build && gh-pages -d sixty_admin",
+    "deploy": "gh-pages -d sixty_admin",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "clipboard": "^2.0.8",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.63",
     "js-cookie": "^2.2.1",

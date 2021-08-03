@@ -50,5 +50,13 @@ export default {
         title: '上传',
       },
     },
+    {
+      path: '/components/clipboard',
+      name: 'Clipboard',
+      component: () => import('@/views/components/clipboard'),
+      meta: {
+        title: '复制文本',
+      },
+    },
   ],
 }

@@ -49,6 +49,7 @@ import {
   ElImage,
   ElProgress,
   ElImageViewer,
+  ElLink,
 } from 'element-plus'
 export default app => {
   app
@@ -101,4 +102,5 @@ export default app => {
     .use(ElImage)
     .use(ElProgress)
     .use(ElImageViewer)
+    .use(ElLink)
 }

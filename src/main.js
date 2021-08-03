@@ -9,7 +9,8 @@ import '@/router/permission' //路由守卫
 import '@/icons' // icon
 import auth from '@/utils/auth' //权限指令
 import autoComponets from './components' // 全局组件自动注册
+import autoDirective from './directive' // 全局组件自动注册
 
 import '../mock/index.js' //引入mock
 
-createApp(App).use(autoComponets).use(auth).use(installElementPlus).use(store).use(router).mount('#app')
+createApp(App).use(autoComponets).use(autoDirective).use(auth).use(installElementPlus).use(store).use(router).mount('#app')
