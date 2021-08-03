@@ -5,14 +5,16 @@
       <el-link type="primary" href="https://clipboardjs.com/#example-target" target="_blank"> clipboard 官网 </el-link>
     </page-header>
     <div class="page-main">
-      <tools-bar title="文件上传（默认最多3个）" />
-      <el-input v-model="input" placeholder="请输入内容">
-        <template #append>
-          <el-button v-clipboard:copy="input" v-clipboard:success="successChange" v-clipboard:error="errorChange" type="primary">
-            点击复制
-          </el-button>
-        </template>
-      </el-input>
+      <el-input v-model="input" placeholder="请输入内容" type="textarea" :rows="3" />
+      <el-button
+        v-clipboard="input"
+        v-clipboard:success="successChange"
+        v-clipboard:error="errorChange"
+        type="primary"
+        style="margin-top: 20px"
+      >
+        点击复制
+      </el-button>
     </div>
   </div>
 </template>
@@ -20,7 +22,7 @@
 import { ElMessage } from 'element-plus'
 
 import { ref } from 'vue'
-const input = ref('这是供复制的一句话。')
+const input = ref('连雨不知春去，一晴方觉夏深。')
 const successChange = () => ElMessage.success('已复制到剪切板')
-const errorChange = () => ElMessage.success('已复制到剪切板')
+const errorChange = () => ElMessage.success('复制错误，请重试！')
 </script>

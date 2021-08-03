@@ -19,7 +19,7 @@ export default {
       })
       clipboard.on('error', e => {
         const callback = el._v_clipboard_error
-        callback && callback(e)
+        ;(callback && callback(e)) || console.error('复制错误，请重试！')
       })
       el._v_clipboard = clipboard
     }
