@@ -8,17 +8,20 @@
     :on-success="onSuccess"
     :file-list="props.files"
     :limit="props.limit"
-    drag
+    :drag="props.drag"
+    :show-file-list="showFileList"
   >
-    <div class="slot">
+    <slot>
       <i class="el-icon-upload" />
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-    </div>
+    </slot>
     <template #tip>
-      <p v-if="props.tip" class="tip">
-        <i class="el-icon-info" />
-        {{ tipText }}
-      </p>
+      <div v-if="props.tip">
+        <p class="tip">
+          <i class="el-icon-info" />
+          {{ tipText }}
+        </p>
+      </div>
     </template>
   </el-upload>
 </template>
@@ -62,10 +65,6 @@ const props = defineProps({
     type: Number,
     default: 2,
   },
-  placeholder: {
-    type: String,
-    default: '',
-  },
   //是否显示提示栏
   tip: [Boolean, String],
   //文件类型错误的提示文案
@@ -79,36 +78,45 @@ const props = defineProps({
     type: [Boolean, Number],
     default: 3,
   },
+  showFileList: {
+    type: Boolean,
+    default: true,
+  },
+  drag: Boolean,
 })
 
-const message = computed(() => props.message || `请上传 ${props.ext.join(' 、')} 格式图片！`)
+const message = computed(() => props.message || `请上传 ${props.ext.join(' 、')} 格式文件！`)
 
 const tipText = computed(() => {
-  const { tip, size, ext, width, height } = props
-  if (_isBoolean(tip)) return `${message.value}且大小不超过 ${size}MB ，建尺寸为 ${width}*${height} 。`
+  const { tip, size, limit } = props
+  if (_isBoolean(tip)) return `${message.value}且大小不超过 ${size}MB ，文件数量不超过 ${limit} 个 。`
   return tip
 })
 
 const beforeUpload = file => {
-  console.log(file)
-  const isType = props.ext.includes(file.type)
-  const isSize = file.size / 1024 / 1024 < props.size
-  if (!isType) {
-    ElMessage.error(message.value)
-  }
-  if (!isSize) {
-    ElMessage.error(`上传图片大小不能超过 ${props.size}MB！`)
+  const { size, ext } = props
+  let isSize = true
+  let isType = true
+
+  if (size) {
+    isSize = file.size / 1024 / 1024 < props.size
+    !isSize && ElMessage.error(`上传文件大小不能超过 ${props.size}MB！`)
   }
 
-  return isType && isSize
+  if (ext.length) {
+    const isType = props.ext.includes(file.type)
+    !isType && ElMessage.error(message.value)
+  }
+
+  return isSize && isType
 }
 
 const onExceed = () => {
   ElMessage.warning('文件上传超过限制')
 }
 
-const onSuccess = (res, file) => {
-  emit('on-success', res, file)
+const onSuccess = (res, file, fileList) => {
+  emit('on-success', res, file, fileList)
 }
 </script>
 <style lang="scss" scoped>

@@ -21,7 +21,6 @@
 
     <el-upload
       v-show="!limit || props.url.length < props.limit"
-      class="uploader"
       :action="props.action"
       :show-file-list="false"
       :headers="props.headers"
@@ -31,20 +30,17 @@
       :on-progress="onProgress"
       :on-success="onSuccess"
       :accept="props.accept"
-      drag
     >
-      <div class="img-add" :style="style">
-        <slot>
-          <div v-show="state.percent" class="progress" :style="{ ...style, 'background-image': `url(${state.preview})` }">
-            <el-progress type="circle" :width="Math.min(parseInt(width), parseInt(height)) * 0.8" :percentage="state.percent">
-              <template #default="{ percentage }">
-                <span class="progress-value">{{ percentage }}%</span>
-                <span class="progress-label">当前进度</span>
-              </template>
-            </el-progress>
-          </div>
-          <i class="icon el-icon-plus" />
-        </slot>
+      <div class="uploader" :style="style">
+        <div v-show="state.percent" class="progress" :style="{ 'background-image': `url(${state.preview})` }">
+          <el-progress type="circle" :width="Math.min(parseInt(width), parseInt(height)) * 0.8" :percentage="state.percent">
+            <template #default="{ percentage }">
+              <span class="progress-value">{{ percentage }}%</span>
+              <span class="progress-label">当前进度</span>
+            </template>
+          </el-progress>
+        </div>
+        <i class="icon el-icon-plus" />
       </div>
     </el-upload>
   </el-space>
@@ -90,7 +86,7 @@ const props = defineProps({
   },
   // 文件大小
   size: {
-    type: Number,
+    type: [Boolean, Number],
     default: 2,
   },
   width: {
@@ -100,10 +96,6 @@ const props = defineProps({
   height: {
     type: [Number, String],
     default: 150,
-  },
-  placeholder: {
-    type: String,
-    default: '',
   },
   //是否显示提示栏
   tip: [Boolean, String],
@@ -122,8 +114,10 @@ const props = defineProps({
     default: 3,
   },
 })
+
 //上传格式错误提示窗
 const message = computed(() => props.message || `请上传 ${props.ext.join(' 、')} 格式图片！`)
+
 //判断限制上传照片张数
 const isLimit = computed(() => {
   const { limit } = props
@@ -131,6 +125,7 @@ const isLimit = computed(() => {
   else if (limit) return limit
   return null
 })
+
 //提示栏提醒内容
 const tipText = computed(() => {
   const { tip, size, ext, width, height, limit } = props
@@ -175,28 +170,31 @@ const move = (index, type) => {
 }
 
 const beforeUpload = file => {
-  console.log(file)
-  const isType = props.ext.length && props.ext.includes(file.type)
-  const isSize = file.size / 1024 / 1024 < props.size
-  if (!isType) {
-    ElMessage.error(message.value)
+  const { size, ext } = props
+  let isSize = true
+  let isType = true
+
+  if (size) {
+    isSize = file.size / 1024 / 1024 < props.size
+    !isSize && ElMessage.error(`上传图片大小不能超过 ${props.size}MB！`)
   }
-  if (!isSize) {
-    ElMessage.error(`上传图片大小不能超过 ${props.size}MB！`)
+
+  if (ext.length) {
+    const isType = props.ext.includes(file.type)
+    !isType && ElMessage.error(message.value)
   }
-  if (isType && isSize) {
-    state.preview = URL.createObjectURL(file)
-  }
-  return isType && isSize
+
+  if (isSize && isType) state.preview = URL.createObjectURL(file)
+  return isSize && isType
 }
 
 const onSuccess = res => {
   state.percent = 100
-  // setTimeout(() => {
-  //   state.preview = ''
-  //   state.percent = 0
-  // }, 200)
-  // emit('on-success', res)
+  setTimeout(() => {
+    state.preview = ''
+    state.percent = 0
+  }, 200)
+  emit('on-success', res)
 }
 
 const onProgress = file => {
@@ -248,67 +246,54 @@ const onProgress = file => {
   }
 }
 .uploader {
-  :deep(.el-upload-dragger) {
-    height: auto;
-    width: auto;
-  }
-  // overflow: hidden;
+  overflow: hidden;
   background-color: #fbfdff;
-  // border: 1px dashed #c0ccda;
-  // border-radius: 6px;
-  // text-align: center;
+  border: 1px dashed #c0ccda;
+  border-radius: 6px;
   cursor: pointer;
-  // transition: color 0.3s, border-color 0.3s;
-  .icon {
-    font-size: 28px;
-    color: #8c939d;
+  transition: color 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: #8c939d;
+  font-size: 28px;
+  &:hover {
+    border-color: #409eff;
+    color: #409eff;
   }
-  // &:hover {
-  //   border-color: #409eff;
-  //   color: #409eff;
-  // }
-  .img-add {
+  .progress {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-  }
-  :deep(.el-upload) {
+    justify-content: center;
     width: 100%;
     height: 100%;
-    position: relative;
-    .progress {
+    &::after {
+      content: '';
       position: absolute;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-      .el-progress {
-        position: absolute;
-        z-index: 1;
-      }
-      &-value {
-        display: block;
-        margin-top: 10px;
-        font-size: 28px;
-        color: #fff;
-      }
-      &-label {
-        display: block;
-        margin-top: 10px;
-        font-size: 12px;
-        color: #fff;
-      }
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .el-progress {
+      z-index: 1;
+    }
+    &-value {
+      display: block;
+      margin-top: 10px;
+      font-size: 28px;
+      color: #fff;
+    }
+    &-label {
+      display: block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #fff;
     }
   }
 }
@@ -321,9 +306,6 @@ const onProgress = file => {
   display: inline-block;
 }
 .el-image {
-  vertical-align: top;
-}
-:deep(.el-upload) {
   vertical-align: top;
 }
 </style>
