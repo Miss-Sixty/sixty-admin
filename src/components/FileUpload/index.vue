@@ -71,7 +71,7 @@ const props = defineProps({
   message: String,
   ext: {
     type: Array,
-    default: () => ['image/jpeg', 'image/png'],
+    default: () => [],
   },
   noDel: Boolean,
   limit: {
