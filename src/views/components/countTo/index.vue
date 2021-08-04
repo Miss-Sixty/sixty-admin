@@ -42,9 +42,6 @@
         <el-form-item label="suffix">
           <el-input v-model="state.setSuffix" />
         </el-form-item>
-        <el-form-item label="startVal">
-          <el-input v-model.number="state.setStartVal" />
-        </el-form-item>
         <el-form-item label="操作">
           <el-button-group>
             <el-button type="primary" @click="start">开始</el-button>
@@ -66,7 +63,7 @@ import { reactive, computed, ref } from 'vue'
 const state = reactive({
   setStartVal: 0,
   setEndVal: 2021,
-  setDuration: 4000,
+  setDuration: 3000,
   setDecimals: 2,
   setSeparator: ',',
   setSuffix: ' rmb',
