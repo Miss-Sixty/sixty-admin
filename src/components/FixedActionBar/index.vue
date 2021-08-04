@@ -6,17 +6,14 @@
   </el-affix>
 </template>
 <script>
-import { ref } from 'vue'
 export default {
   name: 'FixedActionBar',
-  setup() {
-    const shadow = ref(false)
-
-    return {
-      shadow,
-    }
-  },
 }
+</script>
+
+<script setup>
+import { ref } from 'vue'
+const shadow = ref(false)
 </script>
 <style lang="scss" scoped>
 .fixed-adtion-bar {
