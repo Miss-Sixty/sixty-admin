@@ -13,7 +13,7 @@
     "axios": "^0.21.1",
     "clipboard": "^2.0.8",
     "core-js": "^3.6.5",
-    "element-plus": "^1.0.2-beta.63",
+    "element-plus": "^1.0.2-beta.69",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
