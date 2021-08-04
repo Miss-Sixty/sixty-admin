@@ -63,7 +63,7 @@ export default {
       name: 'Editor',
       component: () => import('@/views/components/editor'),
       meta: {
-        title: '编辑器',
+        title: '富文本编辑器',
       },
     },
   ],
