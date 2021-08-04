@@ -13,5 +13,3 @@ fs.removeSync(svgDir)
 // install guide: https://developer.sketchapp.com/guides/sketchtool/
 //导出切片 svg格式
 shell.exec(`${SKETCH_TOOL_DIR} export slices --formats=svg --overwriting=YES --save-for-web=YES --output=${svgDir} ${sketch}`)
-
-shell.exec('svgo src/icons/sketchSvg/*.svg --config=src/icons/config.js')

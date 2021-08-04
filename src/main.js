@@ -6,7 +6,6 @@ import installElementPlus from './plugins/element'
 import '@/styles/index.scss'
 import '@/styles/element.scss'
 import '@/router/permission' //路由守卫
-import '@/icons' // icon
 import auth from '@/utils/auth' //权限指令
 import autoComponets from './components' // 全局组件自动注册
 import autoDirective from './directive' // 全局组件自动注册

@@ -50,6 +50,7 @@ import {
   ElProgress,
   ElImageViewer,
   ElLink,
+  ElIcon,
 } from 'element-plus'
 export default app => {
   app
@@ -103,4 +104,5 @@ export default app => {
     .use(ElProgress)
     .use(ElImageViewer)
     .use(ElLink)
+    .use(ElIcon)
 }
