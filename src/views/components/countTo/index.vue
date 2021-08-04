@@ -48,7 +48,7 @@
         <el-form-item label="操作">
           <el-button-group>
             <el-button type="primary" @click="start">开始</el-button>
-            <el-button type="primary" @click="pauseResume">下一页</el-button>
+            <el-button type="primary" @click="pauseResume">暂停/继续</el-button>
           </el-button-group>
         </el-form-item>
       </el-form>
