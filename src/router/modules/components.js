@@ -66,5 +66,13 @@ export default {
         title: '富文本编辑器',
       },
     },
+    {
+      path: '/components/countTo',
+      name: 'CountTo',
+      component: () => import('@/views/components/countTo'),
+      meta: {
+        title: '数字过渡',
+      },
+    },
   ],
 }

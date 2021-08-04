@@ -6,7 +6,7 @@
  * 普通组件必须设置 name 并保证其唯一，自动注册会将组件的 name 设为组件名，可参考 SvgIcon 组件写法
  */
 
-const componentsContext = require.context('./', true, /index.vue$/)
+const componentsContext = require.context('./', true, /index.(vue|js)$/)
 
 export default app => {
   componentsContext.keys().forEach(file_name => {
