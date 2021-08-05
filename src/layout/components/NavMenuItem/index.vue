@@ -1,33 +1,31 @@
 <template>
-  <div>
-    <router-link v-if="!hasChildren" v-slot="{ href, navigate }" custom :to="resolvePath(props.item.path)">
-      <a
-        :href="isExternal(resolvePath(props.item.path)) ? resolvePath(props.item.path) : href"
-        :target="isExternal(resolvePath(props.item.path)) ? '_blank' : '_self'"
-        @click="navigate"
-      >
-        <el-menu-item :index="resolvePath(props.item.path)">
-          <el-icon v-if="props.item.meta?.icon" class="icon">
-            <component :is="props.item.meta?.icon" />
-          </el-icon>
-          <span class="title">{{ props.item.meta?.title }}</span>
-        </el-menu-item>
-      </a>
-    </router-link>
-
-    <el-submenu v-else :index="resolvePath(props.item.path)">
-      <template #title>
+  <router-link v-if="!hasChildren" v-slot="{ href, navigate }" custom :to="resolvePath(props.item.path)">
+    <a
+      :href="isExternal(resolvePath(props.item.path)) ? resolvePath(props.item.path) : href"
+      :target="isExternal(resolvePath(props.item.path)) ? '_blank' : '_self'"
+      @click="navigate"
+    >
+      <el-menu-item :index="resolvePath(props.item.path)">
         <el-icon v-if="props.item.meta?.icon" class="icon">
           <component :is="props.item.meta?.icon" />
         </el-icon>
-        <span class="title">{{ props.item.meta?.title }}</span>
-      </template>
+        <template #title>{{ props.item.meta?.title }}</template>
+      </el-menu-item>
+    </a>
+  </router-link>
 
-      <template v-for="route in props.item.children" :key="route.path">
-        <sidebar-item v-if="!route.meta?.hidden" :item="route" :base-path="resolvePath(props.item.path)" />
-      </template>
-    </el-submenu>
-  </div>
+  <el-submenu v-else :index="resolvePath(props.item.path)">
+    <template #title>
+      <el-icon v-if="props.item.meta?.icon" class="icon">
+        <component :is="props.item.meta?.icon" />
+      </el-icon>
+      <span>{{ props.item.meta?.title }}</span>
+    </template>
+
+    <template v-for="route in props.item.children" :key="route.path">
+      <sidebar-item v-if="!route.meta?.hidden" :item="route" :base-path="resolvePath(props.item.path)" />
+    </template>
+  </el-submenu>
 </template>
 
 <script>
@@ -83,20 +81,12 @@ const resolvePath = routePath => {
 a {
   cursor: pointer;
   color: inherit;
-  text-decoration: none;
 }
-.title {
-  margin-left: 6px;
-  flex: 1;
-  @include text-overflow;
-}
-:deep(.el-menu-item),
-:deep(.el-submenu__title) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// TODO:待element-plus 将导航icon更新为svg后删除
 .icon {
+  margin-right: 5px;
+  width: 24px;
+  text-align: center;
   font-size: 18px;
   vertical-align: middle;
 }

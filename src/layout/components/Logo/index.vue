@@ -24,18 +24,14 @@ const title = useStore().state.setting.title
 
 <style lang="scss" scoped>
 .logo {
-  min-height: $headbar-height;
   line-height: $headbar-height;
   text-align: center;
   color: #37414b;
-  overflow: hidden;
   text-decoration: none;
   padding: 0 10px;
   cursor: pointer;
   font-weight: bold;
-  background-color: $g-sub-sidebar-logo-bg;
-  position: relative;
-  z-index: 1;
+  background-color: $navmenu-logo-bg;
   font-size: 16px;
   transition: box-shadow 0.2s;
   &--shadow {

@@ -16,24 +16,23 @@
         </div>
       </template>
     </div>
-    <div class="menu-follower" :class="{ 'menu-follower--isCollapse': isCollapse }">
-      <logo-name :is-scroll-top="isScrollTop" />
-      <el-scrollbar @scroll="scroll => (isScrollTop = !!scroll.scrollTop)">
-        <el-menu
-          class="menu-follower-content"
-          :collapse="isCollapse"
-          unique-opened
-          :default-active="route.meta.activeMenu || route.path"
-          :collapse-transition="false"
-        >
-          <transition-group name="sidebar">
-            <template v-for="item in routerList" :key="item.path">
-              <nav-menu-item v-if="!item.meta.sidebar" :key="item.path" :item="item" :base-path="item.path" />
-            </template>
-          </transition-group>
-        </el-menu>
-      </el-scrollbar>
-    </div>
+
+    <el-scrollbar view-style="height: 100vh;" @scroll="scroll => (isScrollTop = !!scroll.scrollTop)">
+      <el-menu
+        :collapse="isCollapse"
+        unique-opened
+        :default-active="route.meta.activeMenu || route.path"
+        :text-color="variables.navmenu_color"
+        :active-text-color="variables.navmenu_active_color"
+      >
+        <el-affix :z-index="1">
+          <logo-name :is-scroll-top="isScrollTop" />
+        </el-affix>
+        <template v-for="item in routerList" :key="item.path">
+          <nav-menu-item v-if="!item.meta.sidebar" :key="item.path" :item="item" :base-path="item.path" />
+        </template>
+      </el-menu>
+    </el-scrollbar>
   </div>
 
   <!-- phone & pad -->
@@ -90,6 +89,7 @@ import NavMenuItem from '../NavMenuItem'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
+import variables from '@/styles/resources/var.scss'
 
 const store = useStore()
 const route = useRoute()
@@ -142,48 +142,13 @@ const routerList = computed(() => store.getters['menu/sidebarRoutes'])
       }
     }
   }
-  &-follower {
-    display: flex;
-    flex-direction: column;
+}
+:deep(.el-menu) {
+  border: none;
+  height: 100%;
+  background-color: $navmenu-bg;
+  &:not(.el-menu--collapse) {
     width: $navmenu-width;
-    height: 100vh;
-    transition: width 0.2s; //TODO：侧边栏展开收起动画和menu组件收起动画不一致
-    background-color: $g-sub-sidebar-bg;
-    &--isCollapse {
-      width: $navmenu-collapse-width;
-    }
-    &-content {
-      border-right: none;
-      background-color: $g_sub_sidebar_bg;
-    }
   }
-}
-
-//收起导航树选中的颜色
-:deep(.el-menu--collapse) {
-  .el-submenu.is-active .el-submenu__title .icon {
-    color: #409eff;
-  }
-  span {
-    display: none;
-  }
-  i {
-    right: 7px;
-    margin-top: -5px;
-  }
-}
-
-// 侧边栏动画
-.sidebar-enter-active,
-.sidebar-leave-active {
-  transition: all 0.2s;
-}
-.sidebar-enter-from,
-.sidebar-leave-to {
-  opacity: 0;
-  transform: translateY(20px);
-}
-.sidebar-leave-active {
-  position: absolute;
 }
 </style>

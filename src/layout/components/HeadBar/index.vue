@@ -17,7 +17,7 @@ defineEmits(['collapseChange'])
 <style lang="scss" scoped>
 .headbar {
   height: $headbar-height;
-  background-color: $navmenu-bg;
+  background-color: $headbar-bg;
   transition: box-shadow 0.2s;
   box-shadow: 0 0 1px 0 #ccc;
   position: relative;
