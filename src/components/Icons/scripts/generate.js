@@ -47,21 +47,22 @@ const config = {
     'removeDimensions',
   ],
 }
-
-const configFill = [
-  { name: 'removeAttrs', params: { attrs: '(stroke|fill|class)' } },
-  {
-    name: 'addAttrs',
-    type: 'perItem',
-    fn(ast) {
-      const { type, name } = ast
-      if (type === 'element' && name === 'path') {
-        ast.attributes.stroke = 'currentColor'
-        ast.attributes.fill = 'none'
-      }
+const configFill = {
+  plugins: [
+    ...config.plugins,
+    { name: 'removeAttrs', params: { attrs: '(stroke|fill|class)' } },
+    {
+      name: 'addAttrs',
+      type: 'perItem',
+      fn(ast) {
+        const { type, name } = ast
+        if (type === 'element' && name === 'path') {
+          ast.attributes.fill = 'currentColor'
+        }
+      },
     },
-  },
-]
+  ],
+}
 
 //删除目录并重建
 fs.promises
@@ -89,7 +90,7 @@ async function transform(filename, basePath, isFill) {
   })
   const basename = filename.split('.svg').shift()
   const componentName = basename.split('-').map(capitalizeInitial).join('')
-  const optimized = optimize(content, { config: isFill ? config.plugins : [...config.plugins, ...configFill] })
+  const optimized = optimize(content, isFill ? config : configFill)
   // TODO: make this generic and pipe-able for generating
   // reusable code like ant design icon does.
   const transformed = transformToVue3(optimized.data, componentName)
@@ -100,7 +101,7 @@ function writeToDisk(content, componentName) {
   const targetFile = path.resolve(outDir, `./${componentName}`)
   fs.mkdirSync(targetFile)
   const file = path.resolve(targetFile, './index.vue')
-  fs.promises.writeFile(file, content, {
+  fs.writeFileSync(file, content, {
     encoding: 'utf-8',
   })
 }

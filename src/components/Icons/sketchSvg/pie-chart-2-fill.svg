@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>pie-chart-2-fill</title>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="pie-chart-2-fill" fill="#000000" fill-rule="nonzero">
+            <g id="形状">
+                <path d="M58.6666667,10.9333333 L58.6666667,69.3333333 L117.066667,69.3333333 C114.394667,96.2826667 91.6533333,117.333333 64,117.333333 C34.544,117.333333 10.6666667,93.456 10.6666667,64 C10.6666667,36.3466667 31.7173333,13.6053333 58.6666667,10.9333333 Z M69.3333333,2.896 C98.9493333,5.44 122.554667,29.0506667 125.104,58.6666667 L69.3333333,58.6666667 L69.3333333,2.896 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>

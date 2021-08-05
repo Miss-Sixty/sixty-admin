@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>folder-3-fill</title>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="folder-3-fill" fill="#000000" fill-rule="nonzero">
+            <g id="形状">
+                <path d="M117.333333,42.6666667 L117.333333,106.666667 C117.333333,109.612185 114.945519,112 112,112 L16,112 C13.0544813,112 10.6666667,109.612185 10.6666667,106.666667 L10.6666667,37.3333333 L112,37.3333333 C114.945519,37.3333333 117.333333,39.721148 117.333333,42.6666667 Z M66.208,26.6666667 L10.6666667,26.6666667 L10.6666667,21.3333333 C10.6666667,18.3878147 13.0544813,16 16,16 L55.5413333,16 L66.208,26.6666667 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>
