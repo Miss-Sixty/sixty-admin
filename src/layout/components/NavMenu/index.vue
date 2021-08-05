@@ -43,7 +43,7 @@
     direction="ltr"
     :show-close="false"
     :with-header="false"
-    @closed="closedChange"
+    @close="closeChange"
   >
     <div class="menu">
       <div v-if="mainRoutes.length > 1 || alwaysShowMainSidebar" class="menu-main">
@@ -62,23 +62,21 @@
           </div>
         </template>
       </div>
-      <div>
-        <logo-name :is-scroll-top="isScrollTop" />
-        <el-scrollbar @scroll="scroll => (isScrollTop = !!scroll.scrollTop)">
-          <el-menu
-            class="menu-follower-content"
-            unique-opened
-            :default-active="route.meta.activeMenu || route.path"
-            :collapse-transition="false"
-          >
-            <transition-group name="sidebar">
-              <template v-for="item in routerList" :key="item.path">
-                <nav-menu-item v-if="!item.meta.sidebar" :key="item.path" :item="item" :base-path="item.path" />
-              </template>
-            </transition-group>
-          </el-menu>
-        </el-scrollbar>
-      </div>
+      <el-scrollbar view-style="height: 100vh;" @scroll="scroll => (isScrollTop = !!scroll.scrollTop)">
+        <el-menu
+          unique-opened
+          :default-active="route.meta.activeMenu || route.path"
+          :text-color="variables.navmenu_color"
+          :active-text-color="variables.navmenu_active_color"
+        >
+          <el-affix :z-index="1">
+            <logo-name :is-scroll-top="isScrollTop" />
+          </el-affix>
+          <template v-for="item in routerList" :key="item.path">
+            <nav-menu-item v-if="!item.meta.sidebar" :key="item.path" :item="item" :base-path="item.path" />
+          </template>
+        </el-menu>
+      </el-scrollbar>
     </div>
   </el-drawer>
 </template>
@@ -90,20 +88,15 @@ import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
 import variables from '@/styles/resources/var.scss'
-
 const store = useStore()
 const route = useRoute()
 const isScrollTop = ref(false)
 const isCollapse = computed(() => store.state.setting.sidebarCollapse)
-const closedChange = () => {
-  store.commit('setting/TOOGLE_SIDEBAR_COLLAPSE')
-}
+const closeChange = () => store.commit('setting/TOOGLE_SIDEBAR_COLLAPSE')
 const mode = computed(() => store.state.setting.mode)
-
 const alwaysShowMainSidebar = computed(() => store.state.setting.alwaysShowMainSidebar)
 const switchActivedChange = index => store.commit('menu/SWITCHACTIVED', index)
 const headerActived = computed(() => store.state.menu.headerActived)
-
 const mainRoutes = computed(() => store.state.menu.routes)
 const routerList = computed(() => store.getters['menu/sidebarRoutes'])
 </script>
@@ -114,7 +107,6 @@ const routerList = computed(() => store.getters['menu/sidebarRoutes'])
   position: relative;
   z-index: 1001;
   box-shadow: $sidebar-box-shadow;
-  height: 100%;
   &-main {
     background-color: $g-main-sidebar-bg;
     color: #fff;
