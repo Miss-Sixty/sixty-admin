@@ -5,30 +5,17 @@ export default {
   component: Layout,
   redirect: '/icons/page',
   meta: {
-    title: '图标',
+    title: 'Icon 图标',
     icon: 'icon',
   },
   children: [
     {
-      path: 'page',
-      name: 'SketchIcons',
-      props: {
-        type: 'sketch',
-      },
+      path: '/icons/page',
+      name: 'Icons',
       component: () => import('@/views/icons'),
       meta: {
-        title: 'Sketch 图标',
-      },
-    },
-    {
-      path: 'page/svg',
-      name: 'SvgIcons',
-      props: {
-        type: 'svg',
-      },
-      component: () => import('@/views/icons'),
-      meta: {
-        title: 'SVG 图标',
+        hidden: true,
+        activeMenu: '/icons',
       },
     },
   ],

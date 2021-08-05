@@ -2,10 +2,9 @@ const fs = require('fs-extra')
 const path = require('path')
 const shell = require('shelljs')
 
-const svgDir = path.join(__dirname, 'sketchSvg')
-const sketch = path.join(__dirname, '../assets/sketch/icons.sketch')
+const svgDir = path.join(__dirname, '../sketchSvg')
+const sketch = path.join(__dirname, '../../../assets/sketch/icons.sketch')
 const SKETCH_TOOL_DIR = '/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool'
-
 fs.removeSync(svgDir)
 
 // extract svg from sketch

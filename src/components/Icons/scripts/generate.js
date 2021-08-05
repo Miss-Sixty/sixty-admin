@@ -5,16 +5,10 @@ const path = require('path')
 const chalk = require('chalk')
 const { optimize } = require('svgo')
 
-const ROOT = path.resolve(__dirname, '../svg')
-const outDir = path.resolve(__dirname, '../components')
+const SVG = path.resolve(__dirname, '../svg')
+const SKETCH_SVG = path.resolve(__dirname, '../sketchSvg')
 
-//删除目录并重建
-fs.promises
-  .rm(outDir, {
-    force: true,
-    recursive: true,
-  })
-  .then(() => fs.mkdirSync(outDir))
+const outDir = path.resolve(__dirname, '../components')
 
 const config = {
   plugins: [
@@ -51,37 +45,51 @@ const config = {
     'convertShapeToPath',
     'sortAttrs',
     'removeDimensions',
-    { name: 'removeAttrs', params: { attrs: '(stroke|fill|class)' } },
-    {
-      name: 'addAttrs',
-      type: 'perItem',
-      fn(ast) {
-        const { type, name } = ast
-        if (type === 'element' && name === 'path') {
-          ast.attributes.stroke = 'currentColor'
-          ast.attributes.fill = 'none'
-        }
-      },
-    },
   ],
 }
 
+const configFill = [
+  { name: 'removeAttrs', params: { attrs: '(stroke|fill|class)' } },
+  {
+    name: 'addAttrs',
+    type: 'perItem',
+    fn(ast) {
+      const { type, name } = ast
+      if (type === 'element' && name === 'path') {
+        ast.attributes.stroke = 'currentColor'
+        ast.attributes.fill = 'none'
+      }
+    },
+  },
+]
+
+//删除目录并重建
+fs.promises
+  .rm(outDir, {
+    force: true,
+    recursive: true,
+  })
+  .then(() => {
+    fs.mkdirSync(outDir)
+    main(SVG, true)
+    main(SKETCH_SVG)
+  })
+
 // maybe consider using gulp here to do sequential operations
 // without implementation chaining function
-function main() {
-  const icons = fs.readdirSync(ROOT)
-  icons.map(icon => transform(icon))
+function main(basePath, isFill) {
+  const icons = fs.readdirSync(basePath)
+  icons.map(icon => transform(icon, basePath, isFill))
 }
 
-async function transform(filename) {
+async function transform(filename, basePath, isFill) {
   console.log(chalk.cyan(`Start building: ${filename}`))
-
-  const content = await fs.promises.readFile(path.resolve(ROOT, filename), {
+  const content = await fs.promises.readFile(path.resolve(basePath, filename), {
     encoding: 'utf-8',
   })
   const basename = filename.split('.svg').shift()
   const componentName = basename.split('-').map(capitalizeInitial).join('')
-  const optimized = optimize(content, config)
+  const optimized = optimize(content, { config: isFill ? config.plugins : [...config.plugins, ...configFill] })
   // TODO: make this generic and pipe-able for generating
   // reusable code like ant design icon does.
   const transformed = transformToVue3(optimized.data, componentName)
@@ -113,5 +121,3 @@ export default {
 </script>
 `
 }
-
-main()

@@ -1,49 +1,31 @@
 <template>
   <div>
-    <page-header icon="none" icon-text="none" :title="data.title" :content="data.content" />
+    <page-header icon="none" icon-text="none" title="Icon 图标">
+      <p>Icon 的使用方法跟 element-plus 中 svg 的使用方法完全一致，并自动注册为全局，无需额外引入。</p>
+    </page-header>
     <div class="grid">
-      23
-      <Wallet />
-
-      <!-- <template v-for="item in data.list" :key="item">
+      <template v-for="item in name" :key="item">
         <div class="icon-item">
-          <svg-icon :name="item" />
+          <el-icon :size="40">
+            <component :is="item" />
+          </el-icon>
+
           <span>{{ item }}</span>
         </div>
-      </template> -->
+      </template>
     </div>
   </div>
 </template>
 
 <script setup>
-// import { sketchIcons, svgIcons } from './svg-icons'
-import { defineProps, computed } from 'vue'
-const props = defineProps({
-  type: String,
-})
-
-const obj = {
-  sketch: {
-    title: 'Sketch 图标',
-    content:
-      'SketchSvg 文件夹中保存 sketch 生成图标，每次执行 yarn export:svg 或 npm run export:svg 命令会都删除文件夹并重新创建 svg 。',
-    // list: sketchIcons,
-  },
-  svg: {
-    title: 'SVG 图标',
-    content: '你也可以使用自己的 SVG 图标，只需把 svg 图标复制到 @/icons/svg 文件夹下即可。',
-    // list: svgIcons,
-  },
-}
-
-const data = computed(() => obj[props.type])
+import name from './svg-icons'
 </script>
 
 <style lang="scss" scoped>
 .grid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   margin: 20px;
   border-radius: 4px;
   overflow: hidden;
