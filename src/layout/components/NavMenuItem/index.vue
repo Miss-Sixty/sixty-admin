@@ -7,7 +7,9 @@
         @click="navigate"
       >
         <el-menu-item :index="resolvePath(props.item.path)">
-          <svg-icon v-if="props.item.meta?.icon" :name="props.item.meta?.icon" />
+          <el-icon v-if="props.item.meta?.icon" class="icon">
+            <component :is="props.item.meta?.icon" />
+          </el-icon>
           <span class="title">{{ props.item.meta?.title }}</span>
         </el-menu-item>
       </a>
@@ -15,7 +17,9 @@
 
     <el-submenu v-else :index="resolvePath(props.item.path)">
       <template #title>
-        <svg-icon v-if="item.meta?.icon" :name="props.item.meta?.icon" />
+        <el-icon v-if="props.item.meta?.icon" class="icon">
+          <component :is="props.item.meta?.icon" />
+        </el-icon>
         <span class="title">{{ props.item.meta?.title }}</span>
       </template>
 
@@ -83,7 +87,6 @@ a {
 }
 .title {
   margin-left: 6px;
-  vertical-align: inherit;
   flex: 1;
   @include text-overflow;
 }
@@ -93,7 +96,8 @@ a {
   align-items: center;
   justify-content: center;
 }
-.svg-icon {
-  font-size: 16px;
+.icon {
+  font-size: 18px;
+  vertical-align: middle;
 }
 </style>

@@ -7,7 +7,9 @@
       :class="{ 'vertical-menu__item--active': item.type === modelValue }"
       @click="clickChange(item)"
     >
-      <svg-icon :name="item.icon" />
+      <el-icon class="icon">
+        <component :is="item.icon" />
+      </el-icon>
       {{ item.title }}
     </li>
   </ul>
@@ -53,8 +55,7 @@ export default {
       box-shadow: 0 4px 18px -4px #56a6f7;
       color: #fff;
     }
-
-    .svg-icon {
+    .icon {
       font-size: 18px;
       margin-right: 8px;
     }

@@ -1,17 +1,23 @@
 <template>
   <div class="right-box">
     <el-tooltip :content="isFullscreen ? '窗口' : '全屏'" placement="bottom" effect="light">
-      <svg-icon :name="isFullscreen ? 'fullscreen-exit-fill' : 'fullscreen-fill'" @click="fullscreen" />
+      <el-icon class="icon">
+        <component :is="isFullscreen ? 'fullscreen-exit-fill' : 'fullscreen-fill'" @click="fullscreen" />
+      </el-icon>
     </el-tooltip>
 
     <el-tooltip effect="light" content="刷新页面" placement="bottom">
-      <svg-icon name="refresh-line" @click="toRouter('Reload')" />
+      <el-icon class="icon" @click="toRouter('Reload')">
+        <refresh-line />
+      </el-icon>
     </el-tooltip>
 
     <el-popover placement="bottom" :width="300">
       <template #reference>
         <el-badge :value="notice.num" :hidden="notice.num < 1" class="right-box--badge" type="danger">
-          <svg-icon name="notification-2-line" />
+          <el-icon class="icon">
+            <notification-2-line />
+          </el-icon>
         </el-badge>
       </template>
       <el-tabs v-model="activeName">
@@ -123,7 +129,10 @@ watch(
   display: flex;
   align-items: center;
   white-space: nowrap;
-  .svg-icon {
+  .icon {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
     padding: 0 10px;
     height: $headbar-height;
     box-sizing: content-box;

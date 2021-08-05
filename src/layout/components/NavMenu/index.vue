@@ -9,7 +9,9 @@
           :class="{ 'menu-main__item--active': index === headerActived }"
           @click="switchActivedChange(index)"
         >
-          <svg-icon v-if="item.meta?.icon" :name="item.meta?.icon" />
+          <el-icon v-if="item.meta?.icon" class="icon">
+            <component :is="item.meta?.icon" />
+          </el-icon>
           <span>{{ item.meta?.title }}</span>
         </div>
       </template>
@@ -54,7 +56,9 @@
             :class="{ 'menu-main__item--active': index === headerActived }"
             @click="switchActivedChange(index)"
           >
-            <svg-icon v-if="item.meta?.icon" :name="item.meta?.icon" />
+            <el-icon v-if="item.meta?.icon" class="icon">
+              <component :is="item.meta?.icon" />
+            </el-icon>
             <span>{{ item.meta?.title }}</span>
           </div>
         </template>
@@ -128,8 +132,8 @@ const routerList = computed(() => store.getters['menu/sidebarRoutes'])
       &:hover {
         background-color: $g-main-sidebar-active-bg;
       }
-      .svg-icon {
-        margin: 0 auto;
+      .icon {
+        margin: 0 auto 2px;
         font-size: 18px;
       }
       span {
@@ -157,7 +161,7 @@ const routerList = computed(() => store.getters['menu/sidebarRoutes'])
 
 //收起导航树选中的颜色
 :deep(.el-menu--collapse) {
-  .el-submenu.is-active .el-submenu__title .svg-icon {
+  .el-submenu.is-active .el-submenu__title .icon {
     color: #409eff;
   }
   span {

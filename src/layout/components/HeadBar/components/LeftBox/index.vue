@@ -1,6 +1,8 @@
 <template>
   <div class="left-box">
-    <svg-icon name="menu-fold-line" :class="{ 'left-box--isCollapse': isCollapse }" @click="toggleSidebarCollapse" />
+    <el-icon class="icon" :class="{ 'left-box--isCollapse': isCollapse }" @click="toggleSidebarCollapse">
+      <menu-fold-line />
+    </el-icon>
     <el-breadcrumb v-if="mode !== 'phone'">
       <transition-group name="breadcrumb">
         <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.path" :to="pathCompile(item.path)">
@@ -53,9 +55,12 @@ const pathCompile = path => compile(path)(route.params)
   display: flex;
   align-items: center;
   white-space: nowrap;
-  .svg-icon {
+  .icon {
     padding: 0 16px;
+    font-size: 18px;
     height: $headbar-height;
+    display: flex;
+    align-items: center;
     box-sizing: content-box;
     transition: background-color 0.3s;
     cursor: pointer;

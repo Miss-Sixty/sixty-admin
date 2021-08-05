@@ -10,9 +10,9 @@
 
       <slot name="btn" />
       <el-tooltip v-if="reset" effect="light" :content="refreshText" placement="bottom">
-        <div class="headbar__icon">
-          <svg-icon name="refresh-line" @click="$emit('reset')" />
-        </div>
+        <el-icon class="headbar__icon" @click="$emit('reset')">
+          <refresh-line />
+        </el-icon>
       </el-tooltip>
     </el-row>
   </el-row>
