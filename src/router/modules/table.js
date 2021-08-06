@@ -7,7 +7,7 @@ export default {
   name: 'table',
   meta: {
     title: '表格',
-    icon: 'el-icon-menu',
+    icon: 'TableFill',
   },
   children: [
     {

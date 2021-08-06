@@ -6,7 +6,7 @@ export default {
   redirect: '/charts/page',
   meta: {
     title: '图表',
-    icon: 'file-excel-2-line',
+    icon: 'PieChart2Fill',
   },
   children: [
     {

@@ -7,7 +7,7 @@ export default {
   name: 'Components',
   meta: {
     title: '拓展组件',
-    icon: 'settings-5-fill',
+    icon: 'CollageFill',
   },
   children: [
     {

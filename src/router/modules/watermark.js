@@ -6,7 +6,7 @@ export default {
   redirect: '/watermark/page',
   meta: {
     title: '页面水印',
-    icon: 'icon',
+    icon: 'WatermarkIcon',
   },
   children: [
     {

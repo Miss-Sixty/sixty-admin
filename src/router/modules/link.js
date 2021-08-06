@@ -8,7 +8,7 @@ export default {
   name: 'Link',
   meta: {
     title: '外链',
-    icon: 'share-box-fill',
+    icon: 'SendPlaneFill',
   },
   children: [
     {

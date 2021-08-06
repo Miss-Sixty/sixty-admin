@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>collage-fill</title>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="collage-fill" fill="#000000" fill-rule="nonzero">
+            <g id="形状">
+                <path d="M59.2241111,70.8134444 L67.3566667,117 L16.8888889,117 C13.6382222,117 11,114.361778 11,111.111111 L11,79.3228889 L59.2241111,70.8134444 Z M111.111111,11 C114.361778,11 117,13.6382222 117,16.8888889 L117,111.111111 C117,114.361778 114.361778,117 111.111111,117 L79.3228889,117 L60.6315556,11 L111.111111,11 Z M48.6712222,11 L57.1747778,59.2182222 L11,67.3566667 L11,16.8888889 C11,13.6382222 13.6382222,11 16.8888889,11 L48.6712222,11 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>

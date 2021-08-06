@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>send-plane-fill</title>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="send-plane-fill" fill="#000000" fill-rule="nonzero">
+            <g id="路径">
+                <path d="M10.3786667,49.68 C7.59466667,48.752 7.568,47.2533333 10.432,46.2986667 L112.229333,12.368 C115.050667,11.4293333 116.666667,13.008 115.877333,15.7706667 L86.7893333,117.562667 C85.9893333,120.384 84.3626667,120.48 83.168,117.802667 L64,74.6666667 L96,32 L53.3333333,64 L10.3786667,49.68 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>

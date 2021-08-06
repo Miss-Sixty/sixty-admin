@@ -6,7 +6,7 @@ export default {
   redirect: '/onlinePreview/page',
   meta: {
     title: 'Office 预览',
-    icon: 'file-excel-2-line',
+    icon: 'FileWord2Fill',
   },
   children: [
     {

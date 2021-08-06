@@ -7,7 +7,7 @@ export default {
   name: 'Permission',
   meta: {
     title: '权限验证',
-    icon: 'settings-5-fill',
+    icon: 'ShieldKeyholeFill',
   },
   children: [
     {
