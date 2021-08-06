@@ -53,6 +53,7 @@ import Permission from './modules/permission' //权限
 import Components from './modules/components' //拓展组件
 import Watermark from './modules/watermark' //页面水印
 import OnlinePreview from './modules/onlinePreview' //office 预览
+import Charts from './modules/charts' // 图表
 
 //页面
 import table from './modules/table'
@@ -64,7 +65,7 @@ export const asyncRoutes = [
       title: '基础',
       icon: 'home',
     },
-    children: [Components, Icons, OnlinePreview, Permission, Nested, Watermark, Link],
+    children: [Components, Icons, Charts, Watermark, OnlinePreview, Permission, Nested, Link],
   },
   {
     meta: {
