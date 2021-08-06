@@ -6,10 +6,10 @@
       的二次封装。详细使用请参考官方文档。
     </page-header>
     <div class="page">
-      <el-row :gutter="10">
-        <el-col v-for="(item, index) in list" :key="index" class="col" :sm="24" :md="12" :lg="8">
+      <el-row :gutter="15">
+        <el-col v-for="(item, index) in list" :key="index" class="col" :sm="24" :md="12" :lg="8" :xl="6">
           <el-card :header="item.title" body-style="padding:0">
-            <e-charts :option="item.option" height="300px" />
+            <e-charts :option="item.option" height="250px" />
           </el-card>
         </el-col>
       </el-row>

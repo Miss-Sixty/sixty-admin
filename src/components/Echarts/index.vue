@@ -49,6 +49,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  loading: Boolean,
 })
 const { width, height } = useWindowResize()
 
@@ -69,6 +70,14 @@ watch([width, height], () =>
       duration: 200,
     },
   })
+)
+
+watch(
+  () => props.loading,
+  () => {
+    if (props.loading) myChart.showLoading()
+    if (!props.loading) myChart.hideLoading()
+  }
 )
 
 // 深度监听 options 改动，改动后重绘数据
