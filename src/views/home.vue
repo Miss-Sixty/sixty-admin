@@ -21,11 +21,11 @@ export default {
       const textMap = [
         {
           title: '凌晨了',
-          text: ['要适当休息哦～身体最重要！'],
+          text: ['祝您开心每一天！'],
         },
         {
           title: '早晨好',
-          text: ['这么早就开始工作了，以后会越来越好吧！'],
+          text: ['祝您开心每一天！'],
         },
         {
           title: '上午好',
@@ -33,7 +33,7 @@ export default {
         },
         {
           title: '中午好',
-          text: ['记得睡个午觉哦～下午精神满满！'],
+          text: ['祝您开心每一天！'],
         },
         {
           title: '下午好',
@@ -41,11 +41,11 @@ export default {
         },
         {
           title: '傍晚了',
-          text: ['还没下班吗？加油加油！！'],
+          text: ['祝您开心每一天！'],
         },
         {
           title: '晚上了',
-          text: ['这么晚了还在工作，偶尔起来走走也许效率会更高哦～'],
+          text: ['祝您开心每一天！'],
         },
       ]
       return { ...textMap[status], text: textMap[status].text[Math.floor(Math.random() * textMap[status].text.length)] }
