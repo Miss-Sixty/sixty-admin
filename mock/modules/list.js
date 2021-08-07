@@ -51,6 +51,6 @@ export default {
   'get|/mock/list/info': info,
   'get|/mock/list/add': success('新增'),
   'get|/mock/list/edit': success('修改'),
-  'get|/mock/list/switch': success('更改'),
+  'get|/mock/list/status': success('更改'),
   'get|/mock/list/del': success('删除'),
 }

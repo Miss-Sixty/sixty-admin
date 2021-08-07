@@ -97,10 +97,7 @@ function init() {
 function getInfo() {
   state.loading = true
   info({ id: state.id })
-    .then(res => {
-      console.log(res.data)
-      forInData(res.data, formData)
-    })
+    .then(res => forInData(res.data, formData))
     .finally(() => (state.loading = false))
 }
 
@@ -115,19 +112,18 @@ function onClickChange() {
 
 //新增
 function addHandleChange() {
-  console.log('新增')
   state.loading = true
   add(formData)
     .then(res => {
       ElNotification({
         title: '提示',
-        message: res.msg,
+        message: res.message,
         type: 'success',
       })
       state.dialogVisible = false
       setTimeout(() => {
         messageBoxChange('是否要退出新增页？').then(() => backChange())
-      }, 500)
+      }, 800)
     })
     .finally(() => {
       state.loading = false
@@ -136,19 +132,18 @@ function addHandleChange() {
 
 //修改
 function editHandleChange() {
-  console.log('修改')
   state.loading = true
   edit({ ...formData, id: state.id })
     .then(res => {
       ElNotification({
         title: '提示',
-        message: res.msg,
+        message: res.message,
         type: 'success',
       })
       state.dialogVisible = false
       setTimeout(() => {
         messageBoxChange('是否要退出修改页？').then(() => backChange())
-      }, 500)
+      }, 800)
     })
     .finally(() => {
       state.loading = false

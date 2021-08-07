@@ -14,3 +14,18 @@ export function info(params) {
 export function del(params) {
   return request.get('/mock/list/del', { params }).then(res => res.data)
 }
+
+//新增
+export function add(params) {
+  return request.get('/mock/list/add', { params }).then(res => res.data)
+}
+
+//修改
+export function edit(params) {
+  return request.get('/mock/list/edit', { params }).then(res => res.data)
+}
+
+//禁用/启用
+export function status(params) {
+  return request.get('/mock/list/status', { params }).then(res => res.data)
+}

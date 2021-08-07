@@ -1,11 +1,11 @@
 <template>
   <div>
-    <search-bar
-      v-model:keywords="search.keywords"
-      keywords-text="搜索员工姓名"
-      @on-search="onSearchChange"
-      @on-reset="onResetChange"
-    />
+    <search-bar v-model:keywords="search.keywords" keywords-text="搜索员工姓名" @on-search="onSearchChange" @on-reset="onResetChange">
+      <el-select v-model="search.status" placeholder="筛选 禁用/启用">
+        <el-option label="禁用" :value="0" />
+        <el-option label="启用" :value="1" />
+      </el-select>
+    </search-bar>
 
     <six-card title="员工列表">
       <template #btn>
@@ -19,22 +19,22 @@
 
       <el-table v-loading="tableData.loading" :data="tableData.list">
         <el-table-column type="index" width="50" />
-        <el-table-column prop="date" label="日期" width="180" align="center" />
-        <el-table-column prop="name" label="姓名" width="180" align="center" />
-        <el-table-column prop="address" label="禁用/启用" width="180" align="center">
+        <el-table-column prop="name" label="姓名" min-width="160" align="center" />
+        <el-table-column prop="address" label="禁用/启用" min-width="160" align="center">
           <template #default="{ row }">
             <confirm-switch
               :id="row.id"
-              :api="swichtChange"
+              :api="status"
               :text="`确定要「${row.status ? '禁用' : '启用'}」该数据吗？`"
               :status="row.status"
               @on-success="row.status = !row.status"
             />
           </template>
         </el-table-column>
-        <el-table-column prop="address" label="地址" />
+        <el-table-column prop="address" label="地址" min-width="260" />
+        <el-table-column prop="date" label="日期" min-width="180" align="center" />
 
-        <el-table-column prop="address" label="操作" align="center" min-width="280" fixed="right">
+        <el-table-column prop="address" label="操作" align="center" min-width="160" fixed="right">
           <template #default="{ row, $index }">
             <el-button :disabled="row.disabled" type="warning" size="small" @click="toRouter('TableEdit', { id: row.id })">
               编辑
@@ -57,13 +57,14 @@
   </div>
 </template>
 <script setup>
-import { list, del } from '@/api/list'
+import { list, del, status } from '@/api/list'
 import { reactive, shallowReactive } from 'vue'
 import useSearch from '@/hooks/useSearch'
 import { toRouter, messageBoxChange } from '@/hooks'
 import { ElNotification } from 'element-plus'
 const search = reactive({
   keywords: null,
+  status: null,
 })
 
 // shallowReactive 只响应第一层的数据，第二层则不监测响应式
@@ -97,16 +98,6 @@ const delChange = async (row, index) => {
     console.log(err)
     row.disabled = false
   }
-}
-
-function swichtChange() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve({
-        message: '更改成功！',
-      })
-    }, 1000)
-  })
 }
 
 function getListData() {
