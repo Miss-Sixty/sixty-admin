@@ -1,10 +1,11 @@
 import Layout from '@/layout'
+import EmptyLayout from '@/layout/empty'
 
 export default {
   path: '/table',
   component: Layout,
   redirect: '/table/page',
-  name: 'table',
+  name: 'Table',
   meta: {
     title: '表格',
     icon: 'TableFill',
@@ -12,11 +13,41 @@ export default {
   children: [
     {
       path: '/table/page',
-      name: 'tablePage',
-      component: () => import('@/views/table'),
+      component: EmptyLayout,
       meta: {
-        title: '综合表格',
+        hidden: true,
+        activeMenu: '/table',
       },
+      children: [
+        {
+          path: '',
+          name: 'TablePage',
+          component: () => import('@/views/table'),
+          meta: {
+            hidden: true,
+          },
+        },
+        {
+          path: 'add',
+          name: 'TableAdd',
+          component: () => import('@/views/table/addOrEdit'),
+          meta: {
+            title: '新增员工',
+            hidden: true,
+            activeMenu: '/table',
+          },
+        },
+        {
+          path: 'edit/:id',
+          name: 'TableEdit',
+          component: () => import('@/views/table/addOrEdit'),
+          meta: {
+            title: '修改员工',
+            hidden: true,
+            activeMenu: '/table',
+          },
+        },
+      ],
     },
   ],
 }
