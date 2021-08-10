@@ -4,14 +4,12 @@
       <p>Icon 的使用方法跟 element-plus 中 svg 的使用方法完全一致，并自动注册为全局，无需额外引入。</p>
     </page-header>
     <div class="grid">
-      <template v-for="item in name" :key="item">
-        <div class="icon-item">
-          <el-icon :size="40">
-            <component :is="item" />
-          </el-icon>
-          <span>{{ item }}</span>
-        </div>
-      </template>
+      <div v-for="item in name" :key="item" class="icon-item">
+        <el-icon :size="40">
+          <component :is="item" />
+        </el-icon>
+        <span>{{ item }}</span>
+      </div>
     </div>
   </div>
 </template>
