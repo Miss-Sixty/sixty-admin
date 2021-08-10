@@ -6,7 +6,7 @@ export default {
   redirect: '/print/page',
   meta: {
     title: '打印',
-    icon: 'PieChart2Fill',
+    icon: 'PrinterFill',
   },
   children: [
     {
