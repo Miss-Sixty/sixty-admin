@@ -6,7 +6,7 @@
       四种类型数据，更多参数说明请查看文档
     </page-header>
 
-    <el-space wrap class="content">
+    <el-space wrap class="content" :size="15">
       <el-card v-for="(item, index) in list" :key="index" v-loading="item.loading">
         <div v-if="item.type === 'html'" id="print-text-demo">
           那些男孩，教会我成长，那些女孩,教会我爱……
@@ -82,6 +82,6 @@ function printChange(index) {
 </script>
 <style lang="scss" scoped>
 .content {
-  margin: 10px;
+  margin: 15px;
 }
 </style>
