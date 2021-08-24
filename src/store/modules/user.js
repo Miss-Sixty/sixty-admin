@@ -1,6 +1,8 @@
 import { login, info, notice, logout, permissions, upDateInfo } from '@/api/user'
+import { encrypt, decrypt } from '@/utils/secret'
+
 const state = {
-  userInfo: localStorage.userInfo ? JSON.parse(localStorage.userInfo) : '',
+  userInfo: localStorage.userInfo || '',
   token: localStorage.token || '',
   notice: {},
   roles: [],
@@ -12,7 +14,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password })
         .then(res => {
-          commit('SETTOKEN', res.data)
+          commit('SET_TOKEN', res.data)
           resolve()
         })
         .catch(err => {
@@ -25,7 +27,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       info({ token: state.token })
         .then(res => {
-          commit('USERDATA', res.data)
+          commit('USER_DATA', res.data)
           resolve(res.data)
         })
         .catch(err => {
@@ -52,7 +54,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       notice()
         .then(res => {
-          commit('USERNOTICE', res.data)
+          commit('USER_NOTICE', res.data)
           resolve()
         })
         .catch(err => {
@@ -91,24 +93,25 @@ const actions = {
 }
 
 const mutations = {
-  SETTOKEN(state, data) {
+  SET_TOKEN(state, data) {
     localStorage.setItem('token', data.token)
     state.token = data.token
   },
 
-  USERDATA(state, data) {
-    localStorage.setItem('userInfo', JSON.stringify(data))
-    state.userInfo = data
+  USER_DATA(state, data) {
+    const userInfo = encrypt(data)
+    localStorage.setItem('userInfo', userInfo)
+    state.userInfo = userInfo
   },
 
-  USERNOTICE(state, data) {
+  USER_NOTICE(state, data) {
     state.notice = data
   },
 
   LOGOUT(state) {
     localStorage.removeItem('userInfo')
     localStorage.removeItem('token')
-    state.userInfo = {}
+    state.userInfo = ''
     state.token = ''
     state.notice = {}
     state.roles = []
@@ -122,6 +125,16 @@ const mutations = {
 const getters = {
   isLogin: state => {
     if (state.token) return true
+  },
+  userInfo: state => {
+    const { userInfo } = state
+    if (!userInfo) return ''
+    try {
+      return decrypt(userInfo)
+    } catch (err) {
+      console.error(err)
+      return ''
+    }
   },
 }
 

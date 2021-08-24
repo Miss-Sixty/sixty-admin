@@ -14,7 +14,8 @@ import { useStore } from 'vuex'
 export default {
   setup() {
     const store = useStore()
-    const userInfo = computed(() => store.state.user.userInfo)
+    const userInfo = computed(() => store.getters['user/userInfo'])
+
     const content = computed(() => {
       const hour = new Date().getHours()
       let status = hour < 6 ? 0 : hour <= 9 ? 1 : hour <= 11 ? 2 : hour < 13 ? 3 : hour < 17 ? 4 : hour < 19 ? 5 : hour < 24 ? 6 : 7

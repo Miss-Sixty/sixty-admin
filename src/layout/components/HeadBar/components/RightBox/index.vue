@@ -69,7 +69,7 @@ import { toRouter, messageBoxChange } from '@/hooks'
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
-const userInfo = computed(() => store.state.user.userInfo)
+const userInfo = computed(() => store.getters['user/userInfo'])
 const notice = computed(() => store.state.user.notice)
 
 //全屏
