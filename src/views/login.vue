@@ -2,7 +2,7 @@
   <el-row type="flex" class="login" justify="center">
     <el-form ref="formRef" :model="loginForm" class="form">
       <el-form-item>
-        <h2 :style="{ margin: 0 }">{{ setting.title }}</h2>
+        <h2 style="margin: 0">{{ title }}</h2>
       </el-form-item>
 
       <el-form-item prop="username" :rules="{ required: true, message: '请输入用户名', trigger: 'blur' }">
@@ -21,61 +21,47 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" :loading="loading" :style="{ width: '100%' }" @click="loginChange"> 登 陆 </el-button>
+        <el-button type="primary" :loading="loading" style="width: 100%" @click="loginChange"> 登 陆 </el-button>
       </el-form-item>
     </el-form>
   </el-row>
 </template>
-<script>
-import { reactive, ref } from 'vue'
+<script setup>
+import { reactive, ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import setting from '@/setting'
 import { validateForm } from '@/hooks'
 
-export default {
-  name: 'Login',
-  setup() {
-    const router = useRouter()
-    const route = useRoute()
-    const store = useStore()
-    const loading = ref(false)
+const router = useRouter()
+const route = useRoute()
+const store = useStore()
+const loading = ref(false)
+const { formRef, validateFormChange } = validateForm()
+const loginForm = reactive({
+  username: 'admin',
+  password: '123456',
+})
+const title = computed(() => store.state.setting.title)
 
-    const { formRef, validateFormChange } = validateForm()
+//账号密码验证 登陆
+async function loginChange() {
+  try {
+    await validateFormChange()
+    loading.value = true
+    await store.dispatch('user/login', loginForm)
+    await store.dispatch('user/getUserInfo')
 
-    const loginForm = reactive({
-      username: 'admin',
-      password: '123456',
+    router.replace({
+      path: route.query?.redirect || '/',
     })
-
-    //账号密码验证 登陆
-    const loginChange = async () => {
-      try {
-        await validateFormChange()
-        loading.value = true
-        await store.dispatch('user/login', loginForm)
-        await store.dispatch('user/getUserInfo')
-
-        router.replace({
-          path: route.query?.redirect || '/',
-        })
-        loading.value = false
-      } catch (err) {
-        loading.value = false
-        console.log(err)
-      }
-    }
-
-    return {
-      loading,
-      loginChange,
-      formRef,
-      setting,
-      loginForm,
-    }
-  },
+    loading.value = false
+  } catch (err) {
+    loading.value = false
+    console.log(err)
+  }
 }
 </script>
+
 <style lang="scss" scoped>
 .login {
   height: 100vh;
