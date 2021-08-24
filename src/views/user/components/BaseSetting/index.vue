@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="formRef" v-loading="state.infoLoading" :model="formData" label-position="top" hide-required-asterisk>
+  <el-form ref="formRef" v-loading="loading" :model="formData" label-position="top" hide-required-asterisk>
     <el-row :gutter="16">
       <el-col :span="24">
         <el-form-item
@@ -13,7 +13,14 @@
           <el-row type="flex" class="avatar">
             <el-avatar shape="square" :size="80" :src="formData.avatar" />
             <div class="avatar-right">
-              <el-button size="small" type="primary" @click="upAvatarChange">上传</el-button>
+              <file-upload
+                action="/mock/upload"
+                :show-file-list="false"
+                :style="{ display: 'inline-block', marginRight: '10px' }"
+                @on-success="upAvatarChange"
+              >
+                <el-button size="small" type="primary">上传</el-button>
+              </file-upload>
               <el-button size="small" @click="resetAvatarChange">重置</el-button>
               <p>允许使用 JPG、GIF 或 PNG。最大大小为 800kB</p>
             </div>
@@ -92,104 +99,75 @@
   </el-form>
 </template>
 
-<script>
-import { reactive, onMounted } from 'vue'
+<script setup>
+import { reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 import { validateForm, forInData } from '@/hooks'
 
-export default {
-  setup() {
-    const store = useStore()
-    const state = reactive({
-      infoLoading: true,
-    })
-    const { formRef, validateFormChange, resetFieldsForm } = validateForm()
+const store = useStore()
+const loading = ref(true)
+const { formRef, validateFormChange } = validateForm()
 
-    let formData = reactive({
-      name: '',
-      gender: 0,
-      bio: '',
-      phone: '',
-      avatar: '',
-      nickname: '',
-    })
+let formData = reactive({
+  name: '',
+  gender: 0,
+  bio: '',
+  phone: '',
+  avatar: '',
+  nickname: '',
+})
 
-    let backupFormData = reactive({}) //备份表单数据
+let backupFormData //备份表单数据
 
-    // TODO：上传头像未写
-    const upAvatarChange = () => {
-      console.log('上传头像')
-    }
-
-    //重置头像
-    const resetAvatarChange = () => {
-      formData.avatar = backupFormData.avatar
-      ElMessage.success({
-        message: '头像重置成功！',
-        type: 'success',
-      })
-    }
-
-    // 新增/修改验证
-    const addChange = () => {
-      validateFormChange()
-        .then(() => {
-          getUpDateInfo()
-        })
-        .catch(() => {})
-    }
-
-    //获取用户信息
-    const getInfo = () => {
-      state.infoLoading = true
-      store
-        .dispatch('user/getUserInfo')
-        .then(res => {
-          forInData(res, formData)
-          backupFormData = Object.assign({}, formData)
-        })
-        .finally(() => (state.infoLoading = false))
-    }
-
-    //重置
-    const resetDataChange = () => {
-      forInData(backupFormData, formData, ['avatar'])
-      resetFieldsForm()
-      ElMessage.success({
-        message: '数据重置成功！',
-        type: 'success',
-      })
-    }
-
-    //更改用户信息
-    const getUpDateInfo = () => {
-      state.infoLoading = true
-      store
-        .dispatch('user/upDateUserInfo')
-        .then(res => {
-          ElMessage.success({
-            message: res.message,
-            type: 'success',
-          })
-        })
-        .finally(() => (state.infoLoading = false))
-    }
-
-    onMounted(() => {
-      getInfo()
-    })
-    return {
-      formData,
-      state,
-      resetDataChange,
-      formRef,
-      addChange,
-      upAvatarChange,
-      resetAvatarChange,
-    }
-  },
+function upAvatarChange(file) {
+  formData.avatar = file.data
+  ElMessage.success('头像更换成功！')
 }
+
+//重置头像
+function resetAvatarChange() {
+  formData.avatar = backupFormData.avatar
+  ElMessage.success('头像重置成功！')
+}
+
+// 新增/修改验证
+function addChange() {
+  validateFormChange()
+    .then(() => {
+      getUpDateInfo()
+    })
+    .catch(() => {})
+}
+
+//获取用户信息
+function getInfo() {
+  loading.value = true
+  store
+    .dispatch('user/getUserInfo')
+    .then(res => {
+      forInData(res, formData)
+      backupFormData = Object.assign({}, formData)
+    })
+    .finally(() => (loading.value = false))
+}
+
+//重置
+function resetDataChange() {
+  forInData(backupFormData, formData, ['avatar'])
+  ElMessage.success('数据重置成功！')
+}
+
+//更改用户信息
+function getUpDateInfo() {
+  loading.value = true
+  store
+    .dispatch('user/upDateUserInfo')
+    .then(res => ElMessage.success(res.message))
+    .finally(() => (loading.value = false))
+}
+
+getInfo()
 </script>
 <style lang="scss" scoped>
 .avatar {

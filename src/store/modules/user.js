@@ -1,9 +1,7 @@
 import { login, info, notice, logout, permissions, upDateInfo } from '@/api/user'
-
 const state = {
   userInfo: localStorage.userInfo ? JSON.parse(localStorage.userInfo) : '',
   token: localStorage.token || '',
-  failure_time: localStorage.failure_time || '',
   notice: {},
   roles: [],
 }
@@ -100,9 +98,7 @@ const mutations = {
 
   USERDATA(state, data) {
     localStorage.setItem('userInfo', JSON.stringify(data))
-    localStorage.setItem('failure_time', data.failure_time)
     state.userInfo = data
-    state.failure_time = data.failure_time
   },
 
   USERNOTICE(state, data) {
@@ -112,10 +108,8 @@ const mutations = {
   LOGOUT(state) {
     localStorage.removeItem('userInfo')
     localStorage.removeItem('token')
-    localStorage.removeItem('failure_time')
     state.userInfo = {}
     state.token = ''
-    state.failure_time = ''
     state.notice = {}
     state.roles = []
   },
@@ -127,9 +121,7 @@ const mutations = {
 
 const getters = {
   isLogin: state => {
-    if (!state.token) return
-    const unix = Date.parse(new Date())
-    return !!(unix < state.failure_time * 1000)
+    if (state.token) return true
   },
 }
 

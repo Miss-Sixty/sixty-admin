@@ -31,7 +31,6 @@ import { reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import setting from '@/setting'
-import { ElMessage } from 'element-plus'
 import { validateForm } from '@/hooks'
 
 export default {
@@ -56,10 +55,6 @@ export default {
         loading.value = true
         await store.dispatch('user/login', loginForm)
         await store.dispatch('user/getUserInfo')
-        ElMessage.success({
-          message: '登陆成功！',
-          type: 'success',
-        })
 
         router.replace({
           path: route.query?.redirect || '/',

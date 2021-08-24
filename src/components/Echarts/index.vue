@@ -1,5 +1,5 @@
 <template>
-  <div :ref="props.name" :style="styles" />
+  <div ref="charts" :style="styles" />
 </template>
 <script>
 export default {
@@ -12,7 +12,7 @@ import * as echarts from 'echarts/core'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 import { LineChart, BarChart, PieChart, ScatterChart, CandlestickChart, RadarChart, SunburstChart, GaugeChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
-import { ref, onMounted, computed, watch, defineProps } from 'vue'
+import { shallowRef, onMounted, computed, watch, defineProps, onBeforeUnmount } from 'vue'
 import useWindowResize from '@/hooks/useWindowResize'
 echarts.use([
   GridComponent,
@@ -29,10 +29,6 @@ echarts.use([
 ])
 
 const props = defineProps({
-  name: {
-    type: String,
-    default: 'echartsRef',
-  },
   height: {
     type: String,
     default: '350px',
@@ -53,15 +49,16 @@ const props = defineProps({
 })
 const { width, height } = useWindowResize()
 
-const echartsRef = ref()
+const charts = shallowRef()
 let myChart
 const styles = computed(() => ({
   height: props.height,
   width: props.width,
 }))
 
-const init = () => {
-  myChart = echarts.init(echartsRef.value, props.option)
+function init() {
+  myChart = echarts.init(charts.value)
+  myChart.setOption(props.option)
 }
 
 watch([width, height], () =>
@@ -95,8 +92,8 @@ if (props.deepWatch) {
   )
 }
 
-onMounted(() => {
-  init()
-  myChart.setOption(props.option)
-})
+onMounted(init)
+
+//销毁echarts
+onBeforeUnmount(() => myChart.dispose())
 </script>
