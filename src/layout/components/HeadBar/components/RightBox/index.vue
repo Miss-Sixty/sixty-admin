@@ -14,7 +14,7 @@
 
     <el-popover placement="bottom" :width="300">
       <template #reference>
-        <el-badge :value="notice.num" :hidden="notice.num < 1" class="right-box--badge" type="danger">
+        <el-badge :value="notice.num" :hidden="!notice.num" class="right-box--badge" type="danger">
           <el-icon class="icon">
             <notification-2-line />
           </el-icon>
@@ -82,7 +82,6 @@ const fullscreenChange = () => {
 }
 
 //通知
-// TODO:有个bug，选择了info，但是下面没有横线
 const activeName = ref('0')
 
 //退出
@@ -121,7 +120,7 @@ onBeforeUnmount(() => {
 
 watch(
   () => route.name,
-  name => name !== 'Login' && getNotice()
+  name => !['Login', 'Reload'].includes(name) && getNotice()
 )
 </script>
 <style lang="scss" scoped>
