@@ -18,8 +18,6 @@ module.exports = {
     semi: ['error', 'never'],
 
     //vue
-    'vue/attributes-order': 2, //组件属性进行排序
-    'vue/order-in-components': 2, //props 声明顺序
     'vue/prop-name-casing': 2, //对 props 进行适当的大小写。
     'vue/require-default-prop': 0, //prop可以不写默认值
   },
