@@ -2,6 +2,9 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/layout'
 
 /** 
+ * hidden: true                   if set true, item will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu
+
   meta : {
     hidden: true                如果设置为 true，项目将不会显示在侧边栏中（默认为 false）
     auth: ['admin','editor']    该路由进入的权限，支持多个权限叠加，只要满足一个，即可进入
@@ -37,7 +40,6 @@ export const constantRoutes = [
       },
     ],
   },
-
   {
     path: '/login',
     name: 'Login',
@@ -81,10 +83,7 @@ export const lastRoutes = [
   {
     path: '/:pathMatch(.*)*',
     component: () => import('@/views/404'),
-    meta: {
-      title: '404',
-      sidebar: false,
-    },
+    hidden: true,
   },
 ]
 

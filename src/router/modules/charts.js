@@ -3,19 +3,15 @@ import Layout from '@/layout'
 export default {
   path: '/charts',
   component: Layout,
-  redirect: '/charts/page',
-  meta: {
-    title: '图表',
-    icon: 'PieChart2Fill',
-  },
+  redirect: '/charts/index',
   children: [
     {
-      path: '/charts/page',
+      path: 'index',
       name: 'Charts',
       component: () => import('@/views/charts'),
       meta: {
-        hidden: true,
-        activeMenu: '/charts',
+        title: '图表',
+        icon: 'PieChart2Fill',
       },
     },
   ],

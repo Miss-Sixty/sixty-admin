@@ -3,19 +3,15 @@ import Layout from '@/layout'
 export default {
   path: '/print',
   component: Layout,
-  redirect: '/print/page',
-  meta: {
-    title: '打印',
-    icon: 'PrinterFill',
-  },
+  redirect: '/print/index',
   children: [
     {
-      path: '/print/page',
+      path: 'index',
       name: 'Print',
       component: () => import('@/views/print'),
       meta: {
-        hidden: true,
-        activeMenu: '/print',
+        title: '打印',
+        icon: 'PrinterFill',
       },
     },
   ],

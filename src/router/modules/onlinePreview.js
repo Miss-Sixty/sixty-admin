@@ -3,20 +3,16 @@ import Layout from '@/layout'
 export default {
   path: '/onlinePreview',
   component: Layout,
-  redirect: '/onlinePreview/page',
-  meta: {
-    title: 'Office 预览',
-    icon: 'FileWord2Fill',
-  },
+  redirect: '/onlinePreview/index',
   children: [
     {
-      path: '/onlinePreview/page',
+      path: 'index',
       name: 'OnlinePreview',
       component: () => import('@/views/onlinePreview'),
       meta: {
         copyright: false,
-        hidden: true,
-        activeMenu: '/onlinePreview',
+        title: 'Office 预览',
+        icon: 'FileWord2Fill',
       },
     },
   ],

@@ -17,9 +17,7 @@ const actions = {
           commit('SET_TOKEN', res.data)
           resolve()
         })
-        .catch(err => {
-          reject(err)
-        })
+        .catch(err => reject(err))
     })
   },
 
@@ -27,25 +25,22 @@ const actions = {
     return new Promise((resolve, reject) => {
       info({ token: state.token })
         .then(res => {
-          commit('USER_DATA', res.data)
+          commit('SET_USER_INFO', res.data)
           resolve(res.data)
         })
         .catch(err => {
           reject(err)
+          commit('CLEAR_USER_INFO')
         })
     })
   },
 
-  //更新信息
-  upDateUserInfo({ state }) {
+  //修改用户信息
+  editUserInfo({ state }) {
     return new Promise((resolve, reject) => {
       upDateInfo(state)
-        .then(res => {
-          resolve(res)
-        })
-        .catch(err => {
-          reject(err)
-        })
+        .then(res => resolve(res))
+        .catch(err => reject(err))
     })
   },
 
@@ -54,12 +49,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       notice()
         .then(res => {
-          commit('USER_NOTICE', res.data)
+          commit('SET_USER_NOTICE', res.data)
           resolve()
         })
-        .catch(err => {
-          reject(err)
-        })
+        .catch(err => reject(err))
     })
   },
 
@@ -68,12 +61,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout()
         .then(() => {
-          commit('LOGOUT')
+          commit('CLEAR_USER_INFO')
           resolve()
         })
-        .catch(err => {
-          reject(err)
-        })
+        .catch(err => reject(err))
     })
   },
 
@@ -82,12 +73,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       permissions({ token: state.token })
         .then(res => {
-          commit('SETPERMISSIONS', res.data)
+          commit('SETP_ERMISSIONS', res.data)
           resolve(res)
         })
-        .catch(err => {
-          reject(err)
-        })
+        .catch(err => reject(err))
     })
   },
 }
@@ -98,17 +87,17 @@ const mutations = {
     state.token = data.token
   },
 
-  USER_DATA(state, data) {
+  SET_USER_INFO(state, data) {
     const userInfo = encrypt(data)
     localStorage.setItem('userInfo', userInfo)
     state.userInfo = userInfo
   },
 
-  USER_NOTICE(state, data) {
+  SET_USER_NOTICE(state, data) {
     state.notice = data
   },
 
-  LOGOUT(state) {
+  CLEAR_USER_INFO(state) {
     localStorage.removeItem('userInfo')
     localStorage.removeItem('token')
     state.userInfo = ''
@@ -117,7 +106,7 @@ const mutations = {
     state.roles = []
   },
 
-  SETPERMISSIONS(state, roles) {
+  SETP_ERMISSIONS(state, roles) {
     state.roles = roles
   },
 }

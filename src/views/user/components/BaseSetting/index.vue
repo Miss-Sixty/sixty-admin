@@ -162,7 +162,7 @@ function resetDataChange() {
 function getUpDateInfo() {
   loading.value = true
   store
-    .dispatch('user/upDateUserInfo')
+    .dispatch('user/editUserInfo')
     .then(res => ElMessage.success(res.message))
     .finally(() => (loading.value = false))
 }

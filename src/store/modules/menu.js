@@ -1,16 +1,16 @@
-import router, { asyncRoutes, lastRoutes } from '@/router'
+import { asyncRoutes, lastRoutes, constantRoutes } from '@/router'
 
-function hasPermission(permissions, route) {
+/**
+ * 使用 meta.auth 判断当前用户是否有权限
+ * @param roles
+ * @param route
+ */
+function hasPermission(roles, route) {
   let isAuth = false
-  if (route.meta && route.meta.auth) {
-    isAuth = permissions.some(auth => {
-      if (typeof route.meta.auth === 'string') {
-        return route.meta.auth === auth
-      } else {
-        return route.meta.auth.some(routeAuth => {
-          return routeAuth === auth
-        })
-      }
+  if (route.meta?.auth) {
+    isAuth = roles.some(auth => {
+      if (typeof route.meta.auth === 'string') return route.meta.auth === auth
+      return route.meta.auth.some(routeAuth => routeAuth === auth)
     })
   } else {
     isAuth = true
@@ -18,13 +18,18 @@ function hasPermission(permissions, route) {
   return isAuth
 }
 
-function filterAsyncRoutes(routes, permissions) {
+/**
+ * 通过递归过滤异步路由表
+ * @param routes asyncRoutes
+ * @param roles
+ */
+function filterAsyncRoutes(routes, roles) {
   const res = []
   routes.forEach(route => {
     const tmp = { ...route }
-    if (hasPermission(permissions, tmp)) {
+    if (hasPermission(roles, tmp)) {
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, permissions)
+        tmp.children = filterAsyncRoutes(tmp.children, roles)
         tmp.children.length && res.push(tmp)
       } else {
         res.push(tmp)
@@ -35,10 +40,11 @@ function filterAsyncRoutes(routes, permissions) {
 }
 
 const state = {
-  isGenerate: false,
-  routes: [],
-  headerActived: 0,
-  permissions: [],
+  allRoutes: [], //带主导航的路由
+  routes: [], //所有路由
+  headerActived: 0, //当前主导航
+  addRoutes: [], //动态路由
+  removeRoutes: [], //用来删除动态添加路由
 }
 
 const actions = {
@@ -46,39 +52,32 @@ const actions = {
   generateRoutes({ commit }, { roles, currentPath }) {
     return new Promise(resolve => {
       const accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-      commit('SETROUTERS', accessedRoutes)
-      commit('SETACTIVED', currentPath)
+      commit('SET_ALL_ROUTERS', accessedRoutes) //带主导航的路由
+      commit('SET_ACTIVED', currentPath)
 
+      //遍历出所有路由
       let routes = []
-      accessedRoutes.map(item => {
-        routes.push(...item.children)
-      })
+      accessedRoutes.forEach(item => routes.push(...item.children))
       routes.push(...lastRoutes)
-
+      commit('SET_ROUTERS', routes)
       resolve(routes)
     })
   },
 }
 
 const mutations = {
-  SETROUTERS(state, routes) {
-    state.routes = routes.filter(item => item.children?.length !== 0)
+  SET_ALL_ROUTERS(state, allRoutes) {
+    state.allRoutes = allRoutes.filter(item => item.children?.length !== 0)
   },
 
-  CLEARROUTERS(state) {
-    let routes = []
-    state.routes.map(item => {
-      routes.push(...item.children)
-    })
-
-    routes.forEach(route => {
-      router.removeRoute(route.name)
-    })
+  SET_ROUTERS(state, routes) {
+    state.addRoutes = routes
+    state.routes = constantRoutes.concat(routes)
   },
 
   // 根据路由判断属于哪个头部导航
-  SETACTIVED(state, path) {
-    state.routes.map((item, index) => {
+  SET_ACTIVED(state, path) {
+    state.allRoutes.forEach((item, index) => {
       if (item.children.some(r => path.indexOf(r.path + '/') === 0 || path === r.path)) {
         state.headerActived = index
       }
@@ -86,14 +85,24 @@ const mutations = {
   },
 
   // 切换头部导航
-  SWITCHACTIVED(state, index) {
+  SWITCH_ACTIVED(state, index) {
     state.headerActived = index
+  },
+
+  // 记录 accessRoutes 路由，用于登出时删除路由
+  SET_REMOVE_ROUTERS(state, routes) {
+    state.removeRoutes = routes
+  },
+
+  //清空动态路由
+  CLEAR_ROUTERS(state) {
+    state.removeRoutes.forEach(removeRoute => removeRoute())
   },
 }
 
 const getters = {
-  sidebarRoutes: state => {
-    return state.routes.length > 0 ? state.routes[state.headerActived].children : []
+  menuRoutes: state => {
+    return state.allRoutes.length > 0 ? state.allRoutes[state.headerActived].children : []
   },
 }
 

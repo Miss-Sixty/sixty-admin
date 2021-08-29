@@ -3,21 +3,15 @@ import Layout from '@/layout'
 export default {
   path: '/permission',
   component: Layout,
-  redirect: '/permission/page',
-  name: 'Permission',
-  meta: {
-    title: '权限验证',
-    icon: 'ShieldKeyholeFill',
-  },
+  redirect: '/permission/index',
   children: [
     {
-      path: '/permission/page',
-      name: 'permissionPage',
+      path: 'index',
+      name: 'Permission',
       component: () => import('@/views/permission'),
       meta: {
-        title: '这是测试页',
-        hidden: true,
-        activeMenu: '/permission',
+        title: '权限验证',
+        icon: 'ShieldKeyholeFill',
       },
     },
   ],

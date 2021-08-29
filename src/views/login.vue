@@ -50,14 +50,10 @@ async function loginChange() {
     loading.value = true
     await store.dispatch('user/login', loginForm)
     await store.dispatch('user/getUserInfo')
-
-    router.replace({
-      path: route.query?.redirect || '/',
-    })
     loading.value = false
+    router.replace({ path: route.query?.redirect || '/' })
   } catch (err) {
     loading.value = false
-    console.log(err)
   }
 }
 </script>
@@ -74,4 +70,3 @@ async function loginChange() {
   }
 }
 </style>
-‰

@@ -21,8 +21,7 @@ defineEmits(['collapseChange'])
   transition: box-shadow 0.2s;
   box-shadow: 0 0 1px 0 #ccc;
   position: relative;
-  z-index: 1000;
-  font-size: 16px;
+  z-index: 1;
   flex-wrap: nowrap;
   &.shadow {
     box-shadow: 0 10px 10px -10px #ccc;

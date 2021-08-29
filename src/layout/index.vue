@@ -1,16 +1,17 @@
 <template>
-  <el-row type="flex" cla>
-    <nav-menu />
+  <el-row type="flex">
+    <sidebar />
     <div class="content">
-      <head-bar :is-scroll-top="!showTagView && isScrollTop" />
+      <head-bar :is-scroll-top="isScrollTop" />
       <el-scrollbar
-        class="page-component__scroll"
-        view-style="display: flex;flex-direction: column;height:100%"
+        class="scroll"
+        style="position: static"
+        view-style="display: flex;flex-direction: column;height:100%;"
         @scroll="scroll => (isScrollTop = !!scroll.scrollTop)"
       >
         <app-main />
         <footer-bar />
-        <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="90" />
+        <el-backtop target=".scroll .el-scrollbar__wrap" :bottom="90" />
       </el-scrollbar>
     </div>
   </el-row>
@@ -20,15 +21,12 @@
 import AppMain from './components/AppMain'
 import FooterBar from './components/FooterBar'
 import HeadBar from './components/HeadBar'
-import NavMenu from './components/NavMenu'
-import { ref, computed, watch } from 'vue'
+import Sidebar from './components/Sidebar'
+import { ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import useWindowResize from '@/hooks/useWindowResize'
-
 const store = useStore()
 const isScrollTop = ref(false)
-const showTagView = computed(() => store.state.setting.showTagView)
-
 const { width } = useWindowResize(150)
 store.commit('setting/SET_MODE', width)
 watch(width, width => store.commit('setting/SET_MODE', width))

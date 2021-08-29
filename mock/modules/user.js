@@ -107,11 +107,18 @@ export default {
   },
 
   'get|/mock/user/info': option => {
-    return {
-      status: 200,
-      message: 'success',
-      data: userInfo[option.query.token],
-    }
+    const info = userInfo[option.query.token]
+    return info
+      ? {
+          status: 200,
+          message: 'success',
+          data: userInfo[option.query.token],
+        }
+      : {
+          status: 40001,
+          message: '未找到用户信息！',
+          data: {},
+        }
   },
 
   'get|/mock/user/permissions': option => {

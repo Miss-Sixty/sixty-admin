@@ -94,7 +94,7 @@ const signOut = async () => {
   })
 
   await store.dispatch('user/logout')
-  store.commit('menu/CLEARROUTERS') //删除动态添加的路由
+  store.commit('menu/CLEAR_ROUTERS') //删除动态添加的路由
   loadingInstance.close()
   router.push({ name: 'Login' })
   ElMessage.success({
