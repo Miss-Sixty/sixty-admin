@@ -1,5 +1,5 @@
 <template>
-  <!-- <router-link v-if="!hasChildren" v-slot="{ href, navigate }" custom :to="resolvePath(props.item.path)">
+  <!-- <router-link v-if="hasOneShowingChild(item.children, item)" v-slot="{ href, navigate }" custom :to="resolvePath(props.item.path)">
     <a
       :href="isExternal(resolvePath(props.item.path)) ? resolvePath(props.item.path) : href"
       :target="isExternal(resolvePath(props.item.path)) ? '_blank' : '_self'"
@@ -15,20 +15,54 @@
       </el-menu-item>
     </a>
   </router-link> -->
-  <template
-    v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow"
-  >
-    <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-      <el-menu-item :index="resolvePath(onlyOneChild.path)">
-        <el-icon class="icon">
-          <component :is="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+
+  <!-- <template v-if="item.children?.length === 1">
+    <app-link :to="resolvePath(item.children[0].path)">
+      <el-menu-item :index="resolvePath(item.children[0].path)">
+        <el-icon v-if="item.children[0].meta.icon" class="icon">
+          <component :is="item.children[0].meta.icon || item.meta?.icon" />
         </el-icon>
         <template #title>
-          {{ onlyOneChild.meta.title }}
+          {{ item.children[0].meta.title }}
         </template>
       </el-menu-item>
-    </app-link>
-  </template>
+    </app-link> -->
+
+  <router-link v-if="item.children?.length === 1" v-slot="{ href, navigate }" custom :to="resolvePath(item.children[0].path)">
+    <a
+      :href="isExternal(resolvePath(item.children[0].path)) ? resolvePath(item.children[0].path) : href"
+      :target="isExternal(resolvePath(item.children[0].path)) ? '_blank' : '_self'"
+      @click="navigate"
+    >
+      <el-menu-item :index="resolvePath(item.children[0].path)">
+        <el-icon v-if="item.children[0].meta.icon" class="icon">
+          <component :is="item.children[0].meta.icon || item.meta?.icon" />
+        </el-icon>
+        <template #title>
+          {{ item.children[0].meta.title }}
+        </template>
+      </el-menu-item>
+    </a>
+  </router-link>
+
+  <router-link v-else-if="!item.children?.length" v-slot="{ href, navigate }" custom :to="resolvePath(item.path)">
+    <a
+      :href="isExternal(resolvePath(item.path)) ? resolvePath(item.path) : href"
+      :target="isExternal(resolvePath(item.path)) ? '_blank' : '_self'"
+      @click="navigate"
+    >
+      <app-link :to="resolvePath(item.path)">
+        <el-menu-item :index="resolvePath(item.path)">
+          <el-icon v-if="item.meta.icon" class="icon">
+            <component :is="item.meta.icon" />
+          </el-icon>
+          <template #title>
+            {{ item.meta.title }}
+          </template>
+        </el-menu-item>
+      </app-link>
+    </a>
+  </router-link>
 
   <el-submenu v-else :index="resolvePath(props.item.path)">
     <template #title>
@@ -52,7 +86,7 @@ export default {
 
 <script setup>
 import path from 'path'
-import { defineProps, ref } from 'vue'
+import { defineProps } from 'vue'
 import AppLink from '../Link.vue'
 
 const props = defineProps({
@@ -65,45 +99,6 @@ const props = defineProps({
     default: '',
   },
 })
-const onlyOneChild = ref(null)
-
-function hasOneShowingChild(children = [], parent) {
-  const showingChildren = children.filter(item => {
-    if (item.hidden) {
-      return false
-    } else {
-      // Temp set(will be used if only has one showing child)
-      onlyOneChild.value = item
-      return true
-    }
-  })
-
-  // When there is only one child router, the child router is displayed by default
-  if (showingChildren.length === 1) {
-    return true
-  }
-
-  // Show parent if there are no child router to display
-  if (showingChildren.length === 0) {
-    onlyOneChild.value = { ...parent, path: '', noShowingChildren: true }
-    return true
-  }
-
-  return false
-}
-
-//判断它有无子项
-// const hasChildren = computed(() => {
-//   let flag = true
-//   if (props.item.children?.length && props.item.children.length > 1) {
-//     if (props.item.children.every(item => item.meta.hidden)) {
-//       flag = false
-//     }
-//   } else {
-//     flag = false
-//   }
-//   return flag
-// })
 
 const isExternal = path => {
   return /^(https?:|mailto:|tel:)/.test(path)
