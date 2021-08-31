@@ -18,8 +18,8 @@
 </template>
 
 <script setup>
-import LogoName from '../Logo'
-import NavMenuItem from '../NavMenuItem'
+import LogoName from './Logo'
+import NavMenuItem from './NavMenuItem'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'

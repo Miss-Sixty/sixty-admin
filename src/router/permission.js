@@ -8,9 +8,10 @@ NProgress.configure({ showSpinner: false }) // 去掉加载圆圈
 router.beforeEach(async (to, from) => {
   NProgress.start()
 
-  const isLogin = store.getters['user/isLogin']
   //未登录或登陆过期
+  const isLogin = store.getters['user/isLogin']
   if (!isLogin) return to.name !== 'Login' ? { name: 'Login', query: { redirect: to.fullPath } } : true
+
   //已登陆不可跳转登陆页
   if (to.name === 'Login') return false
 
@@ -44,7 +45,7 @@ router.beforeEach(async (to, from) => {
   loadingInstance.close()
   //如果登陆成功，则提醒。
   if (from.name === 'Login') ElMessage.success('登陆成功！')
-  return { ...to, replace: true }
+  return to.fullPath
 })
 
 router.afterEach(async to => {
