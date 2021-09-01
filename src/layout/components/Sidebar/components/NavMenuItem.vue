@@ -1,6 +1,10 @@
 <template>
   <router-link
-    v-if="hasOneShowingChild(item?.children, item) && !item.alwaysShow"
+    v-if="
+      hasOneShowingChild(props.item.children, props.item) &&
+      (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+      !props.item.alwaysShow
+    "
     v-slot="{ href, navigate }"
     custom
     :to="resolvePath(onlyOneChild.path)"
@@ -12,7 +16,7 @@
     >
       <el-menu-item :title="onlyOneChild.meta.title" :index="resolvePath(onlyOneChild.path)">
         <el-icon v-if="onlyOneChild.meta.icon" class="icon">
-          <component :is="onlyOneChild.meta.icon || item.meta?.icon" />
+          <component :is="onlyOneChild.meta.icon || props.item.meta?.icon" />
         </el-icon>
         <template #title>
           {{ onlyOneChild.meta.title }}
@@ -30,7 +34,7 @@
     </template>
 
     <template v-for="route in props.item.children" :key="route.path">
-      <nav-menu-item v-if="!item.hidden" :item="route" :base-path="resolvePath(props.item.path)" />
+      <nav-menu-item v-if="!props.item.hidden" :item="route" :base-path="resolvePath(route.path)" />
     </template>
   </el-submenu>
 </template>
@@ -44,7 +48,6 @@ export default {
 <script setup>
 import path from 'path'
 import { defineProps, ref } from 'vue'
-// import AppLink from '../Link.vue'
 
 const props = defineProps({
   item: {
@@ -89,14 +92,8 @@ const isExternal = path => {
 }
 
 const resolvePath = routePath => {
-  console.log(routePath)
-  if (isExternal(routePath)) {
-    return routePath
-  }
-  if (isExternal(props.basePath)) {
-    return props.basePath
-  }
-  // console.log(path)
+  if (isExternal(routePath)) return routePath
+  if (isExternal(props.basePath)) return props.basePath
   return path.resolve(props.basePath, routePath)
 }
 </script>

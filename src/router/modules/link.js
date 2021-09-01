@@ -38,6 +38,7 @@ export default {
       meta: {
         title: '内嵌打开',
       },
+      alwaysShow: true,
       children: [
         {
           path: 'baidu',

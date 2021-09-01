@@ -3,7 +3,7 @@ import Layout from '@/layout'
 export default {
   path: '/components',
   component: Layout,
-  redirect: '/components/page',
+  redirect: '/components/pageheader',
   name: 'Components',
   meta: {
     title: '拓展组件',
@@ -11,7 +11,7 @@ export default {
   },
   children: [
     {
-      path: '/components/pageheader',
+      path: 'pageheader',
       name: 'Pageheader',
       component: () => import('@/views/components/pageheader'),
       meta: {
@@ -19,7 +19,7 @@ export default {
       },
     },
     {
-      path: '/components/fixedActionBar',
+      path: 'fixedActionBar',
       name: 'FixedActionBar',
       component: () => import('@/views/components/fixedActionBar'),
       meta: {
@@ -27,7 +27,7 @@ export default {
       },
     },
     {
-      path: '/components/confirmSwitch',
+      path: 'confirmSwitch',
       name: 'ConfirmSwitch',
       component: () => import('@/views/components/confirmSwitch'),
       meta: {
@@ -35,7 +35,7 @@ export default {
       },
     },
     {
-      path: '/components/pagination',
+      path: 'pagination',
       name: 'Pagination',
       component: () => import('@/views/components/pagination'),
       meta: {
@@ -43,7 +43,7 @@ export default {
       },
     },
     {
-      path: '/components/upload',
+      path: 'upload',
       name: 'Upload',
       component: () => import('@/views/components/upload'),
       meta: {
@@ -51,7 +51,7 @@ export default {
       },
     },
     {
-      path: '/components/clipboard',
+      path: 'clipboard',
       name: 'Clipboard',
       component: () => import('@/views/components/clipboard'),
       meta: {
@@ -59,7 +59,7 @@ export default {
       },
     },
     {
-      path: '/components/editor',
+      path: 'editor',
       name: 'Editor',
       component: () => import('@/views/components/editor'),
       meta: {
@@ -67,7 +67,7 @@ export default {
       },
     },
     {
-      path: '/components/countTo',
+      path: 'countTo',
       name: 'CountTo',
       component: () => import('@/views/components/countTo'),
       meta: {

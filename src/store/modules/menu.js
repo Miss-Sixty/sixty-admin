@@ -103,20 +103,7 @@ const mutations = {
 const getters = {
   menuRoutes: state => {
     if (!state.allRoutes.length) return
-    function filterAsyncRouter(routers) {
-      const res = []
-      routers.forEach(route => {
-        const tmp = { ...route }
-        if (tmp.children?.length) {
-          tmp.children = filterAsyncRouter(tmp.children)
-          if (tmp.children?.length) res.push(tmp)
-        } else {
-          if (!tmp.hidden) res.push(tmp)
-        }
-      })
-      return res
-    }
-    return filterAsyncRouter(state.allRoutes[state.headerActived].children)
+    return state.allRoutes[state.headerActived].children
   },
 }
 

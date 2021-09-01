@@ -30,6 +30,7 @@ const route = useRoute()
 const isScrollTop = ref(false)
 const isCollapse = computed(() => store.state.setting.sidebarCollapse)
 const routerList = computed(() => store.getters['menu/menuRoutes'])
+console.log(routerList.value)
 </script>
 
 <style lang="scss" scoped>
