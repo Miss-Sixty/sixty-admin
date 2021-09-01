@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "cz": "npx git-cz",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "export:svg": "node ./src/components/Icons/scripts/sketchToSvg.js",
@@ -41,6 +42,7 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-import": "^1.13.3",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.0.0",
@@ -52,6 +54,11 @@
     "sass-resources-loader": "^2.2.3",
     "shelljs": "^0.8.4",
     "svgo": "^2.3.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "browserslist": [
     "> 1%",
