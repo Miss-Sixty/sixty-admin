@@ -30,13 +30,15 @@
 import { reactive, ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { validateForm } from '@/hooks'
+import useFormValid from '@/hooks/useFormValid'
 
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
 const loading = ref(false)
-const { formRef, validateFormChange } = validateForm()
+const formRef = ref()
+
+const { validForm } = useFormValid(formRef)
 const loginForm = reactive({
   username: 'admin',
   password: '123456',
@@ -46,13 +48,12 @@ const title = computed(() => store.state.setting.title)
 //账号密码验证 登陆
 async function loginChange() {
   try {
-    await validateFormChange()
+    await validForm()
     loading.value = true
     await store.dispatch('user/login', loginForm)
     await store.dispatch('user/getUserInfo')
-    loading.value = false
     router.replace({ path: route.query?.redirect || '/' })
-  } catch (err) {
+  } finally {
     loading.value = false
   }
 }
