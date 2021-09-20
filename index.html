@@ -1,144 +1,67 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="keywords" content="sixty-admin,后台系统,管理后台,后台模版,vue后台,vue-admin,vue-element-admin,vue-admin-template"><meta name="description" content="sixty-admin 是一款开箱即用的 Vue 中后台管理系统模版"><link rel="icon" href="favicon.ico"><title>sixty_admin</title><style>@-moz-keyframes swing {
-        50% {
-          transform: rotate(-3deg);
-        }
-      }
-      @-webkit-keyframes swing {
-        50% {
-          transform: rotate(-3deg);
-        }
-      }
-      @-o-keyframes swing {
-        50% {
-          transform: rotate(-3deg);
-        }
-      }
-      @keyframes swing {
-        50% {
-          transform: rotate(-3deg);
-        }
-      }
-      @-moz-keyframes steamLarge {
-        0% {
-          stroke-dashoffset: 13;
-          opacity: 0.6;
-        }
-        100% {
-          stroke-dashoffset: 39;
-          opacity: 0;
-        }
-      }
-      @-webkit-keyframes steamLarge {
-        0% {
-          stroke-dashoffset: 13;
-          opacity: 0.6;
-        }
-        100% {
-          stroke-dashoffset: 39;
-          opacity: 0;
-        }
-      }
-      @-o-keyframes steamLarge {
-        0% {
-          stroke-dashoffset: 13;
-          opacity: 0.6;
-        }
-        100% {
-          stroke-dashoffset: 39;
-          opacity: 0;
-        }
-      }
-      @keyframes steamLarge {
-        0% {
-          stroke-dashoffset: 13;
-          opacity: 0.6;
-        }
-        100% {
-          stroke-dashoffset: 39;
-          opacity: 0;
-        }
-      }
-      @-moz-keyframes steamSmall {
-        10% {
-          stroke-dashoffset: 9;
-          opacity: 0.6;
-        }
-        80% {
-          stroke-dashoffset: 27;
-          opacity: 0;
-        }
-        100% {
-          stroke-dashoffset: 27;
-          opacity: 0;
-        }
-      }
-      @-webkit-keyframes steamSmall {
-        10% {
-          stroke-dashoffset: 9;
-          opacity: 0.6;
-        }
-        80% {
-          stroke-dashoffset: 27;
-          opacity: 0;
-        }
-        100% {
-          stroke-dashoffset: 27;
-          opacity: 0;
-        }
-      }
-      @-o-keyframes steamSmall {
-        10% {
-          stroke-dashoffset: 9;
-          opacity: 0.6;
-        }
-        80% {
-          stroke-dashoffset: 27;
-          opacity: 0;
-        }
-        100% {
-          stroke-dashoffset: 27;
-          opacity: 0;
-        }
-      }
-      @keyframes steamSmall {
-        10% {
-          stroke-dashoffset: 9;
-          opacity: 0.6;
-        }
-        80% {
-          stroke-dashoffset: 27;
-          opacity: 0;
-        }
-        100% {
-          stroke-dashoffset: 27;
-          opacity: 0;
-        }
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.ico"><title>sixty-admin</title><style>.box {
+        text-align: center;
       }
 
-      svg.tea {
-        --secondary: #33406f;
+      .loader {
+        margin-top: 20%;
+        width: 60px;
+        height: 60px;
+        display: inline-block;
       }
-      svg.tea #teabag {
-        transform-origin: top center;
-        transform: rotate(3deg);
-        animation: swing 2s infinite;
-      }
-      svg.tea #steamL {
-        stroke-dasharray: 13;
-        stroke-dashoffset: 13;
-        animation: steamLarge 2s infinite;
-      }
-      svg.tea #steamR {
-        stroke-dasharray: 9;
-        stroke-dashoffset: 9;
-        animation: steamSmall 2s infinite;
-      }
-      .home {
-        text-align: center;
-        margin-top: 200px;
-        color: #33406f;
-      }
-      .home .text {
+
+      .text {
         font-size: 24px;
         margin-top: 30px;
-      }</style><link href="css/chunk-16a98810.2fabe1e0.css" rel="prefetch"><link href="css/chunk-2452ff0e.cb4aead0.css" rel="prefetch"><link href="css/chunk-2edbaeef.a7175534.css" rel="prefetch"><link href="css/chunk-37df5bbc.0b95b820.css" rel="prefetch"><link href="css/chunk-3860a58a.9308e79b.css" rel="prefetch"><link href="css/chunk-57a48bb0.7b3f7b1c.css" rel="prefetch"><link href="css/chunk-6ca435e2.ae46773a.css" rel="prefetch"><link href="css/chunk-6d2d4894.3787f773.css" rel="prefetch"><link href="css/chunk-7f00db02.bf5a769f.css" rel="prefetch"><link href="css/chunk-a0732a20.0d68ed43.css" rel="prefetch"><link href="css/chunk-a68ba592.9d231410.css" rel="prefetch"><link href="js/chunk-16a98810.f67469ce.js" rel="prefetch"><link href="js/chunk-2452ff0e.e1f8c2a8.js" rel="prefetch"><link href="js/chunk-2d0aed48.68dd915b.js" rel="prefetch"><link href="js/chunk-2d0b32cb.9c7e1804.js" rel="prefetch"><link href="js/chunk-2d0b59f4.8fa38705.js" rel="prefetch"><link href="js/chunk-2d0c8bf7.6a724676.js" rel="prefetch"><link href="js/chunk-2d0cfa68.1d668ddd.js" rel="prefetch"><link href="js/chunk-2d0cfaef.5b069929.js" rel="prefetch"><link href="js/chunk-2d0e4e1f.11953f6d.js" rel="prefetch"><link href="js/chunk-2d0e944c.0488b7a3.js" rel="prefetch"><link href="js/chunk-2d0e95df.eff7c3e9.js" rel="prefetch"><link href="js/chunk-2d2104c6.406ed844.js" rel="prefetch"><link href="js/chunk-2d21067c.17740d51.js" rel="prefetch"><link href="js/chunk-2d2163f3.3adcc614.js" rel="prefetch"><link href="js/chunk-2d21b517.402f2c47.js" rel="prefetch"><link href="js/chunk-2d226cab.fd4b117c.js" rel="prefetch"><link href="js/chunk-2d229205.dc56b447.js" rel="prefetch"><link href="js/chunk-2edbaeef.f713bfe7.js" rel="prefetch"><link href="js/chunk-37df5bbc.39bae5ec.js" rel="prefetch"><link href="js/chunk-3860a58a.18736a9d.js" rel="prefetch"><link href="js/chunk-57a48bb0.316c650a.js" rel="prefetch"><link href="js/chunk-6bbe55cd.4c789188.js" rel="prefetch"><link href="js/chunk-6ca435e2.4852ae29.js" rel="prefetch"><link href="js/chunk-6d2d4894.90b128c9.js" rel="prefetch"><link href="js/chunk-7f00db02.3e764b3c.js" rel="prefetch"><link href="js/chunk-7f53852e.7223a2c7.js" rel="prefetch"><link href="js/chunk-a0732a20.9b0506a8.js" rel="prefetch"><link href="js/chunk-a68ba592.b4d8d5fc.js" rel="prefetch"><link href="css/app.6a0e3bf7.css" rel="preload" as="style"><link href="css/chunk-vendors.edfbe536.css" rel="preload" as="style"><link href="js/app.77e2c26b.js" rel="preload" as="script"><link href="js/chunk-vendors.d132de3e.js" rel="preload" as="script"><link href="css/chunk-vendors.edfbe536.css" rel="stylesheet"><link href="css/app.6a0e3bf7.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but sixty_admin doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div class="home"><svg class="tea" width="37" height="48" viewbox="0 0 37 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M27.0819 17H3.02508C1.91076 17 1.01376 17.9059 1.0485 19.0197C1.15761 22.5177 1.49703 29.7374 2.5 34C4.07125 40.6778 7.18553 44.8868 8.44856 46.3845C8.79051 46.79 9.29799 47 9.82843 47H20.0218C20.639 47 21.2193 46.7159 21.5659 46.2052C22.6765 44.5687 25.2312 40.4282 27.5 34C28.9757 29.8188 29.084 22.4043 29.0441 18.9156C29.0319 17.8436 28.1539 17 27.0819 17Z" stroke="var(--secondary)" stroke-width="2"></path><path d="M29 23.5C29 23.5 34.5 20.5 35.5 25.4999C36.0986 28.4926 34.2033 31.5383 32 32.8713C29.4555 34.4108 28 34 28 34" stroke="var(--secondary)" stroke-width="2"></path><path id="teabag" fill="var(--secondary)" fill-rule="evenodd" clip-rule="evenodd" d="M16 25V17H14V25H12C10.3431 25 9 26.3431 9 28V34C9 35.6569 10.3431 37 12 37H18C19.6569 37 21 35.6569 21 34V28C21 26.3431 19.6569 25 18 25H16ZM11 28C11 27.4477 11.4477 27 12 27H18C18.5523 27 19 27.4477 19 28V34C19 34.5523 18.5523 35 18 35H12C11.4477 35 11 34.5523 11 34V28Z"></path><path id="steamL" d="M17 1C17 1 17 4.5 14 6.5C11 8.5 11 12 11 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="var(--secondary)"></path><path id="steamR" d="M21 6C21 6 21 8.22727 19 9.5C17 10.7727 17 13 17 13" stroke="var(--secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div class="text">sixty_admin 载入中…</div></div></div><script src="js/chunk-vendors.d132de3e.js"></script><script src="js/app.77e2c26b.js"></script></body></html>
+      }
+
+      .loader > div {
+        width: 33%;
+        height: 33%;
+        background-color: #409eff;
+        float: left;
+        animation: cube 1.3s infinite ease-in-out;
+      }
+      .loader > div:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .loader > div:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .loader > div:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      .loader > div:nth-child(4) {
+        animation-delay: 0.1s;
+      }
+      .loader > div:nth-child(5) {
+        animation-delay: 0.2s;
+      }
+      .loader > div:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .loader > div:nth-child(7) {
+        animation-delay: 0s;
+      }
+      .loader > div:nth-child(8) {
+        animation-delay: 0.1s;
+      }
+      .loader > div:nth-child(9) {
+        animation-delay: 0.2s;
+      }
+
+      @keyframes cube {
+        0%,
+        70%,
+        100% {
+          transform: scale3D(1, 1, 1);
+        }
+        35% {
+          transform: scale3D(0, 0, 1);
+        }
+      }</style><script>var _hmt = _hmt || []
+      ;(function () {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?3d5c40f211319869c75a6e592012c6ac'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()</script><link href="css/chunk-05cec407.d9699eb1.css" rel="prefetch"><link href="css/chunk-075f6df6.51a6024b.css" rel="prefetch"><link href="css/chunk-0dc15517.5d238634.css" rel="prefetch"><link href="css/chunk-9256881c.0529e82e.css" rel="prefetch"><link href="css/chunk-a56e279a.815175f1.css" rel="prefetch"><link href="css/chunk-b5134b90.cc762e5d.css" rel="prefetch"><link href="css/chunk-d75951fc.3c47018c.css" rel="prefetch"><link href="js/chunk-05cec407.9602aec5.js" rel="prefetch"><link href="js/chunk-075f6df6.dbc2fa50.js" rel="prefetch"><link href="js/chunk-0dc15517.7f316b77.js" rel="prefetch"><link href="js/chunk-2d0ac418.edcd8d75.js" rel="prefetch"><link href="js/chunk-2d0b59f4.4d44c41b.js" rel="prefetch"><link href="js/chunk-2d0c8bf7.6a724676.js" rel="prefetch"><link href="js/chunk-2d0cfa15.3721dd23.js" rel="prefetch"><link href="js/chunk-2d0cfaef.5b069929.js" rel="prefetch"><link href="js/chunk-2d0e4e1f.11953f6d.js" rel="prefetch"><link href="js/chunk-2d0e944c.0488b7a3.js" rel="prefetch"><link href="js/chunk-2d0f1136.09b91279.js" rel="prefetch"><link href="js/chunk-2d208dd1.9b91de6c.js" rel="prefetch"><link href="js/chunk-2d20fcf5.44953e60.js" rel="prefetch"><link href="js/chunk-2d2104c6.406ed844.js" rel="prefetch"><link href="js/chunk-2d226cab.fd4b117c.js" rel="prefetch"><link href="js/chunk-2d229205.dc56b447.js" rel="prefetch"><link href="js/chunk-2d22cc69.46e460d2.js" rel="prefetch"><link href="js/chunk-2d22d7cb.e0b93494.js" rel="prefetch"><link href="js/chunk-9256881c.dd5a0461.js" rel="prefetch"><link href="js/chunk-a56e279a.e5cae844.js" rel="prefetch"><link href="js/chunk-b5134b90.f2b02346.js" rel="prefetch"><link href="js/chunk-d75951fc.f9c66e33.js" rel="prefetch"><link href="css/app.a20dc4ff.css" rel="preload" as="style"><link href="css/chunk-vendors.f27ae16a.css" rel="preload" as="style"><link href="js/app.6a2188d0.js" rel="preload" as="script"><link href="js/chunk-vendors.1b5f02d0.js" rel="preload" as="script"><link href="css/chunk-vendors.f27ae16a.css" rel="stylesheet"><link href="css/app.a20dc4ff.css" rel="stylesheet"></head><body><div id="app"><div class="box"><div class="loader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><p class="text">sixty-admin 载入中…</p><noscript>请启用 JavaScript ，否则 sixty-admin 将不会运行！</noscript></div></div><script src="js/chunk-vendors.1b5f02d0.js"></script><script src="js/app.6a2188d0.js"></script></body></html>
