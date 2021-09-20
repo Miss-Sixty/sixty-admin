@@ -1,5 +1,5 @@
 export default {
-  // showFooter: true,// 是否显示底部版权信息。
+  showCopyright: true, // 是否显示底部版权信息。
   // 版权信息配置，格式为：Copyright © [dates] <company>
   copyrightDates: new Date().getFullYear(),
   copyrightCompany: 'sixty-admin',

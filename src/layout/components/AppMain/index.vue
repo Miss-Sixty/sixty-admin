@@ -7,6 +7,5 @@
 <style lang="scss" scoped>
 .app-main {
   flex: 1;
-  background: #f0f2f5;
 }
 </style>

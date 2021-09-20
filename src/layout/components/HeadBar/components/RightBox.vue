@@ -14,8 +14,8 @@
       </el-tooltip>
     </router-link>
 
-    <DarkSwitch />
-    <International />
+    <dark-switch />
+    <international />
 
     <notice :notice="noticeData" />
 
@@ -47,12 +47,13 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
 import { useUserStore } from '@/store/modules/user'
-import Notice from './Notice'
 import { ElNotification, ElLoading, ElMessageBox } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import DarkSwitch from '@/layout/components/DarkSwitch'
 import International from '@/layout/components/International'
 import { useFullscreen } from '@vueuse/core'
+import useAsyncComponents from '@/hooks/useAsyncComponents'
+const Notice = useAsyncComponents(() => import('./Notice'))
 
 const router = useRouter()
 const route = useRoute()

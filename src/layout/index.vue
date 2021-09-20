@@ -8,7 +8,7 @@
         <head-bar v-show="getIsUnFold" class="head-bar" :class="{ 'head-bar--collapse': collapse }" />
       </transition>
       <app-main class="app-main" :class="{ 'app-main--isUnFold': !getIsUnFold }" />
-      <footer-bar />
+      <footer-bar v-show="copyright" />
     </div>
   </div>
 </template>
@@ -18,12 +18,21 @@ import Sidebar from './components/Sidebar'
 import HeadBar from './components/HeadBar'
 import AppMain from './components/AppMain'
 import FooterBar from './components/FooterBar'
-import { computed } from 'vue'
-
+import { computed, watch, ref } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
-const { headerSetting, menuSetting } = useSettingStore()
-const getIsUnFold = computed(() => menuSetting.show && headerSetting.show)
-const collapse = computed(() => useSettingStore().collapse)
+import { useRoute } from 'vue-router'
+const route = useRoute()
+const settingStore = useSettingStore()
+const copyright = ref(false)
+
+watch(
+  () => route.meta?.copyright,
+  val => (copyright.value = val === undefined ? settingStore.showCopyright : val),
+  { immediate: true }
+)
+
+const getIsUnFold = computed(() => settingStore.menuSetting.show && settingStore.headerSetting.show)
+const collapse = computed(() => settingStore.collapse)
 </script>
 
 <style lang="scss" scoped>

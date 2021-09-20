@@ -7,8 +7,8 @@
   >
     <template #extra>
       <el-button-group size="small">
-        <el-button type="primary">项目文档</el-button>
-        <el-button type="primary">代码仓库 </el-button>
+        <el-button type="primary" @click="toUrl('https://miss-sixty.github.io/sixty-admin-docs/')"> 项目文档 </el-button>
+        <el-button type="primary" @click="toUrl('https://github.com/Miss-Sixty/sixty-admin')">代码仓库 </el-button>
       </el-button-group>
     </template>
   </page-header>
@@ -16,4 +16,7 @@
 <script setup>
 import { useSettingStore } from '@/store/modules/setting'
 const { title } = useSettingStore()
+const toUrl = url => {
+  window.open(url)
+}
 </script>
