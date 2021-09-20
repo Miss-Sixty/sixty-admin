@@ -1,16 +1,9 @@
 <template>
-  <div />
+  <div></div>
 </template>
 
-<script>
-import { onMounted } from 'vue'
+<script setup>
 import { useRouter } from 'vue-router'
-export default {
-  setup() {
-    const router = useRouter()
-    onMounted(async () => {
-      router.go(-1)
-    })
-  },
-}
+const router = useRouter()
+router.go(-1)
 </script>

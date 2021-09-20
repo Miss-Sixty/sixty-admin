@@ -1,8 +1,8 @@
 <template>
-  <el-row class="sidebar">
+  <nav class="sidebar">
     <main-sidebar />
     <nav-menu />
-  </el-row>
+  </nav>
 </template>
 
 <script setup>
@@ -11,8 +11,11 @@ import NavMenu from './components/NavMenu'
 </script>
 <style lang="scss" scoped>
 .sidebar {
-  // TODO:兼容手机端
+  display: flex;
   box-shadow: 10px 0 10px -10px #c7c7c7;
+  position: fixed;
+  top: 0;
+  bottom: 0;
   z-index: 2;
 }
 </style>

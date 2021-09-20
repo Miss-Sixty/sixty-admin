@@ -13,7 +13,7 @@ import { GridComponent, TooltipComponent } from 'echarts/components'
 import { LineChart, BarChart, PieChart, ScatterChart, CandlestickChart, RadarChart, SunburstChart, GaugeChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
 import { shallowRef, onMounted, computed, watch, defineProps, onBeforeUnmount } from 'vue'
-import useWindowResize from '@/hooks/useWindowResize'
+import { useWindowSize } from '@vueuse/core'
 echarts.use([
   GridComponent,
   LineChart,
@@ -47,7 +47,7 @@ const props = defineProps({
   },
   loading: Boolean,
 })
-const { width, height } = useWindowResize()
+const { width, height } = useWindowSize()
 
 const charts = shallowRef()
 let myChart

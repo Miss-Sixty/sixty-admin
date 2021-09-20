@@ -54,7 +54,7 @@ const notice = {
         ],
       },
       {
-        title: '待完成',
+        title: '消息',
         name: '1',
         'num|0-10': 10,
         list: [
@@ -65,7 +65,7 @@ const notice = {
         ],
       },
       {
-        title: '快过期',
+        title: '待办',
         name: '2',
         num: 0,
         list: [],
@@ -74,24 +74,14 @@ const notice = {
   },
 }
 
-const permissions = {
+const rules = {
   admin: ['permission.browse', 'permission.create', 'permission.edit', 'permission.remove'],
   editor: ['permission.browse'],
 }
 export default {
-  'get|/mock/user/notice': notice,
-  'get|/mock/user/upDateInfo': {
-    status: 200,
-    message: '更新成功！',
-    data: {},
-  },
-  'post|/mock/user/logout': {
-    status: 200,
-    message: '退出成功',
-    data: {},
-  },
-  'get|/mock/user/login': option => {
-    const token = userToken[option.query.username]
+  'post|/mock/user/token': option => {
+    const username = JSON.parse(option.body).username
+    const token = userToken[username]
     if (!token) {
       return {
         status: 500,
@@ -102,8 +92,29 @@ export default {
     return {
       status: 200,
       message: 'success',
-      data: userToken[option.query.username],
+      data: userToken[username],
     }
+  },
+
+  'get|/mock/user/rules': option => {
+    return {
+      status: 200,
+      message: 'success',
+      data: rules[option.query.token],
+    }
+  },
+
+  'get|/mock/user/notice': notice,
+
+  'get|/mock/user/upDateInfo': {
+    status: 200,
+    message: '更新成功！',
+    data: {},
+  },
+  'post|/mock/user/logout': {
+    status: 200,
+    message: '退出成功',
+    data: {},
   },
 
   'get|/mock/user/info': option => {
@@ -119,14 +130,6 @@ export default {
           message: '未找到用户信息！',
           data: {},
         }
-  },
-
-  'get|/mock/user/permissions': option => {
-    return {
-      status: 200,
-      message: 'success',
-      data: permissions[option.query.token],
-    }
   },
 
   'get|/mock/user/tagview': () => {

@@ -4,7 +4,7 @@ export default function useFormValid(formRef) {
   async function validForm() {
     const form = unref(formRef)
     if (!form) return
-    return await form.validate()
+    return await form.validate().catch(() => {})
   }
 
   return { validForm }

@@ -1,0 +1,14 @@
+/** 
+ * c:color
+ * t:time
+**/
+html.dark {
+  --c-bg: #22272e;
+  --c-bg-1: #161b22;
+  --c-text: #c9d1d9;
+  --c-divider-dark-1: rgba(84, 84, 84, 0.65);
+  --c-bg-mute: var(--c-black-mute);
+  --c-text-dark-1: rgba(255, 255, 255, 0.87);
+  --c-divider: var(--c-divider-dark-1);
+  --c-text-1: var(--c-text-dark-1);
+}

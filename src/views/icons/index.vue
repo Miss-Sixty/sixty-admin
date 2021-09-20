@@ -1,10 +1,8 @@
 <template>
   <div>
-    <page-header icon="none" icon-text="none" title="Icon 图标">
-      <p>Icon 的使用方法跟 element-plus 中 svg 的使用方法完全一致，并自动注册为全局，无需额外引入。</p>
-    </page-header>
+    <page-header no-icon title="Icon 图标" :content="data.content" />
     <div class="grid">
-      <div v-for="item in name" :key="item" class="icon-item">
+      <div v-for="item in data.list" :key="item" class="icon-item">
         <el-icon :size="40">
           <component :is="item" />
         </el-icon>
@@ -15,7 +13,28 @@
 </template>
 
 <script setup>
-import name from './svg-icons'
+import { svgIcons, sketchIcons } from './svg-icons'
+import { defineProps, computed } from 'vue'
+const props = defineProps({
+  type: {
+    type: String,
+    default: 'svg',
+  },
+})
+const obj = {
+  svg: {
+    title: 'SVG 图标',
+    content: '你也可以使用自己的 SVG 图标，只需把 svg 图标复制到 @/icons/svg 文件夹后执行 yarn gen:svg 来自动创建图标组件。',
+    list: svgIcons,
+  },
+  sketch: {
+    title: 'Sketch 图标',
+    content:
+      '@/assets/scetch 中保存 sketch 图标文件，执行 yarn export:svg 会都导出为 svg 。然后执行 yarn gen:svg 来自动创建图标组件。',
+    list: sketchIcons,
+  },
+}
+const data = computed(() => obj[props.type])
 </script>
 
 <style lang="scss" scoped>

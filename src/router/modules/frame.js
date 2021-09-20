@@ -1,0 +1,31 @@
+import Layout from '@/layout'
+import Iframe from '@/layout/iframe'
+
+export default {
+  path: '/link',
+  component: Layout,
+  name: 'Link',
+  redirect: '/link/element-plus',
+  meta: {
+    title: '外部页面',
+    icon: 'SendPlaneFill',
+  },
+  children: [
+    {
+      path: 'element-plus',
+      component: Iframe,
+      name: 'Doc',
+      meta: {
+        title: 'element-plus（内嵌）',
+        link: 'https://element-plus.gitee.io/#/zh-CN/component/installation',
+      },
+    },
+    {
+      path: 'https://element-plus.gitee.io/#/zh-CN/component/installation',
+      name: 'DocExternal',
+      meta: {
+        title: 'element-plus（外链）',
+      },
+    },
+  ],
+}

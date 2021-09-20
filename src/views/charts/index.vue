@@ -1,6 +1,6 @@
 <template>
   <div class="watermark-content">
-    <page-header icon="none" icon-text="none" title="ECharts 图表">
+    <page-header no-icon title="ECharts 图表">
       基于
       <el-link type="primary" href="https://echarts.apache.org/zh/index.html" target="_blank"> Apache ECharts </el-link>
       的二次封装。详细使用请参考官方文档。

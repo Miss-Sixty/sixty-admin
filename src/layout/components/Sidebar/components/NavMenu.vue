@@ -1,7 +1,7 @@
 <template>
   <el-scrollbar view-style="height: 100vh" @scroll="scroll => (isScrollTop = !!scroll.scrollTop)">
     <el-menu
-      :collapse="isCollapse"
+      :collapse="collapse"
       unique-opened
       :default-active="route.meta.activeMenu || route.path"
       :text-color="variables.navmenu_color"
@@ -10,9 +10,7 @@
       <el-affix :z-index="1">
         <logo-name :is-scroll-top="isScrollTop" />
       </el-affix>
-      <template v-for="item in routerList" :key="item.path">
-        <nav-menu-item v-if="!item.hidden" :key="item.path" :item="item" :base-path="item.path" />
-      </template>
+      <nav-menu-item v-for="item in routerList" :key="item.path" :item="item" :base-path="item.path" />
     </el-menu>
   </el-scrollbar>
 </template>
@@ -20,17 +18,16 @@
 <script setup>
 import LogoName from './Logo'
 import NavMenuItem from './NavMenuItem'
-import { useStore } from 'vuex'
+import { useSettingStore } from '@/store/modules/setting'
+import { useMenuStore } from '@/store/modules/menu'
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
 import variables from '@/styles/resources/var.scss'
-
-const store = useStore()
+const menuStore = useMenuStore()
 const route = useRoute()
 const isScrollTop = ref(false)
-const isCollapse = computed(() => store.state.setting.sidebarCollapse)
-const routerList = computed(() => store.getters['menu/menuRoutes'])
-console.log(routerList.value)
+const collapse = computed(() => useSettingStore().collapse)
+const routerList = menuStore.activeMenuRoutes
 </script>
 
 <style lang="scss" scoped>

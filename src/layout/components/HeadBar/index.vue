@@ -1,30 +1,35 @@
 <template>
-  <el-row type="flex" justify="space-between" align="middle" class="headbar" :class="{ shadow: props.isScrollTop }">
-    <left-box @collapseChange="val => $emit('collapseChange', val)" />
+  <header class="headbar">
+    <left-box />
     <right-box />
-  </el-row>
+  </header>
 </template>
 <script setup>
 import LeftBox from './components/LeftBox'
 import RightBox from './components/RightBox'
-import { defineProps, defineEmits } from 'vue'
-const props = defineProps({
-  isScrollTop: Boolean,
-})
-
-defineEmits(['collapseChange'])
 </script>
 <style lang="scss" scoped>
 .headbar {
   height: $headbar-height;
-  background-color: $headbar-bg;
-  transition: box-shadow 0.2s;
-  box-shadow: 0 0 1px 0 #ccc;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 0 1px #ccc;
   z-index: 1;
-  flex-wrap: nowrap;
-  &.shadow {
-    box-shadow: 0 10px 10px -10px #ccc;
+
+  :deep(.header-icon) {
+    box-sizing: content-box;
+    height: $headbar-height;
+    font-size: 18px;
+    display: flex;
+    padding: 0 8px;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
   }
 }
 </style>

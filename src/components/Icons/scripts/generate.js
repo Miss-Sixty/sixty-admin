@@ -72,6 +72,8 @@ fs.promises
   })
   .then(() => {
     fs.mkdirSync(outDir)
+    fs.mkdirSync(`${outDir}/svg`)
+    fs.mkdirSync(`${outDir}/sketchSvg`)
     main(SVG, true)
     main(SKETCH_SVG)
   })
@@ -94,11 +96,11 @@ async function transform(filename, basePath, isFill) {
   // TODO: make this generic and pipe-able for generating
   // reusable code like ant design icon does.
   const transformed = transformToVue3(optimized.data, componentName)
-  writeToDisk(transformed, componentName)
+  writeToDisk(transformed, componentName, isFill)
 }
 
-function writeToDisk(content, componentName) {
-  const targetFile = path.resolve(outDir, `./${componentName}`)
+function writeToDisk(content, componentName, isFill) {
+  const targetFile = path.resolve(`${outDir}/${isFill ? 'svg' : 'sketchSvg'}`, `./${componentName}`)
   fs.mkdirSync(targetFile)
   const file = path.resolve(targetFile, './index.vue')
   fs.writeFileSync(file, content, {

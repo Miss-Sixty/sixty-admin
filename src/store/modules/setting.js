@@ -1,37 +1,42 @@
-import { unref } from 'vue'
-/**
- * 存放全局公用状态
- */
 import setting from '@/setting'
-const state = {
-  ...setting,
-  title: setting.title || '', // 页面标题
-  mode: 'pc',
-}
+import { defineStore } from 'pinia'
+import { unref } from 'vue'
+import store from '@/store'
+import { useStorage } from '@vueuse/core'
 
-const mutations = {
-  // 设置网页标题
-  SETTITLE(state, title) {
-    state.title = title
+export const useSettingStore = defineStore('setting-store', {
+  state: () => ({
+    ...setting,
+    title: process.env.VUE_APP_TITLE || '', // 项目标题
+    mode: 'pc',
+    collapse: useStorage('collapse', false),
+    dot: true,
+    number: 10,
+    text: '热门',
+  }),
+  actions: {
+    // 设置网页标题
+    setTitle(state, title) {
+      state.title = title
+    },
+
+    // 切换侧边栏导航展开/收起
+    setCollapse() {
+      this.collapse = !this.collapse
+    },
+
+    // 设置访问模式，页面宽度小于 992px 时切换为移动端展示
+    setMode(width) {
+      const mode = ['phone', 'pad', 'pc']
+      const unWidth = unref(width)
+      this.mode = unWidth <= 768 ? mode[0] : unWidth <= 992 ? mode[1] : mode[2]
+      if (this.mode !== 'pc') this.sidebarCollapse = true
+      else this.sidebarCollapse = false
+    },
   },
+})
 
-  // 切换侧边栏导航展开/收起
-  TOOGLE_SIDEBAR_COLLAPSE(state) {
-    state.sidebarCollapse = !state.sidebarCollapse
-  },
-
-  // 设置访问模式，页面宽度小于 992px 时切换为移动端展示
-  SET_MODE(state, width) {
-    const mode = ['phone', 'pad', 'pc']
-    const unWidth = unref(width)
-    state.mode = unWidth <= 768 ? mode[0] : unWidth <= 992 ? mode[1] : mode[2]
-    if (state.mode !== 'pc') state.sidebarCollapse = true
-    else state.sidebarCollapse = false
-  },
-}
-
-export default {
-  namespaced: true,
-  state,
-  mutations,
+// Need to be used outside the setup
+export function useSettingStoreWithOut() {
+  return useSettingStore(store)
 }

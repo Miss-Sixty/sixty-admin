@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import router from "@/router";
-import store from '@/store'
+// import store from '@/store'
 import { ElMessage } from 'element-plus'
 
 // const toLogin = () => {
@@ -21,7 +21,7 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
-    config.headers['Authorization'] = store.state.user.token
+    // config.headers['Authorization'] = store.state.user.token
     return config
   },
   error => {
@@ -45,10 +45,10 @@ service.interceptors.response.use(
     return res
   },
   err => {
-    console.log(err.response)
-    const { data, message } = err.response.data
+    console.log(err)
+    // const { data, message } = err.response.data
 
-    ElMessage.error(message || data)
+    // ElMessage.error(message || data)
 
     return Promise.reject(err)
   }

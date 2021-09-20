@@ -2,7 +2,11 @@ import CryptoJS from 'crypto-js'
 
 //解密方法
 function decrypt(data) {
-  return JSON.parse(CryptoJS.AES.decrypt(data, 'fksdjf123').toString(CryptoJS.enc.Utf8))
+  try {
+    return JSON.parse(CryptoJS.AES.decrypt(data, 'fksdjf123').toString(CryptoJS.enc.Utf8))
+  } catch (err) {
+    return ''
+  }
 }
 
 //加密方法

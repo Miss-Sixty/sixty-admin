@@ -1,77 +1,19 @@
 <template>
-  <el-row type="flex" align="middle" class="page-main">
-    <el-avatar :size="60" :src="userInfo.avatar" />
-    <div class="content">
-      <h3 class="content__title">{{ content.title }} {{ userInfo.name }}，{{ content.text }}</h3>
-      <p>{{ userInfo.jobTitle }} {{ userInfo.company }}</p>
-    </div>
-  </el-row>
+  <page-header
+    no-icon
+    :title="`欢迎使用 ${title}`"
+    content="这是一款中后台前端解决方案，基于 Vue3 和 Element Plus
+    实现。使用了最新的前端技术栈，有许多语法和工具库还处于测试阶段或刚刚推出，因此该项目不适合没有经验的开发人员直接使用在生产环境，它更适合用来探索最新技术栈或学习管理系统的整个处理流程。"
+  >
+    <template #extra>
+      <el-button-group size="small">
+        <el-button type="primary">项目文档</el-button>
+        <el-button type="primary">代码仓库 </el-button>
+      </el-button-group>
+    </template>
+  </page-header>
 </template>
-<script>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
-
-export default {
-  setup() {
-    const store = useStore()
-    const userInfo = computed(() => store.getters['user/userInfo'])
-
-    const content = computed(() => {
-      const hour = new Date().getHours()
-      let status = hour < 6 ? 0 : hour <= 9 ? 1 : hour <= 11 ? 2 : hour < 13 ? 3 : hour < 17 ? 4 : hour < 19 ? 5 : hour < 24 ? 6 : 7
-      const textMap = [
-        {
-          title: '凌晨了',
-          text: ['祝您开心每一天！'],
-        },
-        {
-          title: '早晨好',
-          text: ['祝您开心每一天！'],
-        },
-        {
-          title: '上午好',
-          text: ['祝您开心每一天！'],
-        },
-        {
-          title: '中午好',
-          text: ['祝您开心每一天！'],
-        },
-        {
-          title: '下午好',
-          text: ['祝您开心每一天！'],
-        },
-        {
-          title: '傍晚了',
-          text: ['祝您开心每一天！'],
-        },
-        {
-          title: '晚上了',
-          text: ['祝您开心每一天！'],
-        },
-      ]
-      return { ...textMap[status], text: textMap[status].text[Math.floor(Math.random() * textMap[status].text.length)] }
-    })
-    return {
-      userInfo,
-      content,
-    }
-  },
-}
+<script setup>
+import { useSettingStore } from '@/store/modules/setting'
+const { title } = useSettingStore()
 </script>
-<style lang="scss" scoped>
-.content {
-  margin-left: 20px;
-  flex: 1;
-  &__title {
-    margin: 0 0 10px 0;
-    font-size: 20px;
-    font-weight: 700;
-    color: #3c4a54;
-  }
-  p {
-    font-size: 14px;
-    color: rgb(81, 90, 110);
-    margin: 0;
-  }
-}
-</style>

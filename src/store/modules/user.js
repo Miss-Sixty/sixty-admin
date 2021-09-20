@@ -1,136 +1,73 @@
-import { login, info, notice, logout, permissions, upDateInfo } from '@/api/user'
+import { defineStore } from 'pinia'
+import { token, rules, notice, info } from '@/api/user'
 import { encrypt, decrypt } from '@/utils/secret'
+import { useMenuStore } from './menu'
+import store from '@/store'
 
-const state = {
-  userInfo: localStorage.userInfo || '',
-  token: localStorage.token || '',
-  notice: {},
-  roles: [],
-}
-
-const actions = {
-  login({ commit }, loginForm) {
-    const { username, password } = loginForm
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password })
-        .then(res => {
-          commit('SET_TOKEN', res.data)
-          resolve()
-        })
-        .catch(err => reject(err))
-    })
+export const useUserStore = defineStore('user-store', {
+  state: () => ({
+    _userInfo: localStorage.getItem('userInfo'),
+    token: localStorage.getItem('token'),
+    notice: {},
+  }),
+  getters: {
+    userInfo() {
+      return decrypt(this._userInfo)
+    },
   },
+  actions: {
+    //获取token
+    async getToken(params) {
+      try {
+        const { username, password } = params
+        const { data } = await token({ username: username.trim(), password })
+        this.token = data.token
+        localStorage.setItem('token', data.token)
 
-  getUserInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      info({ token: state.token })
-        .then(res => {
-          commit('SET_USER_INFO', res.data)
-          resolve(res.data)
-        })
-        .catch(err => {
-          reject(err)
-          commit('CLEAR_USER_INFO')
-        })
-    })
-  },
+        return await this.getRoleList()
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
 
-  //修改用户信息
-  editUserInfo({ state }) {
-    return new Promise((resolve, reject) => {
-      upDateInfo(state)
-        .then(res => resolve(res))
-        .catch(err => reject(err))
-    })
-  },
+    //用户信息
+    async getUserInfo() {
+      if (!this.token) return this.clearUserInfo()
+      const res = await info({ token: this.token })
+      const userInfo = encrypt(res.data)
+      localStorage.setItem('userInfo', userInfo)
+      this._userInfo = userInfo
+    },
 
-  //获取通知信息
-  getNotice({ commit }) {
-    return new Promise((resolve, reject) => {
-      notice()
-        .then(res => {
-          commit('SET_USER_NOTICE', res.data)
-          resolve()
-        })
-        .catch(err => reject(err))
-    })
-  },
+    //用户权限
+    async getRoleList() {
+      const { data } = await rules({ token: this.token })
+      //根据权限处理路由
+      const menuStore = useMenuStore()
+      await menuStore.generateRoutes(data)
+    },
 
-  // 退出登录
-  logout({ commit }) {
-    return new Promise((resolve, reject) => {
-      logout()
-        .then(() => {
-          commit('CLEAR_USER_INFO')
-          resolve()
-        })
-        .catch(err => reject(err))
-    })
-  },
+    //清空信息
+    clearUserInfo() {
+      //根据权限处理路由
+      const menuStore = useMenuStore()
+      menuStore.removeRoutes.forEach(removeRoute => removeRoute())
+      menuStore.$reset()
 
-  // 获取权限
-  permissions({ commit }) {
-    return new Promise((resolve, reject) => {
-      permissions({ token: state.token })
-        .then(res => {
-          commit('SETP_ERMISSIONS', res.data)
-          resolve(res)
-        })
-        .catch(err => reject(err))
-    })
-  },
-}
+      localStorage.removeItem('userInfo')
+      localStorage.removeItem('token')
+      this.$reset()
+    },
 
-const mutations = {
-  SET_TOKEN(state, data) {
-    localStorage.setItem('token', data.token)
-    state.token = data.token
+    //获取通知信息
+    async getNotice() {
+      const { data } = await notice()
+      this.notice = data
+    },
   },
+})
 
-  SET_USER_INFO(state, data) {
-    const userInfo = encrypt(data)
-    localStorage.setItem('userInfo', userInfo)
-    state.userInfo = userInfo
-  },
-
-  SET_USER_NOTICE(state, data) {
-    state.notice = data
-  },
-
-  CLEAR_USER_INFO(state) {
-    localStorage.removeItem('userInfo')
-    localStorage.removeItem('token')
-    state.userInfo = ''
-    state.token = ''
-    state.notice = {}
-    state.roles = []
-  },
-
-  SETP_ERMISSIONS(state, roles) {
-    state.roles = roles
-  },
-}
-
-const getters = {
-  isLogin: state => {
-    if (state.token) return true
-  },
-  userInfo: state => {
-    const { userInfo } = state
-    if (!userInfo) return ''
-    try {
-      return decrypt(userInfo)
-    } catch (err) {
-      console.error(err)
-      return ''
-    }
-  },
-}
-
-export default {
-  namespaced: true,
-  state,
-  actions,
-  getters,
-  mutations,
+// Need to be used outside the setup
+export function useUserStoreWithOut() {
+  return useUserStore(store)
 }

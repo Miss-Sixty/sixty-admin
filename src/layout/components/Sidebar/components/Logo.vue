@@ -6,6 +6,7 @@
       }"
       class="logo"
       @click="navigate"
+      role="button"
     >
       {{ title }}
     </div>
@@ -13,13 +14,12 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
+import { useSettingStore } from '@/store/modules/setting'
 import { defineProps } from 'vue'
-
 const props = defineProps({
   isScrollTop: Boolean,
 })
-const title = useStore().state.setting.title
+const title = useSettingStore().title
 </script>
 
 <style lang="scss" scoped>
@@ -29,7 +29,6 @@ const title = useStore().state.setting.title
   color: #37414b;
   text-decoration: none;
   padding: 0 10px;
-  cursor: pointer;
   font-weight: bold;
   background-color: $navmenu-logo-bg;
   font-size: 16px;

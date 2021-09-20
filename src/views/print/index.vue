@@ -1,13 +1,13 @@
 <template>
   <div>
-    <page-header icon="none" icon-text="none" title="Print 打印">
+    <page-header no-icon title="Print 打印">
       基于
       <el-link type="primary" href="https://printjs.crabbly.com/" target="_blank"> Print.js </el-link> 。可打印 pdf, html, image, json
       四种类型数据，更多参数说明请查看文档
     </page-header>
 
     <el-space wrap class="content" :size="15">
-      <el-card v-for="(item, index) in list" :key="index" v-loading="item.loading">
+      <page-main v-for="(item, index) in list" :key="index" v-loading="item.loading">
         <div v-if="item.type === 'html'" id="print-text-demo">
           那些男孩，教会我成长，那些女孩,教会我爱……
           他们曾经出现在我的生命里，然后又消失不见，可是，我不相信他们是天使，他们是世间最普通的男孩和女孩，所以我就一直这么站在香樟树下等待着，因为我相信，他们总有一天会回来，回来找我，教会我更多的事。
@@ -18,7 +18,7 @@
         <div>
           <el-button type="success" @click="printChange(index)"> {{ item.title }} </el-button>
         </div>
-      </el-card>
+      </page-main>
     </el-space>
   </div>
 </template>

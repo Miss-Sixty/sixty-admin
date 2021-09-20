@@ -1,53 +1,57 @@
 <template>
-  <ul class="main-sidebar">
-    <li
+  <div class="main" v-if="alwaysShowMainSidebar || !mainRoutes.length">
+    <div
       v-for="(item, index) in mainRoutes"
       :key="index"
-      class="main-sidebar__item"
-      :class="{ 'main-sidebar__item--active': index === headerActived }"
+      class="main__item"
+      :class="{ 'main__item--active': index === headerActived }"
       @click="switchActivedChange(index)"
+      role="button"
     >
-      <el-icon v-if="item.meta?.icon" :size="20">
-        <component :is="item.meta?.icon" />
-      </el-icon>
+      <component class="icon" v-if="item.meta?.icon" :is="item.meta?.icon" />
       <span>{{ item.meta?.title }}</span>
-    </li>
-  </ul>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
+import { useMenuStore } from '@/store/modules/menu'
+import { useSettingStore } from '@/store/modules/setting'
 import { computed } from 'vue'
-const store = useStore()
-const switchActivedChange = index => store.commit('menu/SWITCH_ACTIVED', index)
-const headerActived = computed(() => store.state.menu.headerActived)
-const mainRoutes = computed(() => store.state.menu.allRoutes)
+const menuStore = useMenuStore()
+const settingStore = useSettingStore()
+const switchActivedChange = index => menuStore.switchActive(index)
+const headerActived = computed(() => menuStore.headerActived)
+const mainRoutes = computed(() => menuStore.allRoutes)
+const alwaysShowMainSidebar = settingStore.alwaysShowMainSidebar
 </script>
 
 <style lang="scss" scoped>
-.main-sidebar {
-  background-color: $g-main-sidebar-bg;
+.main {
+  background-color: #1f2d3d;
   color: #fff;
-  user-select: none;
+  width: $main-sidbar-width;
   &__item {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: $g-main-sidebar-width;
-    width: $g-main-sidebar-width;
-    margin: 5px;
+    margin: 5px auto;
+    width: 54px;
+    height: 54px;
     border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.3s;
     &--active,
     &:hover {
-      background-color: $g-main-sidebar-active-bg;
+      background-color: #409eff;
+    }
+
+    .icon {
+      height: 20px;
     }
 
     span {
-      text-align: center;
       margin-top: 2px;
+      text-align: center;
       @include text-overflow;
     }
   }

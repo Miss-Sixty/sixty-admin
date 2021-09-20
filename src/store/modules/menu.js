@@ -1,116 +1,56 @@
-import { asyncRoutes, lastRoutes, constantRoutes } from '@/router'
+import { defineStore } from 'pinia'
+import router, { asyncRoutes } from '@/router'
+import store from '@/store'
 
-/**
- * 使用 meta.auth 判断当前用户是否有权限
- * @param roles
- * @param route
- */
-function hasPermission(roles, route) {
-  let isAuth = false
-  if (route.meta?.auth) {
-    isAuth = roles.some(auth => {
-      if (typeof route.meta.auth === 'string') return route.meta.auth === auth
-      return route.meta.auth.some(routeAuth => routeAuth === auth)
-    })
-  } else {
-    isAuth = true
+function filter(tree, func) {
+  function listFilter(list) {
+    return list
+      .map(node => ({ ...node }))
+      .filter(node => {
+        node.children = node.children && listFilter(node.children)
+        return func(node)
+      })
   }
-  return isAuth
+  return listFilter(tree)
 }
 
-/**
- * 通过递归过滤异步路由表
- * @param routes asyncRoutes
- * @param roles
- */
-function filterAsyncRoutes(routes, roles) {
-  const res = []
-  routes.forEach(route => {
-    const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
-        tmp.children.length && res.push(tmp)
-      } else {
-        res.push(tmp)
+export const useMenuStore = defineStore('menu-store', {
+  state: () => ({
+    allRoutes: [], //带主导航的路由
+    headerActived: 0,
+    removeRoutes: [],
+  }),
+  getters: {
+    activeMenuRoutes() {
+      return this.allRoutes[this.headerActived]?.children || []
+    },
+  },
+  actions: {
+    async generateRoutes(rules = []) {
+      const routeFilter = route => {
+        const { meta } = route
+        const { auth, hidden } = meta || {}
+        if (hidden) return false
+        if (!auth) return true
+        return rules.some(role => auth.includes(role))
       }
-    }
-  })
-  return res
-}
+      let routes = filter(asyncRoutes, routeFilter)
+      routes = routes.filter(routeFilter) //INFO:先过滤children，再过滤父
+      this.allRoutes = routes
 
-const state = {
-  allRoutes: [], //带主导航的路由
-  routes: [], //所有路由
-  headerActived: 0, //当前主导航
-  addRoutes: [], //动态路由
-  removeRoutes: [], //用来删除动态添加路由
-}
+      // TODO:2级以上路由拍扁成2级路由
+      const routers = [].concat(...asyncRoutes.map(item => ({ ...item }.children)))
+      this.removeRoutes = routers.map(route => router.addRoute(route))
+    },
 
-const actions = {
-  // 根据权限动态生成路由
-  generateRoutes({ commit }, { roles, currentPath }) {
-    return new Promise(resolve => {
-      const accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-      commit('SET_ALL_ROUTERS', accessedRoutes) //带主导航的路由
-      commit('SET_ACTIVED', currentPath)
-
-      //遍历出所有路由
-      let routes = []
-      accessedRoutes.forEach(item => routes.push(...item.children))
-      routes.push(...lastRoutes)
-      commit('SET_ROUTERS', routes)
-      resolve(routes)
-    })
+    // 切换头部导航
+    switchActive(index) {
+      this.headerActived = index
+    },
   },
-}
+})
 
-const mutations = {
-  SET_ALL_ROUTERS(state, allRoutes) {
-    state.allRoutes = allRoutes.filter(item => item.children?.length !== 0)
-  },
-
-  SET_ROUTERS(state, routes) {
-    state.addRoutes = routes
-    state.routes = constantRoutes.concat(routes)
-  },
-
-  // 根据路由判断属于哪个头部导航
-  SET_ACTIVED(state, path) {
-    state.allRoutes.forEach((item, index) => {
-      if (item.children.some(r => path.indexOf(r.path + '/') === 0 || path === r.path)) {
-        state.headerActived = index
-      }
-    })
-  },
-
-  // 切换头部导航
-  SWITCH_ACTIVED(state, index) {
-    state.headerActived = index
-  },
-
-  // 记录 accessRoutes 路由，用于登出时删除路由
-  SET_REMOVE_ROUTERS(state, routes) {
-    state.removeRoutes = routes
-  },
-
-  //清空动态路由
-  CLEAR_ROUTERS(state) {
-    state.removeRoutes.forEach(removeRoute => removeRoute())
-  },
-}
-
-const getters = {
-  menuRoutes: state => {
-    if (!state.allRoutes.length) return
-    return state.allRoutes[state.headerActived].children
-  },
-}
-
-export default {
-  namespaced: true,
-  state,
-  actions,
-  getters,
-  mutations,
+// Need to be used outside the setup
+export function useMenuStoreWithOut() {
+  return useMenuStore(store)
 }
