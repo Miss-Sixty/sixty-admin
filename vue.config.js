@@ -1,3 +1,6 @@
+const dayjs = require('dayjs')
+process.env.VUE_APP_UPDATE_TIME = dayjs().format('YYYY-M-D HH:mm:ss')
+
 module.exports = {
   publicPath: './',
   outputDir: 'sixty_admin',

@@ -10,9 +10,7 @@ export const useSettingStore = defineStore('setting-store', {
     title: process.env.VUE_APP_TITLE || '', // 项目标题
     mode: 'pc',
     collapse: useStorage('collapse', false),
-    dot: true,
-    number: 10,
-    text: '热门',
+    updateTime: process.env.VUE_APP_UPDATE_TIME || '未知',
   }),
   actions: {
     // 设置网页标题

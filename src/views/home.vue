@@ -7,15 +7,39 @@
   >
     <template #extra>
       <el-button-group size="small">
-        <el-button type="primary" @click="toUrl('https://miss-sixty.github.io/sixty-admin-docs/')"> 项目文档 </el-button>
-        <el-button type="primary" @click="toUrl('https://github.com/Miss-Sixty/sixty-admin')">代码仓库 </el-button>
+        <el-button type="primary" @click="toUrl('https://miss-sixty.github.io/sixty-admin-docs/')">项目文档</el-button>
+        <el-button type="primary" @click="toUrl('https://github.com/Miss-Sixty/sixty-admin')">代码仓库</el-button>
       </el-button-group>
     </template>
   </page-header>
+
+  <el-row :gutter="16" style="padding: 20px">
+    <el-col :span="12">
+      <page-main title="更新日志">更新日志 </page-main>
+    </el-col>
+    <el-col :span="12">
+      <page-main title="快捷导航" style="margin-bottom: 20px"> 快捷导航 </page-main>
+
+      <page-main title="版本信息">
+        <template #extra>
+          <el-tag size="small">部署时间：{{ updateTime }} </el-tag>
+        </template>
+        <el-descriptions border :column="2">
+          <el-descriptions-item label="Vue"> {{ dependencies['vue'] }}</el-descriptions-item>
+          <el-descriptions-item label="Vue Router"> {{ dependencies['vue-router'] }}</el-descriptions-item>
+          <el-descriptions-item label="Pinia"> {{ dependencies['pinia'] }}</el-descriptions-item>
+          <el-descriptions-item label="Element Plus"> {{ dependencies['element-plus'] }}</el-descriptions-item>
+          <el-descriptions-item label="Axios"> {{ dependencies['axios'] }}</el-descriptions-item>
+          <el-descriptions-item label="VueUse"> {{ dependencies['@vueuse/core'] }}</el-descriptions-item>
+        </el-descriptions>
+      </page-main>
+    </el-col>
+  </el-row>
 </template>
 <script setup>
+import { dependencies } from '../../package.json'
 import { useSettingStore } from '@/store/modules/setting'
-const { title } = useSettingStore()
+const { title, updateTime } = useSettingStore()
 const toUrl = url => {
   window.open(url)
 }

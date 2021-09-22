@@ -3,6 +3,7 @@
     <div v-if="title || $slots.header" class="page-main__header">
       <slot name="header">
         <span>{{ title }}</span>
+        <slot name="extra" />
       </slot>
     </div>
     <div v-if="content || $slots.default" class="page-main__body">
@@ -47,7 +48,7 @@ defineProps({
     justify-content: space-between;
     align-items: center;
     > span {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
   &__body {
