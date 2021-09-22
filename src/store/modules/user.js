@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user-store', {
     _userInfo: localStorage.getItem('userInfo'),
     token: localStorage.getItem('token'),
     notice: {},
+    roles: [],
   }),
   getters: {
     userInfo() {
@@ -19,7 +20,7 @@ export const useUserStore = defineStore('user-store', {
     //获取token
     async getToken(params) {
       try {
-        const { username, password } = params
+        const { username, password = '' } = params
         const { data } = await token({ username: username.trim(), password })
         this.token = data.token
         localStorage.setItem('token', data.token)
@@ -42,6 +43,7 @@ export const useUserStore = defineStore('user-store', {
     //用户权限
     async getRoleList() {
       const { data } = await rules({ token: this.token })
+      this.roles = data
       //根据权限处理路由
       const menuStore = useMenuStore()
       await menuStore.generateRoutes(data)

@@ -56,6 +56,7 @@ import Watermark from './modules/watermark' //页面水印
 import OnlinePreview from './modules/onlinePreview' //office 预览
 import Charts from './modules/charts' // 图表
 import Print from './modules/print' // 打印
+import Permission from './modules/permission' //权限
 
 export const asyncRoutes = [
   {
@@ -63,7 +64,7 @@ export const asyncRoutes = [
       title: '基础',
       icon: 'home',
     },
-    children: [Icons, comp, Feat, Watermark, Badge, Charts, Print, Frame, OnlinePreview, Nested],
+    children: [Icons, comp, Feat, Watermark, Badge, Charts, Permission, Print, Frame, OnlinePreview, Nested],
   },
   // {
   //   meta: {
