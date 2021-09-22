@@ -1,5 +1,5 @@
 <template>
-  <div ref="charts" :style="styles" />
+  <div ref="charts" :style="styles"></div>
 </template>
 <script>
 export default {
@@ -12,7 +12,7 @@ import * as echarts from 'echarts/core'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 import { LineChart, BarChart, PieChart, ScatterChart, CandlestickChart, RadarChart, SunburstChart, GaugeChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
-import { shallowRef, onMounted, computed, watch, defineProps, onBeforeUnmount } from 'vue'
+import { ref, onMounted, computed, watch, defineProps, onBeforeUnmount } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 echarts.use([
   GridComponent,
@@ -49,7 +49,7 @@ const props = defineProps({
 })
 const { width, height } = useWindowSize()
 
-const charts = shallowRef()
+const charts = ref()
 let myChart
 const styles = computed(() => ({
   height: props.height,
