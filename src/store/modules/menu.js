@@ -41,11 +41,11 @@ export const useMenuStore = defineStore('menu-store', {
       // TODO:2级以上路由拍扁成2级路由
       const routers = [].concat(...asyncRoutes.map(item => ({ ...item }.children)))
       this.removeRoutes = routers.map(route => router.addRoute(route))
-      this.set_actived(currentPath)
+      this.setActived(currentPath)
     },
 
     // 根据路由判断属于哪个头部导航
-    set_actived(path) {
+    setActived(path) {
       this.allRoutes.forEach((item, index) => {
         if (item.children.some(r => path.indexOf(r.path + '/') === 0 || path === r.path)) {
           this.headerActived = index

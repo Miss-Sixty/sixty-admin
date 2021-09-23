@@ -23,6 +23,8 @@ router.beforeEach(async to => {
     await userStore.getRoleList(to.path)
     return { path: to.fullPath, replace: true, query: to.query } //动态添加路由后重定向
   }
+
+  return menuStore.setActived(to.path)
 })
 
 router.afterEach(to => {
