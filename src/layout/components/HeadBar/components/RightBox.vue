@@ -7,11 +7,7 @@
     </el-tooltip>
 
     <router-link custom :to="{ name: 'Reload' }" v-slot="{ navigate }">
-      <el-tooltip effect="light" content="刷新页面" placement="bottom">
-        <el-icon role="button" class="header-icon" @click="navigate">
-          <refresh-line />
-        </el-icon>
-      </el-tooltip>
+      <refresh-button class="header-icon" @click="navigate" />
     </router-link>
 
     <dark-switch />

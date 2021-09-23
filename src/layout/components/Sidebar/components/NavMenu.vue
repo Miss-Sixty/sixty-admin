@@ -27,7 +27,7 @@ const menuStore = useMenuStore()
 const route = useRoute()
 const isScrollTop = ref(false)
 const collapse = computed(() => useSettingStore().collapse)
-const routerList = menuStore.activeMenuRoutes
+const routerList = computed(() => menuStore.activeMenuRoutes)
 </script>
 
 <style lang="scss" scoped>

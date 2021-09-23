@@ -20,7 +20,7 @@ router.beforeEach(async to => {
 
   //如果登陆但没有路由，则请求权限并动态添加有权限的路由
   if (!menuStore.allRoutes.length) {
-    await userStore.getRoleList()
+    await userStore.getRoleList(to.path)
     return { path: to.fullPath, replace: true, query: to.query } //动态添加路由后重定向
   }
 })

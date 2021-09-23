@@ -46,6 +46,7 @@ export const constantRoutes = [
   },
 ]
 
+//基础
 import Nested from './modules/nested'
 import Frame from './modules/frame'
 import Badge from './modules/badge'
@@ -58,6 +59,9 @@ import Charts from './modules/charts' // 图表
 import Print from './modules/print' // 打印
 import Permission from './modules/permission' //权限
 
+//页面
+import table from './modules/table'
+
 export const asyncRoutes = [
   {
     meta: {
@@ -66,13 +70,13 @@ export const asyncRoutes = [
     },
     children: [Icons, comp, Feat, Watermark, Badge, Charts, Permission, Print, Frame, OnlinePreview, Nested],
   },
-  // {
-  //   meta: {
-  //     title: '页面',
-  //     icon: 'page',
-  //   },
-  //   children: [],
-  // },
+  {
+    meta: {
+      title: '页面',
+      icon: 'page',
+    },
+    children: [table],
+  },
 ]
 
 // export const lastRoutes = [

@@ -20,7 +20,7 @@ import { useSettingStore } from '@/store/modules/setting'
 import { computed } from 'vue'
 const menuStore = useMenuStore()
 const settingStore = useSettingStore()
-const switchActivedChange = index => menuStore.switchActive(index)
+const switchActivedChange = index => (menuStore.headerActived = index)
 const headerActived = computed(() => menuStore.headerActived)
 const mainRoutes = computed(() => menuStore.allRoutes)
 const alwaysShowMainSidebar = settingStore.alwaysShowMainSidebar

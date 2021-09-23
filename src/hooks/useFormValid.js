@@ -1,10 +1,7 @@
-import { unref } from 'vue'
-
 export default function useFormValid(formRef) {
-  async function validForm() {
-    const form = unref(formRef)
-    if (!form) return
-    return await form.validate().catch(() => {})
+  function validForm() {
+    const form = formRef.value
+    if (form) return form.validate()
   }
 
   return { validForm }

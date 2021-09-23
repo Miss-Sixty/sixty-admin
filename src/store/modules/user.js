@@ -41,12 +41,12 @@ export const useUserStore = defineStore('user-store', {
     },
 
     //用户权限
-    async getRoleList() {
+    async getRoleList(currentPath) {
       const { data } = await rules({ token: this.token })
       this.roles = data
       //根据权限处理路由
       const menuStore = useMenuStore()
-      await menuStore.generateRoutes(data)
+      await menuStore.generateRoutes(data, currentPath)
     },
 
     //清空信息
