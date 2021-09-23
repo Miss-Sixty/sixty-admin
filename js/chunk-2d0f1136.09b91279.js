@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0f1136"],{"9ea5":function(e,n,t){"use strict";t.r(n);var c=t("7a23");function o(e,n){var t=Object(c["resolveComponent"])("page-header");return Object(c["openBlock"])(),Object(c["createBlock"])(t,{title:"页头",content:"这里是内容区，可使用插槽替换内容。也可隐藏或替换左箭头和文字。"})}const r={};r.render=o;n["default"]=r}}]);
