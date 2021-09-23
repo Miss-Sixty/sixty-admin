@@ -1,5 +1,5 @@
 <template>
-  <div class="watermark-content">
+  <div>
     <page-header no-icon title="ECharts 图表">
       基于
       <el-link type="primary" href="https://echarts.apache.org/zh/index.html" target="_blank"> Apache ECharts </el-link>
@@ -302,10 +302,10 @@ const list = reactive([
 ])
 </script>
 <style lang="scss" scoped>
-.col {
-  margin-bottom: 15px;
-}
 .page {
   padding: 15px;
+  .col {
+    margin-bottom: 15px;
+  }
 }
 </style>

@@ -10,7 +10,7 @@ export default {
   },
   children: [
     {
-      path: 'Svg-icons',
+      path: 'svg-icons',
       name: 'SvgIcons',
       props: {
         type: 'svg',

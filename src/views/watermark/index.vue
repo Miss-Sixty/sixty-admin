@@ -1,5 +1,5 @@
 <template>
-  <div class="watermark-content">
+  <div>
     <page-header no-icon title="页面水印" content="给页面的某个区域加上水印。" />
 
     <page-main title="前置水印" style="margin: 20px">
@@ -63,9 +63,3 @@ const tableData = [
   },
 ]
 </script>
-
-<style lang="scss" scoped>
-.page-main {
-  padding-top: 0;
-}
-</style>

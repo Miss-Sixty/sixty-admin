@@ -1,15 +1,17 @@
 <template>
-  <page-header no-icon :title="data.title" :content="data.content" />
-  <page-main style="margin: 20px">
-    <p style="margin-bottom: 20px">{{ data.text }}</p>
+  <div>
+    <page-header no-icon :title="data.title" :content="data.content" />
+    <page-main style="margin: 20px">
+      <p style="margin-bottom: 20px">{{ data.text }}</p>
 
-    <el-button type="primary" @click="handelDot" v-if="type === 'dot'">显示/隐藏</el-button>
-    <el-input-number :model-value="number" @change="handelNumber" v-if="type === 'number'" />
-    <el-button-group v-if="type === 'text'">
-      <el-button type="primary" @click="handelText">切换</el-button>
-      <el-button type="primary" @click="handelText('empty')">清空</el-button>
-    </el-button-group>
-  </page-main>
+      <el-button type="primary" @click="handelDot" v-if="type === 'dot'">显示/隐藏</el-button>
+      <el-input-number :model-value="number" @change="handelNumber" v-if="type === 'number'" />
+      <el-button-group v-if="type === 'text'">
+        <el-button type="primary" @click="handelText">切换</el-button>
+        <el-button type="primary" @click="handelText('empty')">清空</el-button>
+      </el-button-group>
+    </page-main>
+  </div>
 </template>
 <script setup>
 import { defineProps, computed } from 'vue'
