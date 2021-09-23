@@ -1,20 +1,20 @@
 <template>
   <div class="box">
+    <notice :notice="noticeData" />
+
+    <router-link custom :to="{ name: 'Reload' }" v-slot="{ navigate }">
+      <refresh-button class="header-icon" @click="navigate" />
+    </router-link>
+
     <el-tooltip :content="isFullscreen ? '窗口' : '全屏'" placement="bottom" effect="light">
       <el-icon role="button" class="header-icon" @click="toggle">
         <component :is="isFullscreen ? 'fullscreen-exit-fill' : 'fullscreen-fill'" />
       </el-icon>
     </el-tooltip>
 
-    <router-link custom :to="{ name: 'Reload' }" v-slot="{ navigate }">
-      <refresh-button class="header-icon" @click="navigate" />
-    </router-link>
+    <setting />
 
-    <dark-switch />
     <international />
-
-    <notice :notice="noticeData" />
-
     <el-dropdown>
       <div role="button" class="user-wrapper" v-loading="userInfoLoading">
         <div class="name">
@@ -48,10 +48,11 @@ import { ref, onMounted, computed, watch } from 'vue'
 import { useUserStore } from '@/store/modules/user'
 import { ElNotification, ElLoading, ElMessageBox } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
-import DarkSwitch from '@/layout/components/DarkSwitch'
 import International from '@/layout/components/International'
 import { useFullscreen } from '@vueuse/core'
 import useAsyncComponents from '@/hooks/useAsyncComponents'
+import Setting from './Setting.vue'
+
 const Notice = useAsyncComponents(() => import('./Notice'))
 
 const router = useRouter()
