@@ -25,7 +25,10 @@
       </div>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>个人设置</el-dropdown-item>
+          <router-link custom :to="{ name: 'User' }" v-slot="{ navigate }">
+            <el-dropdown-item @click="navigate">个人设置</el-dropdown-item>
+          </router-link>
+
           <el-link
             style="font-weight: normal"
             :underline="false"

@@ -60,7 +60,8 @@ import Print from './modules/print' // 打印
 import Permission from './modules/permission' //权限
 
 //页面
-import table from './modules/table'
+import Table from './modules/table'
+import User from './modules/user' //个人设置
 
 export const asyncRoutes = [
   {
@@ -75,7 +76,7 @@ export const asyncRoutes = [
       title: '页面',
       icon: 'page',
     },
-    children: [table],
+    children: [Table, User],
   },
 ]
 

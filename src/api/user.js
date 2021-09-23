@@ -27,10 +27,10 @@ export function info(params) {
   }).then(res => res.data)
 }
 
-// // 更新用户信息
-// export function upDateInfo(params) {
-//   return request.get('/mock/user/upDateInfo', { params }).then(res => res.data)
-// }
+// 更新用户信息
+export function upDateInfo(params) {
+  return request.get('/mock/user/upDateInfo', { params }).then(res => res.data)
+}
 
 // // 后台-管理员退出登录
 // export function logout() {

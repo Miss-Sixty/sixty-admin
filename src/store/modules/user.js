@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { token, rules, notice, info } from '@/api/user'
+import { token, rules, notice, info, upDateInfo } from '@/api/user'
 import { encrypt, decrypt } from '@/utils/secret'
 import { useMenuStore } from './menu'
 import store from '@/store'
@@ -65,6 +65,15 @@ export const useUserStore = defineStore('user-store', {
     async getNotice() {
       const { data } = await notice()
       this.notice = data
+    },
+
+    //修改用户信息
+    editUserInfo(data) {
+      return new Promise((resolve, reject) => {
+        upDateInfo(data)
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
     },
   },
 })
