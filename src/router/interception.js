@@ -29,6 +29,8 @@ router.beforeEach(async to => {
   } catch (err) {
     console.log(err)
   }
+
+  return menuStore.setActived(to.path)
 })
 
 router.afterEach(to => {
