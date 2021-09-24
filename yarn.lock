@@ -3622,7 +3622,7 @@ dateformat@^3.0.0:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dayjs@1.x, dayjs@^1.10.7:
+dayjs@^1.10.7:
   version "1.10.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.7.tgz#2cf5f91add28116748440866a0a1d26f3a6ce468"
   integrity sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==
@@ -3985,15 +3985,15 @@ elegant-spinner@^1.0.1:
   resolved "https://registry.yarnpkg.com/elegant-spinner/-/elegant-spinner-1.0.1.tgz#db043521c95d7e303fd8f345bedc3349cfb0729e"
   integrity sha1-2wQ1IcldfjA/2PNFvtwzSc+wcp4=
 
-element-plus@^1.1.0-beta.14:
-  version "1.1.0-beta.15"
-  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.1.0-beta.15.tgz#842568ac39e4765ec2118dc2fbd472d94d37b7f3"
-  integrity sha512-VK0gFtMqeGdR3/Y/Jm49X15oo8QZbmWOwPVEgWYgrWgUk3NeRo4GYed3BXQdZW5EOOlaGMuho9scgefX+Ys+oA==
+element-plus@^1.1.0-beta.16:
+  version "1.1.0-beta.16"
+  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.1.0-beta.16.tgz#4409d9e33d005693f6039f5ed1fe05e301b3170d"
+  integrity sha512-4BZEldnIfFZs5A/saRqaWE4PwTot4p3YZU7qsDr3ev2zp35pcCL9TtpWMLIvNTMxvxKew0HTDPTk9fAWIZFQrQ==
   dependencies:
     "@popperjs/core" "^2.10.1"
     "@vueuse/core" "~6.1.0"
     async-validator "^3.4.0"
-    dayjs "1.x"
+    dayjs "^1.10.7"
     lodash "^4.17.21"
     memoize-one "^5.2.1"
     normalize-wheel "^1.0.1"
