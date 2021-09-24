@@ -15,13 +15,20 @@
     </page-header>
 
     <el-row :gutter="16" style="padding: 20px">
-      <el-col :span="12">
-        <page-main title="更新日志" padding="0 20px 20px">
-          <div v-html="markdownText" />
+      <el-col :span="17">
+        <page-main title="待办事项">
+          <el-table :data="tableData" :show-header="false">
+            <el-table-column prop="date" label="Date" width="180" />
+            <el-table-column prop="name" label="Name" width="180" />
+            <el-table-column prop="address" label="Address" />
+          </el-table>
         </page-main>
       </el-col>
-      <el-col :span="12">
-        <page-main title="快捷导航" style="margin-bottom: 20px"> 快捷导航 </page-main>
+
+      <el-col :span="7">
+        <page-main title="更新日志" padding="0 20px 20px" style="margin-bottom: 20px">
+          <div v-html="markdownText" />
+        </page-main>
 
         <page-main title="版本信息">
           <template #extra>
@@ -56,4 +63,28 @@ renderer.link = (href, title, text) => {
 const markdownText = marked(changelog, {
   renderer,
 })
+
+//待办事项
+const tableData = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-02',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+]
 </script>

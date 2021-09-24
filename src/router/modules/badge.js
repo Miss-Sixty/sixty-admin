@@ -5,7 +5,6 @@ const appStore = useAppStoreWithOut()
 export default {
   path: '/badge',
   component: Layout,
-  name: 'Badge',
   redirect: '/badge/dot',
   meta: {
     title: '动态标记',
@@ -14,6 +13,7 @@ export default {
   children: [
     {
       path: 'dot',
+      name: 'badgeDot',
       component: () => import('@/views/badge'),
       props: {
         type: 'dot',
@@ -25,6 +25,7 @@ export default {
     },
     {
       path: 'number',
+      name: 'badgeNumber',
       component: () => import('@/views/badge'),
       props: {
         type: 'number',
@@ -36,6 +37,7 @@ export default {
     },
     {
       path: 'text',
+      name: 'badgeText',
       component: () => import('@/views/badge'),
       props: {
         type: 'text',
