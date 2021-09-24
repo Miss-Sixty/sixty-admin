@@ -44,10 +44,16 @@
 import { dependencies } from '../../package.json'
 import { useSettingStore } from '@/store/modules/setting'
 import marked from 'marked'
-import changelog from '../../Changelog.md'
+import changelog from '../../CHANGELOG.md'
 
 const { title, updateTime } = useSettingStore()
 const toUrl = url => window.open(url)
 
 const markdownText = marked(changelog)
 </script>
+<style lang="scss" scoped>
+//日志 github 链接颜色
+:deep(a) {
+  color: #409eff;
+}
+</style>

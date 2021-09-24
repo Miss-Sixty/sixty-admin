@@ -1,6 +1,6 @@
 {
   "name": "sixty-admin",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "cz": "git-cz",
@@ -10,7 +10,7 @@
     "gen:svg": "node ./src/components/Icons/scripts/generate.js",
     "lint": "vue-cli-service lint",
     "deploy": "gh-pages -d sixty_admin",
-    "changelog": "conventional-changelog -p angular -i Changelog.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
