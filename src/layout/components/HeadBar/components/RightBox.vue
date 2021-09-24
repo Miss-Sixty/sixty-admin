@@ -12,7 +12,7 @@
       </el-icon>
     </el-tooltip>
 
-    <setting />
+    <setting-drawer />
 
     <international />
     <el-dropdown>
@@ -51,7 +51,7 @@ import { useRouter, useRoute } from 'vue-router'
 import International from '@/layout/components/International'
 import { useFullscreen } from '@vueuse/core'
 import useAsyncComponents from '@/hooks/useAsyncComponents'
-import Setting from './Setting.vue'
+import SettingDrawer from '../../SettingDrawer'
 
 const Notice = useAsyncComponents(() => import('./Notice'))
 

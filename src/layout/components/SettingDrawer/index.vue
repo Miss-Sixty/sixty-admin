@@ -5,25 +5,33 @@
     </el-icon>
   </el-tooltip>
 
-  <el-drawer v-model="drawer" title="系统设置">
+  <el-drawer v-model="drawer" title="系统设置" :size="360">
     <div class="body">
       <el-divider>主题风格</el-divider>
       <!-- <dark-switch /> -->
-      <div class="theme">
-        <div class="card" v-for="(item, index) in themeData" :key="index">
-          <span>{{ item.text }}</span>
-          <el-icon>
-            <component :is="item.icon" />
-          </el-icon>
-        </div>
-      </div>
+      <el-row :gutter="10">
+        <el-col :span="8" v-for="(item, index) in themeData" :key="index">
+          <el-row
+            role="button"
+            class="card"
+            justify="space-between"
+            align="middle"
+            :class="{ isActive: item.type === theme }"
+            @click="handleTheme(item)"
+          >
+            <span>{{ item.text }}</span>
+            <el-icon>
+              <component :is="item.icon" />
+            </el-icon>
+          </el-row>
+        </el-col>
+      </el-row>
 
       <el-divider>功能按钮</el-divider>
       <div class="setting-item">
         <span>通知中心</span>
         <el-switch v-model="reset" />
       </div>
-
       <div class="setting-item">
         <span>页面刷新</span>
         <el-switch v-model="reset" />
@@ -32,60 +40,78 @@
         <span>全屏</span>
         <el-switch v-model="reset" />
       </div>
-
       <div class="setting-item">
         <span>国际化</span>
         <el-switch v-model="reset" />
       </div>
-
       <el-divider>界面显示</el-divider>
       <div class="setting-item">
         <span>灰色模式</span>
-        <el-switch v-model="reset" />
+        <el-switch v-model="exhibit.grayMode" @change="toggleName('gray-mode', $event)" />
       </div>
     </div>
   </el-drawer>
 </template>
 <script setup>
-import { ref, shallowRef } from 'vue'
+import { reactive, ref, shallowRef, computed } from 'vue'
 import { Setting, Monitor } from '@element-plus/icons'
 // import DarkSwitch from '@/layout/components/DarkSwitch'
+import { usePreferredDark, useStorage } from '@vueuse/core'
+const isDarkPreferred = usePreferredDark()
+const darkStorage = useStorage('theme', 'auto')
+
 const themeData = shallowRef([
   {
     text: '浅色主题',
     icon: 'sun-fill',
+    type: 'light',
   },
   {
     text: '深色主题',
     icon: 'moon-clear-fill',
+    type: 'dark',
   },
   {
     text: '系统主题',
     icon: Monitor,
+    type: 'auto',
   },
 ])
 const drawer = ref(false)
+
+//主题
+const theme = computed(() => darkStorage.value)
+const handleTheme = item => {
+  darkStorage.value = item.type
+  if (item.type === 'auto') return toggleName('dark', isDarkPreferred.value)
+  toggleName('dark', item.type === 'dark')
+}
+
+//功能按钮
 const reset = ref(false)
+
+//界面显示
+const exhibit = reactive({
+  grayMode: false,
+})
+
+const toggleName = (name, bl) => {
+  const htmlEl = window?.document.querySelector('html')
+  htmlEl?.classList.toggle(name, bl)
+}
 </script>
 
 <style lang="scss" scoped>
 .body {
-  padding: 0 20px;
+  .card {
+    background-color: #eee;
+    border-radius: 4px;
+    padding: 12px 10px;
+    transition: color 0.3s, background-color 0.3s;
 
-  .theme {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #eee;
-      border-radius: 4px;
-      padding: 12px 16px;
-      > span {
-        margin-right: 8px;
-      }
+    &.isActive {
+      color: #fff;
+      background-color: #409eff;
     }
   }
 

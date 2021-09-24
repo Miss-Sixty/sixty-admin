@@ -1,4 +1,11 @@
 @import './theme/index.scss';
+html {
+  //灰色模式
+  &.gray-mode {
+    filter: grayscale(100%);
+    filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
+  }
+}
 body {
   margin: 0;
   font-size: 14px;
