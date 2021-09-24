@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "cz": "git-cz",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "export:svg": "node ./src/components/Icons/scripts/sketchToSvg.js",
     "gen:svg": "node ./src/components/Icons/scripts/generate.js",
     "lint": "vue-cli-service lint",
-    "deploy": "gh-pages -d sixty_admin"
+    "deploy": "gh-pages -d sixty_admin",
+    "changelog": "conventional-changelog -p angular -i Changelog.md -s"
   },
   "dependencies": {
     "@vueuse/core": "^6.4.1",
@@ -30,6 +32,8 @@
     "vue-router": "^4.0.11"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@vue/cli-plugin-babel": "^4.5.13",
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-plugin-router": "^4.5.13",
@@ -37,10 +41,13 @@
     "@vue/compiler-sfc": "^3.2.11",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
+    "conventional-changelog": "^3.1.24",
+    "conventional-changelog-cli": "^2.1.1",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.0.0",
     "gh-pages": "^3.2.3",
+    "git-cz": "^4.7.6",
     "lint-staged": "^9.5.0",
     "prettier": "^2.2.1",
     "sass": "^1.26.5",
@@ -50,13 +57,20 @@
     "svgo": "^2.6.0"
   },
   "gitHooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -e $GIT_PARAMS"
   },
   "lint-staged": {
     "*.{js,jsx,vue}": [
+      "prettier --write",
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "browserslist": [
     "> 1%",
