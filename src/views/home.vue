@@ -49,11 +49,11 @@ import changelog from '../../CHANGELOG.md'
 const { title, updateTime } = useSettingStore()
 const toUrl = url => window.open(url)
 
-const markdownText = marked(changelog)
-</script>
-<style lang="scss" scoped>
-//日志 github 链接颜色
-:deep(a) {
-  color: #409eff;
+const renderer = new marked.Renderer()
+renderer.link = (href, title, text) => {
+  return '<a href="' + href + '" title="' + text + '" target="_blank" style="color:#409eff">' + text + '</a>'
 }
-</style>
+const markdownText = marked(changelog, {
+  renderer,
+})
+</script>
