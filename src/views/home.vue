@@ -16,7 +16,9 @@
 
     <el-row :gutter="16" style="padding: 20px">
       <el-col :span="12">
-        <page-main title="更新日志">更新日志 </page-main>
+        <page-main title="更新日志" padding="0 20px 20px">
+          <div v-html="markdownText" />
+        </page-main>
       </el-col>
       <el-col :span="12">
         <page-main title="快捷导航" style="margin-bottom: 20px"> 快捷导航 </page-main>
@@ -41,8 +43,11 @@
 <script setup>
 import { dependencies } from '../../package.json'
 import { useSettingStore } from '@/store/modules/setting'
+import marked from 'marked'
+import changelog from '../../Changelog.md'
+
 const { title, updateTime } = useSettingStore()
-const toUrl = url => {
-  window.open(url)
-}
+const toUrl = url => window.open(url)
+
+const markdownText = marked(changelog)
 </script>

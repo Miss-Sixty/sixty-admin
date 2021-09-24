@@ -13,6 +13,7 @@
     "changelog": "conventional-changelog -p angular -i Changelog.md -s"
   },
   "dependencies": {
+    "@element-plus/icons": "^0.0.11",
     "@vueuse/core": "^6.4.1",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
@@ -22,6 +23,7 @@
     "echarts": "^5.2.1",
     "element-plus": "^1.1.0-beta.14",
     "lodash-es": "^4.17.21",
+    "marked": "^3.0.4",
     "memoize-one": "^5.2.1",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
@@ -54,7 +56,8 @@
     "sass-loader": "^8.0.2",
     "sass-resources-loader": "^2.2.4",
     "shelljs": "^0.8.4",
-    "svgo": "^2.6.0"
+    "svgo": "^2.6.0",
+    "text-loader": "^0.0.1"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
