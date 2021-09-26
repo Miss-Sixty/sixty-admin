@@ -79,7 +79,7 @@ function leave(el, done) {
     position: fixed;
     top: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 5;
     transition: width 0.3s ease-in-out;
   }
 

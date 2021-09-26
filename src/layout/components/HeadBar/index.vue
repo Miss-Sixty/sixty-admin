@@ -16,7 +16,7 @@ import RightBox from './components/RightBox'
   align-items: center;
   background-color: #fff;
   box-shadow: 0 0 1px #ccc;
-  z-index: 1;
+  z-index: 4;
 
   :deep(.header-icon) {
     box-sizing: content-box;
