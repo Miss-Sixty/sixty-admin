@@ -23,7 +23,7 @@ import RightBox from './components/RightBox'
     height: $headbar-height;
     font-size: 18px;
     display: flex;
-    padding: 0 8px;
+    padding: 0 10px;
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s;

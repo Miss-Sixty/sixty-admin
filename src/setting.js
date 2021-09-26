@@ -14,6 +14,8 @@ export default {
     show: true, // 是否显示顶部
     useLockPage: true, // 开启锁屏功能
     showFullScreen: true, // 显示全屏按钮
+    showSetting: false, //展示设置按钮
+    showInternational: false, //展示国际化
   },
 
   // 菜单配置

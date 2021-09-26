@@ -12,9 +12,9 @@
       </el-icon>
     </el-tooltip>
 
-    <setting-drawer />
+    <setting-drawer v-if="showSetting" />
 
-    <international />
+    <international v-if="showInternational" />
     <el-dropdown>
       <div role="button" class="user-wrapper" v-loading="userInfoLoading">
         <div class="name">
@@ -52,6 +52,8 @@ import International from '@/layout/components/International'
 import { useFullscreen } from '@vueuse/core'
 import useAsyncComponents from '@/hooks/useAsyncComponents'
 import SettingDrawer from '../../SettingDrawer'
+import { useSettingStore } from '@/store/modules/setting'
+const { showSetting, showInternational } = useSettingStore()
 
 const Notice = useAsyncComponents(() => import('./Notice'))
 
