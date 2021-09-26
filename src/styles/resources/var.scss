@@ -5,14 +5,24 @@ $headbar-height: 50px;
 $main-sidbar-width: 64px;
 
 //次侧边栏
-$navmenu-width: 260px; //次侧边栏宽度
+$navmenu-width: 230px; //次侧边栏宽度
+$navmenu-collapse-width: 64px; //次侧边栏收起宽度
 $navmenu-logo-bg: #fafafa; // 次侧边栏logo背景色
 $navmenu-bg: #fafafa; // 次侧边栏背景色
+
+//侧边栏
+$sidbar-width: calc(#{$main-sidbar-width} + #{$navmenu-width}); //带主侧边栏的展开宽度
+$sidbar-collapse-width: calc(#{$main-sidbar-width} + #{$navmenu-collapse-width}); //带主侧边栏的收起宽度
 
 //脚部
 $footerbar-height: 80px;
 $footerbar-bg: #f0f2f5;
 
-//main
-$main-margin-left: calc(#{$main-sidbar-width} + #{$navmenu-width});
-$main-collapse: calc(#{$main-sidbar-width} + 64px);
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  sidbarWidth: $sidbar-width;
+  sidbarCollapseWidth: $sidbar-collapse-width;
+  navmenuWidt: $navmenu-width;
+  navmenuCollapseWidth: $navmenu-collapse-width;
+}

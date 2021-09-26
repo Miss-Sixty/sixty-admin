@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar view-style="height: 100vh" @scroll="scroll => (isScrollTop = !!scroll.scrollTop)">
+  <el-scrollbar style="flex: 1" view-style="height: 100vh;" @scroll="scroll => (isScrollTop = !!scroll.scrollTop)">
     <el-menu
       :collapse="collapse"
       unique-opened
