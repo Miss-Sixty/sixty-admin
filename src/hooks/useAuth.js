@@ -1,5 +1,5 @@
-import { useUserStore } from '@/store/modules/user'
-const userStore = useUserStore()
+import { useUserStoreWithOut } from '@/store/modules/user'
+const userStore = useUserStoreWithOut()
 
 function hasPermission(permission) {
   return userStore.roles.some(v => v === permission)
