@@ -3,7 +3,7 @@
     <header class="header">
       <h2 class="logo">{{ title }}</h2>
       <dark-switch />
-      <international />
+      <international v-if="settingStore.showInternational" />
     </header>
 
     <component :is="typeComponent" v-model="loginType" class="form" />
