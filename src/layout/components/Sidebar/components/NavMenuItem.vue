@@ -130,6 +130,10 @@ const badge = badge => {
   text-align: center;
   font-size: 18px;
 }
+:deep(.el-sub-menu__title) *,
+:deep(.el-menu-item) * {
+  vertical-align: baseline;
+}
 
 .badge {
   background-color: #f56c6c;
