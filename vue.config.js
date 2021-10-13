@@ -31,4 +31,16 @@ module.exports = {
 
     config.module.rule('md').test(/\.md$/).use('text-loader').loader('text-loader').end()
   },
+  devServer: {
+    proxy: {
+      '/admin': {
+        target: 'http://82.157.18.160:6001/',
+        // target: "http://admin.bornmega.cn/", //正式
+        changeOrigin: true, // 跨域
+        pathRewrite: {
+          '^/admin': 'admin',
+        },
+      },
+    },
+  },
 }

@@ -34,5 +34,13 @@ export default {
         title: '数字过渡',
       },
     },
+    {
+      path: 'download',
+      name: 'Download',
+      component: () => import('@/views/feat/download'),
+      meta: {
+        title: '下载文件',
+      },
+    },
   ],
 }
