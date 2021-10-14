@@ -1,4 +1,4 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 export default {
   path: '/user',
@@ -8,7 +8,7 @@ export default {
     {
       path: 'index',
       name: 'User',
-      component: () => import('@/views/user'),
+      component: () => import('@/views/user/index.vue'),
       meta: {
         title: '个人设置',
         icon: 'settings-5-fill',

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <style>
+      .boxhtml {
+        text-align: center;
+      }
+
+      .loader {
+        margin-top: 16%;
+        width: 60px;
+        height: 60px;
+        display: inline-block;
+      }
+
+      .text {
+        font-size: 24px;
+        margin-top: 30px;
+      }
+
+      .loader > div {
+        width: 33%;
+        height: 33%;
+        background-color: #409eff;
+        float: left;
+        animation: cube 1.3s infinite ease-in-out;
+      }
+      .loader > div:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .loader > div:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .loader > div:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      .loader > div:nth-child(4) {
+        animation-delay: 0.1s;
+      }
+      .loader > div:nth-child(5) {
+        animation-delay: 0.2s;
+      }
+      .loader > div:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .loader > div:nth-child(7) {
+        animation-delay: 0s;
+      }
+      .loader > div:nth-child(8) {
+        animation-delay: 0.1s;
+      }
+      .loader > div:nth-child(9) {
+        animation-delay: 0.2s;
+      }
+
+      @keyframes cube {
+        0%,
+        70%,
+        100% {
+          transform: scale3D(1, 1, 1);
+        }
+        35% {
+          transform: scale3D(0, 0, 1);
+        }
+      }
+    </style>
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?3d5c40f211319869c75a6e592012c6ac";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="boxhtml">
+        <div class="loader">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <p class="text"><%= title %></p>
+        <p class="text">载入中…</p>
+        <noscript> 请启用 JavaScript ，否则 <%= title %> 将不会运行！</noscript>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

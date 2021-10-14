@@ -1,16 +1,26 @@
 <template>
   <router-link
-    v-if="hasOneShowingChild(props.item.children, props.item) && !props.item.alwaysShow"
+    v-if="
+      hasOneShowingChild(props.item.children, props.item) &&
+      !props.item.alwaysShow
+    "
     v-slot="{ href, navigate }"
     custom
     :to="resolvePath(onlyOneChild.path)"
   >
     <a
-      :href="isExternal(resolvePath(onlyOneChild.path)) ? resolvePath(onlyOneChild.path) : href"
+      :href="
+        isExternal(resolvePath(onlyOneChild.path))
+          ? resolvePath(onlyOneChild.path)
+          : href
+      "
       :target="isExternal(resolvePath(onlyOneChild.path)) ? '_blank' : '_self'"
       @click="navigate"
     >
-      <el-menu-item :title="onlyOneChild.meta?.title" :index="resolvePath(onlyOneChild.path)">
+      <el-menu-item
+        :title="onlyOneChild.meta?.title"
+        :index="resolvePath(onlyOneChild.path)"
+      >
         <el-icon v-if="onlyOneChild.meta?.icon" class="icon">
           <component :is="onlyOneChild.meta?.icon || props.item.meta?.icon" />
         </el-icon>
@@ -24,7 +34,11 @@
               'badge-text': badge(onlyOneChild.meta?.badge).type === 'text',
             }"
           >
-            {{ badge(onlyOneChild.meta?.badge).type === 'text' ? badge(onlyOneChild.meta?.badge).value : '' }}
+            {{
+              badge(onlyOneChild.meta?.badge).type === "text"
+                ? badge(onlyOneChild.meta?.badge).value
+                : ""
+            }}
           </span>
         </template>
       </el-menu-item>
@@ -45,23 +59,32 @@
           'badge-text': badge(props.item.meta.badge).type === 'text',
         }"
       >
-        {{ badge(props.item.meta.badge).type === 'text' ? badge(props.item.meta.badge).value : '' }}
+        {{
+          badge(props.item.meta.badge).type === "text"
+            ? badge(props.item.meta.badge).value
+            : ""
+        }}
       </span>
     </template>
 
-    <nav-menu-item v-for="route in props.item.children" :key="route.path" :item="route" :base-path="resolvePath(route.path)" />
+    <nav-menu-item
+      v-for="route in props.item.children"
+      :key="route.path"
+      :item="route"
+      :base-path="resolvePath(route.path)"
+    />
   </el-sub-menu>
 </template>
 
 <script>
 export default {
-  name: 'NavMenuItem',
-}
+  name: "NavMenuItem",
+};
 </script>
 
 <script setup>
-import path from 'path'
-import { defineProps, shallowRef } from 'vue'
+import path from "path-browserify";
+import { defineProps, shallowRef } from "vue";
 
 const props = defineProps({
   item: {
@@ -70,57 +93,57 @@ const props = defineProps({
   },
   basePath: {
     type: String,
-    default: '',
+    default: "",
   },
-})
+});
 
-let onlyOneChild = shallowRef(null)
+let onlyOneChild = shallowRef(null);
 
 const hasOneShowingChild = (children = [], parent) => {
-  if (children.length === 1) return (onlyOneChild.value = children[0])
-  if (!children.length) return (onlyOneChild.value = { ...parent, path: '' })
-  return false
-}
+  if (children.length === 1) return (onlyOneChild.value = children[0]);
+  if (!children.length) return (onlyOneChild.value = { ...parent, path: "" });
+  return false;
+};
 
-const isExternal = path => {
-  return /^(https?:|mailto:|tel:)/.test(path)
-}
+const isExternal = (path) => {
+  return /^(https?:|mailto:|tel:)/.test(path);
+};
 
-const resolvePath = routePath => {
-  if (isExternal(routePath)) return routePath
-  if (isExternal(props.basePath)) return props.basePath
+const resolvePath = (routePath) => {
+  if (isExternal(routePath)) return routePath;
+  if (isExternal(props.basePath)) return props.basePath;
 
-  return props.basePath ? path.resolve(props.basePath, routePath) : routePath
-}
+  return props.basePath ? path.resolve(props.basePath, routePath) : routePath;
+};
 
-const badge = badge => {
+const badge = (badge) => {
   let res = {
-    type: '', // text or dot
-    value: '',
+    type: "", // text or dot
+    value: "",
     visible: false,
-  }
+  };
   if (badge) {
-    res.visible = true
-    res.value = typeof badge == 'function' ? badge() : badge
-    if (typeof res.value == 'boolean') {
-      res.type = 'dot'
+    res.visible = true;
+    res.value = typeof badge == "function" ? badge() : badge;
+    if (typeof res.value == "boolean") {
+      res.type = "dot";
       if (!res.value) {
-        res.visible = false
+        res.visible = false;
       }
-    } else if (typeof res.value == 'number') {
-      res.type = 'text'
+    } else if (typeof res.value == "number") {
+      res.type = "text";
       if (res.value <= 0) {
-        res.visible = false
+        res.visible = false;
       }
     } else {
-      res.type = 'text'
+      res.type = "text";
       if (!res.value) {
-        res.visible = false
+        res.visible = false;
       }
     }
   }
-  return res
-}
+  return res;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -129,10 +152,6 @@ const badge = badge => {
   margin-right: 5px;
   text-align: center;
   font-size: 18px;
-}
-:deep(.el-sub-menu__title) *,
-:deep(.el-menu-item) * {
-  vertical-align: baseline;
 }
 
 .badge {
@@ -144,7 +163,7 @@ const badge = badge => {
     height: 6px;
     position: relative;
     &::after {
-      content: '';
+      content: "";
       pointer-events: none;
       position: absolute;
       top: 0;
@@ -181,6 +200,10 @@ const badge = badge => {
 :deep(.el-menu-item) {
   display: flex;
   align-items: center;
+
+  * {
+    vertical-align: baseline;
+  }
   .title {
     flex: 1;
   }

@@ -102,7 +102,7 @@
 <script setup>
 import { reactive, ref, watch } from 'vue'
 import { useUserStore } from '@/store/modules/user'
-import { ElMessage } from 'element-plus'
+import { ElNotification } from 'element-plus'
 import useFormValid from '@/hooks/useFormValid'
 import useForInData from '@/hooks/useForInData'
 const userStore = useUserStore()
@@ -124,13 +124,19 @@ let backupFormData //备份表单数据
 
 function upAvatarChange(file) {
   formData.avatar = file.data
-  ElMessage.success('头像更换成功！')
+  ElNotification.success({
+    title: '提示',
+    message: '头像更换成功！',
+  })
 }
 
 //重置头像
 function resetAvatarChange() {
   formData.avatar = backupFormData.avatar
-  ElMessage.success('头像重置成功！')
+  ElNotification.success({
+    title: '提示',
+    message: '头像重置成功！',
+  })
 }
 
 // 新增/修改验证
@@ -153,7 +159,10 @@ watch(
 //重置
 function resetDataChange() {
   useForInData(backupFormData, formData, ['avatar'])
-  ElMessage.success('数据重置成功！')
+  ElNotification.success({
+    title: '提示',
+    message: '数据重置成功！',
+  })
 }
 
 //更改用户信息
@@ -161,7 +170,12 @@ function getUpDateInfo() {
   loading.value = true
   userStore
     .editUserInfo(formData)
-    .then(res => ElMessage.success(res.message))
+    .then(res =>
+      ElNotification.success({
+        title: '提示',
+        message: res.message,
+      })
+    )
     .finally(() => (loading.value = false))
 }
 </script>

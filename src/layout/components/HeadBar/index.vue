@@ -5,8 +5,8 @@
   </header>
 </template>
 <script setup>
-import LeftBox from './components/LeftBox'
-import RightBox from './components/RightBox'
+import LeftBox from "./components/LeftBox.vue";
+import RightBox from "./components/RightBox.vue";
 </script>
 <style lang="scss" scoped>
 .headbar {

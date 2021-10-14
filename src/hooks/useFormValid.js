@@ -4,5 +4,10 @@ export default function useFormValid(formRef) {
     if (form) return form.validate()
   }
 
-  return { validForm }
+  function resetFields() {
+    const form = formRef.value
+    if (form) return form.resetFields()
+  }
+
+  return { validForm, resetFields }
 }

@@ -29,15 +29,17 @@ export function info(params) {
 
 // 更新用户信息
 export function upDateInfo(params) {
-  return request.get('/mock/user/upDateInfo', { params }).then(res => res.data)
+  return request({
+    url: '/mock/user/upDateInfo',
+    params,
+  }).then(res => res.data)
 }
 
-// // 后台-管理员退出登录
-// export function logout() {
-//   return request.post('/mock/user/logout').then(res => res.data)
-// }
-
-// // tagview
-// export function tagview(params) {
-//   return request.get('/mock/user/tagview', { params }).then(res => res.data)
-// }
+// 后台-管理员退出登录
+export function logout(data) {
+  return request({
+    url: '/mock/user/logout',
+    method: 'post',
+    data,
+  }).then(res => res.data)
+}

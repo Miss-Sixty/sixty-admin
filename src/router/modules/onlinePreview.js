@@ -1,4 +1,4 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 export default {
   path: '/onlinePreview',
@@ -8,7 +8,7 @@ export default {
     {
       path: 'index',
       name: 'OnlinePreview',
-      component: () => import('@/views/onlinePreview'),
+      component: () => import('@/views/onlinePreview/index.vue'),
       meta: {
         copyright: false,
         title: 'Office 预览',

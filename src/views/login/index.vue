@@ -10,13 +10,13 @@
   </div>
 </template>
 <script setup>
-import DarkSwitch from '@/layout/components/DarkSwitch'
-import International from '@/layout/components/International'
-import BaseForm from './components/BaseForm'
-import MobileForm from './components/MobileForm'
-import ResetForm from './components/ResetForm'
-import QrCodeForm from './components/QrCodeForm'
-import RegisterForm from './components/RegisterForm'
+import DarkSwitch from '@/layout/components/DarkSwitch/index.vue'
+import International from '@/layout/components/International/index.vue'
+import BaseForm from './components/BaseForm/index.vue'
+import MobileForm from './components/MobileForm/index.vue'
+import ResetForm from './components/ResetForm/index.vue'
+import QrCodeForm from './components/QrCodeForm/index.vue'
+import RegisterForm from './components/RegisterForm/index.vue'
 import { computed, ref } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
 const settingStore = useSettingStore()

@@ -1,4 +1,4 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 export default {
   path: '/watermark',
@@ -8,7 +8,7 @@ export default {
     {
       path: 'index',
       name: 'Watermark',
-      component: () => import('@/views/watermark'),
+      component: () => import('@/views/watermark/index.vue'),
       meta: {
         title: '页面水印',
         icon: 'WatermarkIcon',

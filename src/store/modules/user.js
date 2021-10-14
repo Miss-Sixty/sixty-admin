@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { token, rules, notice, info, upDateInfo } from '@/api/user'
+import { token, rules, notice, info, upDateInfo, logout } from '@/api/user'
 import { encrypt, decrypt } from '@/utils/secret'
 import { useMenuStore } from './menu'
 import store from '@/store'
@@ -71,6 +71,15 @@ export const useUserStore = defineStore('user-store', {
     editUserInfo(data) {
       return new Promise((resolve, reject) => {
         upDateInfo(data)
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
+    },
+
+    //退出
+    exitSystem(data) {
+      return new Promise((resolve, reject) => {
+        logout(data)
           .then(res => resolve(res))
           .catch(err => reject(err))
       })

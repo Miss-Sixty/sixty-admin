@@ -1,4 +1,4 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 export default {
   path: '/icons',
@@ -15,7 +15,7 @@ export default {
       props: {
         type: 'svg',
       },
-      component: () => import('@/views/icons'),
+      component: () => import('@/views/icons/index.vue'),
       meta: {
         title: 'SVG 图标',
       },
@@ -26,7 +26,7 @@ export default {
       props: {
         type: 'sketch',
       },
-      component: () => import('@/views/icons'),
+      component: () => import('@/views/icons/index.vue'),
       meta: {
         title: 'Sketch 图标',
       },

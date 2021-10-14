@@ -26,9 +26,9 @@
       </el-col>
 
       <el-col :span="7">
-        <page-main title="更新日志" padding="0 20px 20px" style="margin-bottom: 20px">
+        <!-- <page-main title="更新日志" padding="0 20px 20px" style="margin-bottom: 20px">
           <div v-html="markdownText" />
-        </page-main>
+        </page-main> -->
 
         <page-main title="版本信息">
           <template #extra>
@@ -50,19 +50,19 @@
 <script setup>
 import { dependencies } from '../../package.json'
 import { useSettingStore } from '@/store/modules/setting'
-import marked from 'marked'
-import changelog from '../../CHANGELOG.md'
+// import marked from 'marked'
+// import changelog from '../../CHANGELOG.md'
 
 const { title, updateTime } = useSettingStore()
 const toUrl = url => window.open(url)
 
-const renderer = new marked.Renderer()
-renderer.link = (href, title, text) => {
-  return '<a href="' + href + '" title="' + text + '" target="_blank" style="color:#409eff">' + text + '</a>'
-}
-const markdownText = marked(changelog, {
-  renderer,
-})
+// const renderer = new marked.Renderer()
+// renderer.link = (href, title, text) => {
+//   return '<a href="' + href + '" title="' + text + '" target="_blank" style="color:#409eff">' + text + '</a>'
+// }
+// const markdownText = marked(changelog, {
+//   renderer,
+// })
 
 //待办事项
 const tableData = [

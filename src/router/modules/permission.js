@@ -1,4 +1,4 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 export default {
   path: '/permission',
@@ -8,7 +8,7 @@ export default {
     {
       path: 'index',
       name: 'Permission',
-      component: () => import('@/views/permission'),
+      component: () => import('@/views/permission/index.vue'),
       meta: {
         title: '权限验证',
         icon: 'ShieldKeyholeFill',

@@ -1,4 +1,4 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 import { useAppStoreWithOut } from '@/store/modules/app'
 const appStore = useAppStoreWithOut()
 
@@ -14,7 +14,7 @@ export default {
     {
       path: 'dot',
       name: 'badgeDot',
-      component: () => import('@/views/badge'),
+      component: () => import('@/views/badge/index.vue'),
       props: {
         type: 'dot',
       },
@@ -26,7 +26,7 @@ export default {
     {
       path: 'number',
       name: 'badgeNumber',
-      component: () => import('@/views/badge'),
+      component: () => import('@/views/badge/index.vue'),
       props: {
         type: 'number',
       },
@@ -38,7 +38,7 @@ export default {
     {
       path: 'text',
       name: 'badgeText',
-      component: () => import('@/views/badge'),
+      component: () => import('@/views/badge/index.vue'),
       props: {
         type: 'text',
       },

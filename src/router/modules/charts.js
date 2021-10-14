@@ -1,4 +1,5 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
+
 
 export default {
   path: '/charts',
@@ -8,7 +9,7 @@ export default {
     {
       path: 'index',
       name: 'Charts',
-      component: () => import('@/views/charts'),
+      component: () => import('@/views/charts/index.vue'),
       meta: {
         title: '图表',
         icon: 'PieChart2Fill',

@@ -1,5 +1,5 @@
-import Layout from '@/layout'
-import Iframe from '@/layout/iframe'
+import Layout from '@/layout/index.vue'
+import Iframe from '@/layout/iframe.vue'
 
 export default {
   path: '/link',

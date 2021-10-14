@@ -13,7 +13,7 @@
   </div>
 </template>
 <script setup>
-import ImgUpload from './components/ImgUpload'
-import ImgsUpload from './components/ImgsUpload'
-import FileUpload from './components/FileUpload'
+import ImgUpload from './components/ImgUpload.vue'
+import ImgsUpload from './components/ImgsUpload.vue'
+import FileUpload from './components/FileUpload.vue'
 </script>

@@ -1,6 +1,5 @@
 export function downloadByData(res, fileName, mime) {
   const { data, headers = {} } = res
-  console.log(res)
   if (!data) return
   if (!fileName) {
     const contentDisposition = headers['content-disposition']
@@ -9,7 +8,6 @@ export function downloadByData(res, fileName, mime) {
 
   const blob = new Blob([data], { type: mime || headers['content-type'] || 'application/octet-stream' })
   const blobURL = window.URL.createObjectURL(blob) || window.webkitURL.createObjectURL(blob)
-  console.log(blobURL)
   // 创建a标签，用于跳转至下载链接
   const tempLink = document.createElement('a')
   tempLink.style.display = 'none'

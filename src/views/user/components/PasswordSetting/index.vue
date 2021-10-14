@@ -55,7 +55,7 @@
 import { reactive, ref } from 'vue'
 import useFormValid from '@/hooks/useFormValid'
 import useForInData from '@/hooks/useForInData'
-import { ElMessage } from 'element-plus'
+import { ElNotification } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 const userStore = useUserStore()
 
@@ -90,9 +90,9 @@ const getEditPassword = () => {
 const resetDataChange = () => {
   useForInData({}, formData)
   resetFieldsForm()
-  ElMessage.success({
+  ElNotification.success({
+    title: '提示',
     message: '数据重置成功！',
-    type: 'success',
   })
 }
 </script>

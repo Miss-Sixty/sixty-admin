@@ -25,9 +25,10 @@ import imgBase64 from './imgBase64'
 function handleDownByData() {
   downloadByData({ data: 'text content' }, 'testName.txt')
 }
+
 function handleDownByUrl() {
   downloadByUrl({
-    url: 'https://vebn.oss-cn-beijing.aliyuncs.com/vben/logo.png',
+    url: 'https://sixty-admin.oss-cn-hangzhou.aliyuncs.com/file.jpg',
   })
 }
 
@@ -36,7 +37,7 @@ function handleDownloadByBase64() {
 }
 
 function handleDownloadByImgUrl() {
-  downloadByImgUrl('https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png', 'img.png')
+  downloadByImgUrl('https://sixty-admin.oss-cn-hangzhou.aliyuncs.com/avatar.jpg', 'img.jpg')
 }
 </script>
 

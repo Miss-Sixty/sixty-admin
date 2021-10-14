@@ -1,5 +1,5 @@
-import Layout from '@/layout'
-import EmptyLayout from '@/layout/empty'
+import Layout from '@/layout/index.vue'
+import EmptyLayout from '@/layout/empty.vue'
 
 export default {
   path: '/table',
@@ -20,7 +20,7 @@ export default {
         {
           path: '',
           name: 'TablePage',
-          component: () => import('@/views/table'),
+          component: () => import('@/views/table/index.vue'),
           meta: {
             activeMenu: '/table/index',
           },
@@ -28,7 +28,7 @@ export default {
         {
           path: 'add',
           name: 'TableAdd',
-          component: () => import('@/views/table/addOrEdit'),
+          component: () => import('@/views/table/addOrEdit/index.vue'),
           meta: {
             title: '新增员工',
             hidden: true,
@@ -38,7 +38,7 @@ export default {
         {
           path: 'edit/:id',
           name: 'TableEdit',
-          component: () => import('@/views/table/addOrEdit'),
+          component: () => import('@/views/table/addOrEdit/index.vue'),
           meta: {
             title: '修改员工',
             hidden: true,

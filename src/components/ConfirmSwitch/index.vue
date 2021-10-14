@@ -1,14 +1,5 @@
 <template>
-  <el-switch
-    :model-value="status"
-    :loading="loading"
-    :before-change="beforeChange"
-    :active-value="activeValue"
-    :inactive-value="inactiveValue"
-    :active-text="activeText"
-    :inactive-text="inactiveText"
-    :disabled="disabled"
-  />
+  <el-switch :model-value="status" :loading="loading" :before-change="beforeChange" v-bind="$attrs" />
 </template>
 
 <script>
@@ -22,19 +13,8 @@ import { ref, defineProps, defineEmits } from 'vue'
 import { ElNotification, ElMessageBox } from 'element-plus'
 const props = defineProps({
   api: Function,
-  activeText: String,
-  inactiveText: String,
-  activeValue: {
-    type: Boolean,
-    default: true,
-  },
-  inactiveValue: {
-    type: Boolean,
-    default: false,
-  },
   status: [Boolean, String, Number],
   id: Number,
-  disabled: Boolean,
   data: Object,
   text: {
     type: String,

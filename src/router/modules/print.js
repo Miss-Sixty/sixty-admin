@@ -1,4 +1,4 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
 
 export default {
   path: '/print',
@@ -8,7 +8,7 @@ export default {
     {
       path: 'index',
       name: 'Print',
-      component: () => import('@/views/print'),
+      component: () => import('@/views/print/index.vue'),
       meta: {
         title: '打印',
         icon: 'PrinterFill',

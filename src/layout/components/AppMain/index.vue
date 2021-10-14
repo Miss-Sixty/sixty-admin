@@ -1,9 +1,11 @@
 <template>
   <main class="app-main">
-    <router-view v-slot="{ Component, route }">
-      <transition name="main" mode="out-in">
-        <component :is="Component" :key="route.path" />
-      </transition>
+    <router-view>
+      <template #default="{ Component, route }">
+        <transition name="main" mode="out-in">
+          <component :is="Component" :key="route.path" />
+        </transition>
+      </template>
     </router-view>
   </main>
 </template>

@@ -4,8 +4,7 @@
       :collapse="collapse"
       unique-opened
       :default-active="route.meta.activeMenu || route.path"
-      :text-color="variables.navmenu_color"
-      :active-text-color="variables.navmenu_active_color"
+     
     >
       <el-affix :z-index="1">
         <logo-name :is-scroll-top="isScrollTop" />
@@ -16,13 +15,13 @@
 </template>
 
 <script setup>
-import LogoName from './Logo'
-import NavMenuItem from './NavMenuItem'
+import LogoName from './Logo.vue'
+import NavMenuItem from './NavMenuItem.vue'
 import { useSettingStore } from '@/store/modules/setting'
 import { useMenuStore } from '@/store/modules/menu'
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
-import variables from '@/styles/resources/var.scss'
+// import variables from '@/styles/resources/var.scss'
 const menuStore = useMenuStore()
 const route = useRoute()
 const isScrollTop = ref(false)

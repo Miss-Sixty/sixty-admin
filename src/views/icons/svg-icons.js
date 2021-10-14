@@ -1,5 +1,18 @@
-const svgIconsContext = require.context('../../components/Icons/components/svg', true, /index.vue$/)
-export const svgIcons = svgIconsContext.keys().map(file_name => svgIconsContext(file_name)?.default?.name)
+const svgIconsContext = import.meta.globEager(
+  "../../components/Icons/components/svg/**/index.vue"
+);
+const sketchIconsContext = import.meta.globEager(
+  "../../components/Icons/components/sketchSvg/**/index.vue"
+);
 
-const sketchIconsContext = require.context('../../components/Icons/components/sketchSvg', true, /index.vue$/)
-export const sketchIcons = sketchIconsContext.keys().map(file_name => sketchIconsContext(file_name)?.default?.name)
+export const sketchIcons = ogj2arr(sketchIconsContext);
+export const svgIcons = ogj2arr(svgIconsContext);
+
+function ogj2arr(obj) {
+  const arr = [];
+  for (const i in obj) {
+    const component = obj[i]?.default;
+    arr.push(component?.name);
+  }
+  return arr;
+}

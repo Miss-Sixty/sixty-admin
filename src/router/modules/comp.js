@@ -1,4 +1,5 @@
-import Layout from '@/layout'
+import Layout from '@/layout/index.vue'
+
 
 export default {
   path: '/comp',
@@ -13,7 +14,7 @@ export default {
     {
       path: 'page-header',
       name: 'PageHeader',
-      component: () => import('@/views/comp/pageheader'),
+      component: () => import('@/views/comp/pageheader/index.vue'),
       meta: {
         title: '页头',
       },
@@ -21,7 +22,7 @@ export default {
     {
       path: 'page-main',
       name: 'PageMain',
-      component: () => import('@/views/comp/pageMain'),
+      component: () => import('@/views/comp/pageMain/index.vue'),
       meta: {
         title: '内容块',
       },
@@ -29,7 +30,7 @@ export default {
     {
       path: 'upload',
       name: 'Upload',
-      component: () => import('@/views/comp/upload'),
+      component: () => import('@/views/comp/upload/index.vue'),
       meta: {
         title: '上传',
       },

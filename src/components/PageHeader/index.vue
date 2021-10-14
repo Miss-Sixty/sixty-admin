@@ -21,7 +21,7 @@ export default {
   name: 'PageHeader',
 }
 </script>
-<script setup>
+<script setup> 
 import { defineProps, defineEmits } from 'vue'
 import { Back } from '@element-plus/icons'
 defineEmits(['click'])
@@ -55,6 +55,7 @@ defineProps({
         margin-right: 40px;
         transition: color 0.2s;
         padding: 2px 0;
+        user-select: none;
 
         &.left-after {
           &::after {

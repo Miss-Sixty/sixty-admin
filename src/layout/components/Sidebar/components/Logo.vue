@@ -14,12 +14,12 @@
 </template>
 
 <script setup>
-import { useSettingStore } from '@/store/modules/setting'
-import { defineProps } from 'vue'
+import { useSettingStore } from "@/store/modules/setting";
+import { defineProps } from "vue";
 const props = defineProps({
   isScrollTop: Boolean,
-})
-const title = useSettingStore().title
+});
+const title = useSettingStore().title;
 </script>
 
 <style lang="scss" scoped>
