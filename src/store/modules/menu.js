@@ -38,7 +38,7 @@ export const useMenuStore = defineStore('menu-store', {
       routes = routes.filter(routeFilter) //INFO:先过滤children，再过滤父
       this.allRoutes = routes
 
-      // TODO:2级以上路由拍扁成2级路由
+      // TODO:2级以上路由拍扁成2级路由用来缓存页面
       const routers = [].concat(...asyncRoutes.map(item => ({ ...item }.children)))
       this.removeRoutes = routers.map(route => router.addRoute(route))
     },
