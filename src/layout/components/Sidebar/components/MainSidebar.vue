@@ -18,12 +18,21 @@
 import { useMenuStore } from '@/store/modules/menu'
 import { useSettingStore } from '@/store/modules/setting'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 const menuStore = useMenuStore()
 const settingStore = useSettingStore()
-const switchActivedChange = index => (menuStore.headerActived = index)
+
 const headerActived = computed(() => menuStore.headerActived)
 const mainRoutes = computed(() => menuStore.allRoutes)
 const alwaysShowMainSidebar = settingStore.alwaysShowMainSidebar
+
+const switchActivedChange = index => {
+  menuStore.headerActived = index
+  const [onePage] = mainRoutes.value[index]?.children
+  if (onePage) router.push({ name: onePage.name, path: onePage.path })
+}
 </script>
 
 <style lang="scss" scoped>
