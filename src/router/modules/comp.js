@@ -1,6 +1,5 @@
 import Layout from '@/layout/index.vue'
 
-
 export default {
   path: '/comp',
   component: Layout,
@@ -33,6 +32,14 @@ export default {
       component: () => import('@/views/comp/upload/index.vue'),
       meta: {
         title: '上传',
+      },
+    },
+    {
+      path: 'trend',
+      name: 'Trend',
+      component: () => import('@/views/comp/trend/index.vue'),
+      meta: {
+        title: '趋势符号',
       },
     },
   ],
