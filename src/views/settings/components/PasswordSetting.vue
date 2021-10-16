@@ -64,8 +64,7 @@ const state = reactive({
 })
 
 const formRef = ref()
-
-const { validateFormChange, resetFieldsForm } = useFormValid()
+const { validForm, resetFields } = useFormValid(formRef)
 
 const formData = reactive({
   oldPassword: '',
@@ -75,7 +74,7 @@ const formData = reactive({
 
 // 新增/修改验证
 const addChange = () => {
-  validateFormChange()
+  validForm()
     .then(() => {
       getEditPassword()
     })
@@ -83,13 +82,16 @@ const addChange = () => {
 }
 
 const getEditPassword = () => {
-  useForInData(userStore.userInfo, formData)
+  ElNotification.success({
+    title: '提示',
+    message: '重置密码成功！',
+  })
 }
 
 //重置
 const resetDataChange = () => {
   useForInData({}, formData)
-  resetFieldsForm()
+  resetFields()
   ElNotification.success({
     title: '提示',
     message: '数据重置成功！',

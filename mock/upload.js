@@ -1,6 +1,6 @@
 export default [
   {
-    url: "/mock/user/upload",
+    url: "/mock/upload",
     response: (option) => {
       const width = option.body.width || 150;
       const height = option.body.height || width;

@@ -66,7 +66,7 @@ import Permission from './modules/permission' //权限
 
 //页面
 import Table from './modules/table'
-import User from './modules/user' //个人设置
+import Settings from './modules/settings' //个人设置
 
 export const asyncRoutes = [
   {
@@ -81,7 +81,7 @@ export const asyncRoutes = [
       title: '页面',
       icon: 'page',
     },
-    children: [Table, User],
+    children: [Table, Settings],
   },
 ]
 

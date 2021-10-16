@@ -31,8 +31,8 @@
       </div>
       <template #dropdown>
         <el-dropdown-menu>
-          <router-link custom :to="{ name: 'User' }" v-slot="{ navigate }">
-            <el-dropdown-item @click="navigate">个人设置</el-dropdown-item>
+          <router-link custom :to="{ name: 'Settings' }" v-slot="{ navigate }">
+            <el-dropdown-item @click="navigate">系统设置</el-dropdown-item>
           </router-link>
 
           <el-link
@@ -62,7 +62,6 @@ import Notice from "./Notice.vue";
 import SettingDrawer from "../../SettingDrawer/index.vue";
 import { useSettingStore } from "@/store/modules/setting";
 const { headerSetting } = useSettingStore();
-console.log(headerSetting);
 const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();

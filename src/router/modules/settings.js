@@ -1,16 +1,16 @@
 import Layout from '@/layout/index.vue'
 
 export default {
-  path: '/user',
+  path: '/settings',
   component: Layout,
-  redirect: '/user/index',
+  redirect: '/settings/index',
   children: [
     {
       path: 'index',
-      name: 'User',
-      component: () => import('@/views/user/index.vue'),
+      name: 'Settings',
+      component: () => import('@/views/settings/index.vue'),
       meta: {
-        title: '个人设置',
+        title: '系统设置',
         icon: 'settings-5-fill',
       },
     },

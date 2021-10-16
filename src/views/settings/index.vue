@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import settings from './components/BaseSetting'
-import password from './components/PasswordSetting'
+import settings from './components/BaseSetting.vue'
+import password from './components/PasswordSetting.vue'
 import { reactive } from 'vue'
 export default {
   components: { settings, password },
