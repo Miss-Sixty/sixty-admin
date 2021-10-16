@@ -1,5 +1,5 @@
 <template>
-  <el-popover trigger="hover" placement="bottom" :width="300">
+  <el-popover trigger="hover" placement="bottom" :width="320">
     <template #reference>
       <el-icon role="button" class="header-icon">
         <el-badge :value="props.notice.num" :hidden="!props.notice.num" type="danger">
@@ -14,13 +14,24 @@
             {{ item.title }}
           </el-badge>
         </template>
-        <el-scrollbar height="300px">
-          <ul v-if="item.list.length">
-            <li v-for="list in item.list" :key="list.id">{{ list.text }}</li>
-          </ul>
+        <div class="content">
+          <el-scrollbar style="flex: 1">
+            <ul v-if="item.list.length">
+              <li v-for="list in item.list" :key="list.id" class="item" role="button">
+                <el-icon :size="24" :style="{ 'background-color': list.color }" class="item__icon">
+                  <component :is="list.icon" />
+                </el-icon>
+                <div class="item__text">
+                  <p class="item__text__title">{{ list.text }}</p>
+                  <p class="item__text__time">{{ list.time }}</p>
+                </div>
+              </li>
+            </ul>
 
-          <el-empty v-else description="无新的通知" />
-        </el-scrollbar>
+            <el-empty v-else description="无新的内容" />
+          </el-scrollbar>
+          <el-button v-show="activeName === '0'">进入通知列表</el-button>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </el-popover>
@@ -36,5 +47,53 @@ const activeName = ref('0')
 .pane--badge :deep(.el-badge__content) {
   top: 10px;
   right: 6px;
+}
+.content {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    display: flex;
+    transition: background-color 0.3s;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    &:not(:last-child) {
+      &::after {
+        position: absolute;
+        box-sizing: border-box;
+        content: ' ';
+        pointer-events: none;
+        top: -50%;
+        right: -50%;
+        bottom: -50%;
+        left: -50%;
+        border-bottom: 1px solid var(--el-border-color-base);
+        transform: scale(0.5);
+      }
+    }
+    &:hover {
+      background-color: #ecf5ff;
+    }
+    &__icon {
+      border-radius: 50%;
+      padding: 10px;
+      box-sizing: content-box;
+      margin-right: 10px;
+    }
+    &__text {
+      flex: 1;
+      &__title {
+        font-size: 14px;
+        @include text-overflow(2);
+      }
+      &__time {
+        margin-top: 5px;
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
 }
 </style>

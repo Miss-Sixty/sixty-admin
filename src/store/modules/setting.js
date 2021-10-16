@@ -4,7 +4,6 @@ import { unref } from 'vue'
 import store from '@/store'
 import { useStorage } from '@vueuse/core'
 
-console.log(import.meta.env)
 export const useSettingStore = defineStore('setting-store', {
   state: () => ({
     ...setting,

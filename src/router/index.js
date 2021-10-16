@@ -1,5 +1,5 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import Layout from "@/layout/index.vue";
+import { createRouter, createWebHashHistory } from 'vue-router'
+import Layout from '@/layout/index.vue'
 
 /** 
  * hidden: true                   如果设置为 true，项目将不会显示在侧边栏中（默认为 false）
@@ -20,77 +20,70 @@ import Layout from "@/layout/index.vue";
   }
  */
 
+const BasePage = {
+  path: '/',
+  component: Layout,
+  redirect: '/home',
+  children: [
+    {
+      path: '/home',
+      component: () => import('@/views/home.vue'),
+      name: 'Home',
+      meta: { title: '首页', icon: 'Home', copyright: false },
+    },
+    {
+      path: '/reload',
+      name: 'Reload',
+      meta: {
+        title: '刷新',
+        hidden: true,
+      },
+      component: () => import('@/views/reload.vue'),
+    },
+  ],
+}
+
 export const constantRoutes = [
   {
-    path: "/",
-    component: Layout,
-    redirect: "/home",
-    children: [
-      {
-        path: "/home",
-        component: () => import("@/views/home.vue"),
-        name: "Home",
-        meta: { title: "首页", icon: "el-icon-s-home", copyright: false },
-      },
-      {
-        path: "/reload",
-        name: "Reload",
-        component: () => import("@/views/reload.vue"),
-      },
-    ],
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
   },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("@/views/login/index.vue"),
-  },
-];
+]
 
 //基础
-import Nested from "./modules/nested";
-import Frame from "./modules/frame";
-import Badge from "./modules/badge";
-import Feat from "./modules/feat";
-import comp from "./modules/comp";
-import Icons from "./modules/icons"; //图标
-import Watermark from "./modules/watermark"; //页面水印
-import OnlinePreview from "./modules/onlinePreview"; //office 预览
-import Charts from "./modules/charts"; // 图表
-import Print from "./modules/print"; // 打印
-import Permission from "./modules/permission"; //权限
+import Nested from './modules/nested'
+import Frame from './modules/frame'
+import Badge from './modules/badge'
+import Feat from './modules/feat'
+import comp from './modules/comp'
+import Icons from './modules/icons' //图标
+import Watermark from './modules/watermark' //页面水印
+import OnlinePreview from './modules/onlinePreview' //office 预览
+import Charts from './modules/charts' // 图表
+import Print from './modules/print' // 打印
+import Permission from './modules/permission' //权限
 
 //页面
-import Table from "./modules/table";
-import User from "./modules/user"; //个人设置
+import Table from './modules/table'
+import User from './modules/user' //个人设置
 
 export const asyncRoutes = [
   {
     meta: {
-      title: "基础",
-      icon: "home",
+      title: '基础',
+      icon: 'home',
     },
-    children: [
-      Icons,
-      comp,
-      Feat,
-      Watermark,
-      Badge,
-      Charts,
-      Permission,
-      Print,
-      Frame,
-      OnlinePreview,
-      Nested,
-    ],
+    children: [BasePage, Icons, comp, Feat, Watermark, Badge, Charts, Permission, Print, Frame, OnlinePreview, Nested],
   },
   {
     meta: {
-      title: "页面",
-      icon: "page",
+      title: '页面',
+      icon: 'page',
     },
     children: [Table, User],
   },
-];
+]
 
 // export const lastRoutes = [
 //   {
@@ -103,6 +96,6 @@ export const asyncRoutes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes: constantRoutes,
-});
+})
 
-export default router;
+export default router

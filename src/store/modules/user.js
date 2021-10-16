@@ -64,7 +64,7 @@ export const useUserStore = defineStore('user-store', {
     //获取通知信息
     async getNotice() {
       const { data } = await notice()
-      this.notice = data
+      this.notice = data.data
     },
 
     //修改用户信息
