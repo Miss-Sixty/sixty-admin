@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import router, { asyncRoutes } from '@/router'
+import router, { asyncRoutes, lastRoutes } from '@/router'
 import store from '@/store'
 
 function filter(tree, func) {
@@ -40,7 +40,7 @@ export const useMenuStore = defineStore('menu-store', {
 
       // TODO:2级以上路由拍扁成2级路由用来缓存页面
       const routers = [].concat(...asyncRoutes.map(item => ({ ...item }.children)))
-      this.removeRoutes = routers.map(route => router.addRoute(route))
+      this.removeRoutes = [...routers, lastRoutes].map(route => router.addRoute(route))
     },
 
     // 根据路由判断属于哪个头部导航

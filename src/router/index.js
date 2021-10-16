@@ -20,7 +20,7 @@ import Layout from '@/layout/index.vue'
   }
  */
 
-const BasePage = {
+const baseRoutes = {
   path: '/',
   component: Layout,
   redirect: '/home',
@@ -54,9 +54,9 @@ export const constantRoutes = [
 //基础
 import Nested from './modules/nested'
 import Frame from './modules/frame'
-import Badge from './modules/badge'
-import Feat from './modules/feat'
-import comp from './modules/comp'
+import Badge from './modules/badge' //动态标记
+import Feat from './modules/feat' //方法
+import comp from './modules/comp' //组件
 import Icons from './modules/icons' //图标
 import Watermark from './modules/watermark' //页面水印
 import OnlinePreview from './modules/onlinePreview' //office 预览
@@ -65,8 +65,9 @@ import Print from './modules/print' // 打印
 import Permission from './modules/permission' //权限
 
 //页面
-import Table from './modules/table'
+import Table from './modules/table' //表单页
 import Settings from './modules/settings' //个人设置
+import Exception from './modules/exception' //异常页
 
 export const asyncRoutes = [
   {
@@ -74,24 +75,29 @@ export const asyncRoutes = [
       title: '基础',
       icon: 'home',
     },
-    children: [BasePage, Icons, comp, Feat, Watermark, Badge, Charts, Permission, Print, Frame, OnlinePreview, Nested],
+    children: [baseRoutes, Icons, comp, Feat, Watermark, Badge, Charts, Permission, Print, Frame, OnlinePreview, Nested],
   },
   {
     meta: {
       title: '页面',
       icon: 'page',
     },
-    children: [Table, Settings],
+    children: [Table, Exception, Settings],
   },
 ]
 
-// export const lastRoutes = [
-//   {
-//     path: '/:pathMatch(.*)*',
-//     component: () => import('@/views/404'),
-//     hidden: true,
-//   },
-// ]
+export const lastRoutes = {
+  path: '/',
+  component: Layout,
+  redirect: '/home',
+  children: [
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('@/views/exception/404.vue'),
+      hidden: true,
+    },
+  ],
+}
 
 const router = createRouter({
   history: createWebHashHistory(),
