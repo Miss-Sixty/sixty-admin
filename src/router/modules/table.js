@@ -5,6 +5,7 @@ export default {
   path: '/table',
   component: Layout,
   redirect: '/table/index',
+  name: 'Table',
   children: [
     {
       path: '/table/index',

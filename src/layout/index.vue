@@ -135,7 +135,7 @@ function leave(el, done) {
 
     .app-main {
       transition: margin-top 0.3s ease-in-out;
-      margin-top: $headbar-height;
+      margin-top: $headbar-height; 
       &--isUnFold {
         margin-top: 0;
       }

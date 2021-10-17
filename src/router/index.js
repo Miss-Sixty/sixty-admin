@@ -29,7 +29,7 @@ const baseRoutes = {
       path: '/home',
       component: () => import('@/views/home.vue'),
       name: 'Home',
-      meta: { title: '首页', icon: 'Home', copyright: false },
+      meta: { title: '首页', icon: 'Home', copyright: false, affix: true },
     },
     {
       path: '/reload',

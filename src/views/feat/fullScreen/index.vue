@@ -51,14 +51,7 @@
 import { useFullscreen } from '@vueuse/core'
 import { ref } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
-const usettingStore = useSettingStore()
-const handleFold = () => {
-  usettingStore.$patch(state => {
-    const getIsUnFold = !state.menuSetting.show && !state.headerSetting.show
-    state.menuSetting.show = getIsUnFold
-    state.headerSetting.show = getIsUnFold
-  })
-}
+const handleFold = useSettingStore().fullScreen
 
 const domRef = ref(null)
 const { toggle, enter, exit, isFullscreen } = useFullscreen()

@@ -20,10 +20,8 @@ import { useSettingStore } from '@/store/modules/setting'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-
 const menuStore = useMenuStore()
 const settingStore = useSettingStore()
-
 const headerActived = computed(() => menuStore.headerActived)
 const mainRoutes = computed(() => menuStore.allRoutes)
 const alwaysShowMainSidebar = settingStore.alwaysShowMainSidebar

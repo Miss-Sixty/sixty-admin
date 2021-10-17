@@ -31,6 +31,12 @@ export const useSettingStore = defineStore('setting-store', {
       if (this.mode !== 'pc') this.sidebarCollapse = true
       else this.sidebarCollapse = false
     },
+
+    fullScreen(){
+      const getIsUnFold = !this.menuSetting.show && !this.headerSetting.show
+      this.menuSetting.show = getIsUnFold
+      this.headerSetting.show = getIsUnFold
+    }
   },
 })
 

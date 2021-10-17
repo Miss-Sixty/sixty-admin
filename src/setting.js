@@ -22,4 +22,12 @@ export default {
   menuSetting: {
     show: true, // 是否显示菜单
   },
+
+    // 多标签
+    multiTabsSetting: {
+      cache: false,// 刷新后是否保留已经打开的标签页
+      show: true,// 开启
+      showRedo: true,// 是否显示刷新那妞
+      showFold: true, // 是否显示折叠按钮
+    },
 }

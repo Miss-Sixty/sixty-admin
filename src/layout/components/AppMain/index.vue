@@ -1,5 +1,7 @@
 <template>
   <main class="app-main">
+    <tabs-bar />
+
     <router-view>
       <template #default="{ Component, route }">
         <transition name="main" mode="out-in">
@@ -9,6 +11,10 @@
     </router-view>
   </main>
 </template>
+
+<script setup>
+import TabsBar from '../TabsBar/index.vue'
+</script>
 
 <style lang="scss" scoped>
 .app-main {
