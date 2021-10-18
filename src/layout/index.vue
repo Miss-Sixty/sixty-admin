@@ -79,7 +79,6 @@ const sidbarWidth = computed(() => {
 
 //侧边栏收起展开过渡动画
 function beforeEnter(el) {
-  console.log(el);
   el.style.transform = `translateX(calc(-1 *${sidbarWidth.value}))`;
 }
 

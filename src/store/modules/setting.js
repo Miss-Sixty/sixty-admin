@@ -11,6 +11,7 @@ export const useSettingStore = defineStore('setting-store', {
     mode: 'pc',
     collapse: useStorage('collapse', false),
     updateTime: __UPDATE_TIME__ || '未知',
+    maximize: false, //main是否全屏
   }),
   actions: {
     // 设置网页标题
@@ -32,11 +33,12 @@ export const useSettingStore = defineStore('setting-store', {
       else this.sidebarCollapse = false
     },
 
-    fullScreen(){
+    fullScreen() {
       const getIsUnFold = !this.menuSetting.show && !this.headerSetting.show
       this.menuSetting.show = getIsUnFold
       this.headerSetting.show = getIsUnFold
-    }
+      this.maximize = !getIsUnFold
+    },
   },
 })
 

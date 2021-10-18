@@ -8,9 +8,13 @@
       </div>
     </el-scrollbar>
     <div class="icons">
-      <Dropdown isExtra :tabItem="$route" />
-      <el-icon :size="18" role="button" @click="handleFold">
-        <maximize />
+      <Dropdown isExtra :tabItem="$route">
+        <el-icon class="icon" :size="18" role="button">
+          <function-line />
+        </el-icon>
+      </Dropdown>
+      <el-icon class="icon" :size="18" role="button" @click="handleFold">
+        <component :is="maximize ? 'minimize' : 'maximize'" />
       </el-icon>
     </div>
   </div>
@@ -22,10 +26,12 @@ import { useMultipleTabStore } from '@/store/modules/multipleTab'
 import { computed, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import Dropdown from './components/Dropdown.vue'
+const settingStore = useSettingStore()
 
 const router = useRouter()
 const route = useRoute()
-const handleFold = useSettingStore().fullScreen
+const handleFold = settingStore.fullScreen
+const maximize = computed(() => settingStore.maximize)
 const tabStore = useMultipleTabStore()
 const getTabsList = computed(() => tabStore.tabList)
 
@@ -57,21 +63,29 @@ watch(
     display: inline-flex;
     align-items: center;
     padding: 0 15px;
+
+    .box {
+      &:not(:last-child) {
+        margin-right: 5px;
+      }
+    }
   }
 
   .icons {
     display: flex;
     align-items: center;
     background-color: #fff;
-    > * {
+    padding-right: 4px;
+    .icon {
       box-sizing: content-box;
       height: $tabs-bar-height;
       font-size: 18px;
       display: flex;
-      padding: 0 10px;
+      padding: 0 6px;
       align-items: center;
       justify-content: center;
       transition: background-color 0.3s;
+      color: var(--c-text-1);
       &:hover {
         background-color: rgba(0, 0, 0, 0.04);
       }
