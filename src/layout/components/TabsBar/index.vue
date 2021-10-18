@@ -2,15 +2,13 @@
   <div class="tabs-bar">
     <el-scrollbar style="flex: 1">
       <div class="tabs">
-        <p v-for="item in getTabsState" :key="item" class="tab" role="button">
-          {{ item?.meta?.title }}
-        </p>
+        <div class="box" v-for="item in getTabsList" :key="item">
+          <Dropdown :tab-item="item" />
+        </div>
       </div>
     </el-scrollbar>
     <div class="icons">
-      <el-icon :size="18" role="button">
-        <menu-icon />
-      </el-icon>
+      <Dropdown isExtra :tabItem="$route" />
       <el-icon :size="18" role="button" @click="handleFold">
         <maximize />
       </el-icon>
@@ -19,24 +17,22 @@
 </template>
 
 <script setup>
-import { Menu as MenuIcon } from '@element-plus/icons'
 import { useSettingStore } from '@/store/modules/setting'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
-import { computed, watch, toRaw } from 'vue'
+import { computed, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import Dropdown from './components/Dropdown.vue'
 
 const router = useRouter()
 const route = useRoute()
 const handleFold = useSettingStore().fullScreen
 const tabStore = useMultipleTabStore()
-const getTabsState = computed(() => tabStore.tabList)
+const getTabsList = computed(() => tabStore.tabList)
 
 //设置固定tab
 const addAffixTabs = () => {
   router.getRoutes().forEach(item => {
-    if (item?.meta?.affix) {
-      tabStore.addTab(item)
-    }
+    if (item?.meta?.affix) tabStore.addTab(item)
   })
 }
 
@@ -44,10 +40,8 @@ addAffixTabs()
 
 watch(
   () => route.path,
-  () => {
-    tabStore.addTab(toRaw(route))
-    console.log(toRaw(route))
-  }
+  () => tabStore.addTab(route),
+  { immediate: true }
 )
 </script>
 
@@ -58,21 +52,11 @@ watch(
   box-shadow: 0 0 1px #ccc;
   z-index: 4;
   position: relative;
-  background-color: blueviolet;
   .tabs {
     height: $tabs-bar-height;
     display: inline-flex;
     align-items: center;
     padding: 0 15px;
-  }
-
-  .tab {
-    padding: 4px 10px;
-    background-color: bisque;
-    border-radius: 4px;
-    &:not(:last-child) {
-      margin-right: 10px;
-    }
   }
 
   .icons {
