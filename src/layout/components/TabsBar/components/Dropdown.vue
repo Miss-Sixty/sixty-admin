@@ -1,7 +1,7 @@
 <template>
   <el-dropdown :trigger="isExtra ? 'click' : 'contextmenu'" @visible-change="handleContextMenu">
     <slot>
-      <router-link class="tab" role="button" active-class="tab--active" :to="tabItem">
+      <router-link class="tab" role="button" exact-active-class="tab--active" :to="tabItem">
         <span>{{ tabItem?.meta?.title }}</span>
         <el-icon role="button" v-if="!tabItem?.meta?.affix" @click.prevent.stop="closeTab">
           <close />
