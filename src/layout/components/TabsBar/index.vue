@@ -1,10 +1,8 @@
 <template>
   <div class="tabs-bar">
-    <el-scrollbar style="flex: 1">
-      <div class="tabs">
-        <div class="box" v-for="item in getTabsList" :key="item">
-          <Dropdown :tab-item="item" />
-        </div>
+    <el-scrollbar style="flex: 1" view-class="tabs">
+      <div class="box" v-for="item in getTabsList" :key="item">
+        <Dropdown :tab-item="item" />
       </div>
     </el-scrollbar>
     <div class="icons">
@@ -58,7 +56,7 @@ watch(
   box-shadow: 0 0 1px #ccc;
   z-index: 4;
   position: relative;
-  .tabs {
+  :deep(.tabs) {
     height: $tabs-bar-height;
     display: inline-flex;
     align-items: center;

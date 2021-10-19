@@ -4,111 +4,119 @@ import { toRaw, unref } from 'vue'
 export const useMultipleTabStore = defineStore('multiple-tab', {
   state: () => ({
     tabList: [],
-    lastDragEndIndex: 0, // 最后移动的标签的索引
+    activeIndex: null, //右键点击的标签
+    disabledLeft: false,
+    disabledRight: false,
+    disabledOther: false,
+    disabledAll: false,
+    activeTabItem: {},
+    activeContextMenu: false,
   }),
   actions: {
     async addTab(route) {
-      const { path, name, fullPath, params, query, meta } = route
+      const { path, name, fullPath, meta } = route
       if (meta?.hideTab || !name || ['PageNotAccess', 'PageNotFound', 'ServiceError', 'NetWorkError', 'Reload'].includes(name)) return
-
-      let updateIndex = -1
       // 检查现有页面，不重复添加选项卡
-      const tabHasExits = this.tabList.some((tab, index) => {
-        updateIndex = index
-        return (tab.fullPath || tab.path) === (fullPath || path)
-      })
-
-      if (!tabHasExits) return this.tabList.push(Object.assign({}, route))
-
-      // 如果该选项卡已存在，请执行更新操作
-      const curTab = toRaw(this.tabList)[updateIndex]
-      if (!curTab) return
-      curTab.params = params || curTab.params
-      curTab.query = query || curTab.query
-      curTab.fullPath = fullPath || curTab.fullPath
-      this.tabList.splice(updateIndex, 1, curTab)
+      if (this.tabList.some(tab => (tab.fullPath || tab.path) === (fullPath || path))) return
+      this.tabList.push(Object.assign({}, route))
     },
 
-    // Close according to key
-    async closeTab(tab, router) {
+    async closeTab(route, router, tabitem) {
       const close = route => {
-        const index = this.tabList.findIndex(item => item.fullPath === route.fullPath)
+        const index = this.tabList.findIndex(item => item.path === route.path)
         index !== -1 && this.tabList.splice(index, 1)
       }
 
-      const { currentRoute, replace } = router
-      const { path } = unref(currentRoute)
+      const { replace } = router
+      const { path } = route
       // 关闭不是激活选项卡
-      if (path !== tab.path) return close(tab)
+      if (path !== tabitem.path) return close(tabitem)
 
       //关闭当前激活选项卡
       let toTarget
       const index = this.tabList.findIndex(item => item.path === path)
       if (index === 0) {
         // 只有一个选项卡，然后跳转到主页，否则跳转到右侧选项卡
-        toTarget = this.tabList.length === 1 ? 'Home' : this.tabList[index + 1].name
+        toTarget = this.tabList.length === 1 ? '/home' : this.tabList[index + 1].path
       } else {
-        toTarget = this.tabList[index - 1].name
+        toTarget = this.tabList[index - 1].path
       }
-      close(currentRoute.value)
-      await replace({ name: toTarget })
+      close(route)
+      await replace(toTarget)
     },
 
-    closeLeftTab(route) {
-      // TODO:真的需要循环多次来达成目的吗？
-      const index = this.tabList.findIndex(item => item.path === route.path)
-
-      if (index <= 0) return
-      const leftTabs = this.tabList.slice(0, index)
-      const pathList = []
-      for (const item of leftTabs) {
-        const affix = item?.meta?.affix ?? false
-        !affix && pathList.push(item.fullPath)
+    closeLeftTab(route, router, tabitem) {
+      const activeTab = this.activeContextMenu ? route : tabitem
+      for (let i = 0; i < this.tabList.length; i++) {
+        if (this.tabList[i]?.meta?.affix) continue
+        this.tabList.splice(i, 1)
+        if (this.tabList[i].path === activeTab.path) break
+        i--
       }
-      this.tabList = this.tabList.filter(item => !pathList.includes(item.fullPath))
+      activeTab.path !== route.path && router.push(activeTab)
     },
 
-    closeRightTabs(route) {
-      const index = this.tabList.findIndex(item => item.fullPath === route.fullPath)
-      if (index < 0 && index >= this.tabList.length - 1) return
-      const rightTabs = this.tabList.slice(index + 1, this.tabList.length)
-      const pathList = []
-      for (const item of rightTabs) {
-        const affix = item?.meta?.affix ?? false
-        !affix && pathList.push(item.fullPath)
+    closeRightTabs(route, router, tabitem) {
+      const activeTab = this.activeContextMenu ? route : tabitem
+      for (let i = this.tabList.length - 1; i >= 0; i--) {
+        if (this.tabList[i]?.meta?.affix) continue
+        this.tabList.splice(i, 1)
+        if (this.tabList[i - 1].path === activeTab.path) break
       }
-      this.tabList = this.tabList.filter(item => !pathList.includes(item.fullPath))
+      activeTab.path !== route.path && router.push(activeTab)
     },
 
-    closeOtherTabs(route) {
-      const closePathList = this.tabList.map(item => item.fullPath)
-      const pathList = []
-      for (const path of closePathList) {
-        if (path !== route.fullPath) {
-          const closeItem = this.tabList.find(item => item.path === path)
-          if (!closeItem) {
-            continue
-          }
-          const affix = closeItem?.meta?.affix ?? false
-          !affix && pathList.push(closeItem.fullPath)
-        }
+    closeOtherTabs(route, router, tabitem) {
+      const activeTab = this.activeContextMenu ? route : tabitem
+      for (let i = 0; i < this.tabList.length; i++) {
+        if (this.tabList[i]?.meta?.affix || this.tabList[i].path === activeTab.path) continue
+        this.tabList.splice(i, 1)
+        i--
       }
-      this.tabList = this.tabList.filter(item => !pathList.includes(item.fullPath))
+      activeTab.path !== route.path && router.push(activeTab)
     },
 
-    closeAllTab(router) {
-      this.tabList = this.tabList.filter(item => item?.meta?.affix ?? false)
+    closeAllTab(route, router) {
+      this.tabList = this.tabList.filter(item => item?.meta?.affix)
       let toPath = '/home'
-      const len = this.tabList.length
-      const { path } = unref(router.currentRoute)
 
+      const len = this.tabList.length
       if (len > 0) {
         const page = this.tabList[len - 1]
         const path = page.fullPath || page.path
         if (path) toPath = path
       }
 
-      path !== toPath && router.push(toPath)
+      route.path !== toPath && router.push(toPath)
+    },
+
+    handleCloseTags(route, router, tabitem) {
+      return {
+        closeTab: () => this.closeTab(route, router, tabitem),
+        closeLeft: () => this.closeLeftTab(route, router, tabitem),
+        closeRight: () => this.closeRightTabs(route, router, tabitem),
+        closeOther: () => this.closeOtherTabs(route, router, tabitem),
+        closeAll: () => this.closeAllTab(route, router),
+      }
+    },
+
+    //右键点击标签
+    handleContextMenu(isExtra, tabItem) {
+      this.activeContextMenu = isExtra //点击菜单选项时判断是点击标签还是点击右侧图标
+      const index = this.tabList.findIndex(tab => tab.path === tabItem.path)
+
+      const activeLeftList = []
+      const activeRightList = []
+      for (let i = 0; i < this.tabList.length; i++) {
+        if (this.tabList[i]?.meta?.affix) continue
+        if (i < index) activeLeftList.push(this.tabList[i])
+        if (i > index) activeRightList.push(this.tabList[i])
+      }
+
+      this.disabledLeft = !activeLeftList.length
+      this.disabledRight = !activeRightList.length
+      this.disabledOther = this.disabledLeft && this.disabledRight
+      this.disabledAll = this.disabledOther && tabItem?.meta?.affix
     },
   },
 })

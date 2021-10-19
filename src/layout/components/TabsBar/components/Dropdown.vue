@@ -1,14 +1,9 @@
 <template>
   <el-dropdown :trigger="isExtra ? 'click' : 'contextmenu'" @visible-change="handleContextMenu">
     <slot>
-      <router-link
-        class="tab"
-        role="button"
-        :class="{ 'tab--active': isActive(tabItem) }"
-        :to="{ path: tabItem.path, query: tabItem.query, fullPath: tabItem.fullPath }"
-      >
+      <router-link class="tab" role="button" active-class="tab--active" :to="tabItem">
         <span>{{ tabItem?.meta?.title }}</span>
-        <el-icon role="button" v-if="!tabItem?.meta?.affix" @click.prevent.stop="closeTag">
+        <el-icon role="button" v-if="!tabItem?.meta?.affix" @click.prevent.stop="closeTab">
           <close />
         </el-icon>
       </router-link>
@@ -31,11 +26,10 @@
 </template>
 
 <script setup>
-import { defineProps, reactive, computed } from 'vue'
+import { defineProps, computed } from 'vue'
 import { Close } from '@element-plus/icons'
 import { useRouter, useRoute } from 'vue-router'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
-
 const router = useRouter()
 const route = useRoute()
 const tabStore = useMultipleTabStore()
@@ -45,82 +39,41 @@ const props = defineProps({
   isExtra: Boolean,
 })
 
-const isActive = tag => tag.path === route.path
-const closeTag = () => tabStore.closeTab(props.tabItem, router)
 const refreshPage = () => router.push({ name: 'Reload' })
-const closeLeft = () => tabStore.closeLeftTab(route)
-const closeRight = () => tabStore.closeRightTabs(route)
-const closeOther = () => tabStore.closeOtherTabs(route)
-const closeAll = () => tabStore.closeAllTab(router)
-
-const state = reactive({
-  disabledLeft: false,
-  disabledRight: false,
-  disabledOther: false,
-  disabledAll: false,
-})
-const handleContextMenu = bl => {
-  if (!bl) return
-  const index = tabStore.tabList.findIndex(tab => tab.path === props.tabItem.path)
-
-  disabledTabs(0, index, 'disabledLeft')
-  disabledTabs(index + 1, tabStore.tabList.length, 'disabledRight')
-  disabledOtherOrAllTabs(index, 'disabledOther')
-  disabledOtherOrAllTabs(null, 'disabledAll')
-}
-
-function disabledTabs(startIndex, endIndex, stateField) {
-  const tabs = tabStore.tabList.slice(startIndex, endIndex)
-  const pathList = []
-  for (const item of tabs) {
-    const affix = item?.meta?.affix ?? false
-    !affix && pathList.push(item)
-  }
-  state[stateField] = !pathList.length
-}
-
-function disabledOtherOrAllTabs(index, stateField) {
-  const pathList = []
-  for (let i = 0; i < tabStore.tabList.length; i++) {
-    if (index && i === index) continue
-    const affix = tabStore.tabList[i]?.meta?.affix ?? false
-    !affix && pathList.push(tabStore.tabList[i])
-  }
-  state[stateField] = !pathList.length
-}
+const { closeTab, closeLeft, closeRight, closeOther, closeAll } = tabStore.handleCloseTags(route, router, props.tabItem)
+const handleContextMenu = bl => bl && tabStore.handleContextMenu(props.isExtra, props.tabItem)
 
 const dropMenuList = computed(() => [
   {
     event: refreshPage,
     text: '重新加载',
-    disabled: null,
   },
   {
-    event: closeTag,
+    event: closeTab,
     text: '关闭当前标签',
     disabled: props.tabItem?.meta?.affix,
   },
   {
     event: closeLeft,
     text: '关闭到左侧',
-    disabled: state.disabledLeft,
+    disabled: tabStore.disabledLeft,
     divided: true,
   },
   {
     event: closeRight,
     text: '关闭到右侧',
-    disabled: state.disabledRight,
+    disabled: tabStore.disabledRight,
   },
   {
     event: closeOther,
     text: '关闭其他标签',
-    disabled: state.disabledOther,
+    disabled: tabStore.disabledOther,
     divided: true,
   },
   {
     event: closeAll,
     text: '关闭全部标签',
-    disabled: state.disabledAll,
+    disabled: tabStore.disabledAll,
   },
 ])
 </script>
