@@ -46,7 +46,7 @@ export const useMenuStore = defineStore('menu-store', {
     // 根据路由判断属于哪个头部导航
     setActived(path) {
       this.allRoutes.forEach((item, index) => {
-        if (item.children.some(r => path.indexOf(r.path + '/') === 0 || path === r.path)) {
+        if (item.children.some(r => path.indexOf(r.path) === 0 || path === r.path)) {
           this.headerActived = index
         }
       })
