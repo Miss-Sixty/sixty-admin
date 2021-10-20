@@ -1,10 +1,9 @@
 <template>
   <div class="tabs-bar">
     <el-scrollbar style="flex: 1" view-class="tabs">
-      <div class="box" v-for="item in getTabsList" :key="item">
-        <Dropdown :tab-item="item" />
-      </div>
+      <Dropdown v-for="item in getTabsList" :key="item" class="box" :tab-item="item" />
     </el-scrollbar>
+
     <div class="icons">
       <Dropdown isExtra :tabItem="$route">
         <el-icon class="icon" :size="18" role="button">
@@ -51,17 +50,16 @@ watch(
 
 <style lang="scss" scoped>
 .tabs-bar {
-  display: flex;
+  display: inline-flex;
   background-color: #fff;
   box-shadow: 0 0 1px #ccc;
   z-index: 4;
   position: relative;
   :deep(.tabs) {
     height: $tabs-bar-height;
-    display: inline-flex;
     align-items: center;
     padding: 0 15px;
-
+    display: inline-flex;
     .box {
       &:not(:last-child) {
         margin-right: 5px;

@@ -39,8 +39,9 @@ const props = defineProps({
   isExtra: Boolean,
 })
 
+const closeTab = () => tabStore.closeTab(route, router, props.tabItem)
 const refreshPage = () => router.push({ name: 'Reload' })
-const { closeTab, closeLeft, closeRight, closeOther, closeAll } = tabStore.handleCloseTags(route, router, props.tabItem)
+const { closeLeft, closeRight, closeOther, closeAll } = tabStore.handleCloseTags(route, router, props.tabItem)
 const handleContextMenu = bl => bl && tabStore.handleContextMenu(props.isExtra, props.tabItem)
 
 const dropMenuList = computed(() => [
@@ -88,6 +89,7 @@ const dropMenuList = computed(() => [
   align-items: center;
   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
   border: 1px solid #ccc;
+  white-space: nowrap;
 
   &:hover {
     .el-icon {

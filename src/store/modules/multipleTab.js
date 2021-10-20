@@ -92,7 +92,6 @@ export const useMultipleTabStore = defineStore('multiple-tab', {
 
     handleCloseTags(route, router, tabitem) {
       return {
-        closeTab: () => this.closeTab(route, router, tabitem),
         closeLeft: () => this.closeLeftTab(route, router, tabitem),
         closeRight: () => this.closeRightTabs(route, router, tabitem),
         closeOther: () => this.closeOtherTabs(route, router, tabitem),
