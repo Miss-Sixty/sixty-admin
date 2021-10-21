@@ -12,7 +12,7 @@ export default {
       component: () => import('@/views/charts/index.vue'),
       meta: {
         title: '图表',
-        icon: 'PieChart2Fill',
+        icon: 'PieChart2Fill-icon',
       },
     },
   ],

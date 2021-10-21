@@ -16,7 +16,7 @@ export default {
 </script>
 
 <script setup>
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 import { CaretBottom, CaretTop } from '@element-plus/icons'
 
 const props = defineProps({

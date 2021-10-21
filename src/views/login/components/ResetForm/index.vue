@@ -37,7 +37,7 @@
   </el-form>
 </template>
 <script setup>
-import { reactive, ref, defineEmits, computed } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import useFormValid from '@/hooks/useFormValid'
 import { useCountdown } from '../MobileForm/useCountdown'
 defineEmits(['update:modelValue'])

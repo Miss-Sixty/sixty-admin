@@ -15,7 +15,6 @@
 
 <script setup>
 import { useSettingStore } from "@/store/modules/setting";
-import { defineProps } from "vue";
 const props = defineProps({
   isScrollTop: Boolean,
 });

@@ -8,7 +8,7 @@ export default {
   redirect: '/link/element-plus',
   meta: {
     title: '外部页面',
-    icon: 'SendPlaneFill',
+    icon: 'SendPlaneFill-icon',
   },
   children: [
     {

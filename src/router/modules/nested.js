@@ -7,7 +7,7 @@ export default {
   name: 'Nested',
   meta: {
     title: '多级导航',
-    icon: 'Nested',
+    icon: 'Nested-icon',
   },
   children: [
     {

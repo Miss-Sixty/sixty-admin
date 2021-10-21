@@ -40,7 +40,7 @@
   </el-form>
 </template>
 <script setup>
-import { reactive, ref, computed, defineEmits } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { useCountdown } from '../MobileForm/useCountdown'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import useFormValid from '@/hooks/useFormValid'

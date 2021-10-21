@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { ref, defineProps, watch, computed, nextTick } from 'vue'
+import { ref, watch, computed, nextTick } from 'vue'
 
 export default {
   name: 'ShowTooltip',

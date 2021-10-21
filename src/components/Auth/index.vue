@@ -12,7 +12,6 @@ export default {
 </script>
 
 <script setup>
-import { defineProps } from 'vue'
 import { useAuth } from '@/hooks/useAuth'
 
 const props = defineProps({

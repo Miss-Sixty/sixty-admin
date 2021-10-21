@@ -1,8 +1,8 @@
 <template>
   <div class="dark-switch" role="button" @click="isDarkMode = !isDarkMode" :class="{ 'dark-switch--dark': isDarkMode }">
     <div class="dark-switch-check">
-      <sun-fill class="dark-switch__icon sun" />
-      <moon-clear-fill class="dark-switch__icon moon" />
+      <sun-fill-icon class="dark-switch__icon sun" />
+      <moon-clear-fill-icon class="dark-switch__icon moon" />
     </div>
   </div>
 </template>

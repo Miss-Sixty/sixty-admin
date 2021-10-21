@@ -34,9 +34,9 @@ export default {
 }
 </script>
 <script setup>
-import _isBoolean from 'lodash/isBoolean'
+import { isBoolean } from 'lodash-es'
 import { ElMessage } from 'element-plus'
-import { defineProps, computed, defineEmits } from 'vue'
+import { computed } from 'vue'
 const emit = defineEmits(['update:url', 'on-success'])
 
 const props = defineProps({
@@ -90,7 +90,7 @@ const message = computed(() => props.message || `请上传 ${props.ext.join(' �
 
 const tipText = computed(() => {
   const { tip, size, limit } = props
-  if (_isBoolean(tip)) return `${message.value}且大小不超过 ${size}MB ，文件数量不超过 ${limit} 个 。`
+  if (isBoolean(tip)) return `${message.value}且大小不超过 ${size}MB ，文件数量不超过 ${limit} 个 。`
   return tip
 })
 

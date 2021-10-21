@@ -1,7 +1,7 @@
 <template>
   <el-tooltip effect="light" :content="content" placement="bottom">
     <el-icon role="button" :size="size" @click="$emit('click')">
-      <refresh-line />
+      <refresh-line-icon />
     </el-icon>
   </el-tooltip>
 </template>
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+
 defineProps({
   content: {
     type: String,

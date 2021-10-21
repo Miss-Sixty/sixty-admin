@@ -7,7 +7,7 @@ export default {
   redirect: '/comp/page-header',
   meta: {
     title: '组件',
-    icon: 'CollageFill',
+    icon: 'CollageFill-icon',
   },
   children: [
     {

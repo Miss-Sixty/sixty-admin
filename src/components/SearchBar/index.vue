@@ -29,7 +29,7 @@ export default {
 }
 </script>
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+
 defineProps({
   keywordsText: {
     type: String,

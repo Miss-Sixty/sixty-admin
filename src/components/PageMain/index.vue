@@ -20,7 +20,6 @@ export default {
 }
 </script>
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 defineEmits(['click'])
 defineProps({
   title: String,

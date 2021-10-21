@@ -45,35 +45,35 @@ const notice = {
         list: [
           {
             text: '@cparagraph(1, 3)',
-            icon: 'Xiongmao',
+            icon: 'xiongmao-icon',
             color: '#409EFF',
             id: 1,
             time: '@datetime',
           },
           {
             text: '@cparagraph(1, 3)',
-            icon: 'Ciwei',
+            icon: 'ciwei-icon',
             color: '#67C23A',
             id: 23,
             time: '@datetime',
           },
           {
             text: '@cparagraph(1, 3)',
-            icon: 'Daxiang',
+            icon: 'daxiang-icon',
             color: '#E6A23C',
             id: 3,
             time: '@datetime',
           },
           {
             text: '@cparagraph(1, 3)',
-            icon: 'Gongji',
+            icon: 'gongji-icon',
             color: '#909399',
             id: 4,
             time: '@datetime',
           },
           {
             text: '@cparagraph(1, 3)',
-            icon: 'Lang',
+            icon: 'lang-icon',
             color: '#F56C6C',
             id: 5,
             time: '@datetime',
@@ -93,14 +93,14 @@ const notice = {
         list: [
           {
             text: '@cparagraph(1, 3)',
-            icon: 'Zhu',
+            icon: 'zhu-icon',
             color: '#409EFF',
             id: 1,
             time: '@datetime',
           },
           {
             text: '@cparagraph(1, 3)',
-            icon: 'Xiaoji',
+            icon: 'xiaoji-icon',
             color: '#67C23A',
             id: 23,
             time: '@datetime',

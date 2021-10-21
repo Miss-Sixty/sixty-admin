@@ -7,7 +7,7 @@ export default {
   redirect: "/feat/full-screen",
   meta: {
     title: "功能",
-    icon: "code-box-fill",
+    icon: "code-box-fill-icon",
   },
   children: [
     {

@@ -10,7 +10,7 @@
   </el-form>
 </template>
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 
 defineEmits(['update:modelValue'])
 

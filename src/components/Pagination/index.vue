@@ -17,7 +17,7 @@ export default {
 </script>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+
 defineProps({
   pageSize: {
     //每页显示几条

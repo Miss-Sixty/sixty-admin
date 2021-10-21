@@ -59,9 +59,9 @@ export default {
 }
 </script>
 <script setup>
-import { reactive, defineProps, computed, defineEmits } from 'vue'
+import { reactive, computed } from 'vue'
 import { ElMessage } from 'element-plus'
-import _isBoolean from 'lodash/isBoolean'
+import { isBoolean } from 'lodash-es'
 const emit = defineEmits(['update:modelValue', 'on-success'])
 const props = defineProps({
   //限制接受的文件类型
@@ -132,7 +132,7 @@ const isLimit = computed(() => {
 const tipText = computed(() => {
   const { tip, size, ext, width, height, limit } = props
   const limitText = isLimit.value ? ` ，数量不超过 ${isLimit.value} 张。` : ' 。'
-  if (_isBoolean(tip)) return `${message.value}且单张大小不超过 ${size}MB ，建尺寸为 ${width}*${height}${limitText}`
+  if (isBoolean(tip)) return `${message.value}且单张大小不超过 ${size}MB ，建尺寸为 ${width}*${height}${limitText}`
   return tip
 })
 

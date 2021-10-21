@@ -29,7 +29,7 @@ const baseRoutes = {
       path: '/home',
       component: () => import('@/views/home.vue'),
       name: 'Home',
-      meta: { title: '首页', icon: 'Home', copyright: false, affix: true },
+      meta: { title: '首页', icon: 'Home-icon', copyright: false, affix: true },
     },
     {
       path: '/reload',
@@ -73,14 +73,14 @@ export const asyncRoutes = [
   {
     meta: {
       title: '基础',
-      icon: 'home',
+      icon: 'home-icon',
     },
     children: [baseRoutes, Icons, comp, Feat, Watermark, Badge, Charts, Permission, Print, Frame, OnlinePreview, Nested],
   },
   {
     meta: {
       title: '页面',
-      icon: 'page',
+      icon: 'page-icon',
     },
     children: [Table, Exception, Settings],
   },

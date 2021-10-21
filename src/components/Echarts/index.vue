@@ -12,7 +12,7 @@ import * as echarts from 'echarts/core'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 import { LineChart, BarChart, PieChart, ScatterChart, CandlestickChart, RadarChart, SunburstChart, GaugeChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
-import { ref, onMounted, computed, watch, defineProps, onBeforeUnmount } from 'vue'
+import { ref, onMounted, computed, watch, onBeforeUnmount } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 echarts.use([
   GridComponent,

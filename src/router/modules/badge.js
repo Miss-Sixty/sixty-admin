@@ -8,7 +8,7 @@ export default {
   redirect: '/badge/dot',
   meta: {
     title: '动态标记',
-    icon: 'badge-fill',
+    icon: 'badge-fill-icon',
   },
   children: [
     {

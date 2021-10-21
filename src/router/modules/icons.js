@@ -6,7 +6,7 @@ export default {
   redirect: '/icons/index',
   meta: {
     title: '图标',
-    icon: 'icon',
+    icon: 'icon-icon',
   },
   children: [
     {

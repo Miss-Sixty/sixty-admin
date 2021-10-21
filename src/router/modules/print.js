@@ -11,7 +11,7 @@ export default {
       component: () => import('@/views/print/index.vue'),
       meta: {
         title: '打印',
-        icon: 'PrinterFill',
+        icon: 'PrinterFill-icon',
       },
     },
   ],

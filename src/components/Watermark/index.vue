@@ -10,7 +10,7 @@ export default {
 }
 </script>
 <script setup>
-import { defineProps, computed, ref, onMounted } from 'vue'
+import {  computed, ref, onMounted } from 'vue'
 const props = defineProps({
   /** 水印样式 */
   markStyle: String,

@@ -1,8 +1,11 @@
 <template>
   <div class="box">
-    <el-icon role="button" class="header-icon" :class="{ 'box--isCollapse': collapse }" @click="setCollapse">
-      <menu-fold-line />
-    </el-icon>
+    <head-icon
+      name="menu-fold-line-icon"
+      padding="0 14px"
+      :style="{ transform: collapse ? 'rotateY(180deg)' : 'rotateY(0)' }"
+      @click="setCollapse"
+    />
 
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <transition-group name="breadcrumb">
@@ -19,6 +22,8 @@ import { compile } from 'path-to-regexp'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
+import HeadIcon from './HeadIcon.vue'
+
 const settingStore = useSettingStore()
 const route = useRoute()
 const setCollapse = settingStore.setCollapse
@@ -40,14 +45,6 @@ const pathCompile = path => compile(path)(route.params)
 .box {
   display: flex;
   align-items: center;
-  .header-icon {
-    margin-right: 5px;
-    width: 30px;
-  }
-
-  &--isCollapse {
-    transform: rotateY(180deg);
-  }
 }
 
 // 面包屑动画

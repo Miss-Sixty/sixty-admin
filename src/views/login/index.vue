@@ -3,7 +3,6 @@
     <header class="header">
       <h2 class="logo">{{ title }}</h2>
       <dark-switch />
-      <international v-if="settingStore.showInternational" />
     </header>
 
     <component :is="typeComponent" v-model="loginType" class="form" />
@@ -11,7 +10,6 @@
 </template>
 <script setup>
 import DarkSwitch from '@/layout/components/DarkSwitch/index.vue'
-import International from '@/layout/components/International/index.vue'
 import BaseForm from './components/BaseForm/index.vue'
 import MobileForm from './components/MobileForm/index.vue'
 import ResetForm from './components/ResetForm/index.vue'

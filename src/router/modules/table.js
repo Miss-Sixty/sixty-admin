@@ -13,7 +13,7 @@ export default {
       meta: {
         activeMenu: '/table',
         title: '表格',
-        icon: 'TableFill',
+        icon: 'TableFill-icon',
       },
       children: [
         {

@@ -11,7 +11,7 @@ export default {
       component: () => import('@/views/settings/index.vue'),
       meta: {
         title: '系统设置',
-        icon: 'settings-5-fill',
+        icon: 'settings-5-fill-icon',
       },
     },
   ],

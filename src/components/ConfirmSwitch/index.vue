@@ -9,7 +9,7 @@ export default {
 </script>
 
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { ElNotification, ElMessageBox } from 'element-plus'
 const props = defineProps({
   api: Function,

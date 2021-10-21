@@ -12,7 +12,7 @@ export default {
       meta: {
         copyright: false,
         title: 'Office 预览',
-        icon: 'FileWord2Fill',
+        icon: 'FileWord2Fill-icon',
       },
     },
   ],

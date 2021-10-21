@@ -7,7 +7,7 @@ export default {
   redirect: '/exception/403',
   meta: {
     title: '异常页',
-    icon: 'CodeBoxFill',
+    icon: 'CodeBoxFill-icon',
   },
   children: [
     {

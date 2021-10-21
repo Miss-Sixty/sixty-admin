@@ -1,9 +1,9 @@
 <template>
   <el-popover trigger="hover" placement="bottom" :width="320">
     <template #reference>
-      <el-icon role="button" class="header-icon">
+      <el-icon role="button" class="icon">
         <el-badge :value="props.notice.num" :hidden="!props.notice.num" type="danger">
-          <notification-2-line />
+          <notification-2-line-icon />
         </el-badge>
       </el-icon>
     </template>
@@ -37,7 +37,7 @@
   </el-popover>
 </template>
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 const props = defineProps({
   notice: Object,
 })
@@ -94,6 +94,22 @@ const activeName = ref('0')
         color: #999;
       }
     }
+  }
+}
+
+
+.icon {
+  box-sizing: content-box;
+  height: $headbar-height;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  padding: 0 10px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
   }
 }
 </style>

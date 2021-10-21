@@ -11,7 +11,7 @@ export default {
       component: () => import('@/views/watermark/index.vue'),
       meta: {
         title: '页面水印',
-        icon: 'WatermarkIcon',
+        icon: 'WatermarkIcon-icon',
       },
     },
   ],

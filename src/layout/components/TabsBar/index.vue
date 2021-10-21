@@ -7,11 +7,11 @@
     <div class="icons">
       <Dropdown isExtra :tabItem="$route">
         <el-icon class="icon" :size="18" role="button">
-          <function-line />
+          <function-line-icon />
         </el-icon>
       </Dropdown>
       <el-icon class="icon" :size="18" role="button" @click="handleFold">
-        <component :is="maximize ? 'minimize' : 'maximize'" />
+        <component :is="maximize ? 'minimize-icon' : 'maximize-icon'" />
       </el-icon>
     </div>
   </div>

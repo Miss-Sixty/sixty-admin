@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 import { Close } from '@element-plus/icons'
 import { useRouter, useRoute } from 'vue-router'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'

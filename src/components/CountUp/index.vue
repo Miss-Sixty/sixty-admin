@@ -8,7 +8,7 @@ export default {
 </script>
 <script setup>
 import { CountUp } from 'countup.js'
-import { ref, defineProps, onMounted, defineExpose, watch, onBeforeUnmount } from 'vue'
+import { ref, onMounted, watch, onBeforeUnmount } from 'vue'
 const props = defineProps({
   startVal: {
     type: Number,

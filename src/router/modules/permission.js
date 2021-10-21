@@ -11,7 +11,7 @@ export default {
       component: () => import('@/views/permission/index.vue'),
       meta: {
         title: '权限验证',
-        icon: 'ShieldKeyholeFill',
+        icon: 'ShieldKeyholeFill-icon',
       },
     },
   ],

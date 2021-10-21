@@ -13,7 +13,6 @@ export default {
     show: true, // 是否显示顶部
     showFullScreen: true, // 显示全屏按钮
     showSetting: true, //展示设置按钮
-    showInternational: true, //展示国际化
   },
 
   // 菜单配置
