@@ -97,12 +97,12 @@ const signOut = async () => {
 
     await userStore.clearUserInfo()
     await userStore.exitSystem()
-    loadingInstance.close()
     ElNotification.success({
       title: '提示',
       message: '退出成功！',
     })
     await router.push({ name: 'Login' })
+    loadingInstance.close()
   } catch (err) {
     console.log('退出取消或失败')
   }

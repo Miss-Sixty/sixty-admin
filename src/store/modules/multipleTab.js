@@ -15,7 +15,12 @@ export const useMultipleTabStore = defineStore('multiple-tab', {
   actions: {
     async addTab(route) {
       const { path, name, fullPath, meta } = route
-      if (meta?.hideTab || !name || ['PageNotAccess', 'PageNotFound', 'ServiceError', 'NetWorkError', 'Reload'].includes(name)) return
+      if (
+        meta?.hideTab ||
+        !name ||
+        ['PageNotAccess', 'PageNotFound', 'ServiceError', 'NetWorkError', 'Reload', 'Login'].includes(name)
+      )
+        return
       // 检查现有页面，不重复添加选项卡
       if (this.tabList.some(tab => (tab.fullPath || tab.path) === (fullPath || path))) return
       this.tabList.push(Object.assign({}, route))

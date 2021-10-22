@@ -15,6 +15,7 @@
 <style lang="scss" scoped>
 .app-main {
   flex: 1;
+  background-color: var(--c-gray-1);
 }
 
 .main-leave-active,
