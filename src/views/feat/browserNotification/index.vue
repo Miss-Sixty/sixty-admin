@@ -6,7 +6,7 @@
     </page-header>
 
     <el-alert title="无浏览器通知权限" type="error" v-if="isNotification === 'denied'">
-      建议开启通知权限以及时获取后台通知。打开方法：设置->隐私设置和安全性->选择此网站->通知->允许
+      建议开启通知权限以及时获取后台通知。 打开方法：设置->隐私设置和安全性->选择此网站->通知->允许。 地址：chrome://settings/content
     </el-alert>
 
     <page-main style="margin: 20px">
