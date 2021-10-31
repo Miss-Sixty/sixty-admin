@@ -1,5 +1,5 @@
 <template>
-  <el-popover trigger="hover" placement="bottom" :width="320">
+  <el-popover trigger="hover" placement="bottom" :width="320" v-model:visible="visible">
     <template #reference>
       <el-icon role="button" class="icon">
         <el-badge :value="props.notice.num" :hidden="!props.notice.num" type="danger">
@@ -17,7 +17,7 @@
         <div class="content">
           <el-scrollbar style="flex: 1">
             <ul v-if="item.list.length">
-              <li v-for="list in item.list" :key="list.id" class="item" role="button">
+              <li v-for="list in item.list" :key="list.id" class="item" role="button" @click="handleNavigate">
                 <el-icon :size="24" :style="{ 'background-color': list.color }" class="item__icon">
                   <component :is="list.icon" />
                 </el-icon>
@@ -27,10 +27,9 @@
                 </div>
               </li>
             </ul>
-
             <el-empty v-else description="无新的内容" />
           </el-scrollbar>
-          <el-button v-show="activeName === '0'">进入通知列表</el-button>
+          <el-button v-show="activeName === '0'" @click="handleNavigate">进入通知公告</el-button>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -38,10 +37,17 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const props = defineProps({
   notice: Object,
 })
 const activeName = ref('0')
+const visible = ref(false)
+const handleNavigate = () => {
+  router.push({ name: 'Notice' })
+  visible.value = false
+}
 </script>
 <style lang="scss" scoped>
 .pane--badge :deep(.el-badge__content) {
@@ -84,6 +90,9 @@ const activeName = ref('0')
     }
     &__text {
       flex: 1;
+      p {
+        margin: 0;
+      }
       &__title {
         font-size: 14px;
         @include text-overflow(2);
@@ -96,7 +105,6 @@ const activeName = ref('0')
     }
   }
 }
-
 
 .icon {
   box-sizing: content-box;

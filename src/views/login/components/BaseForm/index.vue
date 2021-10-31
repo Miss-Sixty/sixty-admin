@@ -43,7 +43,7 @@
     <el-divider>其他登录方式</el-divider>
     <el-row justify="space-around" :gutter="16">
       <el-tooltip v-for="(item, index) in state.otherLoginIcon" :key="index" :content="item.info" placement="bottom" effect="light">
-        <component class="other-login-icon" role="button" :is="item.icon" :class="{ 'github-dark': item.icon === 'github-logo' }" />
+        <component class="other-login-icon" role="button" :is="item.icon" :class="{ 'github-dark': item.icon === 'github-logo-icon' }" />
       </el-tooltip>
     </el-row>
   </el-form>
@@ -65,23 +65,23 @@ const rememberData = useStorage('rememberMe', null) //存储账号密码
 const state = reactive({
   otherLoginIcon: [
     {
-      icon: 'github-logo',
+      icon: 'github-logo-icon',
       info: 'GitHub',
     },
     {
-      icon: 'weChat-logo',
+      icon: 'weChat-logo-icon',
       info: '微信',
     },
     {
-      icon: 'alipay-logo',
+      icon: 'alipay-logo-icon',
       info: '支付宝',
     },
     {
-      icon: 'google-logo',
+      icon: 'google-logo-icon',
       info: 'Google',
     },
     {
-      icon: 'QQ-logo',
+      icon: 'QQ-logo-icon',
       info: 'QQ',
     },
   ],

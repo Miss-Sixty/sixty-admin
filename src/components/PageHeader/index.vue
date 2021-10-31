@@ -21,7 +21,7 @@ export default {
   name: 'PageHeader',
 }
 </script>
-<script setup> 
+<script setup>
 import { Back } from '@element-plus/icons'
 defineEmits(['click'])
 defineProps({
@@ -41,6 +41,9 @@ defineProps({
 
 <style lang="scss" scoped>
 .header {
+  p {
+    margin: 0;
+  }
   padding: 16px 24px;
   background-color: #fff;
   &-heading {
