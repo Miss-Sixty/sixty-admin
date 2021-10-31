@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import Push from 'push.js'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
-
 export const useAppStore = defineStore('app-store', {
   state: () => ({
     dot: true,
@@ -13,9 +12,6 @@ export const useAppStore = defineStore('app-store', {
   actions: {
     //请求通知权限
     getPermission() {
-      console.log(1212)
-      console.log(this.permissionType)
-
       if (this.permissionType !== 'default') return
       const type = () => {
         this.permissionType = Push.Permission.get()
@@ -25,17 +21,13 @@ export const useAppStore = defineStore('app-store', {
     },
 
     //通知内容
-    notification({ title = '系统通知', body, icon }) {
+    notification({ title = '系统通知', body, icon }, onClick) {
       if (this.permissionType === 'denied') return ElMessage.error('无通知权限，请在浏览器设置中开启权限。')
       Push.create(title, {
         body,
         icon,
         timeout: 8000,
-        onClick: function () {
-          router.push({ name: 'Notice' })
-          window.focus()
-          this.close()
-        },
+        onClick,
       }).catch(err => {
         console.log(err)
         this.getPermission()
