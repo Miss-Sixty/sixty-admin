@@ -33,7 +33,7 @@ import { useRoute } from 'vue-router'
 import { reactive, ref } from 'vue'
 import { add, edit } from '@/api/notice/type'
 import useForInData from '@/hooks/useForInData'
-import useAddOrEditSubmit from '@/hooks/customized/useAddOrEditSubmit'
+import useAddOrEditSubmit from '@/hooks/useAddOrEditSubmit'
 
 const route = useRoute()
 const state = reactive({

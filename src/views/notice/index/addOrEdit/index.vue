@@ -62,7 +62,7 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import useForInData from '@/hooks/useForInData'
-import useAddOrEditSubmit from '@/hooks/customized/useAddOrEditSubmit'
+import useAddOrEditSubmit from '@/hooks/useAddOrEditSubmit'
 import { reactive, ref } from 'vue'
 import { add, edit, info } from '@/api/notice/index'
 import { list } from '@/api/notice/type'
