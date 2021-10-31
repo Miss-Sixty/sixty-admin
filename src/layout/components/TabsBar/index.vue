@@ -45,7 +45,7 @@ const handleFold = settingStore.fullScreen
 const maximize = computed(() => settingStore.maximize)
 const tabStore = useMultipleTabStore()
 const scrollLeft = ref(null)
-const scrollChange = ({ left }) => (scrollLeft = left)
+const scrollChange = ({ scrollLeft }) => (scrollLeft.value = scrollLeft)
 
 const closeTab = tabItem => tabStore.closeTab(route, router, tabItem)
 
