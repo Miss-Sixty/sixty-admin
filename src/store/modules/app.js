@@ -2,12 +2,14 @@ import { defineStore } from 'pinia'
 import Push from 'push.js'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
+import audioUrl from '@/assets/notification.ogg'
 export const useAppStore = defineStore('app-store', {
   state: () => ({
     dot: true,
     number: 10,
     text: '热门',
     permissionType: Push.Permission.get(), // default-未获得权限 granted-已获得权限 denied-已拒绝权限
+    audio: null, //音频dom
   }),
   actions: {
     //请求通知权限
@@ -21,21 +23,28 @@ export const useAppStore = defineStore('app-store', {
     },
 
     //通知内容
-    notification({ title = '系统通知', body, icon }, onClick) {
+    notification(title, setting, onClick) {
       if (this.permissionType === 'denied') return ElMessage.error('无通知权限，请在浏览器设置中开启权限。')
-      Push.create(title, {
-        body,
-        icon,
+      Push.create(title || '系统通知', {
+        ...setting,
         timeout: 8000,
         onClick,
-      }).catch(err => {
-        console.log(err)
-        this.getPermission()
       })
+        .then(() => this.playNotificationAudio())
+        .catch(err => {
+          console.log(err)
+          this.getPermission()
+        })
     },
 
     clearNotification() {
       return Push.clear()
+    },
+
+    playNotificationAudio() {
+      if (this.audio) return this.audio.play()
+      this.audio = new Audio(audioUrl)
+      this.audio.play()
     },
   },
 })

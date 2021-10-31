@@ -20,17 +20,23 @@
 <script setup>
 import { useAppStore } from '@/store/modules/app'
 import imgUrl from '@/assets/logo.png'
-import { computed } from 'vue'
+import { computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const appStore = useAppStore()
 const isNotification = computed(() => appStore.permissionType)
 
 const browserPush = () => {
-  appStore.notification({ icon: imgUrl, body: '这是一条来自后台的通知。' }, function () {
-    router.push({ name: 'Notice' })
-    window.focus()
-    this.close()
-  })
+  appStore.notification(
+    null,
+    { icon: imgUrl, body: '这是一条来自后台的通知。这是一条来自后台的通知。这是一条来自后台的通知。' },
+    function () {
+      // window.focus()
+      // window.open('http://localhost:3000/#/feat/browser-notification')
+        // nextTick(() => router.push({ name: 'Notice' }))
+      //  http://localhost:3000/#/feat/browser-notification
+      //
+    }
+  )
 }
 </script>
