@@ -1,12 +1,17 @@
 <template>
   <el-dropdown :trigger="isExtra ? 'click' : 'contextmenu'" @visible-change="handleContextMenu">
     <slot>
-      <router-link class="tab" role="button" exact-active-class="tab--active" :to="tabItem">
+      <!-- <router-link ref="el" class="tab" role="button" exact-active-class="tab--active" :to="tabItem">
         <span>{{ tabItem?.meta?.title }}</span>
-        <el-icon role="button" v-if="!tabItem?.meta?.affix" @click.prevent.stop="closeTab">
+        <el-icon
+          role="button"
+          v-if="!tabItem?.meta?.affix"
+          :style="{ width: $route.path === tabItem.path ? '18px' : '' }"
+          @click.prevent.stop="closeTab"
+        >
           <close />
         </el-icon>
-      </router-link>
+      </router-link> -->
     </slot>
 
     <template #dropdown>
@@ -27,17 +32,16 @@
 
 <script setup>
 import { computed } from 'vue'
-import { Close } from '@element-plus/icons'
 import { useRouter, useRoute } from 'vue-router'
 import { useMultipleTabStore } from '@/store/modules/multipleTab'
-const router = useRouter()
-const route = useRoute()
-const tabStore = useMultipleTabStore()
-
 const props = defineProps({
   tabItem: Object,
   isExtra: Boolean,
 })
+
+const router = useRouter()
+const route = useRoute()
+const tabStore = useMultipleTabStore()
 
 const closeTab = () => tabStore.closeTab(route, router, props.tabItem)
 const refreshPage = () => router.push({ name: 'Reload' })
@@ -80,44 +84,5 @@ const dropMenuList = computed(() => [
 </script>
 
 <style lang="scss" scoped>
-.tab {
-  padding: 0 6px 0 10px;
-  border-radius: 4px;
-  height: 24px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-  border: 1px solid #ccc;
-  white-space: nowrap;
 
-  &:hover {
-    .el-icon {
-      width: 18px;
-    }
-  }
-
-  &--active {
-    background-color: #538cff;
-    color: #fff;
-    border-color: #538cff;
-  }
-
-  > span {
-    margin-right: 4px;
-  }
-  .el-icon {
-    border-radius: 50%;
-    width: 0;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, color 0.3s, width 0.3s;
-    &:hover {
-      background-color: #f56c6c;
-      color: #fff;
-    }
-  }
-}
 </style>

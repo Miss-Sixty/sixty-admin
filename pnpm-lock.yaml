@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@element-plus/icons': ^0.0.11
   '@vitejs/plugin-vue': ^1.9.3
+  '@vueuse/components': ^6.7.3
   '@vueuse/core': ^6.7.3
   axios: ^0.21.4
   countup.js: ^2.0.8
@@ -27,6 +28,7 @@ specifiers:
 
 dependencies:
   '@element-plus/icons': 0.0.11
+  '@vueuse/components': 6.7.3_vue@3.2.20
   '@vueuse/core': 6.7.3_vue@3.2.20
   axios: 0.21.4
   countup.js: 2.0.8
@@ -239,6 +241,17 @@ packages:
 
   /@vue/shared/3.2.20:
     resolution: {integrity: sha512-FbpX+hD5BvXCQerEYO7jtAGHlhAkhTQ4KIV73kmLWNlawWhTiVuQxizgVb0BOkX5oG9cIRZ42EG++d/k/Efp0w==}
+    dev: false
+
+  /@vueuse/components/6.7.3_vue@3.2.20:
+    resolution: {integrity: sha512-pZmprJQVMazELQO12+LqDJqyhIti5n3ZYHbrE5BNQ1Jwwrf5XWUS+LohmLMwi2g6gLxA29UpOOkWLbULiFMIpg==}
+    dependencies:
+      '@vueuse/core': 6.7.3_vue@3.2.20
+      '@vueuse/shared': 6.7.3_vue@3.2.20
+      vue-demi: 0.11.4_vue@3.2.20
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
     dev: false
 
   /@vueuse/core/6.1.0_vue@3.2.20:
