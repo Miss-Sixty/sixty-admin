@@ -42,5 +42,13 @@ export default {
         title: "下载文件",
       },
     },
+    {
+      path: "browser-notification",
+      name: "browserNotification",
+      component: () => import("@/views/feat/browserNotification/index.vue"),
+      meta: {
+        title: "桌面通知",
+      },
+    },
   ],
 };

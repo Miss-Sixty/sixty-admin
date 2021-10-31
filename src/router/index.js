@@ -68,6 +68,7 @@ import Permission from './modules/permission' //权限
 import Table from './modules/table' //表单页
 import Settings from './modules/settings' //个人设置
 import Exception from './modules/exception' //异常页
+import Notice from './modules/notice' //异常页
 
 export const asyncRoutes = [
   {
@@ -82,7 +83,7 @@ export const asyncRoutes = [
       title: '页面',
       icon: 'page-icon',
     },
-    children: [Table, Exception, Settings],
+    children: [Table, Exception, Settings,Notice],
   },
 ]
 
