@@ -89,5 +89,14 @@
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+      window.OneSignal = window.OneSignal || []
+      OneSignal.push(function () {
+        OneSignal.init({
+          appId: '2fd650c7-e3cf-4cc6-8fb0-60fcbe6615bb',
+        })
+      })
+    </script>
   </body>
 </html>

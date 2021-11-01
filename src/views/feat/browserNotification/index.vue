@@ -21,7 +21,7 @@
 import { useAppStore } from '@/store/modules/app'
 import imgUrl from '@/assets/logo.png'
 import { computed, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useLink } from 'vue-router'
 const router = useRouter()
 const appStore = useAppStore()
 const isNotification = computed(() => appStore.permissionType)
@@ -29,13 +29,13 @@ const isNotification = computed(() => appStore.permissionType)
 const browserPush = () => {
   appStore.notification(
     null,
-    { icon: imgUrl, body: '这是一条来自后台的通知。这是一条来自后台的通知。这是一条来自后台的通知。' },
+    { icon: imgUrl, body: '这是一条来自后台的通知。这是一条来自后台的通知。这是一条来自后台的通知。', openurl: 'http://www.bing.com' },
     function () {
+      // router.push({ name: 'Login' })
       // window.focus()
-      // window.open('http://localhost:3000/#/feat/browser-notification')
-        // nextTick(() => router.push({ name: 'Notice' }))
+      window.open('https://www.baidu.com')
+      // nextTick(() => router.push({ name: 'Notice' }))
       //  http://localhost:3000/#/feat/browser-notification
-      //
     }
   )
 }

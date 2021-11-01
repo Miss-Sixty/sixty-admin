@@ -3,6 +3,14 @@ import Push from 'push.js'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
 import audioUrl from '@/assets/notification.ogg'
+
+Push.config({
+  serviceWorker: './OneSignalSDKWorker.js', // Sets a custom service worker script
+  fallback: function(payload) {
+      console.log(payload)
+  }
+});
+
 export const useAppStore = defineStore('app-store', {
   state: () => ({
     dot: true,
@@ -26,7 +34,7 @@ export const useAppStore = defineStore('app-store', {
     notification(title, setting, onClick) {
       if (this.permissionType === 'denied') return ElMessage.error('无通知权限，请在浏览器设置中开启权限。')
       Push.create(title || '系统通知', {
-        ...setting,
+        // ...setting,
         timeout: 8000,
         onClick,
       })
