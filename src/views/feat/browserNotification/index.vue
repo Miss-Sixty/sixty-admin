@@ -8,7 +8,7 @@
     <el-alert title="无浏览器通知权限" type="error" v-if="isNotification === 'denied'">
       建议开启通知权限以及时获取后台通知。 打开方法：设置->隐私设置和安全性->选择此网站->通知->允许。 地址：chrome://settings/content
     </el-alert>
-
+<div class='onesignal-customlink-container'></div>
     <page-main style="margin: 20px">
       <p style="margin-top: 0">说明：default-未获得权限 granted-已获得权限 denied-已拒绝权限</p>
       <p style="margin-top: 0">当前通知权限：{{ appStore.permissionType }}</p>

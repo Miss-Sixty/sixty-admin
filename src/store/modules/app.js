@@ -5,7 +5,7 @@ import { ElMessage } from 'element-plus'
 import audioUrl from '@/assets/notification.ogg'
 
 Push.config({
-  serviceWorker: '/OneSignalSDKWorker.js', // Sets a custom service worker script
+  serviceWorker: 'https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js', // Sets a custom service worker script
   fallback: function (payload) {
     console.log(payload)
   },
