@@ -5,11 +5,11 @@ import { ElMessage } from 'element-plus'
 import audioUrl from '@/assets/notification.ogg'
 
 Push.config({
-  serviceWorker: './OneSignalSDKWorker.js', // Sets a custom service worker script
-  fallback: function(payload) {
-      console.log(payload)
-  }
-});
+  serviceWorker: '/OneSignalSDKWorker.js', // Sets a custom service worker script
+  fallback: function (payload) {
+    console.log(payload)
+  },
+})
 
 export const useAppStore = defineStore('app-store', {
   state: () => ({

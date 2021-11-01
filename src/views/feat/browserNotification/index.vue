@@ -33,7 +33,7 @@ const browserPush = () => {
     function () {
       // router.push({ name: 'Login' })
       // window.focus()
-      window.open('https://www.baidu.com')
+      window.open('https://miss-sixty.github.io/sixty-admin/#/feat/browser-notification')
       // nextTick(() => router.push({ name: 'Notice' }))
       //  http://localhost:3000/#/feat/browser-notification
     }
