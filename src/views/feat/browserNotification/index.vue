@@ -3,6 +3,7 @@
     <page-header no-icon title="桌面通知">
       使用插件
       <el-link type="primary" href="https://pushjs.org/" target="_blank"> Push.js </el-link>
+      此功能只能在打开页面的时候使用，如果想要实现关闭网页的情况下推送消息则需要用到 serviceWorker 配合实现。
     </page-header>
     <el-alert title="无浏览器通知权限" type="error" v-if="isNotification === 'denied'">
       建议开启通知权限以及时获取后台通知。 打开方法：设置->隐私设置和安全性->选择此网站->通知->允许。 地址：chrome://settings/content
