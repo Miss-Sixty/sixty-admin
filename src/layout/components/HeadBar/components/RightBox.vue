@@ -122,7 +122,9 @@ onMounted(() => {
 .box {
   display: flex;
   align-items: center;
-
+  p {
+    margin: 0;
+  }
   .user-wrapper {
     display: flex;
     align-items: center;
