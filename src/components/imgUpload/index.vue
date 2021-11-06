@@ -1,0 +1,317 @@
+<template>
+  <el-space wrap style="vertical-align: top">
+    <div class="imgs" v-for="(item, index) in fileDataFormat" :key="index" :style="{ width, height }">
+      <el-image :src="item.url" :alt="item.name" style="width: 100%; height: 100%">
+        <template #placeholder>
+          <div class="image-icon">
+            <el-icon class="is-loading" size="30">
+              <Loading />
+            </el-icon>
+          </div>
+        </template>
+
+        <template #error>
+          <div class="image-icon">
+            <el-icon size="30"><Picture /> </el-icon>
+          </div>
+        </template>
+      </el-image>
+
+      <div class="imgs__mask">
+        <p>
+          <ZoomIn title="预览" role="button" class="icon" :style="{ width: iconSize }" @click="preview(index)" />
+          <Delete title="移除" role="button" class="icon" :style="{ width: iconSize }" @click="remove(index)" />
+        </p>
+        <p>
+          <Back
+            title="左移"
+            role="button"
+            class="icon"
+            :class="{ disabled: index === 0 }"
+            :style="{ width: iconSize }"
+            @click="index !== 0 && move(index, 'left')"
+          />
+          <Right
+            title="右移"
+            role="button"
+            class="icon"
+            :class="{ disabled: index === fileDataFormat.length - 1 }"
+            :style="{ width: iconSize }"
+            @click="index !== fileDataFormat.length - 1 && move(index, 'right')"
+          />
+        </p>
+      </div>
+    </div>
+    <el-upload
+      :disabled="state.percent !== 0"
+      :on-success="onSuccessChange"
+      :show-file-list="false"
+      :on-progress="onProgressChange"
+      :before-upload="beforeUpload"
+      v-show="!limit || fileDataFormat.length < limit"
+      :accept="acceptType"
+      v-bind="$attrs"
+    >
+      <div
+        class="uploader"
+        :style="{ width, height, backgroundImage: `url(${state.preview})`, borderStyle: state.preview ? 'solid' : 'dashed' }"
+        role="button"
+      >
+        <Plus v-if="state.percent === 0" class="uploader-icon" />
+        <el-progress v-else type="circle" :width="parseInt(width) * 0.8" :percentage="state.percent" />
+      </div>
+    </el-upload>
+  </el-space>
+  <slot name="tip">
+    <div class="tip" v-if="tip">{{ tip }}</div>
+  </slot>
+  <el-image-viewer
+    v-show="imageViewer.imgViewerVisible"
+    :url-list="imageViewerList"
+    :initial-index="imageViewer.initialIndex"
+    @close="imageViewer.imgViewerVisible = false"
+  />
+</template>
+<script>
+export default {
+  name: 'ImgUpload',
+}
+</script>
+<script setup>
+import { Loading, Picture, ZoomIn, Delete, Back, Right, Plus } from '@element-plus/icons'
+import { reactive, computed } from 'vue'
+import { isString, isArray, isObject } from 'lodash-es'
+import uploadType from '@/utils/uploadType'
+import { ElMessage } from 'element-plus'
+
+const props = defineProps({
+  width: {
+    type: String,
+    default: '100px',
+  },
+  height: {
+    type: String,
+    default: '100px',
+  },
+  fileData: {
+    type: [Array, Object, String],
+    default: [],
+    required: true,
+  },
+  fileName: {
+    type: String,
+    default: 'name',
+  },
+  fileUrl: {
+    type: String,
+    default: 'url',
+  },
+  iconSize: {
+    type: String,
+    default: '26px',
+  },
+  limit: Number,
+  tip: String,
+  // 文件大小 MB
+  size: {
+    type: Number,
+    default: 8,
+  },
+  accept: Array,
+  action: String,
+})
+
+const emit = defineEmits(['on-remove', 'on-move', 'on-success'])
+
+const fileDataFormat = computed(() => {
+  if (isString(props.fileData)) return [{ name: props.fileData, url: props.fileData }]
+  if (isArray(props.fileData))
+    return props.fileData.map(item => {
+      if (isString(item)) return { name: item, url: item }
+      return { ...item, name: item[props.fileName], url: item[props.fileUrl] }
+    })
+  if (isObject(props.fileData)) return [{ name: props.fileData[props.fileName], url: props.fileData[props.fileUrl] }]
+})
+
+//预览图片
+const imageViewerList = computed(() => fileDataFormat.value.map(item => item.url))
+const imageViewer = reactive({
+  imgViewerVisible: false,
+  initialIndex: 0,
+})
+
+const acceptType = computed(() => {
+  console.log(props.accept?.legnth)
+  //如果传来为空数组，则不限制类型，否则限制传入类型
+  if (props.accept) return (props.accept && props.accept.toString()) || ''
+
+  //默认限制类型
+  let arr = []
+  for (const key in uploadType) {
+    arr = arr.concat(uploadType[key])
+  }
+  return arr.toString()
+})
+
+const state = reactive({
+  percent: 0,
+  preview: '',
+})
+
+const beforeUpload = file => {
+  const isType = !fileDataFormat.value.includes(file.type)
+  const isSize = file.size / 1024 / 1024 < props.size
+
+  if (!isType) {
+    ElMessage.error('不可上传此格式文件！')
+  }
+  if (!isSize) {
+    ElMessage.error(`图片大小不可超过${props.size}MB`)
+  }
+  if (isType && isSize) {
+    state.preview = URL.createObjectURL(file)
+  }
+
+  return isType && isSize
+}
+
+const onSuccessChange = (res, file, fileList) => {
+  state.percent = 100
+  setTimeout(() => {
+    state.preview = ''
+    state.percent = 0
+    emit('on-success', res, file, fileList)
+  }, 200)
+}
+
+const onProgressChange = file => {
+  state.percent = ~~file.percent < 99 ? ~~file.percent : 99
+}
+
+// 预览
+const preview = index => {
+  console.log(index)
+  imageViewer.initialIndex = index
+  imageViewer.imgViewerVisible = true
+}
+
+// 移除
+const remove = index => {
+  let fileList = [...fileDataFormat.value]
+  fileList.splice(index, 1)
+  emit('on-remove', fileDataFormat.value[index], fileList)
+}
+
+// 移动
+const move = (index, type) => {
+  let fileList = [...fileDataFormat.value]
+  if (type == 'left' && index !== 0) {
+    fileList[index] = fileList.splice(index - 1, 1, fileList[index])[0]
+  }
+  if (type == 'right' && index !== fileList.length - 1) {
+    fileList[index] = fileList.splice(index + 1, 1, fileList[index])[0]
+  }
+  emit('on-move', fileList)
+}
+</script>
+
+<style lang="scss" scoped>
+.image-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f7fa;
+  color: var(--el-text-color-placeholder);
+  height: 100%;
+}
+
+.imgs {
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #f0f2f5;
+  &:hover &__mask {
+    opacity: 1;
+  }
+
+  &__mask {
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    color: #fff;
+    font-size: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 12%;
+    > p {
+      margin: 0;
+      display: flex;
+      justify-content: space-around;
+    }
+    .icon {
+      transition: transform 0.3s;
+
+      &.disabled {
+        color: #999;
+        cursor: not-allowed;
+      }
+      &:hover:not(.disabled) {
+        transform: scale(1.3);
+      }
+    }
+  }
+}
+
+::v-deep(.el-upload) {
+  vertical-align: middle;
+}
+.uploader {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed #d9d9d9;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fbfdff;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  &:hover {
+    border-color: #409eff;
+    .uploader-icon {
+      color: #409eff;
+    }
+  }
+  &-icon {
+    width: 26px;
+    transition: color 0.3s;
+    color: #8c939d;
+  }
+
+  ::v-deep(.el-progress) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    .el-progress__text {
+      color: #fff;
+    }
+  }
+}
+
+.tip {
+  font-size: 12px;
+  color: var(--el-text-color-regular);
+  margin-top: 7px;
+}
+</style>

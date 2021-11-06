@@ -9,7 +9,7 @@
     />
     <img-upload />
     <imgs-upload />
-    <file-upload />
+    <!-- <file-upload /> -->
   </div>
 </template>
 <script setup>

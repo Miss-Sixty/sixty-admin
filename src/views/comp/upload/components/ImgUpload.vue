@@ -1,22 +1,27 @@
 <template>
   <page-main title="单图上传" style="margin: 20px">
-    <imgs-upload
-      v-model="url"
+    <img-upload
+      :file-data="url"
+      width="150px"
+      height="150px"
       action="/mock/upload"
-      width="250"
-      height="150"
+      @on-remove="onRemoveChange"
+      @on-move="fileList => (url = fileList)"
+      @on-success="onSuccessChange"
+      tip="请上传 image/jpeg 、image/png 格式图片！且单张大小不超过 8MB ，建尺寸为 250*150。"
       :limit="1"
-      :data="{
-        width: 250,
-        height: 150,
-      }"
-      tip="请上传 image/jpeg 、image/png 格式图片！且单张大小不超过 2MB ，建尺寸为 250*150。"
-      @on-success="onSuccess"
+      :accept="['image/jpeg', 'image/png']"
     />
   </page-main>
 </template>
 <script setup>
 import { ref } from 'vue'
-const url = ref(['https://picsum.photos/250/150'])
-const onSuccess = res => url.value.push(res.data)
+const url = ref('https://picsum.photos/1250/1150')
+const onSuccessChange = res => {
+  url.value = { name: res.data, url: res.data }
+}
+
+const onRemoveChange = (file, fileList) => {
+  url.value = fileList
+}
 </script>
