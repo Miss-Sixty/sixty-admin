@@ -1,8 +1,8 @@
 const svgIconsContext = import.meta.globEager(
-  "../../components/Icons/components/svg/**/index.vue"
+  "../../components/Icons/components/svg/**.vue"
 );
 const sketchIconsContext = import.meta.globEager(
-  "../../components/Icons/components/sketchSvg/**/index.vue"
+  "../../components/Icons/components/sketchSvg/**.vue"
 );
 
 export const sketchIcons = ogj2arr(sketchIconsContext);
