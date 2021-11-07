@@ -1,29 +1,11 @@
 <template>
-  <el-upload
-    :action="action"
-    :data="data"
-    :name="name"
-    :before-upload="beforeUpload"
-    :on-exceed="onExceed"
-    :on-success="onSuccess"
-    :file-list="props.files"
-    :limit="props.limit"
-    :drag="props.drag"
-    :show-file-list="showFileList"
-    :accept="props.accept"
-    :headers="props.headers"
-  >
+  <el-upload v-bind="$attrs" :file-list="fileDataFormat" :drag="drag"   :on-success="onSuccessChange">
     <slot>
-      <i class="el-icon-upload" />
+      <el-icon class="el-icon--upload"><upload-filled /></el-icon>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
     </slot>
     <template #tip>
-      <div v-if="props.tip">
-        <p class="tip">
-          <i class="el-icon-info" />
-          {{ tipText }}
-        </p>
-      </div>
+      <div class="tip" v-if="tip">{{ tip }}</div>
     </template>
   </el-upload>
 </template>
@@ -34,102 +16,79 @@ export default {
 }
 </script>
 <script setup>
-import { isBoolean } from 'lodash-es'
 import { ElMessage } from 'element-plus'
 import { computed } from 'vue'
+import { UploadFilled } from '@element-plus/icons'
+import { isString, isArray, isObject } from 'lodash-es'
+
 const emit = defineEmits(['update:url', 'on-success'])
 
 const props = defineProps({
-  //限制接受的文件类型
-  accept: String,
-  action: {
-    type: String,
+  fileList: {
+    type: [Array, Object, String],
+    default: [],
     required: true,
   },
-  headers: {
-    type: Object,
-    default: () => {},
-  },
-  data: {
-    type: Object,
-    default: () => {},
-  },
-  name: {
+  fileName: {
     type: String,
-    default: 'file',
+    default: 'name',
   },
-  files: {
-    type: Array,
-    default: () => [],
+  fileUrl: {
+    type: String,
+    default: 'url',
   },
+
   // 文件大小
   size: {
     type: Number,
-    default: 5,
+    default: 8,
   },
-  //是否显示提示栏
-  tip: [Boolean, String],
-  //文件类型错误的提示文案
-  message: String,
-  ext: {
-    type: Array,
-    default: () => [],
-  },
-  limit: {
-    type: [Boolean, Number],
-    default: 3,
-  },
-  showFileList: {
-    type: Boolean,
-    default: true,
-  },
+  //提示文字
+  tip: String,
+  limit: Number,
   drag: Boolean,
 })
 
-const message = computed(() => props.message || `请上传 ${props.ext.join(' 、')} 格式文件！`)
-
-const tipText = computed(() => {
-  const { tip, size, limit } = props
-  if (isBoolean(tip)) return `${message.value}且大小不超过 ${size}MB ，文件数量不超过 ${limit} 个 。`
-  return tip
+const fileDataFormat = computed(() => {
+  if (isString(props.fileList)) return [{ name: props.fileList, url: props.fileList }]
+  if (isArray(props.fileList))
+    return props.fileList.map(item => {
+      if (isString(item)) return { name: item, url: item }
+      return { ...item, name: item[props.fileName], url: item[props.fileUrl] }
+    })
+  if (isObject(props.fileList)) return [{ name: props.fileList[props.fileName], url: props.fileList[props.fileUrl] }]
 })
 
-const beforeUpload = file => {
-  const { size, ext } = props
-  let isSize = true
-  let isType = true
-
-  if (size) {
-    isSize = file.size / 1024 / 1024 < props.size
-    !isSize && ElMessage.error(`上传文件大小不能超过 ${props.size}MB！`)
-  }
-
-  if (ext.length) {
-    const isType = props.ext.includes(file.type)
-    !isType && ElMessage.error(message.value)
-  }
-
-  return isSize && isType
+const onSuccessChange = (res, file, fileList) => {
+  console.log(res, file, fileList)
 }
 
-const onExceed = () => {
-  ElMessage.warning('文件上传超过限制')
-}
+// const beforeUpload = file => {
+//   const isType = acceptType.value.includes(file.type)
+//   const isSize = file.size / 1024 / 1024 < props.size
 
-const onSuccess = (res, file, fileList) => {
-  emit('on-success', res, file, fileList)
-}
+//   if (!isType) {
+//     ElMessage.error('不可上传此格式文件！')
+//   }
+//   if (!isSize) {
+//     ElMessage.error(`图片大小不可超过${props.size}MB`)
+//   }
+//   if (isType && isSize) {
+//     state.preview = URL.createObjectURL(file)
+//   }
+
+//   return isType && isSize
+// }
 </script>
+
 <style lang="scss" scoped>
 .tip {
-  margin: 5px 0 0;
-  background-color: #f4f4f5;
-  padding: 8px 16px;
-  color: #909399;
-  border-radius: 4px;
-  display: inline-block;
+  font-size: 12px;
+  color: var(--el-text-color-regular);
+  margin-top: 7px;
 }
-:deep(.el-upload) {
-  vertical-align: top;
+
+::v-deep(.el-upload) {
+  vertical-align: middle;
 }
 </style>

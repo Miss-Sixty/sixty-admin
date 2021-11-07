@@ -1,14 +1,18 @@
 export default [
   {
-    url: "/mock/upload",
-    response: (option) => {
-      const width = option.body.width || 150;
-      const height = option.body.height || width;
+    url: '/mock/upload',
+    response: option => {
+      const width = option.body.width || '@natural(150, 1000)'
+      const height = option.body.height || width
       return {
         status: 200,
-        message: "success",
-        data: `https://picsum.photos/${width}/${height}`,
-      };
+        message: 'success',
+        data: {
+          id: '@id',
+          url: `https://picsum.photos/${width}/${height}`,
+          name: '@ctitle',
+        },
+      }
     },
   },
-];
+]

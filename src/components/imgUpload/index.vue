@@ -22,7 +22,7 @@
           <ZoomIn title="预览" role="button" class="icon" :style="{ width: iconSize }" @click="preview(index)" />
           <Delete title="移除" role="button" class="icon" :style="{ width: iconSize }" @click="remove(index)" />
         </p>
-        <p>
+        <p v-if="fileDataFormat.length > 1">
           <Back
             title="左移"
             role="button"
@@ -42,7 +42,9 @@
         </p>
       </div>
     </div>
+
     <el-upload
+      :action="action"
       :disabled="state.percent !== 0"
       :on-success="onSuccessChange"
       :show-file-list="false"
@@ -50,7 +52,6 @@
       :before-upload="beforeUpload"
       v-show="!limit || fileDataFormat.length < limit"
       :accept="acceptType"
-      v-bind="$attrs"
     >
       <div
         class="uploader"
@@ -58,7 +59,7 @@
         role="button"
       >
         <Plus v-if="state.percent === 0" class="uploader-icon" />
-        <el-progress v-else type="circle" :width="parseInt(width) * 0.8" :percentage="state.percent" />
+        <el-progress v-else type="circle" :width="Math.min(parseInt(width), parseInt(height)) * 0.8" :percentage="state.percent" />
       </div>
     </el-upload>
   </el-space>
@@ -66,7 +67,7 @@
     <div class="tip" v-if="tip">{{ tip }}</div>
   </slot>
   <el-image-viewer
-    v-show="imageViewer.imgViewerVisible"
+    v-if="imageViewer.imgViewerVisible"
     :url-list="imageViewerList"
     :initial-index="imageViewer.initialIndex"
     @close="imageViewer.imgViewerVisible = false"
@@ -79,8 +80,8 @@ export default {
 </script>
 <script setup>
 import { Loading, Picture, ZoomIn, Delete, Back, Right, Plus } from '@element-plus/icons'
-import { reactive, computed } from 'vue'
-import { isString, isArray, isObject } from 'lodash-es'
+import { reactive, computed, watchEffect } from 'vue'
+import { isArray, isObject } from 'lodash-es'
 import uploadType from '@/utils/uploadType'
 import { ElMessage } from 'element-plus'
 
@@ -93,8 +94,8 @@ const props = defineProps({
     type: String,
     default: '100px',
   },
-  fileData: {
-    type: [Array, Object, String],
+  modelValue: {
+    type: [Array, Object],
     default: [],
     required: true,
   },
@@ -121,17 +122,16 @@ const props = defineProps({
   action: String,
 })
 
-const emit = defineEmits(['on-remove', 'on-move', 'on-success'])
+const emit = defineEmits(['on-change', 'update:modelValue', 'on-success'])
 
 const fileDataFormat = computed(() => {
-  if (isString(props.fileData)) return [{ name: props.fileData, url: props.fileData }]
-  if (isArray(props.fileData))
-    return props.fileData.map(item => {
-      if (isString(item)) return { name: item, url: item }
-      return { ...item, name: item[props.fileName], url: item[props.fileUrl] }
-    })
-  if (isObject(props.fileData)) return [{ name: props.fileData[props.fileName], url: props.fileData[props.fileUrl] }]
+  if (isArray(props.modelValue))
+    return props.modelValue.map(item => ({ ...item, name: item[props.fileName], url: item[props.fileUrl] }))
+  if (isObject(props.modelValue))
+    return [{ ...props.modelValue, name: props.modelValue[props.fileName], url: props.modelValue[props.fileUrl] }]
 })
+
+watchEffect(() => emit('on-change', fileDataFormat.value))
 
 //预览图片
 const imageViewerList = computed(() => fileDataFormat.value.map(item => item.url))
@@ -141,7 +141,6 @@ const imageViewer = reactive({
 })
 
 const acceptType = computed(() => {
-  console.log(props.accept?.legnth)
   //如果传来为空数组，则不限制类型，否则限制传入类型
   if (props.accept) return (props.accept && props.accept.toString()) || ''
 
@@ -159,7 +158,8 @@ const state = reactive({
 })
 
 const beforeUpload = file => {
-  const isType = !fileDataFormat.value.includes(file.type)
+  const isType = acceptType.value.includes(file.type)
+
   const isSize = file.size / 1024 / 1024 < props.size
 
   if (!isType) {
@@ -175,12 +175,15 @@ const beforeUpload = file => {
   return isType && isSize
 }
 
-const onSuccessChange = (res, file, fileList) => {
+const onSuccessChange = (res, file) => {
   state.percent = 100
+  const { data } = res
+  const fileList = [...fileDataFormat.value, { ...data, name: data[props.fileName], url: data[props.fileUrl] }]
   setTimeout(() => {
     state.preview = ''
     state.percent = 0
     emit('on-success', res, file, fileList)
+    emit('update:modelValue', fileList)
   }, 200)
 }
 
@@ -197,21 +200,21 @@ const preview = index => {
 
 // 移除
 const remove = index => {
-  let fileList = [...fileDataFormat.value]
+  const fileList = fileDataFormat.value
   fileList.splice(index, 1)
-  emit('on-remove', fileDataFormat.value[index], fileList)
+  emit('update:modelValue', fileList)
 }
 
 // 移动
 const move = (index, type) => {
-  let fileList = [...fileDataFormat.value]
+  const fileList = fileDataFormat.value
   if (type == 'left' && index !== 0) {
     fileList[index] = fileList.splice(index - 1, 1, fileList[index])[0]
   }
   if (type == 'right' && index !== fileList.length - 1) {
     fileList[index] = fileList.splice(index + 1, 1, fileList[index])[0]
   }
-  emit('on-move', fileList)
+  emit('update:modelValue', fileList)
 }
 </script>
 
@@ -268,9 +271,6 @@ const move = (index, type) => {
   }
 }
 
-::v-deep(.el-upload) {
-  vertical-align: middle;
-}
 .uploader {
   width: 100%;
   height: 100%;
@@ -313,5 +313,9 @@ const move = (index, type) => {
   font-size: 12px;
   color: var(--el-text-color-regular);
   margin-top: 7px;
+}
+
+::v-deep(.el-upload) {
+  vertical-align: middle;
 }
 </style>

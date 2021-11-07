@@ -1,11 +1,9 @@
 <template>
   <page-main title="文件上传（默认最多3个）" style="margin: 20px">
-    <el-space alignment="flex-top" :size="30">
-      <file-upload drag :files="files" action="/mock/upload" tip @on-success="onSuccess" />
-      <file-upload :files="files" action="/mock/upload" tip @on-success="onSuccess">
-        <el-button size="small" type="primary">点击上传</el-button>
-      </file-upload>
-    </el-space>
+    <file-upload drag :file-list="files" action="/mock/upload" tip @on-success="onSuccess" />
+    <file-upload :file-list="files" action="/mock/upload" tip @on-success="onSuccess" >
+      <el-button>click</el-button>
+    </file-upload>
   </page-main>
 </template>
 <script setup>
