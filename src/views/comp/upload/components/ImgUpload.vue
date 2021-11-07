@@ -1,6 +1,6 @@
 <template>
   <page-main title="单图上传" style="margin: 20px">
-    <p style="margin: 0 0 20px">图片id：{{ imgId }}</p>
+    <p style="margin: 0 0 10px">图片id：{{ imgId }}</p>
     <img-upload
       v-model="fileList"
       width="240px"

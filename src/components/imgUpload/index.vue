@@ -159,19 +159,10 @@ const state = reactive({
 
 const beforeUpload = file => {
   const isType = acceptType.value.includes(file.type)
-
   const isSize = file.size / 1024 / 1024 < props.size
-
-  if (!isType) {
-    ElMessage.error('不可上传此格式文件！')
-  }
-  if (!isSize) {
-    ElMessage.error(`图片大小不可超过${props.size}MB`)
-  }
-  if (isType && isSize) {
-    state.preview = URL.createObjectURL(file)
-  }
-
+  if (!isType) ElMessage.error('不可上传此格式文件！')
+  if (!isSize) ElMessage.error(`图片大小不可超过${props.size}MB`)
+  if (isType && isSize) state.preview = URL.createObjectURL(file)
   return isType && isSize
 }
 

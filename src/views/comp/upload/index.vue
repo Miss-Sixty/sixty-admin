@@ -7,13 +7,15 @@
       effect="dark"
       show-icon
     />
-    <img-upload />
-    <imgs-upload />
-    <!-- <file-upload /> -->
+    <!-- <img-upload />
+    <imgs-upload /> -->
+    <file-button-upload />
+    <file-upload />
   </div>
 </template>
 <script setup>
 import ImgUpload from './components/ImgUpload.vue'
 import ImgsUpload from './components/ImgsUpload.vue'
+import FileButtonUpload from './components/FileButtonUpload.vue'
 import FileUpload from './components/FileUpload.vue'
 </script>
