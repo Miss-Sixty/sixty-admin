@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <sidebar class="sidebar" :style="{ transform: settingStore.maximize ? 'translateX(-100%)' : 'translateX(0)' }" />
+    <sidebar :style="{ transform: settingStore.maximize ? 'translateX(-100%)' : 'translateX(0)' }" />
     <div class="right">
-      <head-bar class="head-bar" :class="[marginLeftType, headBarTopType]" />
-      <app-main class="app-main" :class="[marginLeftType, marginTopType]" />
+      <head-bar :class="[marginLeftType, headBarTopType]" :shadow="appmainScroll" />
+      <app-main :class="[marginLeftType, marginTopType]" @on-scroll="bl => (appmainScroll = bl)" />
     </div>
   </div>
 </template>
@@ -13,8 +13,9 @@ import Sidebar from './components/Sidebar/index.vue'
 import HeadBar from './components/HeadBar/index.vue'
 import AppMain from './components/AppMain/index.vue'
 import { useSettingStore } from '@/store/modules/setting'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 const settingStore = useSettingStore()
+const appmainScroll = ref(false)
 
 //是否有主侧边栏
 const isMainMenu = settingStore.alwaysShowMainSidebar
@@ -42,27 +43,9 @@ const headBarTopType = computed(() => (settingStore.maximize ? 'headerbar-top--z
 .layout {
   height: 100vh;
 
-  .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    transition: transform 0.3s;
-  }
   .right {
     height: 100vh;
     overflow: hidden;
-
-    .head-bar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      transition: top 0.3s, margin-left 0.3s;
-    }
-
-    .app-main {
-      transition: padding-top 0.3s, margin-left 0.3s;
-    }
   }
 
   .no-collapse--main-sidebar {

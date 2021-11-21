@@ -2,7 +2,7 @@
   <router-link v-slot="{ navigate }" custom to="/">
     <div
       :class="{
-        'logo--shadow': props.isScrollTop,
+        'logo--shadow': isScrollTop,
       }"
       class="logo"
       @click="navigate"
@@ -14,11 +14,11 @@
 </template>
 
 <script setup>
-import { useSettingStore } from "@/store/modules/setting";
-const props = defineProps({
+import { useSettingStore } from '@/store/modules/setting'
+defineProps({
   isScrollTop: Boolean,
-});
-const title = useSettingStore().title;
+})
+const title = useSettingStore().title
 </script>
 
 <style lang="scss" scoped>

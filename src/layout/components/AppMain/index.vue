@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar ref="scrollbarRef" class="app-main" view-class="scrollbar">
+  <el-scrollbar ref="scrollbarRef" class="app-main" view-class="scrollbar" @scroll="scroll => $emit('on-scroll', !!scroll.scrollTop)">
     <transition name="fade">
       <div class="maximize" v-show="settingStore.maximize" @click="settingStore.fullScreen">
         <el-icon class="icon"><close-bold /></el-icon>
@@ -41,7 +41,7 @@ watch(
   flex: 1;
   background-color: var(--el-background-color-base);
   position: relative;
-
+  transition: padding-top 0.3s, margin-left 0.3s;
   ::v-deep(.scrollbar) {
     display: flex;
     flex-direction: column;
