@@ -35,11 +35,11 @@ import Print from './modules/print' // 打印
 import Permission from './modules/permission' //权限
 
 //页面
+import Notice from './modules/page/notice' //通知公告
 import Table from './modules/table' //表单页
 import Settings from './modules/settings' //个人设置
 import Exception from './modules/exception' //异常页
-import Notice from './modules/notice' //异常页
-import Organization from './modules/page/organization' //异常页
+import Organization from './modules/page/organization' //通用列表页
 
 // 动态路由（异步路由、导航栏路由）
 export const asyncRoutes = [
@@ -80,7 +80,7 @@ export const asyncRoutes = [
       title: '页面',
       icon: 'page-icon',
     },
-    children: [Organization, Table, Exception, Settings, Notice],
+    children: [Notice, Organization, Table, Exception, Settings],
   },
 ]
 

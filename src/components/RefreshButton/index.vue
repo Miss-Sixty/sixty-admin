@@ -1,8 +1,6 @@
 <template>
-  <el-tooltip effect="light" :content="content" placement="bottom">
-    <el-icon role="button" :size="size" @click="$emit('click')">
-      <refresh-line-icon />
-    </el-icon>
+  <el-tooltip :content="content" :placement="placement">
+    <slot><el-button :icon="Refresh" size="small" circle @click="$emit('click')" /></slot>
   </el-tooltip>
 </template>
 
@@ -13,7 +11,7 @@ export default {
 </script>
 
 <script setup>
-
+import { Refresh } from '@element-plus/icons'
 defineProps({
   content: {
     type: String,
@@ -22,6 +20,10 @@ defineProps({
   size: {
     type: Number,
     default: 20,
+  },
+  placement: {
+    type: String,
+    default: 'bottom',
   },
 })
 defineEmits(['click'])

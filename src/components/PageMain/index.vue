@@ -1,13 +1,11 @@
 <template>
   <div class="page-main" :class="{ 'page-main--shadow': isShadow }">
     <div v-if="title || $slots.header" class="page-main__header" :style="{ 'border-bottom': headerBorder ? '1px solid #e4e7ed' : '' }">
-      <div class="title">
-        <slot name="header">
+      <slot name="header">
+        <div class="title">
           <span>{{ title }}</span>
-        </slot>
-      </div>
-
-      <el-row><slot name="extra" /></el-row>
+        </div>
+      </slot>
     </div>
     <div v-if="content || $slots.default" :style="{ padding }">
       <slot>{{ content }}</slot>
@@ -53,13 +51,8 @@ defineProps({
 
   &__header {
     padding: 16px 20px;
-    display: flex;
-    justify-content: space-between;
 
     .title {
-      flex: 1;
-      display: flex;
-      align-items: center;
       > span {
         font-size: 16px;
       }
