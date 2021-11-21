@@ -1,5 +1,5 @@
 <template>
-  <el-drawer title="系统设置" :size="360">
+  <el-drawer title="系统设置" :size="360" append-to-body>
     <el-row :gutter="10">
       <el-col :span="8" v-for="(item, index) in themeData" :key="index">
         <el-row
@@ -38,58 +38,55 @@
     <el-divider>界面显示</el-divider>
     <div class="setting-item">
       <span>灰色模式</span>
-      <el-switch
-        v-model="exhibit.grayMode"
-        @change="toggleName('gray-mode', $event)"
-      />
+      <el-switch v-model="exhibit.grayMode" @change="toggleName('gray-mode', $event)" />
     </div>
   </el-drawer>
 </template>
 <script setup>
-import { reactive, ref, shallowRef, computed } from "vue";
-import { Monitor } from "@element-plus/icons";
-import { usePreferredDark, useStorage } from "@vueuse/core";
-const isDarkPreferred = usePreferredDark();
-const darkStorage = useStorage("theme", "auto");
+import { reactive, ref, shallowRef, computed } from 'vue'
+import { Monitor } from '@element-plus/icons'
+import { usePreferredDark, useStorage } from '@vueuse/core'
+const isDarkPreferred = usePreferredDark()
+const darkStorage = useStorage('theme', 'auto')
 
 const themeData = shallowRef([
   {
-    text: "浅色主题",
-    icon: "sun-fill-icon",
-    type: "light",
+    text: '浅色主题',
+    icon: 'sun-fill-icon',
+    type: 'light',
   },
   {
-    text: "深色主题",
-    icon: "moon-clear-fill-icon",
-    type: "dark",
+    text: '深色主题',
+    icon: 'moon-clear-fill-icon',
+    type: 'dark',
   },
   {
-    text: "系统主题",
+    text: '系统主题',
     icon: Monitor,
-    type: "auto",
+    type: 'auto',
   },
-]);
+])
 
 //主题
-const theme = computed(() => darkStorage.value);
-const handleTheme = (item) => {
-  darkStorage.value = item.type;
-  if (item.type === "auto") return toggleName("dark", isDarkPreferred.value);
-  toggleName("dark", item.type === "dark");
-};
+const theme = computed(() => darkStorage.value)
+const handleTheme = item => {
+  darkStorage.value = item.type
+  if (item.type === 'auto') return toggleName('dark', isDarkPreferred.value)
+  toggleName('dark', item.type === 'dark')
+}
 
 //功能按钮
-const reset = ref(false);
+const reset = ref(false)
 
 //界面显示
 const exhibit = reactive({
   grayMode: false,
-});
+})
 
 const toggleName = (name, bl) => {
-  const htmlEl = window?.document.querySelector("html");
-  htmlEl?.classList.toggle(name, bl);
-};
+  const htmlEl = window?.document.querySelector('html')
+  htmlEl?.classList.toggle(name, bl)
+}
 </script>
 
 <style lang="scss" scoped>
