@@ -45,7 +45,6 @@ watch(
   ::v-deep(.scrollbar) {
     display: flex;
     flex-direction: column;
-    height: 100%;
     justify-content: space-between;
   }
 
