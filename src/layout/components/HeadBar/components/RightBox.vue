@@ -8,7 +8,7 @@
 
     <head-icon
       :name="isFullscreen ? 'fullscreen-exit-fill-icon' : 'fullscreen-fill-icon'"
-      :content="isFullscreen ? '全屏' : '退出全屏'"
+      :content="isFullscreen ? '退出全屏' : '全屏'"
       @click="toggle"
     />
 

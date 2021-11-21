@@ -33,5 +33,8 @@ export default ({ mode, command }) => {
     define: {
       __UPDATE_TIME__: JSON.stringify(dayjs().format('YYYY-M-D HH:mm:ss')),
     },
+    server: {
+      host: '0.0.0.0',
+    },
   })
 }

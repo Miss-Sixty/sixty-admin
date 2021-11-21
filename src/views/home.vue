@@ -30,10 +30,14 @@
           <div v-html="markdownText" />
         </page-main> -->
 
-        <page-main title="版本信息">
-          <template #extra>
-            <el-tag size="small">部署时间：{{ updateTime }} </el-tag>
+        <page-main>
+          <template #header>
+            <el-row justify="space-between" align="middle">
+              <span style="font-size: 16px">版本信息</span>
+              <el-tag size="small">部署时间：{{ updateTime }} </el-tag>
+            </el-row>
           </template>
+
           <el-descriptions border :column="2">
             <el-descriptions-item label="Vue"> {{ dependencies['vue'] }}</el-descriptions-item>
             <el-descriptions-item label="Vue Router"> {{ dependencies['vue-router'] }}</el-descriptions-item>

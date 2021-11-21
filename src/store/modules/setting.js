@@ -1,16 +1,15 @@
 import setting from '@/setting'
 import { defineStore } from 'pinia'
-import { unref } from 'vue'
 import store from '@/store'
-import { useStorage } from '@vueuse/core'
+import { useStorage, useMediaQuery } from '@vueuse/core'
 import { useMenuStore } from './menu'
 
 export const useSettingStore = defineStore('setting-store', {
   state: () => ({
     ...setting,
     title: import.meta.env.VITE_APP_TITLE || '', // 项目标题
-    mode: 'pc',
-    collapse: useStorage('collapse', false),
+    collapse: useStorage('collapse', useMediaQuery('(min-width: 1000px) and (max-width: 1200px)')),
+    isPhone: useMediaQuery('(max-width: 999px)'),
     updateTime: __UPDATE_TIME__ || '未知',
     maximize: false, //main是否全屏
   }),
@@ -28,15 +27,6 @@ export const useSettingStore = defineStore('setting-store', {
     // 切换侧边栏导航展开/收起
     setCollapse() {
       this.collapse = !this.collapse
-    },
-
-    // 设置访问模式，页面宽度小于 992px 时切换为移动端展示
-    setMode(width) {
-      const mode = ['phone', 'pad', 'pc']
-      const unWidth = unref(width)
-      this.mode = unWidth <= 768 ? mode[0] : unWidth <= 992 ? mode[1] : mode[2]
-      if (this.mode !== 'pc') this.sidebarCollapse = true
-      else this.sidebarCollapse = false
     },
 
     fullScreen() {
