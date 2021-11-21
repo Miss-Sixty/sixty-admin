@@ -1,5 +1,11 @@
 <template>
-  <el-scrollbar ref="scrollbarRef" class="app-main" view-class="scrollbar" @scroll="scroll => $emit('on-scroll', !!scroll.scrollTop)">
+  <el-scrollbar
+    ref="scrollbarRef"
+    class="app-main"
+    view-class="scrollbar"
+    wrap-class="wrap-class"
+    @scroll="scroll => $emit('on-scroll', !!scroll.scrollTop)"
+  >
     <transition name="fade">
       <div class="maximize" v-show="settingStore.maximize" @click="settingStore.fullScreen">
         <el-icon class="icon"><close-bold /></el-icon>
@@ -46,6 +52,12 @@ watch(
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
+  }
+
+  ::v-deep(.wrap-class) {
+    display: flex;
+    flex-direction: column;
   }
 
   .maximize {
