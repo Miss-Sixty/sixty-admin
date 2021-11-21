@@ -21,7 +21,7 @@ const { copyrightDates, copyrightCompany, copyrightWebsite } = useSettingStore()
   text-align: center;
   border-top: 1px dashed #dcdfe6;
   font-size: 14px;
-  background-color: var(--c-gray-1);
+  background-color: var(--el-background-color-base);
 
   a {
     text-decoration: none;

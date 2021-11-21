@@ -1,15 +1,9 @@
 <template>
   <div class="layout">
-    <transition @before-enter="beforeEnter" @enter="enter" @leave="leave" :css="false">
-      <sidebar class="sidebar" v-show="getIsUnFold" :style="{ width: sidbarWidth }" />
-    </transition>
-    <div class="right" :style="{ 'margin-left': getIsUnFold ? sidbarWidth : 0 }">
-      <transition name="fold-top">
-        <head-bar v-show="getIsUnFold" class="head-bar" :style="{ left: getIsUnFold ? sidbarWidth : 0 }" />
-      </transition>
-      <tabs-bar class="tabs-bar" :style="{ left: getIsUnFold ? sidbarWidth : 0 }" :class="{ 'tabs-bar--isUnFold': !getIsUnFold }" />
-      <app-main class="app-main" :class="{ 'app-main--isUnFold': !getIsUnFold }" />
-      <footer-bar v-show="copyright" />
+    <sidebar class="sidebar" :style="{ transform: settingStore.maximize ? 'translateX(-100%)' : 'translateX(0)' }" />
+    <div class="right">
+      <head-bar class="head-bar" :class="[marginLeftType, headBarTopType]" />
+      <app-main class="app-main" :class="[marginLeftType, marginTopType]" />
     </div>
   </div>
 </template>
@@ -17,119 +11,85 @@
 <script setup>
 import Sidebar from './components/Sidebar/index.vue'
 import HeadBar from './components/HeadBar/index.vue'
-import TabsBar from './components/TabsBar/index.vue'
 import AppMain from './components/AppMain/index.vue'
-import FooterBar from './components/FooterBar/index.vue'
-import { computed, watch, ref, useCssModule } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
-import { useRoute } from 'vue-router'
-import { useMenuStore } from '@/store/modules/menu'
-const variables = useCssModule()
-const route = useRoute()
+import { computed } from 'vue'
 const settingStore = useSettingStore()
-const menuStore = useMenuStore()
-//是否显示尾部
-const copyright = ref(false)
-watch(
-  () => route.meta?.copyright,
-  val => (copyright.value = val === undefined ? settingStore.showCopyright : val),
-  { immediate: true }
-)
-
-const getIsUnFold = computed(() => settingStore.menuSetting.show && settingStore.headerSetting.show)
-const collapse = computed(() => settingStore.collapse)
 
 //是否有主侧边栏
-const isMainMenu = computed(() => menuStore.allRoutes > 1 || settingStore.alwaysShowMainSidebar)
+const isMainMenu = settingStore.alwaysShowMainSidebar
 
-const sidbarWidth = computed(() => {
-  if (collapse.value) {
-    //有主侧边栏的收起宽度
-    return isMainMenu.value ? variables.sidbarCollapseWidth : variables.navmenuCollapseWidth
-  } else {
-    //有主侧边栏的展开宽度
-    return isMainMenu.value ? variables.sidbarWidth : variables.navmenuWidt
-  }
+/**
+ * maximize-最大化(隐藏菜单和头部)
+ * no-collapse--main-sidebar-导航展开+有主菜单
+ * no-collapse--no-main-sidebar-导航展开+无主菜单
+ * collapse--main-sidebar-导航收起+有主菜单
+ * collapse--no-main-sidebar-导航收起+无主菜单
+ */
+const marginLeftType = computed(() => {
+  //是否最大化
+  if (settingStore.maximize) return 'maximize'
+  //导航展开
+  if (settingStore.collapse) return isMainMenu ? 'no-collapse--main-sidebar' : 'no-collapse--no-main-sidebar'
+  else return isMainMenu ? 'collapse--main-sidebar' : 'collapse--no-main-sidebar'
 })
 
-//侧边栏收起展开过渡动画
-function beforeEnter(el) {
-  el.style.transform = `translateX(calc(-1 *${sidbarWidth.value}))`
-}
-
-function enter(el) {
-  el.offsetWidth
-  el.style.transform = 'translateX(0)'
-  el.style.transition = 'transform 0.3s ease-in-out,width 0.3s ease-in-out'
-}
-function leave(el, done) {
-  el.style.transform = `translateX(calc(-1 *${sidbarWidth.value}))`
-  el.style.transition = 'transform 0.3s ease-in-out,width 0.3s ease-in-out'
-  setTimeout(done, 300)
-}
+const marginTopType = computed(() => (settingStore.maximize ? 'top--zero' : 'top--base'))
+const headBarTopType = computed(() => (settingStore.maximize ? 'headerbar-top--zero' : 'headerbar-top--base'))
 </script>
-
-<style lang="scss" scoped module>
-.a {
-  sidbarwidth: $sidbar-width;
-  sidbarcollapsewidth: $sidbar-collapse-width;
-  navmenuwidt: $navmenu-width;
-  navmenucollapsewidth: $navmenu-collapse-width;
-}
-</style>
 
 <style lang="scss" scoped>
 .layout {
   height: 100vh;
 
   .sidebar {
-    display: flex;
-    box-shadow: 10px 0 10px -10px #c7c7c7;
     position: fixed;
+    left: 0;
     top: 0;
     bottom: 0;
-    z-index: 5;
-    transition: width 0.3s ease-in-out;
+    transition: transform 0.3s;
   }
-
-  .head-bar {
-    position: fixed;
-    right: 0;
-    transition: left 0.3s ease-in-out, transform 0.3s ease-in-out;
-  }
-
-  .tabs-bar {
-    position: fixed;
-    right: 0;
-    top: $headbar-height;
-    transition: top 0.3s ease-in-out, left 0.3s ease-in-out;
-    &--isUnFold {
-      top: 0;
-    }
-  }
-
   .right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    height: 100vh;
     overflow: hidden;
-    transition: margin-left 0.3s ease-in-out;
-    height: 100%;
-    overflow-y: auto;
+
+    .head-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      transition: top 0.3s, margin-left 0.3s;
+    }
 
     .app-main {
-      transition: margin-top 0.3s ease-in-out;
-      margin-top: calc(#{$headbar-height} + #{$tabs-bar-height});
-      &--isUnFold {
-        margin-top: $tabs-bar-height;
-      }
+      transition: padding-top 0.3s, margin-left 0.3s;
     }
   }
-}
 
-.fold-top-enter-from,
-.fold-top-leave-to {
-  left: 0 !important;
-  transform: translateY(calc(-1 * $headbar-height));
+  .no-collapse--main-sidebar {
+    margin-left: $sidbar-collapse-width;
+  }
+  .no-collapse--no-main-sidebar {
+    margin-left: $navmenu-collapse-width;
+  }
+  .collapse--main-sidebar {
+    margin-left: $sidbar-width;
+  }
+  .collapse--no-main-sidebar {
+    margin-left: $navmenu-width;
+  }
+
+  .top--zero {
+    padding-top: 0;
+  }
+  .top--base {
+    padding-top: $headbar-height;
+  }
+
+  .headerbar-top--zero {
+    top: -$headbar-height;
+  }
+  .headerbar-top--base {
+    top: 0;
+  }
 }
 </style>

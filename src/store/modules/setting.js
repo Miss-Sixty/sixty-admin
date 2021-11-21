@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { unref } from 'vue'
 import store from '@/store'
 import { useStorage } from '@vueuse/core'
+import { useMenuStore } from './menu'
 
 export const useSettingStore = defineStore('setting-store', {
   state: () => ({
@@ -13,6 +14,11 @@ export const useSettingStore = defineStore('setting-store', {
     updateTime: __UPDATE_TIME__ || '未知',
     maximize: false, //main是否全屏
   }),
+  getters: {
+    alwaysShowMainSidebar() {
+      return this.alwaysShowMainSidebar || useMenuStore().allRoutes.length > 1
+    },
+  },
   actions: {
     // 设置网页标题
     setTitle(state, title) {
@@ -34,10 +40,7 @@ export const useSettingStore = defineStore('setting-store', {
     },
 
     fullScreen() {
-      const getIsUnFold = !this.menuSetting.show && !this.headerSetting.show
-      this.menuSetting.show = getIsUnFold
-      this.headerSetting.show = getIsUnFold
-      this.maximize = !getIsUnFold
+      this.maximize = !this.maximize
     },
   },
 })

@@ -9,3 +9,11 @@
 import MainSidebar from './components/MainSidebar.vue'
 import NavMenu from './components/NavMenu.vue'
 </script>
+
+<style lang="scss" scoped>
+.sidebar {
+  display: flex;
+  box-shadow: 10px 0 10px -10px #c7c7c7;
+  transition: width 0.3s ease-in-out;
+}
+</style>

@@ -1,5 +1,10 @@
 <template>
-  <main class="app-main">
+  <el-scrollbar ref="scrollbarRef" class="app-main" view-class="scrollbar">
+    <transition name="fade">
+      <div class="maximize" v-show="settingStore.maximize" @click="settingStore.fullScreen">
+        <el-icon class="icon"><close-bold /></el-icon>
+      </div>
+    </transition>
     <router-view>
       <template #default="{ Component, route }">
         <transition name="main" mode="out-in">
@@ -7,15 +12,64 @@
         </transition>
       </template>
     </router-view>
-  </main>
+    <footer-bar v-show="copyright" />
+  </el-scrollbar>
 </template>
 
-<script setup></script>
+<script setup>
+import FooterBar from '../FooterBar/index.vue'
+import { useRoute } from 'vue-router'
+import { watch, ref } from 'vue'
+import { useSettingStore } from '@/store/modules/setting'
+import { CloseBold } from '@element-plus/icons'
+
+const settingStore = useSettingStore()
+const scrollbarRef = ref()
+const route = useRoute()
+
+//是否显示尾部
+const copyright = ref(false)
+watch(
+  () => route.meta?.copyright,
+  val => (copyright.value = val === undefined ? settingStore.showCopyright : val),
+  { immediate: true }
+)
+</script>
 
 <style lang="scss" scoped>
 .app-main {
   flex: 1;
-  background-color: var(--c-gray-1);
+  background-color: var(--el-background-color-base);
+  position: relative;
+
+  ::v-deep(.scrollbar) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .maximize {
+    position: absolute;
+    left: -40px;
+    top: -40px;
+    width: 80px;
+    height: 80px;
+    z-index: 1000;
+    border-radius: 50%;
+    background-color: #f56c6c;
+    cursor: pointer;
+    transition: background-color 0.3s, opacity 0.3s;
+    &:hover {
+      background-color: #f78989;
+    }
+    .icon {
+      position: absolute;
+      bottom: 16px;
+      right: 18px;
+      color: #fff;
+    }
+  }
 }
 
 .main-leave-active,
@@ -31,5 +85,10 @@
 .main-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
