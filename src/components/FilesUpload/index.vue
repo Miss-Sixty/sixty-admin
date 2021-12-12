@@ -21,7 +21,7 @@ export default {
 </script>
 <script setup>
 
-const props = defineProps({
+defineProps({
   files: {
     type: [Array, Object],
     default: () => {},
