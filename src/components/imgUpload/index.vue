@@ -1,7 +1,7 @@
 <template>
-  <el-space wrap style="vertical-align: top">
-    <div class="imgs" v-for="(item, index) in fileDataFormat" :key="index" :style="{ width, height }">
-      <el-image :src="item.url" :alt="item.name" style="width: 100%; height: 100%">
+  <el-space wrap style="vertical-align: top;">
+    <div v-for="(item, index) in fileDataFormat" :key="index" class="imgs" :style="{ width, height }">
+      <el-image :src="item.url" :alt="item.name" style="width: 100%; height: 100%;">
         <template #placeholder>
           <div class="image-icon">
             <el-icon class="is-loading" size="30">
@@ -44,13 +44,13 @@
     </div>
 
     <el-upload
+      v-show="!limit || fileDataFormat.length < limit"
       :action="action"
       :disabled="state.percent !== 0"
       :on-success="onSuccessChange"
       :show-file-list="false"
       :on-progress="onProgressChange"
       :before-upload="beforeUpload"
-      v-show="!limit || fileDataFormat.length < limit"
       :accept="acceptType"
     >
       <div
@@ -64,7 +64,7 @@
     </el-upload>
   </el-space>
   <slot name="tip">
-    <div class="tip" v-if="tip">{{ tip }}</div>
+    <div v-if="tip" class="tip">{{ tip }}</div>
   </slot>
   <el-image-viewer
     v-if="imageViewer.imgViewerVisible"
@@ -75,7 +75,7 @@
 </template>
 <script>
 export default {
-  name: 'ImgUpload',
+  name: 'ImgUpload'
 }
 </script>
 <script setup>
@@ -88,38 +88,38 @@ import { ElMessage } from 'element-plus'
 const props = defineProps({
   width: {
     type: String,
-    default: '100px',
+    default: '100px'
   },
   height: {
     type: String,
-    default: '100px',
+    default: '100px'
   },
   modelValue: {
     type: [Array, Object],
     default: [],
-    required: true,
+    required: true
   },
   fileName: {
     type: String,
-    default: 'name',
+    default: 'name'
   },
   fileUrl: {
     type: String,
-    default: 'url',
+    default: 'url'
   },
   iconSize: {
     type: String,
-    default: '26px',
+    default: '26px'
   },
   limit: Number,
   tip: String,
   // 文件大小 MB
   size: {
     type: Number,
-    default: 8,
+    default: 8
   },
   accept: Array,
-  action: String,
+  action: String
 })
 
 const emit = defineEmits(['on-change', 'update:modelValue', 'on-success'])
@@ -133,18 +133,18 @@ const fileDataFormat = computed(() => {
 
 watchEffect(() => emit('on-change', fileDataFormat.value))
 
-//预览图片
+// 预览图片
 const imageViewerList = computed(() => fileDataFormat.value.map(item => item.url))
 const imageViewer = reactive({
   imgViewerVisible: false,
-  initialIndex: 0,
+  initialIndex: 0
 })
 
 const acceptType = computed(() => {
-  //如果传来为空数组，则不限制类型，否则限制传入类型
+  // 如果传来为空数组，则不限制类型，否则限制传入类型
   if (props.accept) return (props.accept && props.accept.toString()) || ''
 
-  //默认限制类型
+  // 默认限制类型
   let arr = []
   for (const key in uploadType) {
     arr = arr.concat(uploadType[key])
@@ -154,7 +154,7 @@ const acceptType = computed(() => {
 
 const state = reactive({
   percent: 0,
-  preview: '',
+  preview: ''
 })
 
 const beforeUpload = file => {
@@ -218,7 +218,6 @@ const move = (index, type) => {
   color: var(--el-text-color-placeholder);
   height: 100%;
 }
-
 .imgs {
   border-radius: 4px;
   overflow: hidden;
@@ -227,11 +226,10 @@ const move = (index, type) => {
   &:hover &__mask {
     opacity: 1;
   }
-
   &__mask {
     opacity: 0;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(0 0 0 / 50%);
     transition: opacity 0.3s;
     right: 0;
     bottom: 0;
@@ -250,7 +248,6 @@ const move = (index, type) => {
     }
     .icon {
       transition: transform 0.3s;
-
       &.disabled {
         color: #999;
         cursor: not-allowed;
@@ -261,7 +258,6 @@ const move = (index, type) => {
     }
   }
 }
-
 .uploader {
   width: 100%;
   height: 100%;
@@ -274,7 +270,6 @@ const move = (index, type) => {
   background-color: #fbfdff;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-
   &:hover {
     border-color: #409eff;
     .uploader-icon {
@@ -286,26 +281,23 @@ const move = (index, type) => {
     transition: color 0.3s;
     color: #8c939d;
   }
-
   ::v-deep(.el-progress) {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(0 0 0 / 50%);
     .el-progress__text {
       color: #fff;
     }
   }
 }
-
 .tip {
   font-size: 12px;
   color: var(--el-text-color-regular);
   margin-top: 7px;
 }
-
 ::v-deep(.el-upload) {
   vertical-align: middle;
 }
