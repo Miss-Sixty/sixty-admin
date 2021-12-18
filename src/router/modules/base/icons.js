@@ -6,30 +6,30 @@ export default {
   redirect: '/icons/index',
   meta: {
     title: '图标',
-    icon: 'icon-icon',
+    icon: 'icon-icon'
   },
   children: [
     {
       path: 'svg-icons',
       name: 'SvgIcons',
       props: {
-        type: 'svg',
+        type: 'svg'
       },
-      component: () => import('@/views/icons/index.vue'),
+      component: () => import('@/views/base/icons/index.vue'),
       meta: {
-        title: 'SVG 图标',
-      },
+        title: 'SVG 图标'
+      }
     },
     {
       path: 'sketch-icons',
       name: 'SketchIcons',
       props: {
-        type: 'sketch',
+        type: 'sketch'
       },
-      component: () => import('@/views/icons/index.vue'),
+      component: () => import('@/views/base/icons/index.vue'),
       meta: {
-        title: 'Sketch 图标',
-      },
-    },
-  ],
+        title: 'Sketch 图标'
+      }
+    }
+  ]
 }

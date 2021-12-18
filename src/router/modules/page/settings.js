@@ -8,11 +8,11 @@ export default {
     {
       path: 'index',
       name: 'Settings',
-      component: () => import('@/views/settings/index.vue'),
+      component: () => import('@/views/page/settings/index.vue'),
       meta: {
         title: '系统设置',
-        icon: 'settings-5-fill-icon',
-      },
-    },
-  ],
+        icon: 'settings-5-fill-icon'
+      }
+    }
+  ]
 }

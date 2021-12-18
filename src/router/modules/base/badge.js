@@ -8,44 +8,44 @@ export default {
   redirect: '/badge/dot',
   meta: {
     title: '动态标记',
-    icon: 'badge-fill-icon',
+    icon: 'badge-fill-icon'
   },
   children: [
     {
       path: 'dot',
       name: 'badgeDot',
-      component: () => import('@/views/badge/index.vue'),
+      component: () => import('@/views/base/badge/index.vue'),
       props: {
-        type: 'dot',
+        type: 'dot'
       },
       meta: {
         title: '点标记',
-        badge: () => appStore.dot,
-      },
+        badge: () => appStore.dot
+      }
     },
     {
       path: 'number',
       name: 'badgeNumber',
-      component: () => import('@/views/badge/index.vue'),
+      component: () => import('@/views/base/badge/index.vue'),
       props: {
-        type: 'number',
+        type: 'number'
       },
       meta: {
         title: '数字标记',
-        badge: () => appStore.number,
-      },
+        badge: () => appStore.number
+      }
     },
     {
       path: 'text',
       name: 'badgeText',
-      component: () => import('@/views/badge/index.vue'),
+      component: () => import('@/views/base/badge/index.vue'),
       props: {
-        type: 'text',
+        type: 'text'
       },
       meta: {
         title: '文字标记',
-        badge: () => appStore.text,
-      },
-    },
-  ],
+        badge: () => appStore.text
+      }
+    }
+  ]
 }

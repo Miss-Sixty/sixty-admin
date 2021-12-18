@@ -8,11 +8,11 @@ export default {
     {
       path: 'index',
       name: 'Print',
-      component: () => import('@/views/print/index.vue'),
+      component: () => import('@/views/base/print/index.vue'),
       meta: {
         title: '打印',
-        icon: 'PrinterFill-icon',
-      },
-    },
-  ],
+        icon: 'PrinterFill-icon'
+      }
+    }
+  ]
 }

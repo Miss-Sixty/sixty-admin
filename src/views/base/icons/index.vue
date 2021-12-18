@@ -18,21 +18,21 @@ import { computed } from 'vue'
 const props = defineProps({
   type: {
     type: String,
-    default: 'svg',
-  },
+    default: 'svg'
+  }
 })
 const obj = {
   svg: {
     title: 'SVG 图标',
     content: '你也可以使用自己的 SVG 图标，只需把 svg 图标复制到 @/icons/svg 文件夹后执行 yarn gen:svg 来自动创建图标组件。',
-    list: svgIcons,
+    list: svgIcons
   },
   sketch: {
     title: 'Sketch 图标',
     content:
       '@/assets/scetch 中保存 sketch 图标文件，执行 yarn export:svg 会都导出为 svg 。然后执行 yarn gen:svg 来自动创建图标组件。',
-    list: sketchIcons,
-  },
+    list: sketchIcons
+  }
 }
 const data = computed(() => obj[props.type])
 </script>

@@ -8,11 +8,11 @@ export default {
     {
       path: 'index',
       name: 'Permission',
-      component: () => import('@/views/permission/index.vue'),
+      component: () => import('@/views/base/permission/index.vue'),
       meta: {
         title: '权限验证',
-        icon: 'ShieldKeyholeFill-icon',
-      },
-    },
-  ],
+        icon: 'ShieldKeyholeFill-icon'
+      }
+    }
+  ]
 }

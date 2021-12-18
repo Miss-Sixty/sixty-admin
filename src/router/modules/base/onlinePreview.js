@@ -8,12 +8,12 @@ export default {
     {
       path: 'index',
       name: 'OnlinePreview',
-      component: () => import('@/views/onlinePreview/index.vue'),
+      component: () => import('@/views/base/onlinePreview/index.vue'),
       meta: {
         copyright: false,
         title: 'Office 预览',
-        icon: 'FileWord2Fill-icon',
-      },
-    },
-  ],
+        icon: 'FileWord2Fill-icon'
+      }
+    }
+  ]
 }

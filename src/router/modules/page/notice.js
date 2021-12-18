@@ -11,13 +11,13 @@ export default {
       component: EmptyLayout,
       meta: {
         title: '通知公告',
-        icon: 'message-2-fill-icon',
+        icon: 'message-2-fill-icon'
       },
       children: [
         {
           path: '',
           name: 'Notice',
-          component: () => import('@/views/page/notice/index.vue'),
+          component: () => import('@/views/page/notice/index.vue')
         },
         {
           path: 'add',
@@ -26,8 +26,8 @@ export default {
           meta: {
             title: '新增通知公告',
             hidden: true,
-            activeMenu: '/notice',
-          },
+            activeMenu: '/notice'
+          }
         },
         {
           path: 'edit/:id',
@@ -36,8 +36,8 @@ export default {
           meta: {
             title: '修改通知公告',
             hidden: true,
-            activeMenu: '/notice',
-          },
+            activeMenu: '/notice'
+          }
         },
         {
           path: 'info/:id',
@@ -46,10 +46,10 @@ export default {
           meta: {
             title: '公告详情',
             hidden: true,
-            activeMenu: '/notice',
-          },
-        },
-      ],
-    },
-  ],
+            activeMenu: '/notice'
+          }
+        }
+      ]
+    }
+  ]
 }

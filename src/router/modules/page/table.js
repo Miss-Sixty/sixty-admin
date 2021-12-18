@@ -13,38 +13,38 @@ export default {
       meta: {
         activeMenu: '/table',
         title: '表格',
-        icon: 'TableFill-icon',
+        icon: 'TableFill-icon'
       },
       children: [
         {
           path: '',
           name: 'TablePage',
-          component: () => import('@/views/table/index.vue'),
+          component: () => import('@/views/page/table/index.vue'),
           meta: {
-            activeMenu: '/table/index',
-          },
+            activeMenu: '/table/index'
+          }
         },
         {
           path: 'add',
           name: 'TableAdd',
-          component: () => import('@/views/table/addOrEdit/index.vue'),
+          component: () => import('@/views/page/table/addOrEdit/index.vue'),
           meta: {
             title: '新增员工',
             hidden: true,
-            activeMenu: '/table/index',
-          },
+            activeMenu: '/table/index'
+          }
         },
         {
           path: 'edit/:id',
           name: 'TableEdit',
-          component: () => import('@/views/table/addOrEdit/index.vue'),
+          component: () => import('@/views/page/table/addOrEdit/index.vue'),
           meta: {
             title: '修改员工',
             hidden: true,
-            activeMenu: '/table',
-          },
-        },
-      ],
-    },
-  ],
+            activeMenu: '/table'
+          }
+        }
+      ]
+    }
+  ]
 }

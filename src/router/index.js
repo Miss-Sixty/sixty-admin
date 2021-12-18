@@ -10,43 +10,43 @@ export const constantRoutes = [
       {
         path: '/reload',
         name: 'Reload',
-        component: () => import('@/views/reload.vue'),
-      },
-    ],
+        component: () => import('@/views/reload.vue')
+      }
+    ]
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/login/index.vue'),
-  },
+    component: () => import('@/views/login/index.vue')
+  }
 ]
 
-//基础
-import Nested from './modules/nested'
-import Frame from './modules/frame'
-import Badge from './modules/badge' //动态标记
-import Feat from './modules/feat' //方法
-import comp from './modules/comp' //组件
-import Icons from './modules/icons' //图标
-import Watermark from './modules/watermark' //页面水印
-import OnlinePreview from './modules/onlinePreview' //office 预览
-import Charts from './modules/charts' // 图表
-import Print from './modules/print' // 打印
-import Permission from './modules/permission' //权限
+// 基础
+import Nested from './modules/base/nested'
+import Frame from './modules/base/frame'
+import Badge from './modules/base/badge' // 动态标记
+import Feat from './modules/base/feat' // 方法
+import comp from './modules/base/comp' // 组件
+import Icons from './modules/base/icons' // 图标
+import Watermark from './modules/base/watermark' // 页面水印
+import OnlinePreview from './modules/base/onlinePreview' // office 预览
+import Charts from './modules/base/charts' // 图表
+import Print from './modules/base/print' // 打印
+import Permission from './modules/base/permission' // 权限
 
-//页面
-import Notice from './modules/page/notice' //通知公告
-import Table from './modules/table' //表单页
-import Settings from './modules/settings' //个人设置
-import Exception from './modules/exception' //异常页
-import Organization from './modules/page/organization' //通用列表页
+// 页面
+import Notice from './modules/page/notice' // 通知公告
+import Table from './modules/page/table' // 表单页
+import Settings from './modules/page/settings' // 个人设置
+import Exception from './modules/page/exception' // 异常页
+import Organization from './modules/page/organization' // 通用列表页
 
 // 动态路由（异步路由、导航栏路由）
 export const asyncRoutes = [
   {
     meta: {
       title: '基础',
-      icon: 'home-icon',
+      icon: 'home-icon'
     },
     children: [
       {
@@ -58,9 +58,9 @@ export const asyncRoutes = [
             path: '/home',
             component: () => import('@/views/home.vue'),
             name: 'Home',
-            meta: { title: '首页', icon: 'Home-icon', copyright: false, affix: true },
-          },
-        ],
+            meta: { title: '首页', icon: 'Home-icon', copyright: false, affix: true }
+          }
+        ]
       },
       Icons,
       comp,
@@ -72,16 +72,16 @@ export const asyncRoutes = [
       Print,
       Frame,
       OnlinePreview,
-      Nested,
-    ],
+      Nested
+    ]
   },
   {
     meta: {
       title: '页面',
-      icon: 'page-icon',
+      icon: 'page-icon'
     },
-    children: [Notice, Organization, Table, Exception, Settings],
-  },
+    children: [Notice, Organization, Table, Exception, Settings]
+  }
 ]
 
 export const lastRoutes = {
@@ -91,15 +91,15 @@ export const lastRoutes = {
   children: [
     {
       path: '/:pathMatch(.*)*',
-      component: () => import('@/views/exception/404.vue'),
-      hidden: true,
-    },
-  ],
+      component: () => import('@/views/page/exception/404.vue'),
+      hidden: true
+    }
+  ]
 }
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: constantRoutes,
+  routes: constantRoutes
 })
 
 export default router

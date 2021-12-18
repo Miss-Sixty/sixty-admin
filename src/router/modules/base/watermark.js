@@ -8,11 +8,11 @@ export default {
     {
       path: 'index',
       name: 'Watermark',
-      component: () => import('@/views/watermark/index.vue'),
+      component: () => import('@/views/base/watermark/index.vue'),
       meta: {
         title: '页面水印',
-        icon: 'WatermarkIcon-icon',
-      },
-    },
-  ],
+        icon: 'WatermarkIcon-icon'
+      }
+    }
+  ]
 }

@@ -7,40 +7,40 @@ export default {
   redirect: '/comp/page-header',
   meta: {
     title: '组件',
-    icon: 'CollageFill-icon',
+    icon: 'CollageFill-icon'
   },
   children: [
     {
       path: 'page-header',
       name: 'PageHeader',
-      component: () => import('@/views/comp/pageheader/index.vue'),
+      component: () => import('@/views/base/comp/pageheader/index.vue'),
       meta: {
-        title: '页头',
-      },
+        title: '页头'
+      }
     },
     {
       path: 'page-main',
       name: 'PageMain',
-      component: () => import('@/views/comp/pageMain/index.vue'),
+      component: () => import('@/views/base/comp/pageMain/index.vue'),
       meta: {
-        title: '内容块',
-      },
+        title: '内容块'
+      }
     },
     {
       path: 'upload',
       name: 'Upload',
-      component: () => import('@/views/comp/upload/index.vue'),
+      component: () => import('@/views/base/comp/upload/index.vue'),
       meta: {
-        title: '上传',
-      },
+        title: '上传'
+      }
     },
     {
       path: 'trend',
       name: 'Trend',
-      component: () => import('@/views/comp/trend/index.vue'),
+      component: () => import('@/views/base/comp/trend/index.vue'),
       meta: {
-        title: '趋势符号',
-      },
-    },
-  ],
+        title: '趋势符号'
+      }
+    }
+  ]
 }
