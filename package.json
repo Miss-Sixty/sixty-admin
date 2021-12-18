@@ -7,7 +7,8 @@
     "serve": "vite preview",
     "export:svg": "node ./src/components/Icons/scripts/sketchToSvg.js",
     "gen:svg": "node ./src/components/Icons/scripts/generate.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "new": "plop"
   },
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
@@ -37,6 +38,7 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "mockjs": "^1.1.0",
+    "plop": "^3.0.5",
     "postcss-html": "^1.3.0",
     "postcss-scss": "^4.0.2",
     "sass": "^1.45.0",
