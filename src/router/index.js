@@ -36,10 +36,9 @@ import Permission from './modules/base/permission' // 权限
 
 // 页面
 import Notice from './modules/page/notice' // 通知公告
-import Table from './modules/page/table' // 表单页
 import Settings from './modules/page/settings' // 个人设置
 import Exception from './modules/page/exception' // 异常页
-import Organization from './modules/page/organization' // 通用列表页
+import Example from './modules/page/example' // 通用列表页
 
 // 动态路由（异步路由、导航栏路由）
 export const asyncRoutes = [
@@ -80,7 +79,7 @@ export const asyncRoutes = [
       title: '页面',
       icon: 'page-icon'
     },
-    children: [Notice, Organization, Table, Exception, Settings]
+    children: [Notice, Example, Exception, Settings]
   }
 ]
 

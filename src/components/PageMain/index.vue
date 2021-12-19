@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'PageMain',
+  name: 'PageMain'
 }
 </script>
 <script setup>
@@ -24,16 +24,16 @@ defineProps({
   content: String,
   isShadow: {
     type: Boolean,
-    default: false,
+    default: false
   },
   headerBorder: {
     type: Boolean,
-    default: true,
+    default: true
   },
   padding: {
     type: String,
-    default: '20px',
-  },
+    default: '20px'
+  }
 })
 </script>
 
@@ -44,14 +44,11 @@ defineProps({
   overflow: hidden;
   color: #303133;
   transition: var(--el-transition-duration);
-
   &--shadow {
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
   }
-
   &__header {
     padding: 16px 20px;
-
     .title {
       > span {
         font-size: 16px;

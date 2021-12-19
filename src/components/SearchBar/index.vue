@@ -1,7 +1,7 @@
 <template>
-  <page-main style="margin: 20px" :header-border="false">
-    <template #header>
-      <el-space wrap>
+  <page-main :padding="padding">
+    <el-row justify="space-between" align="middle">
+      <el-space wrap style="flex: 1;">
         <el-input
           v-if="keywords !== undefined"
           :size="size"
@@ -14,40 +14,42 @@
         />
         <slot />
       </el-space>
-    </template>
-    <template #extra>
+
       <div>
-        <el-button type="primary" icon="el-icon-search" @click="$emit('on-search')">搜 索</el-button>
-        <el-button type="warning" icon="el-icon-refresh-right" @click="$emit('on-reset')">重 置</el-button>
+        <el-button :size="size" type="primary" :icon="Search" auto-insert-space @click="$emit('on-search')">搜索</el-button>
+        <el-button :size="size" type="warning" :icon="RefreshLeft" auto-insert-space @click="$emit('on-reset')">重置</el-button>
       </div>
-    </template>
+    </el-row>
   </page-main>
 </template>
 <script>
 export default {
-  name: 'SearchBar',
+  name: 'SearchBar'
 }
 </script>
 <script setup>
-
+import { Search, RefreshLeft } from '@element-plus/icons'
 defineProps({
   keywordsText: {
     type: String,
-    default: '请输入搜索内容',
+    default: '请输入搜索内容'
   },
   add: Boolean,
   keywords: [String, Number],
   status: Number,
   addText: {
     type: String,
-    default: '新 增',
+    default: '新 增'
   },
   size: String,
-  margin: String,
+  padding: {
+    type: String,
+    default: '20px'
+  },
   searchBtn: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 })
 defineEmits(['update:keywords', 'on-search', 'on-reset'])
 </script>

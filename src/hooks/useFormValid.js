@@ -1,13 +1,13 @@
+import { unref } from 'vue'
+
 export default function useFormValid(formRef) {
-  function validForm() {
-    const form = formRef.value
-    if (form) return form.validate()
+  function validate() {
+    return unref(formRef) && unref(formRef).validate()
   }
 
   function resetFields() {
-    const form = formRef.value
-    if (form) return form.resetFields()
+    return unref(formRef) && unref(formRef).resetFields()
   }
 
-  return { validForm, resetFields }
+  return { validate, resetFields }
 }

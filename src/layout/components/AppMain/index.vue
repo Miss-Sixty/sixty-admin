@@ -7,7 +7,7 @@
     @scroll="scroll => $emit('on-scroll', !!scroll.scrollTop)"
   >
     <transition name="fade">
-      <div class="maximize" v-show="settingStore.maximize" @click="settingStore.fullScreen">
+      <div v-show="settingStore.maximize" class="maximize" @click="settingStore.fullScreen">
         <el-icon class="icon"><close-bold /></el-icon>
       </div>
     </transition>
@@ -28,12 +28,12 @@ import { useRoute } from 'vue-router'
 import { watch, ref } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
 import { CloseBold } from '@element-plus/icons'
-
+defineEmits(['on-scroll'])
 const settingStore = useSettingStore()
 const scrollbarRef = ref()
 const route = useRoute()
 
-//是否显示尾部
+// 是否显示尾部
 const copyright = ref(false)
 watch(
   () => route.meta?.copyright,
@@ -45,7 +45,7 @@ watch(
 <style lang="scss" scoped>
 .app-main {
   flex: 1;
-  background-color: var(--el-background-color-base);
+  background-color: var(--el-bg-color);
   position: relative;
   transition: padding-top 0.3s, margin-left 0.3s;
   ::v-deep(.scrollbar) {
@@ -54,12 +54,10 @@ watch(
     justify-content: space-between;
     flex: 1;
   }
-
   ::v-deep(.wrap-class) {
     display: flex;
     flex-direction: column;
   }
-
   .maximize {
     position: absolute;
     left: -40px;
@@ -82,22 +80,18 @@ watch(
     }
   }
 }
-
 .main-leave-active,
 .main-enter-active {
   transition: all 0.25s;
 }
-
 .main-enter-from {
   opacity: 0;
   transform: translateX(-30px);
 }
-
 .main-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }
-
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

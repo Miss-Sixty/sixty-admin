@@ -1,42 +1,37 @@
-import useForInData from './useForInData'
-import { ElNotification } from 'element-plus'
+import { ref } from 'vue'
+
 /**
- * 获取列表数据、删除列表数据
- * api：list-列表api del-删除api
- * tableData：分页数据和列表数据
- * tableQuery：列表参数
- * omit：循环写入tableData数据时排除的参数
+ * 获取列表数据
+ * @param {function} api 请求列表api
+ * @param {object} props{} tableQuery 请求列表api参数
+ * @param {object} props{} fetch_all 是否分页
+ * @return {function} getListData 请求事件
+ * @return {array} list 列表数据
+ * @return {function} paginate 分页数据
+ * @return {boolean} loading 是否请求中
  */
-export default function ({ list, del }, tableData, tableQuery, omit = ['list']) {
-  function getListData() {
-    tableData.loading = true
-    list(tableQuery)
+export default function(api, newProps) {
+  const props = { tableQuery: {}, fetch_all: false, ...newProps }
+  const loading = ref(false)
+  const list = ref([])
+  const paginate = ref({ current_page: 1, page_size: 10, total: 0 })
+
+  function getListData(callBack) {
+    loading.value = true
+    const { current_page: page, page_size: per_page } = paginate.value
+    api({ ...props.tableQuery, page, per_page })
       .then(res => {
-        console.log(res)
-        const { paginate, list } = res.data
-        if (!list && !paginate) return (tableData.list = res.data)
-        tableData.list = list
-        useForInData(paginate, tableData, omit)
+        if (props.fetch_all) list.value = res.data
+        else {
+          list.value = res?.data?.list
+          paginate.value = res?.data?.paginate
+        }
       })
-      .finally(() => (tableData.loading = false))
+      .finally(() => {
+        loading.value = false
+        typeof callBack === 'function' && callBack()
+      })
   }
 
-  //删除
-  async function onDelChange({ row, index }) {
-    try {
-      row.disabled = true
-      const res = await del({ id: row.id })
-      tableData.list.splice(index, 1)
-      tableData.total -= 1
-
-      ElNotification({
-        title: '提示',
-        message: res.message,
-        type: 'success',
-      })
-    } finally {
-      row.disabled = false
-    }
-  }
-  return { getListData, onDelChange }
+  return { getListData, loading, list, paginate }
 }
