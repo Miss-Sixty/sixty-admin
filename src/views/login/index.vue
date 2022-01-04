@@ -1,11 +1,18 @@
 <template>
   <div class="login">
-    <header class="header">
+    <div class="content">
+  <header class="header">
       <h2 class="logo">{{ title }}</h2>
       <dark-switch />
     </header>
 
+    <div class="box">
+    <img class="svg" src="../../components/Icons/undraw_snowman_re_guxt.svg">
     <component :is="typeComponent" v-model="loginType" class="form" />
+    </div>
+
+    </div>
+
   </div>
 </template>
 <script setup>
@@ -34,10 +41,30 @@ const typeComponent = computed(() => {
 
 <style lang="scss" scoped>
 .login {
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+
+  .content{
   max-width: 1400px;
   margin: auto;
   user-select: none;
+    height: 100%;
+  }
+
+
+  &::before{
+    content: ' ';
+    position: absolute;
+    right: 50%;
+    bottom: -35%;
+    width:150vw;
+    height:150vw;
+    border-radius: 50%;
+    background-color: #4C7CC3;
+    z-index: -1;
+  }
 
   .header {
     display: flex;
@@ -49,13 +76,25 @@ const typeComponent = computed(() => {
       flex: 1;
       font-weight: bold;
       margin: 0;
+      color:#fff;
+      font: 700 200% Consolas;
+    }
+  }
+
+  .box{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    padding-bottom: 100px;
+    .svg{
+      width:400px;
     }
   }
 
   .form {
     width: 450px;
     padding: 50px;
-    margin: 4% auto;
   }
 }
 </style>

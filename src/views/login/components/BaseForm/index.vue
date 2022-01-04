@@ -2,13 +2,13 @@
   <el-form ref="formRef" :model="formData">
     <h1>登录</h1>
     <el-form-item prop="username" :rules="{ required: true, message: '请输入账号', trigger: 'blur' }">
-      <el-input v-model="formData.username" prefix-icon="el-icon-user" placeholder="请输入账号" clearable :disabled="state.loading" />
+      <el-input v-model="formData.username" :prefix-icon="User" placeholder="请输入账号" clearable :disabled="state.loading" />
     </el-form-item>
     <el-form-item prop="password" :rules="{ required: true, message: '请输入密码', trigger: 'blur' }">
       <el-input
         v-model="formData.password"
         show-password
-        prefix-icon="el-icon-lock"
+        :prefix-icon="Lock"
         placeholder="请输入密码"
         clearable
         :disabled="state.loading"
@@ -56,6 +56,7 @@ import { useUserStore } from '@/store/modules/user'
 import { encrypt, decrypt } from '@/utils/secret'
 import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
+import {User ,Lock} from '@element-plus/icons'
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
