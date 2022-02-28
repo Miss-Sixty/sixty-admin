@@ -1,14 +1,16 @@
-import htmlPlugin from "vite-plugin-html";
+import { createHtmlPlugin } from 'vite-plugin-html'
 
-export default function createHtml(env, isBuild) {
+export default function createHtml(env) {
   const { VITE_APP_TITLE } = env;
-  const html = htmlPlugin({
+  return createHtmlPlugin({
+    minify: true,
+    /**
+     * 需要注入 index.html ejs 模版的数据
+     */
     inject: {
-      injectData: {
+      data: {
         title: VITE_APP_TITLE,
       },
     },
-    minify: isBuild,
-  });
-  return html;
+  })
 }
