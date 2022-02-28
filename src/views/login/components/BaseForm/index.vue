@@ -15,9 +15,9 @@
       />
     </el-form-item>
     <el-form-item>
-      <el-row justify="space-between">
+      <el-row justify="space-between" style="width: 100%;">
         <el-checkbox v-model="state.remember">
-          记住我 <span style="color: #909399; margin-left: 4px; font-size: 12px">请勿在公共电脑上勾选此项</span>
+          记住我<span style="color: #909399; margin-left: 4px; font-size: 12px">请勿在公共电脑上勾选此项</span>
         </el-checkbox>
 
         <el-link type="primary" :underline="false" @click="$emit('update:modelValue', 'reset')">忘记密码？</el-link>
@@ -28,17 +28,19 @@
     </el-form-item>
 
     <el-form-item>
-      <el-row justify="space-between" :gutter="16">
-        <el-col :span="8">
-          <el-button class="btn-long" size="small" @click="$emit('update:modelValue', 'mobile')">手机号登录</el-button>
-        </el-col>
-        <el-col :span="8">
-          <el-button class="btn-long" size="small" @click="$emit('update:modelValue', 'qrCode')">二维码登录</el-button>
-        </el-col>
-        <el-col :span="8">
-          <el-button class="btn-long" size="small" @click="$emit('update:modelValue', 'register')">注册</el-button>
-        </el-col>
-      </el-row>
+      <div style="width: 100%;">
+        <el-row justify="space-between" :gutter="16">
+          <el-col :span="8">
+            <el-button class="btn-long" size="small" @click="$emit('update:modelValue', 'mobile')">手机号登录</el-button>
+          </el-col>
+          <el-col :span="8">
+            <el-button class="btn-long" size="small" @click="$emit('update:modelValue', 'qrCode')">二维码登录</el-button>
+          </el-col>
+          <el-col :span="8">
+            <el-button class="btn-long" size="small" @click="$emit('update:modelValue', 'register')">注册</el-button>
+          </el-col>
+        </el-row>
+      </div>
     </el-form-item>
     <el-divider>其他登录方式</el-divider>
     <el-row justify="space-around" :gutter="16">
