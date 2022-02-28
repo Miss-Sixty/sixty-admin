@@ -1,9 +1,11 @@
 import { defineConfig, loadEnv } from 'vite'
-import createVitePlugins from './vite/plugins'
-import { resolve } from 'path'
+import createVitePlugins from './vite/plugins/index.js'
 import dayjs from 'dayjs'
-
-const fs = require('fs')
+import fs from 'fs'
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+const filename = fileURLToPath(import.meta.url);
+const _dirname = dirname(filename);
 
 export default ({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
@@ -17,10 +19,10 @@ export default ({ mode, command }) => {
 
   return defineConfig({
     base: './',
-    plugins: createVitePlugins(env, command === 'build'),
+    plugins: createVitePlugins(env),
     resolve: {
       alias: {
-        '@': resolve(__dirname, 'src'),
+        '@': resolve(_dirname, 'src'),
       },
     },
     css: {

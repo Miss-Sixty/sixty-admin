@@ -1,126 +1,53 @@
-// 代码来自 element-plus-icons https://github.com/element-plus/element-plus-icons/blob/main/scripts/generate.js
+// 代码来自 element-plus-icons https://github.com/element-plus/element-plus-icons/blob/main/packages/vue/build/generate.ts
 // 稍微调整了部分代码
-const fs = require("fs");
-const path = require("path");
-const chalk = require("chalk");
-const { optimize } = require("svgo");
+import chalk from 'chalk'
+import { emptyDir } from 'fs-extra'
+import { readFile, writeFile } from 'fs/promises'
+import { fileURLToPath } from 'url';
+import glob from 'fast-glob'
+import camelcase from 'camelcase'
+import { dirname, resolve, basename } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const pathOutput = resolve(__dirname, "../components");
+const pathSvg = resolve(__dirname, "../svg");
 
-const SVG = path.resolve(__dirname, "../svg");
-const SKETCH_SVG = path.resolve(__dirname, "../sketchSvg");
-
-const outDir = path.resolve(__dirname, "../components");
-
-const config = {
-  plugins: [
-    "cleanupAttrs",
-    "removeDoctype",
-    "removeXMLProcInst",
-    "removeComments",
-    "removeMetadata",
-    "removeTitle",
-    "removeDesc",
-    "removeUselessDefs",
-    "removeEditorsNSData",
-    "removeEmptyAttrs",
-    "removeHiddenElems",
-    "removeEmptyText",
-    "removeEmptyContainers",
-    // 'removeViewBox',
-    "cleanupEnableBackground",
-    "convertStyleToAttrs",
-    "convertColors",
-    "convertPathData",
-    "convertTransform",
-    "removeUnknownsAndDefaults",
-    "removeNonInheritableGroupAttrs",
-    "removeUselessStrokeAndFill",
-    "removeUnusedNS",
-    "cleanupIDs",
-    "cleanupNumericValues",
-    "moveElemsAttrsToGroup",
-    "moveGroupAttrsToElems",
-    "collapseGroups",
-    // 'removeRasterImages',
-    "mergePaths",
-    "convertShapeToPath",
-    "sortAttrs",
-    "removeDimensions",
-    { name: "removeAttrs", params: { attrs: "class" } },
-  ],
-};
-const configFill = {
-  plugins: [
-    ...config.plugins,
-    { name: "removeAttrs", params: { attrs: "(stroke|fill|class)" } },
-    {
-      name: "addAttrs",
-      type: "perItem",
-      fn(ast) {
-        const { type, name } = ast;
-        if (type === "element" && name === "path") {
-          ast.attributes.fill = "currentColor";
-        }
-      },
-    },
-  ],
-};
-
-//删除目录并重建
-fs.promises
-  .rm(outDir, {
-    force: true,
-    recursive: true,
-  })
-  .then(() => {
-    fs.mkdirSync(outDir);
-    fs.mkdirSync(`${outDir}/svg`);
-    fs.mkdirSync(`${outDir}/sketchSvg`);
-    main(SVG, true);
-    main(SKETCH_SVG);
-  });
-
-// maybe consider using gulp here to do sequential operations
-// without implementation chaining function
-function main(basePath, isFill) {
-  const icons = fs.readdirSync(basePath);
-  icons.map((icon) => transform(icon, basePath, isFill));
+const getSvgFiles = async () => {
+  return glob('*.svg', { cwd: pathSvg, absolute: true })
 }
 
-async function transform(filename, basePath, isFill) {
-  console.log(chalk.cyan(`Start building: ${filename}`));
-  const content = await fs.promises.readFile(path.resolve(basePath, filename), {
-    encoding: "utf-8",
-  });
-  const basename = filename.split(".svg").shift();
-  const componentName = basename.split("-").map(capitalizeInitial).join("");
-  const optimized = optimize(content, isFill ? config : configFill);
-  // TODO: make this generic and pipe-able for generating
-  // reusable code like ant design icon does.
-  const transformed = transformToVue3(optimized.data, componentName);
-  writeToDisk(transformed, componentName, isFill);
+const getName = (file) => {
+  const filename = basename(file).replace('.svg', '')
+  const componentName = camelcase(filename, { pascalCase: true })
+  return {
+    filename,
+    componentName,
+  }
 }
 
-function writeToDisk(content, componentName, isFill) {
-  const targetFile = path.resolve(`${outDir}/${isFill ? "svg" : "sketchSvg"}`);
-  const file = path.resolve(targetFile, `./${componentName}Icon.vue`);
-  fs.writeFileSync(file, content, {
-    encoding: "utf-8",
-  });
-}
+const transformToVueComponent = async (file) => {
+  const content = await readFile(file, 'utf-8')
+  const { filename, componentName } = getName(file)
+  console.log(filename, componentName)
 
-function capitalizeInitial(s) {
-  return s[0].toUpperCase() + s.slice(1);
-}
-
-function transformToVue3(content, componentName) {
-  // this is a rather arbitrary
-  return `<template>
+  const vue =
+    `
+  <template>
   ${content}
-</template>
-<script>
-export default {
-  name: '${componentName}Icon',
+  </template>
+  <script>
+    import { defineComponent } from 'vue'
+    export default defineComponent({
+      name: "${componentName}",
+    })
+  </script>`
+  writeFile(resolve(pathOutput, `${filename}.vue`), vue, 'utf-8')
 }
-</script>
-`;
-}
+
+  ; (async () => {
+    console.info(chalk.blue('生成 Vue 组件'))
+    await emptyDir(pathOutput)
+    const files = await getSvgFiles()
+    console.info(chalk.blue('生成 Vue 文件'))
+    await Promise.all(files.map((file) => transformToVueComponent(file)))
+  })()
