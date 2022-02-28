@@ -9,7 +9,6 @@
       </header>
 
       <div class="box">
-        <UndrawMobileUserReXta4 class="svg"/>
         <component :is="typeComponent" v-model="loginType" class="form" />
       </div>
     </div>
@@ -50,35 +49,49 @@ const typeComponent = computed(() => {
     margin: auto;
     user-select: none;
     height: 100%;
-  }
-
-  .header {
-    &__bar {
-      display: flex;
-      justify-content: end;
-      padding: 15px;
-    }
-    .logo {
-      margin: 0;
-      font-weight: bold;
-      color: #213547;
-      padding: 0 15px;
-    }
-  }
-
-  .box {
-    margin-top: 8%;
+    padding: 15px;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    .svg {
-      width: 400px;
-    }
-  }
+    flex-direction: column;
 
-  .form {
-    width: 450px;
-    padding: 50px;
+    .header {
+      &__bar {
+        display: flex;
+        justify-content: end;
+      }
+      .logo {
+        margin: 0;
+        font-weight: bold;
+        color: #213547;
+      }
+    }
+
+    .box {
+      margin-bottom: 15%;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      position: relative;
+      flex: 1;
+
+      &::after {
+        content: " ";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60%;
+        overflow: hidden;
+        height: 80%;
+        background-image: url("./login-bg.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        z-index: -1;
+      }
+      .form {
+        width: 450px;
+        padding: 50px;
+        margin-right: 10%;
+      }
+    }
   }
 }
 </style>

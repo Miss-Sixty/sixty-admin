@@ -28,8 +28,6 @@ const getName = (file) => {
 const transformToVueComponent = async (file) => {
   const content = await readFile(file, 'utf-8')
   const { filename, componentName } = getName(file)
-  console.log(filename, componentName)
-
   const vue =
     `
   <template>
@@ -45,9 +43,10 @@ const transformToVueComponent = async (file) => {
 }
 
   ; (async () => {
-    console.info(chalk.blue('生成 Vue 组件'))
+    console.info(chalk.blue('开始生成 Vue 组件'))
     await emptyDir(pathOutput)
     const files = await getSvgFiles()
-    console.info(chalk.blue('生成 Vue 文件'))
+    console.info(chalk.blue('开始生成 Vue 文件'))
     await Promise.all(files.map((file) => transformToVueComponent(file)))
+    console.info(chalk.blue('结束'))
   })()
