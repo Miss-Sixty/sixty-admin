@@ -46,6 +46,7 @@ watch(
 .app-main {
   flex: 1;
   position: relative;
+  background-color: var(--el-bg-color);
   transition: padding-top 0.3s, margin-left 0.3s;
   ::v-deep(.scrollbar) {
     display: flex;
