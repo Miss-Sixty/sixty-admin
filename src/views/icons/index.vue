@@ -1,8 +1,12 @@
 <template>
   <div>
-    <page-header no-icon title="Icon 图标" :content="data.content" />
+    <page-header
+      no-icon
+      title="Icon 图标"
+      content="你也可以使用自己的 SVG 图标，只需把 svg 图标复制到 @/icons/svg 文件夹后执行 pnpm gen:svg 来自动创建图标组件。"
+    />
     <div class="grid">
-      <div v-for="item in data.list" :key="item" class="icon-item">
+      <div v-for="item in svgIcons" :key="item" class="icon-item">
         <el-icon :size="40">
           <component :is="item" />
         </el-icon>
@@ -13,28 +17,7 @@
 </template>
 
 <script setup>
-import { svgIcons, sketchIcons } from './svg-icons'
-import { computed } from 'vue'
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'svg',
-  },
-})
-const obj = {
-  svg: {
-    title: 'SVG 图标',
-    content: '你也可以使用自己的 SVG 图标，只需把 svg 图标复制到 @/icons/svg 文件夹后执行 yarn gen:svg 来自动创建图标组件。',
-    list: svgIcons,
-  },
-  sketch: {
-    title: 'Sketch 图标',
-    content:
-      '@/assets/scetch 中保存 sketch 图标文件，执行 yarn export:svg 会都导出为 svg 。然后执行 yarn gen:svg 来自动创建图标组件。',
-    list: sketchIcons,
-  },
-}
-const data = computed(() => obj[props.type])
+import svgIcons from './svg-icons'
 </script>
 
 <style lang="scss" scoped>

@@ -1,7 +1,7 @@
 <template>
-  <el-popover trigger="hover" placement="bottom" :width="320" v-model:visible="visible">
+  <el-popover trigger="click" placement="bottom" :width="320" v-model:visible="visible">
     <template #reference>
-      <el-icon role="button" class="svg">
+      <el-icon role="button" class="svg" @click="visible=true">
         <el-badge :value="props.notice.num" :hidden="!props.notice.num" type="danger">
           <Bell />
         </el-badge>

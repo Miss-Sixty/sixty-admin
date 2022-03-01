@@ -5,10 +5,6 @@ export default {
   path: '/icons',
   component: Layout,
   redirect: '/icons/index',
-  meta: {
-    title: '图标',
-    icon: HomeFilled,
-  },
   children: [
     {
       path: 'svg-icons',
@@ -19,17 +15,7 @@ export default {
       component: () => import('@/views/icons/index.vue'),
       meta: {
         title: 'SVG 图标',
-      },
-    },
-    {
-      path: 'sketch-icons',
-      name: 'SketchIcons',
-      props: {
-        type: 'sketch',
-      },
-      component: () => import('@/views/icons/index.vue'),
-      meta: {
-        title: 'Sketch 图标',
+        icon: HomeFilled,
       },
     },
   ],

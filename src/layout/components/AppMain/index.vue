@@ -45,7 +45,6 @@ watch(
 <style lang="scss" scoped>
 .app-main {
   flex: 1;
-  background-color: var(--el-background-color-base);
   position: relative;
   transition: padding-top 0.3s, margin-left 0.3s;
   ::v-deep(.scrollbar) {

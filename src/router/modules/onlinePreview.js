@@ -1,4 +1,5 @@
 import Layout from '@/layout/index.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/onlinePreview',
@@ -12,7 +13,7 @@ export default {
       meta: {
         copyright: false,
         title: 'Office 预览',
-        icon: 'HomeFilled',
+        icon: HomeFilled,
       },
     },
   ],
