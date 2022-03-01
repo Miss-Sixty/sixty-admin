@@ -8,7 +8,10 @@
       @click="switchActivedChange(index)"
       role="button"
     >
-      <component class="icon" v-if="item.meta?.icon" :is="item.meta?.icon" />
+      <el-icon v-if="item.meta?.icon" size="20px">
+        <component :is="item.meta?.icon" />
+      </el-icon>
+
       <span>{{ item.meta?.title }}</span>
     </div>
   </div>
@@ -42,6 +45,7 @@ const switchActivedChange = index => {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin: 5px auto;
     width: 54px;
     height: 54px;
@@ -50,10 +54,6 @@ const switchActivedChange = index => {
     &--active,
     &:hover {
       background-color: #409eff;
-    }
-
-    .icon {
-      height: 20px;
     }
 
     span {

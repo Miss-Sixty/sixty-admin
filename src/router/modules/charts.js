@@ -1,5 +1,5 @@
 import Layout from '@/layout/index.vue'
-
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/charts',
@@ -12,7 +12,7 @@ export default {
       component: () => import('@/views/charts/index.vue'),
       meta: {
         title: '图表',
-        icon: 'PieChart2Fill-icon',
+        icon: HomeFilled,
       },
     },
   ],

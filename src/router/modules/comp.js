@@ -1,4 +1,5 @@
 import Layout from '@/layout/index.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/comp',
@@ -7,7 +8,7 @@ export default {
   redirect: '/comp/page-header',
   meta: {
     title: '组件',
-    icon: 'CollageFill-icon',
+    icon: HomeFilled,
   },
   children: [
     {

@@ -1,5 +1,6 @@
 import Layout from '@/layout/index.vue'
 import EmptyLayout from '@/layout/empty.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/table',
@@ -13,7 +14,7 @@ export default {
       meta: {
         activeMenu: '/table',
         title: '表格',
-        icon: 'TableFill-icon',
+        icon: HomeFilled,
       },
       children: [
         {

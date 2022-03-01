@@ -2,8 +2,8 @@
   <el-tooltip :disabled="!$attrs.content" v-bind="$attrs">
     <el-icon
       role="button"
-      class="icon"
-      :style="{ padding }"
+      class="svg"
+      :style="{ padding, ...style }"
       @click="$emit('click', $event)"
     >
       <component :is="name" />
@@ -16,16 +16,17 @@ defineProps({
   name: [String, Object],
   padding: {
     type: String,
-    default: "0 10px",
+    default: "0 8px",
   },
   click: Function,
+  style: Object
 });
 
 defineEmits(["click"]);
 </script>
 
 <style lang="scss" scoped>
-.icon {
+.svg {
   box-sizing: content-box;
   height: $headbar-height;
   font-size: 18px;

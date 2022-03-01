@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/layout/index.vue'
-
+import { HomeFilled } from '@element-plus/icons-vue'
+import { markRaw } from 'vue'
 export const constantRoutes = [
   {
     path: '/',
@@ -46,7 +47,7 @@ export const asyncRoutes = [
   {
     meta: {
       title: '基础',
-      icon: 'home-icon',
+      icon: markRaw(HomeFilled),
     },
     children: [
       {
@@ -58,7 +59,7 @@ export const asyncRoutes = [
             path: '/home',
             component: () => import('@/views/home.vue'),
             name: 'Home',
-            meta: { title: '首页', icon: 'Home-icon', copyright: false, affix: true },
+            meta: { title: '首页', icon: HomeFilled, copyright: false, affix: true },
           },
         ],
       },
@@ -78,7 +79,7 @@ export const asyncRoutes = [
   {
     meta: {
       title: '页面',
-      icon: 'page-icon',
+      icon: HomeFilled,
     },
     children: [Notice, Organization, Table, Exception, Settings],
   },

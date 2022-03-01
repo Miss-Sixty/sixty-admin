@@ -3,16 +3,16 @@
     <notice :notice="noticeData" />
 
     <router-link custom :to="{ name: 'Reload' }" v-slot="{ navigate }">
-      <head-icon name="refresh-line-icon" content="刷新页面" @click="navigate" />
+      <head-icon :name="Refresh" content="刷新页面" @click="navigate" />
     </router-link>
 
+    <head-icon :name="FullScreen" :content="isFullscreen ? '退出全屏' : '全屏'" @click="toggle" />
     <head-icon
-      :name="isFullscreen ? 'fullscreen-exit-fill-icon' : 'fullscreen-fill-icon'"
-      :content="isFullscreen ? '退出全屏' : '全屏'"
-      @click="toggle"
+      :name="Setting"
+      content="设置"
+      v-if="headerSetting.showSetting"
+      @click="settingDrawerHidden = true"
     />
-
-    <head-icon :name="Setting" content="设置" v-if="headerSetting.showSetting" @click="settingDrawerHidden = true" />
 
     <el-dropdown>
       <div role="button" class="user-wrapper" v-loading="userInfoLoading">
@@ -20,7 +20,7 @@
           <p class="user-name">{{ userInfo.name }}</p>
           <p class="job-title">{{ userInfo.jobTitle }}</p>
         </div>
-        <el-avatar size="medium" :src="userInfo.avatar" />
+        <el-avatar :src="userInfo.avatar" />
       </div>
       <template #dropdown>
         <el-dropdown-menu>
@@ -36,7 +36,7 @@
           >
             <el-dropdown-item>项目文档</el-dropdown-item>
           </el-link>
-          <el-dropdown-item divided @click="signOut"> 退出登陆 </el-dropdown-item>
+          <el-dropdown-item divided @click="signOut">退出登陆</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -54,7 +54,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useFullscreen } from '@vueuse/core'
 import Notice from './Notice.vue'
 import { useSettingStore } from '@/store/modules/setting'
-import { Setting } from '@element-plus/icons-vue'
+import { Setting, Refresh, FullScreen } from '@element-plus/icons-vue'
 
 const { headerSetting } = useSettingStore()
 const router = useRouter()

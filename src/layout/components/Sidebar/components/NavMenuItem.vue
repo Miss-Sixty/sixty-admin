@@ -124,13 +124,6 @@ const badge = badge => {
 </script>
 
 <style lang="scss" scoped>
-// TODO:待element-plus 将导航icon更新为svg后删除
-.icon {
-  margin-right: 5px;
-  text-align: center;
-  font-size: 18px;
-}
-
 .badge {
   background-color: #f56c6c;
   box-shadow: 0 0 0 1px #fff;

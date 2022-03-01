@@ -1,4 +1,5 @@
 import Layout from '@/layout/index.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/nested',
@@ -7,7 +8,7 @@ export default {
   name: 'Nested',
   meta: {
     title: '多级导航',
-    icon: 'Nested-icon',
+    icon: HomeFilled,
   },
   children: [
     {

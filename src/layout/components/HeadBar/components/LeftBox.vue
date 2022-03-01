@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <head-icon
-      name="menu-fold-line-icon"
+      :name="Fold"
       padding="0 14px"
       :style="{ transform: settingStore.isPhone || settingStore.collapse ? 'rotateY(180deg)' : 'rotateY(0)' }"
       @click="settingStore.setCollapse"
@@ -10,9 +10,11 @@
     <el-breadcrumb separator-class="el-icon-arrow-right" v-if="!settingStore.isPhone">
       <transition-group name="breadcrumb">
         <el-breadcrumb-item to="/home" key="/home">首页</el-breadcrumb-item>
-        <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.path" :to="pathCompile(item.path)">
-          {{ item.title }}
-        </el-breadcrumb-item>
+        <el-breadcrumb-item
+          v-for="item in breadcrumbList"
+          :key="item.path"
+          :to="pathCompile(item.path)"
+        >{{ item.title }}</el-breadcrumb-item>
       </transition-group>
     </el-breadcrumb>
   </div>
@@ -23,9 +25,9 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
 import HeadIcon from './HeadIcon.vue'
+import { Fold } from '@element-plus/icons-vue'
 const settingStore = useSettingStore()
 const route = useRoute()
-
 //面包屑
 const breadcrumbList = computed(() =>
   route.matched

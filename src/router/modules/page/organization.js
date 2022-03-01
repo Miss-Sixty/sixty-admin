@@ -1,4 +1,5 @@
 import Layout from '@/layout/index.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/organization',
@@ -6,7 +7,7 @@ export default {
   redirect: '/organization/department',
   meta: {
     title: '通用列表面',
-    icon: 'badge-fill-icon',
+    icon: HomeFilled,
   },
   children: [
     {

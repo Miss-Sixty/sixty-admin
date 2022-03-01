@@ -1,6 +1,7 @@
 import Layout from '@/layout/index.vue'
 import { useAppStoreWithOut } from '@/store/modules/app'
 const appStore = useAppStoreWithOut()
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/badge',
@@ -8,7 +9,7 @@ export default {
   redirect: '/badge/dot',
   meta: {
     title: '动态标记',
-    icon: 'badge-fill-icon',
+    icon: HomeFilled,
   },
   children: [
     {

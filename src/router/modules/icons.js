@@ -1,4 +1,5 @@
 import Layout from '@/layout/index.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/icons',
@@ -6,7 +7,7 @@ export default {
   redirect: '/icons/index',
   meta: {
     title: '图标',
-    icon: 'icon-icon',
+    icon: HomeFilled,
   },
   children: [
     {

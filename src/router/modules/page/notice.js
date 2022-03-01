@@ -1,5 +1,6 @@
 import Layout from '@/layout/index.vue'
 import EmptyLayout from '@/layout/empty.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/notice',
@@ -11,7 +12,7 @@ export default {
       component: EmptyLayout,
       meta: {
         title: '通知公告',
-        icon: 'message-2-fill-icon',
+        icon: HomeFilled,
       },
       children: [
         {

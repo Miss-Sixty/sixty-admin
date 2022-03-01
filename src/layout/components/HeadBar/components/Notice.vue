@@ -1,9 +1,9 @@
 <template>
   <el-popover trigger="hover" placement="bottom" :width="320" v-model:visible="visible">
     <template #reference>
-      <el-icon role="button" class="icon">
+      <el-icon role="button" class="svg">
         <el-badge :value="props.notice.num" :hidden="!props.notice.num" type="danger">
-          <notification-2-line-icon />
+          <Bell />
         </el-badge>
       </el-icon>
     </template>
@@ -38,6 +38,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import {Bell} from '@element-plus/icons-vue'
 const router = useRouter()
 const props = defineProps({
   notice: Object,
@@ -106,7 +107,7 @@ const handleNavigate = () => {
   }
 }
 
-.icon {
+.svg {
   box-sizing: content-box;
   height: $headbar-height;
   font-size: 18px;

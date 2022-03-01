@@ -1,5 +1,6 @@
 import Layout from '@/layout/index.vue'
 import Iframe from '@/layout/iframe.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/link',
@@ -8,7 +9,7 @@ export default {
   redirect: '/link/element-plus',
   meta: {
     title: '外部页面',
-    icon: 'SendPlaneFill-icon',
+    icon: HomeFilled,
   },
   children: [
     {

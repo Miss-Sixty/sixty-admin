@@ -1,4 +1,5 @@
 import Layout from "@/layout/index.vue";
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: "/feat",
@@ -7,7 +8,7 @@ export default {
   redirect: "/feat/full-screen",
   meta: {
     title: "功能",
-    icon: "code-box-fill-icon",
+    icon: HomeFilled,
   },
   children: [
     {

@@ -1,4 +1,5 @@
 import Layout from '@/layout/index.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/print',
@@ -11,7 +12,7 @@ export default {
       component: () => import('@/views/print/index.vue'),
       meta: {
         title: '打印',
-        icon: 'PrinterFill-icon',
+        icon: HomeFilled,
       },
     },
   ],

@@ -1,4 +1,5 @@
 import Layout from '@/layout/index.vue'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/settings',
@@ -11,7 +12,7 @@ export default {
       component: () => import('@/views/settings/index.vue'),
       meta: {
         title: '系统设置',
-        icon: 'settings-5-fill-icon',
+        icon: HomeFilled,
       },
     },
   ],

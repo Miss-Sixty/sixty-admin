@@ -1,5 +1,5 @@
 import Layout from '@/layout/index.vue'
-import { useAppStoreWithOut } from '@/store/modules/app'
+import { HomeFilled } from '@element-plus/icons-vue'
 
 export default {
   path: '/exception',
@@ -7,7 +7,7 @@ export default {
   redirect: '/exception/403',
   meta: {
     title: '异常页',
-    icon: 'CodeBoxFill-icon',
+    icon: HomeFilled,
   },
   children: [
     {
