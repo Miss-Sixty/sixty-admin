@@ -22,7 +22,7 @@ export default {
 }
 </script>
 <script setup>
-import { Back } from '@element-plus/icons'
+import { Back } from '@element-plus/icons-vue'
 defineEmits(['click'])
 defineProps({
   icon: {

@@ -31,7 +31,7 @@
 <script setup>
 import { reactive } from 'vue'
 import { list } from '@/api/notice/index'
-import { Plus } from '@element-plus/icons'
+import { Plus } from '@element-plus/icons-vue'
 import useListData from '@/hooks/useListData'
 import { useRouter } from 'vue-router'
 const router = useRouter()

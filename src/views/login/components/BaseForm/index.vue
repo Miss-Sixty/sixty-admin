@@ -45,7 +45,7 @@
     <el-divider>其他登录方式</el-divider>
     <el-row justify="space-around" :gutter="16">
       <el-tooltip v-for="(item, index) in state.otherLoginIcon" :key="index" :content="item.info" placement="bottom" effect="light">
-        <component class="other-login-icon" role="button" :is="item.icon" :class="{ 'github-dark': item.icon === 'github-logo-icon' }" />
+        <component class="other-login-icon" role="button" :is="item.icon" :class="{ 'github-dark': item.icon === 'github-logo' }" />
       </el-tooltip>
     </el-row>
   </el-form>
@@ -58,7 +58,7 @@ import { useUserStore } from '@/store/modules/user'
 import { encrypt, decrypt } from '@/utils/secret'
 import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
-import {User ,Lock} from '@element-plus/icons'
+import {User ,Lock} from '@element-plus/icons-vue'
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
@@ -68,23 +68,23 @@ const rememberData = useStorage('rememberMe', null) //存储账号密码
 const state = reactive({
   otherLoginIcon: [
     {
-      icon: 'github-logo-icon',
+      icon: 'github-logo',
       info: 'GitHub',
     },
     {
-      icon: 'weChat-logo-icon',
+      icon: 'weChat-logo',
       info: '微信',
     },
     {
-      icon: 'alipay-logo-icon',
+      icon: 'alipay-logo',
       info: '支付宝',
     },
     {
-      icon: 'google-logo-icon',
+      icon: 'google-logo',
       info: 'Google',
     },
     {
-      icon: 'QQ-logo-icon',
+      icon: 'Qq-logo',
       info: 'QQ',
     },
   ],

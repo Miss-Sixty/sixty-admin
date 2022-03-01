@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@element-plus/icons': ^0.0.11
+  '@element-plus/icons-vue': ^1.0.0
   '@vitejs/plugin-vue': ^2.2.2
   '@vueuse/components': ^7.7.0
   '@vueuse/core': ^7.7.0
@@ -37,6 +38,7 @@ specifiers:
 
 dependencies:
   '@element-plus/icons': 0.0.11
+  '@element-plus/icons-vue': 1.0.0_vue@3.2.31
   '@vueuse/components': 7.7.0_vue@3.2.31
   '@vueuse/core': 7.7.0_vue@3.2.31
   '@wangeditor/editor': 0.15.11
@@ -94,6 +96,14 @@ packages:
 
   /@element-plus/icons-vue/0.2.7_vue@3.2.31:
     resolution: {integrity: sha512-S8kDbfVaWkQvbUYQE1ui448tzaHfUvyESCep9J6uPRlViyQPXjdIfwLBhV6AmQSOfFS8rL+xehJGhvzPXLrSBg==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.2.31
+    dev: false
+
+  /@element-plus/icons-vue/1.0.0_vue@3.2.31:
+    resolution: {integrity: sha512-v8W6uiOfwq9GRWBLc0fvp0WwExU09BLdYfldRBxWUCJHeJ9WHeFrtt6BdixGVl9SCZ2V5soB8gi4tr365a9p/Q==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:

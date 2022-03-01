@@ -11,7 +11,7 @@ export default {
 </script>
 
 <script setup>
-import { Refresh } from '@element-plus/icons'
+import { Refresh } from '@element-plus/icons-vue'
 defineProps({
   content: {
     type: String,

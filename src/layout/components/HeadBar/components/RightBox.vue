@@ -54,7 +54,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useFullscreen } from '@vueuse/core'
 import Notice from './Notice.vue'
 import { useSettingStore } from '@/store/modules/setting'
-import { Setting } from '@element-plus/icons'
+import { Setting } from '@element-plus/icons-vue'
 
 const { headerSetting } = useSettingStore()
 const router = useRouter()

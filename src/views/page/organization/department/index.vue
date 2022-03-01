@@ -73,7 +73,7 @@ import { reactive, shallowReactive } from 'vue'
 import { ElMessageBox, ElNotification } from 'element-plus'
 import useSearch from '@/hooks/useSearch'
 import { useRouter } from 'vue-router'
-import { Plus } from '@element-plus/icons'
+import { Plus } from '@element-plus/icons-vue'
 
 const router = useRouter()
 

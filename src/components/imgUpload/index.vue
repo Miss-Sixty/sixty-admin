@@ -79,7 +79,7 @@ export default {
 }
 </script>
 <script setup>
-import { Loading, Picture, ZoomIn, Delete, Back, Right, Plus } from '@element-plus/icons'
+import { Loading, Picture, ZoomIn, Delete, Back, Right, Plus } from '@element-plus/icons-vue'
 import { reactive, computed, watchEffect } from 'vue'
 import { isArray, isObject } from 'lodash-es'
 import uploadType from '@/utils/uploadType'

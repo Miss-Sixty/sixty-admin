@@ -18,7 +18,7 @@ export default {
 <script setup>
 import { ElMessage } from 'element-plus'
 import { computed } from 'vue'
-import { UploadFilled } from '@element-plus/icons'
+import { UploadFilled } from '@element-plus/icons-vue'
 import { isArray, isObject } from 'lodash-es'
 import uploadType from '@/utils/uploadType'
 

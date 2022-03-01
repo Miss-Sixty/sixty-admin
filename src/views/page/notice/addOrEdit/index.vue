@@ -37,7 +37,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { reactive } from 'vue'
 import { add, edit, info } from '@/api/notice/index'
 import { useSettingStore } from '@/store/modules/setting'
-import { Monitor } from '@element-plus/icons'
+import { Monitor } from '@element-plus/icons-vue'
 import { ElMessage, ElNotification, ElMessageBox } from 'element-plus'
 const settingStore = useSettingStore()
 const route = useRoute()

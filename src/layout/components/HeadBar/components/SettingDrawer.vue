@@ -44,7 +44,7 @@
 </template>
 <script setup>
 import { reactive, ref, shallowRef, computed } from 'vue'
-import { Monitor } from '@element-plus/icons'
+import { Monitor } from '@element-plus/icons-vue'
 import { usePreferredDark, useStorage } from '@vueuse/core'
 const isDarkPreferred = usePreferredDark()
 const darkStorage = useStorage('theme', 'auto')

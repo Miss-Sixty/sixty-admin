@@ -27,7 +27,7 @@ import FooterBar from '../FooterBar/index.vue'
 import { useRoute } from 'vue-router'
 import { watch, ref } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
-import { CloseBold } from '@element-plus/icons'
+import { CloseBold } from '@element-plus/icons-vue'
 
 const settingStore = useSettingStore()
 const scrollbarRef = ref()
