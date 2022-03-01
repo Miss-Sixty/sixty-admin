@@ -1,0 +1,1 @@
+import{_ as t}from"./index.de995f9b.js";import{r as o,o as r,i as s,a}from"./vendor.a8f4b3ca.js";const c={},n={style:{padding:"30px"}};function l(_,d){const e=o("el-alert");return r(),s("div",n,[a(e,{closable:!1,title:"\u83DC\u5355 2",type:"success",effect:"dark"})])}var p=t(c,[["render",l]]);export{p as default};
