@@ -13,6 +13,7 @@
     "@element-plus/icons-vue": "^1.0.0",
     "@vueuse/components": "^7.7.0",
     "@vueuse/core": "^7.7.0",
+    "@vueuse/integrations": "^7.7.0",
     "@wangeditor/editor": "^0.15.11",
     "@wangeditor/editor-for-vue": "^5.1.8-9",
     "axios": "^0.26.0",
@@ -28,6 +29,7 @@
     "pinia": "^2.0.11",
     "print-js": "^1.6.0",
     "push.js": "^1.0.12",
+    "qrcode": "^1.5.0",
     "vue": "^3.2.31",
     "vue-router": "^4.0.13"
   },
