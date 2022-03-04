@@ -20,12 +20,10 @@ export const useUserStore = defineStore('user-store', {
     //获取token
     async getToken(params) {
       try {
-        const { username, password = '' } = params
+        const { username, password } = params
         const { data } = await token({ username: username.trim(), password })
         this.token = data.token
         localStorage.setItem('token', data.token)
-
-        return await this.getRoleList()
       } catch (error) {
         return Promise.reject(error)
       }

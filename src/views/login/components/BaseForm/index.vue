@@ -106,6 +106,7 @@ async function loginChange() {
     await validForm()
     state.loading = true
     await userStore.getToken(formData)
+    await userStore.getRoleList()
     await router.replace({ path: route.query?.redirect || '/' })
     //加密保存用户名密码
     state.remember ? (rememberData.value = encrypt(formData)) : (rememberData.value = null)

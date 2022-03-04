@@ -5,7 +5,6 @@ import { markRaw } from 'vue'
 export const constantRoutes = [
   {
     path: '/',
-    component: Layout,
     redirect: '/home',
     children: [
       {
