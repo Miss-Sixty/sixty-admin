@@ -1,9 +1,7 @@
-<template>
-  <el-config-provider :locale="zhCn">
-    <router-view />
-  </el-config-provider>
-</template>
-
 <script setup>
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+import { RouterView } from "vue-router";
 </script>
+
+<template>
+  <RouterView />
+</template>

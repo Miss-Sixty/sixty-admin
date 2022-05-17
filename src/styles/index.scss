@@ -1,44 +1,27 @@
 @import './theme/index.scss';
 html {
   //灰色模式
-  &.gray-mode {
+  &.gray {
     filter: grayscale(100%);
     filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
   }
 }
 body {
   margin: 0;
-  font-size: 14px;
-  font-family: var(--font-family-base);
-  -webkit-tap-highlight-color: transparent;
+  min-width: 320px;
   min-height: 100vh;
   color: var(--el-text-color-primary);
-  transition: color 0.5s, background-color 0.5s;
+  background-color: var(--el-bg-color-page);
+  transition: background-color 0.3s;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, \5fae\8f6f\96c5\9ed1, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
 }
 
 *,
 :before,
 :after {
   box-sizing: border-box;
-}
-
-[role='button'] {
-  cursor: pointer;
-}
-
-i {
-  font-style: normal;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-}
-li {
-  list-style: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
 }

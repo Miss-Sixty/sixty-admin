@@ -1,11 +1,11 @@
 <template>
-  <el-popover trigger="click" placement="bottom" :width="320" v-model:visible="visible">
+  <el-popover trigger="click" placement="bottom" :width="320">
     <template #reference>
-      <el-icon role="button" class="svg" @click="visible=true">
-        <el-badge :value="props.notice.num" :hidden="!props.notice.num" type="danger">
+      <el-badge :value="props.notice.num" :hidden="!props.notice.num" type="danger">
+        <el-icon :size="18" class="bg">
           <Bell />
-        </el-badge>
-      </el-icon>
+        </el-icon>
+      </el-badge>
     </template>
     <el-tabs v-model="activeName" stretch>
       <el-tab-pane v-for="item in props.notice.list" :key="item.name" :name="item.name">
@@ -17,7 +17,7 @@
         <div class="content">
           <el-scrollbar style="flex: 1">
             <ul v-if="item.list.length">
-              <li v-for="list in item.list" :key="list.id" class="item" role="button" @click="handleNavigate">
+              <li v-for="list in item.list" :key="list.id" class="item" @click="handleNavigate">
                 <el-icon :size="24" :style="{ 'background-color': list.color }" class="item__icon">
                   <component :is="list.icon" />
                 </el-icon>
@@ -38,16 +38,14 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import {Bell} from '@element-plus/icons-vue'
+import { Bell } from '@element-plus/icons-vue'
 const router = useRouter()
 const props = defineProps({
   notice: Object,
 })
 const activeName = ref('0')
-const visible = ref(false)
 const handleNavigate = () => {
   router.push({ name: 'Notice' })
-  visible.value = false
 }
 </script>
 <style lang="scss" scoped>
@@ -59,7 +57,6 @@ const handleNavigate = () => {
   height: 300px;
   display: flex;
   flex-direction: column;
-
   .item {
     display: flex;
     transition: background-color 0.3s;
@@ -104,21 +101,6 @@ const handleNavigate = () => {
         color: #999;
       }
     }
-  }
-}
-
-.svg {
-  box-sizing: content-box;
-  height: $headbar-height;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s;
-  padding: 0 10px;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
   }
 }
 </style>

@@ -2,17 +2,18 @@
 $headbar-height: 50px;
 
 // 主侧边栏
-$main-sidbar-width: 64px;
+$sidbar-main-width: 64px;
+$sidbar-main-bg: #1f2d3d;
 
 //次侧边栏
-$navmenu-width: 230px; //次侧边栏宽度
-$navmenu-collapse-width: 64px; //次侧边栏收起宽度
-$navmenu-logo-bg: #fafafa; // 次侧边栏logo背景色
-$navmenu-bg: #fafafa; // 次侧边栏背景色
+$sidbar-menu-width: 230px; //次侧边栏宽度
+$sidbar-menu-collapse-width: 64px; //次侧边栏收起宽度
+$sidbar-menu-logo-bg: #fafafa; // 次侧边栏logo背景色
+$sidbar-menu-bg: #fafafa; // 次侧边栏背景色
 
 //侧边栏
-$sidbar-width: calc(#{$main-sidbar-width} + #{$navmenu-width}); //带主侧边栏的展开宽度
-$sidbar-collapse-width: calc(#{$main-sidbar-width} + #{$navmenu-collapse-width}); //带主侧边栏的收起宽度
+$sidbar-width: calc(#{$sidbar-main-width} + #{$sidbar-menu-width}); //带主侧边栏的展开宽度
+$sidbar-collapse-width: calc(#{$sidbar-main-width} + #{$sidbar-menu-collapse-width}); //带主侧边栏的收起宽度
 
 //脚部
 $footerbar-height: 80px;

@@ -1,19 +1,29 @@
 export default {
-  showCopyright: true, // 是否显示底部版权信息。
-  // 版权信息配置，格式为：Copyright © [dates] <company>
-  copyrightDates: new Date().getFullYear(),
-  copyrightCompany: 'sixty-admin',
-  copyrightWebsite: 'https://github.com/Miss-Sixty/sixty-admin',
-
-  // 是否始终显示主侧边栏，设置为 false 且主侧边栏里只有一个导航时，主侧边栏会自动隐藏
-  alwaysShowMainSidebar: false,
-
-  // 头部配置
-  headerSetting: {
-    showFullScreen: true, // 显示全屏按钮
-    showSetting: true, //展示设置按钮
+  app: {
+    /**
+     * 是否开启权限功能，权限功能提供以下鉴权支持：
+     * 1、路由鉴权
+     * 2、鉴权组件：<Auth></Auth>、<AuthAll></AuthAll>
+     * 3、鉴权指令：v-auth、v-auth-all
+     * 4、鉴权函数：this.$auth()、this.$authAll()
+     */
+    enablePermission: false,
+    grayMode: false, // 灰色模式
   },
 
-  // 菜单配置
-  menuSetting: {},
+  // 侧边栏
+  sidebar: {
+    alwaysShowSidebarMain: true,
+    subMenuCollapse: false, // 导航是否收起
+  },
+
+  header: {
+    enableSidebarCollapse: true, //导航折叠按钮
+    enableBreadcrumb: true, // 面包屑导航
+    enableNotification: true, // 通知中心
+    enablePageReload: true, // 页面刷新
+    enableFullscreen: true, // 全屏
+    enableSetting: true, // 设置
+    enableDarkSwitch: true, // 暗黑模式切换
+  },
 }

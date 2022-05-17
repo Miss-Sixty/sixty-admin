@@ -1,41 +1,35 @@
 import router from '@/router'
 import NProgress from 'nprogress'
+import { useUserStore } from '@/stores/user'
+import { useMenuStore } from '@/stores/menu'
 import 'nprogress/nprogress.css'
 NProgress.configure({ showSpinner: false }) // 去掉加载圆圈
-import { useUserStoreWithOut } from '@/store/modules/user'
-import { useMenuStoreWithOut } from '@/store/modules/menu'
-import { useSettingStoreWithOut } from '@/store/modules/setting'
-const userStore = useUserStoreWithOut()
-const menuStore = useMenuStoreWithOut()
-const settingStore = useSettingStoreWithOut()
 
-router.beforeEach(async to => {
+router.beforeEach(async (to) => {
+  const userStore = useUserStore()
+  const menuStore = useMenuStore()
+
   try {
     NProgress.start()
+    // 未登录则跳转登陆页
+    if (!userStore.token) return to.name !== 'login' ? { name: 'login', query: { redirect: to.fullPath } } : true
 
-    //未登录或登陆过期，前往登陆页则放行，否则跳转登陆页
-    if (!userStore.token) return to.name !== 'Login' ? { name: 'Login', query: { redirect: to.fullPath } } : true
+    // 已登陆不可跳转登陆页
+    if (to.name === 'login') return false
 
-    //已登陆不可跳转登陆页，路由不跳转。
-    if (to.name === 'Login') return false
-
-    //如果登陆但没有路由，则请求权限并动态添加有权限的路由
-    if (!menuStore.allRoutes.length) {
-      await userStore.getRoleList(to.path)
-      return { path: to.fullPath, replace: true, query: to.query } //动态添加路由后重定向
-    } else {
-      return menuStore.setActived(to.path)
+    // 已登陆，未添加动态路由
+    if (!menuStore.isAllRoutes) {
+      await menuStore.initRoutes()
+      return { path: to.fullPath, replace: true, query: to.query } // 动态添加路由后重定向
     }
   } catch (err) {
     console.log(err)
   }
-
-  return menuStore.setActived(to.path)
 })
 
-router.afterEach(to => {
+router.afterEach((to, from) => {
   NProgress.done()
-  if (to.name === 'Reload') return
-  const title = settingStore.title
-  document.title = to.meta.title ? `${to.meta.title} - ${title}` : `${title}`
+
+  const title = import.meta.env.VITE_APP_TITLE
+  document.title = to.meta.title ? `${to.meta.title} - ${title}` : title
 })

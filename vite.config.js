@@ -1,28 +1,41 @@
+import { fileURLToPath, URL } from 'url'
 import { defineConfig, loadEnv } from 'vite'
-import createVitePlugins from './vite/plugins/index.js'
-import dayjs from 'dayjs'
-import fs from 'fs'
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-const filename = fileURLToPath(import.meta.url);
-const _dirname = dirname(filename);
+import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { createHtmlPlugin } from 'vite-plugin-html'
 
-export default ({ mode, command }) => {
+const fs = require('fs')
+
+// https://vitejs.dev/config/
+export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd())
   // 全局 scss 资源
   const scssResources = []
-  fs.readdirSync('src/styles/resources').map(dirname => {
+  fs.readdirSync('src/styles/resources').map((dirname) => {
     if (fs.statSync(`src/styles/resources/${dirname}`).isFile()) {
       scssResources.push(`@import "src/styles/resources/${dirname}";`)
     }
   })
 
   return defineConfig({
-    base: './',
-    plugins: createVitePlugins(env),
+    plugins: [
+      vue(),
+      AutoImport({
+        imports: ['vue', 'vue-router'],
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
+      createHtmlPlugin({
+        inject: { data: { title: env.VITE_APP_TITLE } },
+      }),
+    ],
     resolve: {
       alias: {
-        '@': resolve(_dirname, 'src'),
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
     css: {
@@ -31,12 +44,6 @@ export default ({ mode, command }) => {
           additionalData: scssResources.join(''),
         },
       },
-    },
-    define: {
-      __UPDATE_TIME__: JSON.stringify(dayjs().format('YYYY-M-D HH:mm:ss')),
-    },
-    server: {
-      host: '0.0.0.0',
     },
   })
 }

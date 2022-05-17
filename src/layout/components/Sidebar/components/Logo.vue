@@ -1,3 +1,13 @@
+<script setup>
+import { Camera } from '@element-plus/icons-vue'
+defineProps({
+  isScrollTop: Boolean,
+  collapse: Boolean,
+})
+
+const title = import.meta.env.VITE_APP_TITLE
+</script>
+
 <template>
   <router-link v-slot="{ navigate }" custom to="/">
     <div
@@ -6,35 +16,30 @@
       }"
       class="logo"
       @click="navigate"
-      role="button"
     >
-      {{ title }}
+      <el-icon :size="18"><Camera /></el-icon>
+      <span v-if="!collapse" class="logo__title">{{ title }}</span>
     </div>
   </router-link>
 </template>
 
-<script setup>
-import { useSettingStore } from '@/store/modules/setting'
-defineProps({
-  isScrollTop: Boolean,
-})
-const title = useSettingStore().title
-</script>
-
 <style lang="scss" scoped>
 .logo {
-  line-height: $headbar-height;
-  text-align: center;
-  color: #37414b;
+  height: $headbar-height;
+  cursor: pointer;
   text-decoration: none;
   padding: 0 10px;
   font-weight: bold;
-  background-color: $navmenu-logo-bg;
-  font-size: 16px;
   transition: box-shadow 0.2s;
-  &--shadow {
-    box-shadow: 0 10px 10px -10px #c7c7c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // &--shadow {
+  //   box-shadow: 0 10px 10px -10px #c7c7c7;
+  // }
+  &__title {
+    @include text-overflow;
+    margin-left: 6px;
   }
-  @include text-overflow;
 }
 </style>
