@@ -109,17 +109,19 @@ export const useMenuStore = defineStore({
       const userStore = useUserStore()
       const rules = await userStore.getRoleList()
       // 是否有权限
-      const routeAuth = (route) => {
-        const { auth } = route?.meta || {}
-        return auth ? rules.some((role) => auth.includes(role)) : true
-      }
-      this.allRoutes = routersfilter(asyncRoutes, routeAuth).filter((item) => item.children?.length)
-      this.removeRoutes = [...this.flatRoutes, lastRoutes].map((route) => router.addRoute(route))
+      // const routeAuth = (route) => {
+      //   const { auth } = route?.meta || {}
+      //   return auth ? rules.some((role) => auth.includes(role)) : true
+      // }
+      // this.allRoutes = routersfilter(asyncRoutes, routeAuth).filter((item) => item.children?.length)
+      // this.removeRoutes = [...this.flatRoutes, lastRoutes].map((route) => router.addRoute(route))
 
-      console.log(this.activeMenuRoutes)
+      console.log(asyncRoutes)
     },
   },
 })
+
+
 
 export function useMenuStoreWithOut() {
   return useMenuStore(stores)
