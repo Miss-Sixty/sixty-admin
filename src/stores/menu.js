@@ -107,7 +107,7 @@ export const useMenuStore = defineStore({
   actions: {
     async initRoutes() {
       const userStore = useUserStore()
-      const rules = await userStore.getRoleList()
+      const auths = await userStore.getRoleList()
       // 是否有权限
       // const routeAuth = (route) => {
       //   const { auth } = route?.meta || {}
@@ -115,13 +115,43 @@ export const useMenuStore = defineStore({
       // }
       // this.allRoutes = routersfilter(asyncRoutes, routeAuth).filter((item) => item.children?.length)
       // this.removeRoutes = [...this.flatRoutes, lastRoutes].map((route) => router.addRoute(route))
-
-      console.log(asyncRoutes)
+      routesfilter(auths)
     },
   },
 })
 
+// 是否有权限
+const routeAuth = (auth, adminAuths) => {
+  return auth ? adminAuths.some((role) => auth.includes(role)) : true
+}
 
+// 对象中有auth则进行对比，对比为false则直接跳出
+// 如果children中只有一个子，则子替换该路由父级
+// 如果路由有3级以上则拍扁成3级路由
+const routesfilter = (adminAuths) => {
+  let leaf = 0
+  const menuRoutes = []
+  const flatRoutes = []
+  function listFilter(children, leaf, path) {
+    leaf++
+    // console.log(children)
+    children.forEach((item) => {
+      const { path, meta, children } = item
+      const { title, auth } = meta || {}
+      console.log(item, leaf)
+      // 判断是否有权限 没权限则返回
+      if (!routeAuth(auth, adminAuths)) return
+
+      if (leaf === 2) {
+        // console.log(item, leaf)
+        console.log('此处再有children，则开始拍扁路由')
+      }
+      if (children?.length) listFilter(children, leaf)
+    })
+  }
+
+  asyncRoutes.forEach((item) => listFilter(item.children, leaf))
+}
 
 export function useMenuStoreWithOut() {
   return useMenuStore(stores)
