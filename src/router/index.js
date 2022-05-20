@@ -43,14 +43,22 @@ export const asyncRoutes = [
       {
         path: '/',
         component: Layout,
-        redirect: '/home',
-        meta: { title: '首页', icon: markRaw(Box) },
+        redirect: '/2',
+        meta: { title: '1', icon: markRaw(Box) },
         children: [
           {
-            path: '/home',
+            path: '/2',
             component: () => import('@/views/home.vue'),
-            name: 'home',
-            meta: { title: '首页', icon: markRaw(Box), sidebar: false },
+            name: '2',
+            meta: { title: '2', icon: markRaw(Box), sidebar: false, auth: ['ddd'] },
+            children: [
+              {
+                path: '/3',
+                component: () => import('@/views/home.vue'),
+                name: '3',
+                meta: { title: '3', icon: markRaw(Box), sidebar: false },
+              },
+            ],
           },
         ],
       },
