@@ -1,6 +1,5 @@
 <script setup>
 import Logo from './Logo.vue'
-import { storeToRefs } from 'pinia'
 import { useSettingsStore } from '@/stores/setting'
 import { useMenuStore } from '@/stores/menu'
 import SidebarMenuItem from './SidebarMenuItem.vue'

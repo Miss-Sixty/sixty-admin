@@ -71,18 +71,26 @@ const settingsStore = useSettingsStore()
   height: 100%;
   background-color: var(--el-overlay-color-lighter);
 }
-.head-bar {
-  height: $headbar-height;
-  border-bottom: 1px solid var(--el-border-color);
-  background-color: var(--el-fill-color-blank);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: margin-left 0.3s ease-in-out;
-}
 
-.app-main {
-  transition: margin-left 0.3s ease-in-out;
+.right {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  .head-bar {
+    height: $headbar-height;
+    border-bottom: 1px solid var(--el-border-color);
+    background-color: var(--el-fill-color-blank);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: margin-left 0.3s ease-in-out;
+  }
+
+  .app-main {
+    transition: margin-left 0.3s ease-in-out;
+    flex: 1;
+  }
 }
 
 .fade-enter-active,

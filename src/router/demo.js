@@ -9,7 +9,7 @@ export default {
   name: 'componentExtendExample',
   meta: {
     title: '扩展组件',
-    icon: markRaw(Box),
+    // icon: markRaw(Box),
   },
   children: [
     {

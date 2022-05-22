@@ -20,7 +20,7 @@ router.beforeEach(async (to) => {
     // 已登陆，未添加动态路由
     if (!menuStore.isAllRoutes) {
       await menuStore.initRoutes()
-      // return { path: to.fullPath, replace: true, query: to.query } // 动态添加路由后重定向
+      return { path: to.fullPath, replace: true, query: to.query } // 动态添加路由后重定向
     }
   } catch (err) {
     console.log(err)

@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/layout/index.vue'
 import { Box } from '@element-plus/icons-vue'
-import { markRaw } from 'vue'
+import { shallowRef } from 'vue'
 
 // 固定路由
 const constantRoutes = [
@@ -19,58 +19,32 @@ const constantRoutes = [
     redirect: '/home',
     children: [
       {
+        path: '/home',
+        name: 'home',
+        meta: { title: '首页' },
+        component: () => import('@/views/home.vue'),
+      },
+      {
         path: '/reload',
         name: 'reload',
-        meta: {
-          title: '刷新',
-          hidden: true,
-        },
+        meta: { title: '刷新' },
         component: () => import('@/views/reload.vue'),
       },
     ],
   },
 ]
 
-import Demo from './demo.js'
+// import Demo from './demo.js'
+import MultilevelMenu from './multilevel.menu'
 // 动态路由（异步路由、导航栏路由）
 export const asyncRoutes = [
   {
     meta: {
-      title: '基础',
-      icon: markRaw(Box),
+      title: '演示',
+      icon: shallowRef(Box),
     },
-    children: [
-      {
-        path: '/',
-        component: Layout,
-        redirect: '/2',
-        meta: { title: '1', icon: markRaw(Box) },
-        children: [
-          {
-            path: '/2',
-            component: () => import('@/views/home.vue'),
-            name: '2',
-            meta: { title: '2', icon: markRaw(Box), sidebar: false, auth: ['ddd'] },
-            children: [
-              {
-                path: '/3',
-                component: () => import('@/views/home.vue'),
-                name: '3',
-                meta: { title: '3', icon: markRaw(Box), sidebar: false },
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    children: [MultilevelMenu],
   },
-  // {
-  //   meta: {
-  //     title: '演示',
-  //     icon: markRaw(Box),
-  //   },
-  //   children: [Demo],
-  // },
 ]
 
 export const lastRoutes = {

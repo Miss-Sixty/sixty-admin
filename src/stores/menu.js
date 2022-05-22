@@ -2,20 +2,37 @@ import { defineStore } from 'pinia'
 import router, { asyncRoutes, lastRoutes } from '@/router'
 import stores from '@/stores'
 import { useUserStore } from '@/stores/user'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, isString, isArray } from 'lodash-es'
 import { isExternalLink } from '@/utils/verify'
 
-// 无限循环所有路由
-function routersfilter(asyncRoutes, routeAuth) {
-  function listFilter(list) {
-    return list
-      .map((node) => ({ ...node }))
-      .filter((node) => {
-        node.children = node.children && listFilter(node.children)
-        return routeAuth(node)
-      })
+function filterAsyncMenus(menus, permissions) {
+  const res = []
+  menus.forEach((menu) => {
+    let tmpMenu = cloneDeep(menu)
+    if (!hasPermission(permissions, tmpMenu)) return
+    if (tmpMenu?.children?.length) {
+      tmpMenu.children = filterAsyncMenus(tmpMenu.children, permissions)
+    }
+    res.push(tmpMenu)
+  })
+  return res
+}
+
+function hasPermission(permissions, route) {
+  let isAuth = false
+  if (route?.meta?.auth) {
+    isAuth = permissions.some((auth) => {
+      if (isString(route.meta.auth)) {
+        return route.meta.auth === auth
+      }
+      if (isArray(route.meta.auth)) {
+        return route.meta.auth.some((routeAuth) => routeAuth === auth)
+      }
+    })
+  } else {
+    isAuth = true
   }
-  return listFilter(asyncRoutes)
+  return isAuth
 }
 
 // 将多层嵌套路由处理成平级
@@ -89,7 +106,7 @@ export const useMenuStore = defineStore({
     // 是否有路由
     isAllRoutes: (state) => state.allRoutes.length,
     // 侧边导航树
-    activeMenuRoutes: (state) => state.allRoutes[state.headerActived].children || [],
+    activeMenuRoutes: (state) => state.allRoutes[state.headerActived].children,
     // 扁平化路由（将三级及以上路由数据拍平成二级）
     flatRoutes: (state) => {
       //去掉数组第一层
@@ -108,46 +125,13 @@ export const useMenuStore = defineStore({
     async initRoutes() {
       const userStore = useUserStore()
       const userAuths = await userStore.getRoleList()
-      // 是否有权限
-      // const routeAuth = (route) => {
-      //   const { auth } = route?.meta || {}
-      //   return auth ? rules.some((role) => auth.includes(role)) : true
-      // }
-      // this.allRoutes = routersfilter(asyncRoutes, routeAuth).filter((item) => item.children?.length)
-      // this.removeRoutes = [...this.flatRoutes, lastRoutes].map((route) => router.addRoute(route))
-      routesfilter(userAuths)
+
+      const accessedMenus = filterAsyncMenus(asyncRoutes, userAuths)
+      this.allRoutes = accessedMenus.filter((item) => !!item?.children?.length)
+      this.removeRoutes = [...this.flatRoutes, lastRoutes].map((route) => router.addRoute(route))
     },
   },
 })
-
-// 是否有权限
-const isRouteAuth = (route = {}, userAuths) => {
-  if (route.meta?.auth) {
-    return userAuths.some((userAuth) => route.meta.auth.includes(userAuth))
-  } else {
-    return true
-  }
-}
-
-// 对象中有auth则进行对比，对比为false则直接跳出
-// 如果children中只有一个子，则子替换该路由父级
-// 如果路由有3级以上则拍扁成3级路由
-const routesfilter = (userAuths) => {
-  const menuRoutes = []
-  const flatRoutes = []
-  function listFilter(asyncRoutes, userAuths) {
-    asyncRoutes.forEach((route) => {
-      const tmp = { ...route }
-      if (isRouteAuth(tmp, userAuths)) {
-        tmp.children?.length ? (tmp.children = listFilter(tmp.children, userAuths)) : menuRoutes.push(tmp)
-      }
-    })
-  }
-  listFilter(asyncRoutes, userAuths)
-  // asyncRoutes.forEach((item) => listFilter(item.children, leaf))
-
-  console.log(menuRoutes)
-}
 
 export function useMenuStoreWithOut() {
   return useMenuStore(stores)
