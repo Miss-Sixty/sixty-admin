@@ -1,33 +1,25 @@
 const Layout = () => import('@/layout/index.vue')
-
+import { Box } from '@element-plus/icons-vue'
+import { shallowRef } from 'vue'
 export default {
   path: '/breadcrumb',
   component: Layout,
-  redirect: '/breadcrumb/list1',
+  redirect: '/breadcrumb/index',
   name: 'breadcrumbExample',
   meta: {
     title: '面包屑导航',
-    icon: 'sidebar-breadcrumb',
+    icon: shallowRef(Box),
   },
   children: [
     {
-      path: 'list1',
-      name: 'breadcrumbExampleList1',
-      component: () => import('@/views/breadcrumb/list1.vue'),
+      path: 'index',
+      name: 'breadcrumbExampleIndex',
+      component: () => import('@/views/breadcrumb/index.vue'),
       meta: {
-        title: '列表1（平级模式）',
         sidebar: false,
+        activeMenu: '/breadcrumb',
       },
       children: [
-        {
-          path: '',
-          component: () => import('@/views/breadcrumb/list2.vue'),
-          meta: {
-            title: '列表2（层级模式）',
-            sidebar: false,
-            breadcrumb: false,
-          },
-        },
         {
           path: 'detail2',
           name: 'breadcrumbExampleDetail2',
@@ -35,7 +27,7 @@ export default {
           meta: {
             title: '详情2',
             sidebar: false,
-            activeMenu: '/breadcrumb/list2',
+            activeMenu: '/breadcrumb',
           },
         },
       ],
@@ -47,7 +39,7 @@ export default {
       meta: {
         title: '详情1',
         sidebar: false,
-        activeMenu: '/breadcrumb/list1',
+        activeMenu: '/breadcrumb',
       },
     },
   ],

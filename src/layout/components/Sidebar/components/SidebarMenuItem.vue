@@ -7,7 +7,7 @@ export default {
 import { isExternalLink } from '@/utils/verify'
 import path from 'path-browserify'
 
-defineProps({
+const props = defineProps({
   item: {
     type: Object,
     required: true,
@@ -27,10 +27,27 @@ const resolveRoutePath = (basePath, routePath) => {
   }
   return basePath ? path.resolve(basePath, routePath) : routePath
 }
+
+const hasChildren = computed(() => {
+  let flag = true
+  if (props.item.children) {
+    if (props.item.children.every((item) => item.meta.sidebar === false)) {
+      flag = false
+    }
+  } else {
+    flag = false
+  }
+  return flag
+})
 </script>
 
 <template>
-  <el-sub-menu v-if="item.children?.length" :index="resolveRoutePath(basePath, item.path)">
+  <el-menu-item v-if="!hasChildren" :index="resolveRoutePath(basePath, item.path)">
+    <el-icon v-if="item.meta?.icon"><component :is="item.meta?.icon" /></el-icon>
+    {{ item.meta?.title }}
+  </el-menu-item>
+
+  <el-sub-menu v-else :index="resolveRoutePath(basePath, item.path)">
     <template #title>
       <el-icon v-if="item.meta?.icon"><component :is="item.meta?.icon" /></el-icon>
       <span>{{ item.meta?.title }}</span>
@@ -45,8 +62,6 @@ const resolveRoutePath = (basePath, routePath) => {
       />
     </template>
   </el-sub-menu>
-
-  <el-menu-item v-else :index="resolveRoutePath(basePath, item.path)">{{ item.meta?.title }}</el-menu-item>
 </template>
 
 <style lang="scss" scoped></style>
