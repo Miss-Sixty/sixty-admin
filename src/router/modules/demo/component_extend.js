@@ -14,10 +14,18 @@ export default {
   children: [
     {
       path: 'svg',
-      name: 'componentExtendExampleSvg',
+      name: 'componentExtendSvg',
       component: () => import('@/views/demo/component_extend/svg.vue'),
       meta: {
         title: 'SVG Icon',
+      },
+    },
+    {
+      path: 'actionbar',
+      name: 'componentExtendActionbar',
+      component: () => import('@/views/demo/component_extend/actionbar.vue'),
+      meta: {
+        title: '固定底部操作栏',
       },
     },
   ],

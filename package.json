@@ -5,10 +5,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 5050",
-    "gen:svg": "node ./src/icons/generate.js",
+    "gen:svg": "node ./src/icons/generate.mjs",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
-  "type": "module",
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
     "@vueuse/core": "^8.6.0",

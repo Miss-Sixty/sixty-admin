@@ -4,7 +4,7 @@ const keepAliveStore = useKeepAliveStore()
 </script>
 
 <template>
-  <div>
+  <el-scrollbar>
     <router-view v-slot="{ Component, route }">
       <transition name="main" mode="out-in" appear>
         <keep-alive :include="[...keepAliveStore.list]">
@@ -12,7 +12,7 @@ const keepAliveStore = useKeepAliveStore()
         </keep-alive>
       </transition>
     </router-view>
-  </div>
+  </el-scrollbar>
 </template>
 
 <style lang="scss" scoped>
