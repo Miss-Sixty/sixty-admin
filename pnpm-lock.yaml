@@ -8,9 +8,13 @@ specifiers:
   '@vue/eslint-config-prettier': ^7.0.0
   '@vueuse/core': ^8.6.0
   axios: ^0.27.2
+  camelcase: ^7.0.0
+  chalk: ^5.0.1
   element-plus: ^2.2.5
   eslint: ^8.17.0
   eslint-plugin-vue: ^8.7.1
+  fast-glob: ^3.2.11
+  fs-extra: ^10.1.0
   lodash-es: ^4.17.21
   nprogress: ^0.2.0
   path-browserify: ^1.0.1
@@ -44,8 +48,12 @@ devDependencies:
   '@types/path-browserify': 1.0.0
   '@vitejs/plugin-vue': 2.3.3_vite@2.9.12+vue@3.2.37
   '@vue/eslint-config-prettier': 7.0.0_67jp3rdqyfy2wobpxhrxwalz5i
+  camelcase: 7.0.0
+  chalk: 5.0.1
   eslint: 8.17.0
   eslint-plugin-vue: 8.7.1_eslint@8.17.0
+  fast-glob: 3.2.11
+  fs-extra: 10.1.0
   prettier: 2.7.0
   sass: 1.52.3
   unplugin-auto-import: 0.7.2_xnp3iobkgue47hz2kuxdzi7u6a
@@ -479,12 +487,22 @@ packages:
       tslib: 2.4.0
     dev: true
 
+  /camelcase/7.0.0:
+    resolution: {integrity: sha512-JToIvOmz6nhGsUhAYScbo2d6Py5wojjNfoxoc2mEVLUdJ70gJK2gnd+ABY1Tc3sVMyK7QDPtN0T/XdlCQWITyQ==}
+    engines: {node: '>=14.16'}
+    dev: true
+
   /chalk/4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+    dev: true
+
+  /chalk/5.0.1:
+    resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
     dev: true
 
   /chokidar/3.5.3:

@@ -38,6 +38,7 @@ const constantRoutes = [
 import multilevel_menu from './modules/demo/multilevel_menu'
 import breadcrumb from './modules/demo/breadcrumb'
 import keep_alive_page from './modules/demo/keep_alive_page'
+import component_extend from './modules/demo/component_extend'
 
 // page
 import table from './modules/page/table'
@@ -48,7 +49,7 @@ export const asyncRoutes = [
       title: '演示',
       icon: shallowRef(Box),
     },
-    children: [multilevel_menu, breadcrumb, keep_alive_page],
+    children: [multilevel_menu, breadcrumb, keep_alive_page, component_extend],
   },
   {
     meta: {
