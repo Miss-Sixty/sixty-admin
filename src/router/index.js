@@ -34,8 +34,9 @@ const constantRoutes = [
   },
 ]
 
-import MultilevelMenu from './multilevel.menu'
-import Breadcrumb from './breadcrumb'
+import MultilevelMenu from './modules/demo/multilevel.menu'
+import Breadcrumb from './modules/demo/breadcrumb'
+import Table from './modules/page/table'
 // 动态路由（异步路由、导航栏路由）
 export const asyncRoutes = [
   {
@@ -44,6 +45,13 @@ export const asyncRoutes = [
       icon: shallowRef(Box),
     },
     children: [MultilevelMenu, Breadcrumb],
+  },
+  {
+    meta: {
+      title: '页面',
+      icon: shallowRef(Box),
+    },
+    children: [Table],
   },
 ]
 

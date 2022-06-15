@@ -15,7 +15,7 @@ export default {
     {
       path: 'page',
       name: 'multilevelMenu1',
-      component: () => import('@/views/multilevel_menu/page.vue'),
+      component: () => import('@/views/demo/multilevel_menu/page.vue'),
       meta: {
         title: '导航1',
       },
@@ -31,7 +31,7 @@ export default {
         {
           path: 'page',
           name: 'multilevelMenu2-1',
-          component: () => import('@/views/multilevel_menu/level2/page.vue'),
+          component: () => import('@/views/demo/multilevel_menu/level2/page.vue'),
           meta: {
             title: '导航2-1',
           },
@@ -47,7 +47,7 @@ export default {
             {
               path: 'page1',
               name: 'multilevelMenu2-2-1',
-              component: () => import('@/views/multilevel_menu/level2/level3/page1.vue'),
+              component: () => import('@/views/demo/multilevel_menu/level2/level3/page1.vue'),
               meta: {
                 title: '导航2-2-1',
               },
@@ -55,7 +55,7 @@ export default {
             {
               path: 'page2',
               name: 'multilevelMenu2-2-2',
-              component: () => import('@/views/multilevel_menu/level2/level3/page2.vue'),
+              component: () => import('@/views/demo/multilevel_menu/level2/level3/page2.vue'),
               meta: {
                 title: '导航2-2-2',
               },

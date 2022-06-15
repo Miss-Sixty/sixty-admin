@@ -106,7 +106,7 @@ export const useMenuStore = defineStore({
     // 是否有路由
     isAllRoutes: (state) => state.allRoutes.length,
     // 侧边导航树
-    activeMenuRoutes: (state) => state.allRoutes[state.headerActived].children,
+    activeMenuRoutes: (state) => state.allRoutes[state.headerActived]?.children,
     // 扁平化路由（将三级及以上路由数据拍平成二级）
     flatRoutes: (state) => {
       //去掉数组第一层

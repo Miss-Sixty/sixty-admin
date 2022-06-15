@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import stores from '@/stores'
 import router from '@/router'
 import { useMenuStore } from './menu'
+import { ElNotification, ElMessageBox, ElLoading } from 'element-plus'
 
 export const useUserStore = defineStore({
   id: 'six-user',
@@ -36,11 +37,6 @@ export const useUserStore = defineStore({
     },
 
     // 退出登陆
-    async exitSystem() {
-      localStorage.removeItem('token')
-    },
-
-    // 退出
     async exitSystem(quick = false, message = '退出成功！') {
       let loadingInstance
       try {

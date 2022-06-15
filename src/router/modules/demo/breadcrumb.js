@@ -15,7 +15,7 @@ export default {
       {
           path: 'list1',
           name: 'breadcrumbList1',
-          component: () => import('@/views/breadcrumb/list1.vue'),
+          component: () => import('@/views/demo/breadcrumb/list1.vue'),
           meta: {
               title: '列表1（平级模式）'
           }
@@ -23,7 +23,7 @@ export default {
       {
           path: 'detail1',
           name: 'breadcrumbDetail1',
-          component: () => import('@/views/breadcrumb/detail1.vue'),
+          component: () => import('@/views/demo/breadcrumb/detail1.vue'),
           meta: {
               title: '详情1',
               sidebar: false,
@@ -40,7 +40,7 @@ export default {
           children: [
               {
                   path: '',
-                  component: () => import('@/views/breadcrumb/list2.vue'),
+                  component: () => import('@/views/demo/breadcrumb/list2.vue'),
                   meta: {
                       title: '列表2（层级模式）',
                       sidebar: false,
@@ -50,7 +50,7 @@ export default {
               {
                   path: 'detail2',
                   name: 'breadcrumbDetail2',
-                  component: () => import('@/views/breadcrumb/detail2.vue'),
+                  component: () => import('@/views/demo/breadcrumb/detail2.vue'),
                   meta: {
                       title: '详情2',
                       sidebar: false,
