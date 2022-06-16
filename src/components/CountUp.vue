@@ -76,10 +76,7 @@ const update = (num) => countUp.update(num)
 onMounted(() => {
   start()
 })
-watch(
-  () => props.endVal,
-  (num) => update(num)
-)
+watch([props.endVal], (num) => update(num))
 defineExpose({ pauseResume, reset, start, update })
 onBeforeUnmount(() => (countUp = null))
 </script>
