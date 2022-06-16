@@ -28,5 +28,21 @@ export default {
         title: '固定底部操作栏',
       },
     },
+    {
+      path: 'trend',
+      name: 'componentExtendTrend',
+      component: () => import('@/views/demo/component_extend/trend.vue'),
+      meta: {
+        title: '趋势符号',
+      },
+    },
+    {
+      path: 'clipboard',
+      name: 'componentExtendClipboard',
+      component: () => import('@/views/demo/component_extend/clipboard.vue'),
+      meta: {
+        title: '文本复制',
+      },
+    },
   ],
 }
