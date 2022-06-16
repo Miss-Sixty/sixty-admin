@@ -10,6 +10,7 @@ specifiers:
   axios: ^0.27.2
   camelcase: ^7.0.0
   chalk: ^5.0.1
+  countup.js: ^2.2.0
   element-plus: ^2.2.5
   eslint: ^8.17.0
   eslint-plugin-vue: ^8.7.1
@@ -34,6 +35,7 @@ dependencies:
   '@element-plus/icons-vue': 1.1.4_vue@3.2.37
   '@vueuse/core': 8.6.0_vue@3.2.37
   axios: 0.27.2
+  countup.js: 2.2.0
   element-plus: 2.2.5_vue@3.2.37
   lodash-es: 4.17.21
   nprogress: 0.2.0
@@ -570,6 +572,10 @@ packages:
   /consola/2.15.3:
     resolution: {integrity: sha512-9vAdYbHj6x2fLKC4+oPH0kFzY/orMZyG2Aj+kNylHxKGJ/Ed4dpNyAQYwJOdqO4zdM7XpVHmyejQDcQHrnuXbw==}
     dev: true
+
+  /countup.js/2.2.0:
+    resolution: {integrity: sha512-m0TvFNXm9/eFqJm+QiKVI8e0wRUHzlQSewz9dqVjlhl2DFoZtceLbomwzxHz0hJ1+r4zBC7wSpR/TpthG49h6g==}
+    dev: false
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}

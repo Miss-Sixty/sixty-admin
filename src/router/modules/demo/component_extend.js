@@ -44,5 +44,13 @@ export default {
         title: '文本复制',
       },
     },
+    {
+      path: 'countUp',
+      name: 'componentExtendCountUp',
+      component: () => import('@/views/demo/component_extend/countUp.vue'),
+      meta: {
+        title: '数字过渡',
+      },
+    },
   ],
 }
