@@ -52,5 +52,13 @@ export default {
         title: '数字过渡',
       },
     },
+    {
+      path: 'watermark',
+      name: 'componentExtendWatermark',
+      component: () => import('@/views/demo/component_extend/watermark.vue'),
+      meta: {
+        title: '页面水印',
+      },
+    },
   ],
 }
