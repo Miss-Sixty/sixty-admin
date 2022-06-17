@@ -73,6 +73,7 @@ const badge = (badge) => {
 <template>
   <el-menu-item v-if="!hasChildren" :index="resolveRoutePath(basePath, item.path)">
     <template #title>
+      <el-icon v-if="item.meta?.icon"><component :is="item.meta?.icon" /></el-icon>
       <span class="title">{{ item.meta?.title }}</span>
       <span
         v-if="badge(item.meta?.badge).visible"
