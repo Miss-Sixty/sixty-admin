@@ -7,6 +7,7 @@ import { useFullscreen } from '@vueuse/core'
 import { Refresh, FullScreen, Fold } from '@element-plus/icons-vue'
 import { useSettingsStore } from '@/stores/setting'
 import { compile } from 'path-to-regexp'
+import { Loading } from '@element-plus/icons-vue'
 const settingsStore = useSettingsStore()
 const route = useRoute()
 
@@ -77,7 +78,12 @@ function pathCompile(path) {
       <el-tooltip v-if="settingsStore.header.enableDarkSwitch" content="切换暗黑模式">
         <DarkSwitch class="bg" />
       </el-tooltip>
-      <UserInfo class="bg" />
+      <Suspense>
+        <UserInfo class="bg" />
+        <template #fallback>
+          <el-icon style="width: 104px" class="is-loading"><Loading /></el-icon>
+        </template>
+      </Suspense>
     </div>
   </div>
 </template>

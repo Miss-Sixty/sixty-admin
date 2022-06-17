@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import stores from '@/stores'
 import router from '@/router'
 import { useMenuStore } from './menu'
+import { tokenApi, rulesApi, logoutApi, userInfoApi } from '@/api/user'
 
 export const useUserStore = defineStore({
   id: 'six-user',
@@ -15,12 +16,9 @@ export const useUserStore = defineStore({
       console.log('getToken', params)
       try {
         const { username, password = '' } = params
-        // const { data } = await tokenApi({ username: username.trim(), password })
-        const data = {
-          admin: { username, password },
-          token: username,
-        }
-        const { admin, token } = data
+        const { data } = await tokenApi({ username: username.trim(), password })
+        console.log(data)
+        const { token } = data
         // const Authorization = `bearer ${token}`
         this.token = token
         localStorage.setItem('token', token)
@@ -31,13 +29,19 @@ export const useUserStore = defineStore({
 
     // 用户权限
     async getRoleList() {
-      // const { data } = await rules({ token: this.token })
+      const { data } = await rulesApi({ token: this.token })
+      console.log(data)
       // this.roles = data
-      return ['data']
+      return data
+    },
+
+    // 用户信息
+    async getUserInfo() {
+      return await userInfoApi({ token: this.token })
     },
 
     // 退出登陆
-    async exitSystem(quick = false, message = '退出成功！') {
+    async exitSystem(quick = false, message = '退出登陆成功！') {
       let loadingInstance
       try {
         if (quick !== true) {
@@ -51,16 +55,17 @@ export const useUserStore = defineStore({
           })
         }
 
-        // await logout() // 退出登陆接口
+        await logoutApi() // 退出登陆接口
         this.clearUserInfo()
         await router.push('/login')
         ElNotification.success({
           title: '提示',
           message,
         })
-        loadingInstance.close()
       } catch (err) {
         console.log(err, '退出取消或失败')
+      } finally {
+        loadingInstance.close()
       }
     },
 

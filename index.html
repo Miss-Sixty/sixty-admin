@@ -7,7 +7,7 @@
     <title><%= title %></title>
     <script>
       ;(() => {
-        const saved = localStorage.getItem('el-theme-appearance')
+        const saved = localStorage.getItem('vueuse-color-scheme')
         if (saved === 'auto' ? window.matchMedia(`(prefers-color-scheme: dark)`).matches : saved === 'dark') {
           document.documentElement.classList.add('dark')
         }

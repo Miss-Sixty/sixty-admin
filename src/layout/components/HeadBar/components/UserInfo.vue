@@ -2,16 +2,21 @@
 import { UserFilled } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
+const data = ref({})
+try {
+  const userInfo = await userStore.getUserInfo()
+  data.value = userInfo.data
+} catch {}
 </script>
 
 <template>
   <el-dropdown trigger="click">
     <el-row class="user" align="middle">
       <div class="user-wrapper">
-        <p class="name">张三丰</p>
-        <p class="job">人事经理</p>
+        <p class="name">{{ data.name || '佚名' }}</p>
+        <p class="job">{{ data.job || '暂无职位' }}</p>
       </div>
-      <el-avatar :icon="UserFilled" :size="35" />
+      <el-avatar :src="data.avatar" :size="35" />
     </el-row>
     <template #dropdown>
       <el-dropdown-menu>
