@@ -1,5 +1,5 @@
 <script setup name="TabExampleNested2">
-import useKeepAliveStore from '@/store/modules/keepAlive'
+import useKeepAliveStore from '@/stores/keepAlive'
 const keepAliveStore = useKeepAliveStore()
 </script>
 
