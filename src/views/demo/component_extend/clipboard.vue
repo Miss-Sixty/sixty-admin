@@ -26,7 +26,6 @@
 </template>
 <script setup>
 import { useClipboard, usePermission } from '@vueuse/core'
-import { ElMessage } from 'element-plus'
 const permissionRead = usePermission('clipboard-read')
 const permissionWrite = usePermission('clipboard-write')
 const input = ref('连雨不知春去，一晴方觉夏深。')

@@ -6,9 +6,6 @@ import router from './router'
 import '@/router/interception'
 import '@/styles/index.scss'
 
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-
 import auth from '@/directive/auth' //权限指令
 
-createApp(App).use(stores).use(ElementPlus).use(auth).use(router).mount('#app')
+createApp(App).use(stores).use(auth).use(router).mount('#app')

@@ -3,14 +3,15 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import setupExtend from 'vite-plugin-vue-setup-extend'
-// import Components from 'unplugin-vue-components/vite'
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import { viteMockServe } from 'vite-plugin-mock'
 
 const fs = require('fs')
 
 // https://vitejs.dev/config/
-export default ({ mode }) => {
+export default ({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
   // 全局 scss 资源
   const scssResources = []
@@ -26,13 +27,22 @@ export default ({ mode }) => {
       setupExtend(),
       AutoImport({
         imports: ['vue', 'vue-router'],
-        // resolvers: [ElementPlusResolver()],
+        resolvers: [ElementPlusResolver()],
       }),
-      // Components({
-      //   resolvers: [ElementPlusResolver()],
-      // }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
       createHtmlPlugin({
         inject: { data: { title: env.VITE_APP_TITLE } },
+      }),
+      viteMockServe({
+        // default
+        mockPath: '/mock',
+        localEnabled: command === 'serve',
+        injectCode: `
+        import { setupProdMockServer } from './mock/_createProductionServer';
+        setupProdMockServer();
+        `,
       }),
     ],
     resolve: {

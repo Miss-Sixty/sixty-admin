@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import stores from '@/stores'
 import router from '@/router'
 import { useMenuStore } from './menu'
-import { ElNotification, ElMessageBox, ElLoading } from 'element-plus'
 
 export const useUserStore = defineStore({
   id: 'six-user',

@@ -16,6 +16,7 @@
     "echarts": "^5.3.3",
     "element-plus": "^2.2.5",
     "lodash-es": "^4.17.21",
+    "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",
     "path-to-regexp": "^6.2.1",
@@ -41,6 +42,7 @@
     "unplugin-vue-components": "^0.19.6",
     "vite": "^2.9.12",
     "vite-plugin-html": "^3.2.0",
+    "vite-plugin-mock": "^2.9.6",
     "vite-plugin-vue-setup-extend": "^0.4.0"
   }
 }
