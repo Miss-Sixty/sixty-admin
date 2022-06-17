@@ -9,4 +9,6 @@ import '@/styles/index.scss'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-createApp(App).use(stores).use(ElementPlus).use(router).mount('#app')
+import auth from '@/directive/auth' //权限指令
+
+createApp(App).use(stores).use(ElementPlus).use(auth).use(router).mount('#app')

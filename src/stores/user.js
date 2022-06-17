@@ -13,17 +13,18 @@ export const useUserStore = defineStore({
   actions: {
     // 获取token
     async getToken(params) {
+      console.log('getToken', params)
       try {
         const { username, password = '' } = params
         // const { data } = await tokenApi({ username: username.trim(), password })
         const data = {
           admin: { username, password },
-          token: 'asdgkjashfl',
+          token: username,
         }
         const { admin, token } = data
-        const Authorization = `bearer ${token}`
-        this.token = Authorization
-        localStorage.setItem('token', Authorization)
+        // const Authorization = `bearer ${token}`
+        this.token = token
+        localStorage.setItem('token', token)
       } catch (error) {
         return Promise.reject(error)
       }
