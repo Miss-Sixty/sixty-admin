@@ -16,7 +16,7 @@ const userInfo = {
   admin: {
     name: '张三丰',
     job: '技术部总监',
-    avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+    avatar: 'https://picsum.photos/35/35',
     failure_time: Date.parse(new Date()) + 50000,
     phone: '18288888888',
     gender: '男',
@@ -26,7 +26,7 @@ const userInfo = {
   editor: {
     name: '张小五',
     job: '营销部编辑',
-    avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+    avatar: 'https://picsum.photos/36/36',
     failure_time: Date.parse(new Date()) + 50000,
     phone: '18266666666',
     gender: '女',

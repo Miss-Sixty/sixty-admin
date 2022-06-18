@@ -42,6 +42,7 @@ import component_extend from './modules/demo/component_extend'
 import badge from './modules/demo/badge'
 import echarts from './modules/demo/echarts'
 import permission from './modules/demo/permission'
+import print from './modules/demo/print'
 
 // page
 import table from './modules/page/table'
@@ -52,7 +53,7 @@ export const asyncRoutes = [
       title: '演示',
       icon: shallowRef(Box),
     },
-    children: [multilevel_menu, breadcrumb, keep_alive_page, component_extend, badge, echarts, permission],
+    children: [multilevel_menu, breadcrumb, keep_alive_page, component_extend, badge, echarts, permission, print],
   },
   {
     meta: {
