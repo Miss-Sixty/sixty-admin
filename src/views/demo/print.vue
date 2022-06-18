@@ -2,7 +2,7 @@
 import printJS from 'print-js'
 const list = reactive([
   {
-    title: '打印局部页面',
+    title: '打印局部Html页面',
     printable: 'print-text-demo',
     type: 'html',
     loading: false,
@@ -64,7 +64,7 @@ const printChange = (index) => {
     </el-card>
 
     <el-space fill direction="vertical" class="content">
-      <el-card v-for="(item, index) in list" :key="index" v-loading="item.loading">
+      <el-card :header="item.title" v-for="(item, index) in list" :key="index" v-loading="item.loading">
         <div v-if="item.type === 'html'" id="print-text-demo">
           <p style="margin-top: 0">《夏至未至》</p>
           那些男孩，教会我成长，那些女孩,教会我爱……
