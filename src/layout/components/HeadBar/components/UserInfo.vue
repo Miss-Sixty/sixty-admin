@@ -1,22 +1,17 @@
 <script setup>
-import { UserFilled } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
-const data = ref({})
-try {
-  const userInfo = await userStore.getUserInfo()
-  data.value = userInfo.data
-} catch {}
+await userStore.getUserInfo()
 </script>
 
 <template>
   <el-dropdown trigger="click">
     <el-row class="user" align="middle">
       <div class="user-wrapper">
-        <p class="name">{{ data.name || '佚名' }}</p>
-        <p class="job">{{ data.job || '暂无职位' }}</p>
+        <p class="name">{{ userStore.userInfo.name || '佚名' }}</p>
+        <p class="job">{{ userStore.userInfo.job || '暂无职位' }}</p>
       </div>
-      <el-avatar :src="data.avatar" :size="35" />
+      <el-avatar :src="userStore.userInfo.avatar" :size="35" />
     </el-row>
     <template #dropdown>
       <el-dropdown-menu>

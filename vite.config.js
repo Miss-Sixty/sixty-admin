@@ -31,6 +31,7 @@ export default ({ mode, command }) => {
       }),
       Components({
         resolvers: [ElementPlusResolver()],
+        dirs: [],
       }),
       createHtmlPlugin({
         inject: { data: { title: env.VITE_APP_TITLE } },

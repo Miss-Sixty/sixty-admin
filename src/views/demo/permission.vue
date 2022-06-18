@@ -1,3 +1,30 @@
+<script setup>
+import { useUserStore } from '@/stores/user'
+import { useAuth, useAuthAll } from '@/hooks/useAuth'
+import { ElLoading } from 'element-plus'
+
+const userStore = useUserStore()
+
+const accountChange = async (val) => {
+  let loadingInstance = ElLoading.service({
+    text: '切换权限中...',
+  })
+  await userStore.getToken({
+    username: val,
+    password: '',
+  })
+  await Promise.all([userStore.getRoleList(), userStore.getUserInfo()])
+  loadingInstance.close()
+}
+
+const permissionCheck = (permissions) => {
+  useAuth(permissions) ? ElMessage.success('校验通过') : ElMessage.error('校验不通过')
+}
+const permissionCheckAll = (permissions) => {
+  useAuthAll(permissions) ? ElMessage.success('校验通过') : ElMessage.error('校验不通过')
+}
+</script>
+
 <template>
   <div>
     <el-card header="权限验证" />
@@ -11,10 +38,12 @@
       </div>
       <div class="box">
         <p>帐号权限</p>
-        <el-tag>{{ roles }}</el-tag>
+        <el-space wrap>
+          <el-tag v-for="item in userStore.roles" :key="item">{{ item }}</el-tag>
+        </el-space>
       </div>
 
-      <!-- <div class="box">
+      <div class="box">
         <p>鉴权指令（请对照代码查看）</p>
         <el-space wrap>
           <el-tag v-auth="'permission.browse'">如果你有 permission.browse 权限则能看到这句话</el-tag>
@@ -70,56 +99,18 @@
             校验 permission.browse 和 permission.create 权限
           </el-button>
         </el-space>
-      </div> -->
+      </div>
     </el-card>
   </div>
 </template>
 
-<script setup>
-import { useUserStore } from '@/stores/user'
-import { useRouter } from 'vue-router'
-import { useAuth, useAuthAll } from '@/hooks/useAuth'
-import Auth from '@/components/Auth.vue'
-import AuthAll from '@/components/AuthAll.vue'
-import { ElLoading } from 'element-plus'
-
-const userStore = useUserStore()
-const router = useRouter()
-const roles = userStore.roles
-const accountChange = async (val) => {
-  //   let loadingInstance = ElLoading.service({
-  //     text: '切换权限中...',
-  //   })
-  await userStore.getToken({
-    username: val,
-    password: '',
-  })
-  //   await Promise.all([userStore.getRoleList(), userStore.getUserInfo()])
-  //   await router.push({ name: 'Reload' })
-  //   loadingInstance.close()
-}
-// const permissionCheck = (permissions) => {
-//   if (useAuth(permissions)) {
-//     ElMessage.success('校验通过')
-//   } else {
-//     ElMessage.error('校验不通过')
-//   }
-// }
-// const permissionCheckAll = (permissions) => {
-//   if (useAuthAll(permissions)) {
-//     ElMessage.success('校验通过')
-//   } else {
-//     ElMessage.error('校验不通过')
-//   }
-// }
-</script>
 <style lang="scss" scoped>
-// p {
-//   font-size: 16px;
-//   font-weight: bold;
-//   margin-bottom: 10px;
-// }
-// .box:not(:last-of-type) {
-//   margin-bottom: 20px;
-// }
+p {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.box:not(:last-of-type) {
+  margin-bottom: 30px;
+}
 </style>

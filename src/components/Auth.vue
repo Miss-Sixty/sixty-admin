@@ -1,17 +1,4 @@
-<template>
-  <div>
-    <slot v-if="check()" />
-    <slot v-else name="no-auth" />
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'Auth',
-}
-</script>
-
-<script setup>
+<script setup name="Auth">
 import { useAuth } from '@/hooks/useAuth'
 const props = defineProps({
   value: {
@@ -19,5 +6,13 @@ const props = defineProps({
     default: '',
   },
 })
-const check = () => useAuth(props.value)
+
+const check = computed(() => useAuth(props.value))
 </script>
+
+<template>
+  <div>
+    <slot v-if="check" />
+    <slot v-else name="no-auth" />
+  </div>
+</template>

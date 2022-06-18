@@ -1,5 +1,5 @@
 <template>
-  <div ref="refDom"></div>
+  <span ref="refDom" />
 </template>
 
 <script setup name="CountUp">
@@ -14,7 +14,7 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  options: Object,
+  //   options: Object,
   //小数点位数
   decimalPlaces: {
     type: Number,
@@ -49,34 +49,46 @@ const props = defineProps({
     default: '',
   },
 })
-const refDom = ref(null)
+const refDom = ref()
 let countUp
 const init = () => {
-  countUp = new CountUp(refDom.value, props.endVal, {
-    ...props.options,
-    startVal: props.startVal,
-    endVal: props.endVal,
-    decimalPlaces: props.decimalPlaces,
-    duration: props.duration,
-    useGrouping: props.useGrouping,
-    separator: props.separator,
-    prefix: props.prefix,
-    suffix: props.suffix,
+  if (countUp) return
+  const instance = new CountUp(refDom.value, props.endVal, {
+    ...props,
   })
+
+  // error
+  if (instance.error) return
+  countUp = instance
   countUp.start()
 }
-//开始
-const start = () => init()
-//暂停/继续
-const pauseResume = () => countUp.pauseResume()
-//重置
-const reset = () => countUp.reset()
+
+onMounted(init)
+watch(
+  () => props.endVal,
+  (num) => update(num)
+)
+
+// 开始
+const start = (callback) => {
+  countUp && countUp.start(callback)
+}
+
+// 重置
+const reset = () => {
+  countUp && countUp.reset()
+}
+
+// 暂停/继续
+const pauseResume = () => {
+  countUp && countUp.pauseResume()
+}
+
 //更新
-const update = (num) => countUp.update(num)
-onMounted(() => {
-  start()
-})
-watch([props.endVal], (num) => update(num))
-defineExpose({ pauseResume, reset, start, update })
+const update = (num) => {
+  countUp && countUp.update(num)
+}
+
+defineExpose({ start, reset, pauseResume, update })
 onBeforeUnmount(() => (countUp = null))
 </script>

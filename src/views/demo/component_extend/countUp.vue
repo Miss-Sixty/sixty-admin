@@ -1,3 +1,33 @@
+<script setup>
+const countUpRef = ref()
+const state = reactive({
+  number: 1995,
+  startVal: 0,
+  endVal: 2021,
+  decimalPlaces: 3,
+  duration: 3,
+  useGrouping: true,
+  separator: ',',
+  prefix: '¥ ',
+  suffix: ' rmb',
+})
+const start = () => {
+  countUpRef.value.start()
+}
+
+const reset = () => {
+  countUpRef.value.reset()
+}
+
+const pauseResume = () => {
+  countUpRef.value.pauseResume()
+}
+
+const update = () => {
+  countUpRef.value.update(state.number)
+}
+</script>
+
 <template>
   <div>
     <el-card header="数字过渡">
@@ -7,8 +37,8 @@
     </el-card>
 
     <el-card style="margin: 20px">
-      <count-up
-        ref="countUpDom"
+      <CountUp
+        ref="countUpRef"
         class="countUp"
         :start-val="state.startVal"
         :end-val="state.endVal"
@@ -74,33 +104,6 @@
     </el-card>
   </div>
 </template>
-<script setup>
-import CountUp from '@/components/countUp.vue'
-const countUpDom = ref(null)
-const state = reactive({
-  number: 1995,
-  startVal: 0,
-  endVal: 2021,
-  decimalPlaces: 2,
-  duration: 3,
-  useGrouping: true,
-  separator: ',',
-  prefix: '¥ ',
-  suffix: ' rmb',
-})
-const start = () => {
-  countUpDom.value.start()
-}
-const pauseResume = () => {
-  countUpDom.value.pauseResume()
-}
-const reset = () => {
-  countUpDom.value.reset()
-}
-const update = () => {
-  countUpDom.value.update(state.number)
-}
-</script>
 
 <style scoped>
 .countUp {

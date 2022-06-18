@@ -6,6 +6,6 @@ import router from './router'
 import '@/router/interception'
 import '@/styles/index.scss'
 
-import auth from '@/directive/auth' //权限指令
-
-createApp(App).use(stores).use(auth).use(router).mount('#app')
+import autoComponets from '@/components' // 全局组件自动注册
+import authDirective from '@/directive/auth' //权限指令
+createApp(App).use(stores).use(router).use(autoComponets).use(authDirective).mount('#app')

@@ -8,6 +8,8 @@ export const useUserStore = defineStore({
   id: 'six-user',
   state: () => ({
     token: localStorage.getItem('token'),
+    userInfo: {},
+    roles: [],
   }),
   getters: {},
   actions: {
@@ -31,13 +33,14 @@ export const useUserStore = defineStore({
     async getRoleList() {
       const { data } = await rulesApi({ token: this.token })
       console.log(data)
-      // this.roles = data
+      this.roles = data
       return data
     },
 
     // 用户信息
     async getUserInfo() {
-      return await userInfoApi({ token: this.token })
+      const { data } = await userInfoApi({ token: this.token })
+      this.userInfo = data
     },
 
     // 退出登陆
